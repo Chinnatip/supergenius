@@ -4,4 +4,8 @@ class HomeController < ApplicationController
 
   def test
   end
+
+  def playground
+
+  end
 end
