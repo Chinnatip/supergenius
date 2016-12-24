@@ -13,8 +13,8 @@
           <span></span>
         </span>
         <div class="nav-right nav-menu">
-          <a class="nav-item is-active">
-            Home
+          <a id="hoho" class="nav-item is-active">
+            {{message}}
           </a>
           <a class="nav-item">
             Examples
@@ -116,3 +116,12 @@
     </div>
   </div>
 </footer>
+
+<script type="text/javascript">
+  var app = new Vue({
+    el: '#hoho',
+    data: {
+      message: 'Hello vue'
+    }
+  });
+</script>
