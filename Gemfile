@@ -12,6 +12,9 @@ gem 'vuejs-rails'
 # Add bulma
 gem "bulma-rails", "~> 0.2.3"
 
+# Add Font awesome !
+gem "font-awesome-rails"
+
 # Use Puma as the app server
 gem 'puma', '~> 3.0'
 # Use SCSS for stylesheets

@@ -13,8 +13,8 @@
           <span></span>
         </span>
         <div class="nav-right nav-menu">
-          <a id="hoho" class="nav-item is-active">
-            {{message}}
+          <a class="nav-item is-active">
+            Document
           </a>
           <a class="nav-item">
             Examples
@@ -23,7 +23,7 @@
             Documentation
           </a>
           <span class="nav-item">
-            <a class="button is-primary is-inverted">
+            <a target="_blank" href="https://github.com/Chinnatip/vueRailsSample" class="button is-primary is-inverted">
               <span class="icon">
                 <i class="fa fa-github"></i>
               </span>
@@ -37,7 +37,7 @@
   <div class="hero-body">
     <div class="container has-text-centered">
       <h1 class="title">
-        Vue&Bulma sample with Rails ecosystem
+        Vue&Bulma sample with <strong>Rails stack</strong>
       </h1>
       <h2 class="subtitle">
         Vuejs 2.1.6 | Bulma 0.2.3 | Rails 5.0.0
@@ -63,18 +63,68 @@
     <h1>Installation</h1>
     <p>Clone and install project easy and ready in a pinch</p>
     <ol>
-      <li> If you never use Rails just install it at this <a href="http://installrails.com/">link</a></li>
-      <li> Clone this project from <a href="https://github.com/Chinnatip/vueRailsSample">click here</a></li>
+      <li> If you never use Rails just install it at this <a target="_blank"  href="http://installrails.com/">link</a></li>
+      <li> Clone this project from <a target="_blank"  href="https://github.com/Chinnatip/vueRailsSample">click here</a></li>
       <li> Open project in terminal</li>
       <li> Key '$ bundle install' to download required ruby gem to your project</li>
       <li> Key '$ rails s' to start rails local server</li>
-      <li> Explore Rails document at this <a href="http://guides.rubyonrails.org/getting_started.html">link</a>. </li>
-      <li> Learn to create frontend component with VUE.js at this <a href="https://vuejs.org/v2/guide/">link</a>. </li>
-      <li> Learn to make web fabulous with Bulma at this <a href="http://bulma.io/">link</a>.  </li>
       <li> Enjoy!</li>
+      <li> Explore Rails document at this <a target="_blank"  href="http://guides.rubyonrails.org/getting_started.html">link</a>. </li>
+      <li> Learn to create frontend component with VUE.js at this <a target="_blank"  href="https://vuejs.org/v2/guide/">link</a>. </li>
+      <li> Learn to make web fabulous with Bulma at this <a target="_blank"  href="http://bulma.io/">link</a>.  </li>
     </ol>
   </div>
+</section>
 
+<section class="section is-medium">
+  <div class="level">
+    <div class="level-item has-text-centered">
+      <p class="heading">EXAMPLE1</p>
+      <p class="title">
+        <span id="app-1">{{message}}</span>
+      </p>
+    </div>
+    <div class="level-item has-text-centered">
+      <p class="heading">EXAMPLE2</p>
+      <p class="title">
+        <span id="app-2">{{message}}</span>
+      </p>
+    </div>
+    <div class="level-item has-text-centered">
+      <p class="heading">EXAMPLE3</p>
+      <p class="title" id="app-3">
+        <span v-if="seen">{{message}}</span>
+      </p>
+    </div>
+  </div>
+
+  <div class="level" id="app-4">
+    <div class="level-item has-text-centered" v-for="todo in todos">
+      <p class="heading">{{todo.header}}</p>
+      <p class="title">{{todo.text}}</p>
+    </div>
+  </div>
+
+  <div class="level">
+    <div id="app-5" class="level-item has-text-centered">
+      <p class="heading">{{message}}</p>
+      <p class="title">
+        <button v-on:click="reverseText" type="button">Reverse Text</button>
+      </p>
+    </div>
+    <div id="app-6" class="level-item has-text-centered">
+      <p class="heading">{{message}}</p>
+      <p class="title">
+        <input v-model="message" type="text">
+      </p>
+    </div>
+    <div id="app-7" class="level-item has-text-centered">
+      <p class="heading">EXAMPLE7</p>
+      <ol>
+        <todo-item v-for="item in groceryList" v-bind:todo="item"></todo-item>
+      </ol>
+    </div>
+  </div>
 </section>
 
 <section class="section is-medium">
@@ -118,10 +168,66 @@
 </footer>
 
 <script type="text/javascript">
+
   var app = new Vue({
-    el: '#hoho',
+    el: '#app-1',
     data: {
-      message: 'Hello vue'
+      message: 'This is Vue element!'
     }
   });
+  var app2 = new Vue({
+    el: '#app-2',
+    data: {
+      message: 'Loaded on : ' + new Date()
+    }
+  });
+  var app3 = new Vue({
+    el: '#app-3',
+    data:{
+      seen: true,
+      message: 'Now you see me!'
+    }
+  });
+  var app4 = new Vue({
+    el: '#app-4',
+    data:{
+      todos: [
+        {text: 'this is first elment in array' , header: 'EXAMPLE4.1'},
+        {text: 'this is first 2nd in array', header: 'EXAMPLE4.2'},
+        {text: 'this is first 3rd in array', header: 'EXAMPLE4.3'},
+      ]
+    }
+  });
+  var app5 = new Vue({
+    el: '#app-5',
+    data: {
+      message: 'EXAMPLE5'
+    },
+    methods: {
+      reverseText: function(){
+        this.message = this.message.split('').reverse().join('')
+      }
+    }
+  });
+  var app6 = new Vue({
+    el: '#app-6',
+    data: {
+      message: 'EXAMPLE6'
+    }
+  });
+
+  Vue.component('todo-item', {
+  props: ['todo'],
+  template: '<li>{{ todo.text }}</li>'
+})
+var app7 = new Vue({
+  el: '#app-7',
+  data: {
+    groceryList: [
+      { text: 'Vegetables' },
+      { text: 'Cheese' },
+      { text: 'Whatever else humans are supposed to eat' }
+    ]
+  }
+})
 </script>
