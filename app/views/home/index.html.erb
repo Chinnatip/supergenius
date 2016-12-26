@@ -1,3 +1,4 @@
+
 <div class="flex" id="app">
   <div class="is-fullheight" style="width:80px; background-color: white">
     <section style="position:fixed; width:80px; height: 100vh; display: flex; align-items: center;">
@@ -50,7 +51,7 @@
     <section class="hero is-medium is-light ">
       <div class="hero-body">
         <div class="container" id="app">
-          <h1 class="title header"> {{ message }} </h1>
+          <div class="title header element"></div>
           <h1 v-on:click="storyShow = !storyShow" class="title sub-header clicker">STORYTELLING.</h1>
           <transition name="slide-fade">
             <div v-if="storyShow" class="sub-title">
@@ -112,10 +113,20 @@
     el: '#app',
     data: {
       message: 'WE ARE A DIGITAL ARCHITECT COMPANY.',
-      techShow: false,
-      storyShow: false,
+      storyShow: true,
       designShow: false,
+      techShow: false,
       menu: false
     }
+  });
+</script>
+
+<script>
+  $(function(){
+    console.log('hihihi');
+      $(".element").typed({
+        strings: ["Hello World.", "We are DIGITAL ARCHITECT COMPANY."],
+        typeSpeed: 20
+      });
   });
 </script>
