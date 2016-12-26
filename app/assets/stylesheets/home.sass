@@ -5,6 +5,69 @@ $blue: #72d0eb
 $pink: #ffb3b3
 $family-serif: "Georgia", serif
 
+.is-danger
+  background-image: linear-gradient(90deg, #FF0000 0%, #FF9000 81%, #FFC800 100%)
+.is-info
+  background-image: linear-gradient(90deg, #9012FE 0%, #592EF7 38%, #5740F4 87%, #41CDDB 100%)
+
+.hero
+  .hero-body
+    padding: 40px
+
+.flex
+  display: flex
 
 h1
   color: $blue
+  &.header
+    font-size: 38px
+    font-weight: 400px
+    letter-spacing: 2px
+  &.sub-header
+    letter-spacing: 6px
+    font-weight: 400
+.clicker
+  &:hover,&:focus
+    cursor: pointer
+
+.close-butt
+  position: absolute
+  top: 13px
+  right: 20px
+  font-size: 36px !important
+  color: white
+  cursor: pointer
+
+.sub-title
+  margin-bottom: 30px
+  > h1
+    margin-left: 20px
+    font-size: 25px
+    font-weight: 200
+    letter-spacing: 4px
+    color: #989898 !important
+
+.side-menu
+  position: fixed
+  //left: 65px
+  top: 0px
+  background-color: rgba(82, 82, 82, 0.95)
+  width: 320px
+  height: 100vh
+  z-index: 5
+  display: flex
+  align-items: center
+  justify-content: center
+  aside
+    p.menu-label
+      color: white
+    ul li a
+      color: #bdbdbd
+
+.columns
+  h3.cent
+    text-align: center
+    font-size: 20px
+  .image
+    &.pad-30
+      padding: 0 30px

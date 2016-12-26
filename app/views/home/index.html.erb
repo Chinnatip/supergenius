@@ -1,1 +1,121 @@
-<h1>home</h1>
+<div class="flex" id="app">
+  <div class="is-fullheight" style="width:80px; background-color: white">
+    <section style="position:fixed; width:80px; height: 100vh; display: flex; align-items: center;">
+      <span class="icon hero-body">
+        <i class="fa fa-bars clicker" v-on:click="menu = !menu" ></i>
+      </span>
+    </section>
+    <transition name="fade">
+      <section v-if="menu" class="side-menu">
+        <i v-on:click="menu = !menu" class="close-butt fa fa-times"></i>
+        <aside class="menu">
+          <p class="menu-label">
+            General
+          </p>
+          <ul class="menu-list">
+            <li><a href="#">Dashboard</a></li>
+            <li><a href="#">Customers</a></li>
+          </ul>
+          <p class="menu-label">
+            Administration
+          </p>
+          <ul class="menu-list">
+            <li><a href="#">Team Settings</a></li>
+            <li>
+              <a class="is-active" href="#">Manage Your Team</a>
+              <ul>
+                <li><a href="#">Members</a></li>
+                <li><a href="#">Plugins</a></li>
+                <li><a href="#">Add a member</a></li>
+              </ul>
+            </li>
+            <li><a href="#">Invitations</a></li>
+            <li><a href="#">Authentication</a></li>
+          </ul>
+          <p class="menu-label">
+            Transactions
+          </p>
+          <ul class="menu-list">
+            <li><a href="#">Payments</a></li>
+            <li><a href="#">Transfers</a></li>
+            <li><a href="#">Balance</a></li>
+          </ul>
+        </aside>
+      </section>
+    </transition>
+
+  </div>
+  <div style="width:100%">
+    <%= render 'navbar' %>
+    <section class="hero is-medium is-light ">
+      <div class="hero-body">
+        <div class="container" id="app">
+          <h1 class="title header"> {{ message }} </h1>
+          <h1 v-on:click="storyShow = !storyShow" class="title sub-header clicker">STORYTELLING.</h1>
+          <transition name="slide-fade">
+            <div v-if="storyShow" class="sub-title">
+              <h1 class="title">BUSINESS ANALYSIS</h1>
+              <h1 class="title">DIGITAL MEDIA PLANNING</h1>
+              <h1 class="title">DIGITAL CAMPAIGN PLANNING</h1>
+            </div>
+          </transition>
+          <h1 v-on:click="designShow = !designShow" class="title sub-header clicker">CRAFT/DESIGN.</h1>
+          <transition name="slide-fade">
+            <div v-if="designShow" class="sub-title">
+              <h1 class="title">UI/UX DESIGN</h1>
+              <h1 class="title">PHOTOGRAPHY</h1>
+              <h1 class="title">CAMPAIGN</h1>
+            </div>
+          </transition>
+          <h1 v-on:click="techShow = !techShow" class="title sub-header clicker">TECHNOLOGY.</h1>
+          <transition name="slide-fade">
+            <div v-if="techShow" class="sub-title">
+              <h1 class="title">PHOTOGRAPHY</h1>
+              <h1 class="title">CAMPAIGN</h1>
+            </div>
+          </transition>
+        </div>
+      </div>
+    </section>
+    <section class="hero is-medium is-info">
+      <div class="hero-body">
+        <div class="container">
+          <h1 class="title header">Our Work</h1>
+          <div class="columns">
+            <div class="column">
+              <figure class="image pad-30">
+                <img src="<%='img_ref/web_ref.png'%>">
+              </figure>
+              <h3 class="cent">WEBSITE</h3>
+            </div>
+            <div class="column ">
+              <figure class="image pad-30">
+                <img src="<%= 'img_ref/mobile_ref.png' %>">
+              </figure>
+              <h3 class="cent">APPLICATION</h3>
+            </div>
+            <div class="column ">
+              <figure class="image pad-30">
+                <img src="<%= 'img_ref/prod_ref.png' %>">
+              </figure>
+              <h3 class="cent">FILM/PHOTOGRAPHY</h3>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+</div>
+
+<script type="text/javascript">
+  new Vue({
+    el: '#app',
+    data: {
+      message: 'WE ARE A DIGITAL ARCHITECT COMPANY.',
+      techShow: false,
+      storyShow: false,
+      designShow: false,
+      menu: false
+    }
+  });
+</script>
