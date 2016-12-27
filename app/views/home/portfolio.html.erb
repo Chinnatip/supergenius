@@ -33,10 +33,11 @@
 
 <div class="flex" id="app">
   <div class="side-bar is-fullheight">
-    <section>
-      <span class="icon hero-body">
-        <i class="fa fa-bars clicker" v-on:click="menu = !menu" ></i>
-      </span>
+    <section class="side-bar-cont">
+      <i class="fa fa-bars clicker" v-on:click="menu = !menu" ></i>
+      <i class="fa fa-desktop clicker" v-on:click=" redirect('<%= home_portfolio_path %>') " ></i>
+      <i class="fa fa-mobile clicker" v-on:click=" redirect('<%= home_portfolio_path %>') " ></i>
+      <i class="fa fa-camera-retro clicker" v-on:click=" redirect('<%= home_portfolio_path %>') " ></i>
     </section>
     <transition name="fade">
       <section v-if="menu" class="side-menu">

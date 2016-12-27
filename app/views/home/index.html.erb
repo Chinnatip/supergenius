@@ -1,5 +1,3 @@
-
-
 <!-- template for the modal component -->
 <script type="text/x-template" id="modal-template">
   <transition name="modal">
@@ -32,10 +30,11 @@
 
 <div class="flex" id="app">
   <div class="side-bar is-fullheight">
-    <section>
-      <span class="icon hero-body">
-        <i class="fa fa-bars clicker" v-on:click="menu = !menu" ></i>
-      </span>
+    <section class="side-bar-cont">
+      <i class="fa fa-bars clicker" v-on:click="menu = !menu" ></i>
+      <i class="fa fa-desktop clicker" v-on:click=" redirect('<%= home_portfolio_path %>') " ></i>
+      <i class="fa fa-mobile clicker" v-on:click=" redirect('<%= home_portfolio_path %>') " ></i>
+      <i class="fa fa-camera-retro clicker" v-on:click=" redirect('<%= home_portfolio_path %>') " ></i>
     </section>
     <transition name="fade">
       <section v-if="menu" class="side-menu">
@@ -88,9 +87,6 @@
                 <a class="nav-item" href="<%= root_path %>">
                   <img src="https://s27.postimg.org/n4heq6zpf/logo_koh.png" alt="" style="height: 14px; margin-top: 2px; margin-left: 20px;">
                 </a>
-                <a class="nav-item nv" href="<%= home_portfolio_path %>" v-on:click="setFilter('web')">WEBSITE</a>
-                <a class="nav-item nv" href="<%= home_portfolio_path %>" v-on:click="setFilter('app')">APPLICATION</a>
-                <a class="nav-item nv" href="<%= home_portfolio_path %>" v-on:click="setFilter('film')">FILM / PHOTOGRAPHY</a>
               </div>
               <div class="nav-right nav-menu">
                 <a v-on:click="showModal = true" class="nav-item phone" href="#">
