@@ -72,9 +72,34 @@ h1
   .image
     &.pad-30
       padding: 0 30px
+      @media screen and (max-width: 720px)
+        max-width: 360px
+        margin: 0 auto
+
 
 .element
   display: inline-block
   font-size: 36px
 .typed-cursor
   font-size: 36px
+
+.side-bar
+  width: 80px
+  background-color: white
+  @media screen and (max-width: 720px)
+    display: none
+  > section
+    position:fixed
+    width: 76px
+    height: 100vh
+    display: flex
+    align-items: center
+    box-shadow: 5px 0 11px rgba(113, 113, 113, 0.1)
+
+.main-container
+  width: 100%
+  section.hero.jumbo
+    min-height: 540px
+    .hero-body
+      align-items: center
+      display: flex

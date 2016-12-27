@@ -1,7 +1,6 @@
-
 <div class="flex" id="app">
-  <div class="is-fullheight" style="width:80px; background-color: white">
-    <section style="position:fixed; width:76px; height: 100vh; display: flex; align-items: center;box-shadow: 5px 0 11px rgba(113, 113, 113, 0.1);">
+  <div class="side-bar is-fullheight" >
+    <section>
       <span class="icon hero-body">
         <i class="fa fa-bars clicker" v-on:click="menu = !menu" ></i>
       </span>
@@ -46,31 +45,31 @@
     </transition>
 
   </div>
-  <div style="width:100%">
+  <div class="main-container">
     <%= render 'navbar' %>
-    <section class="hero is-medium is-light ">
+    <section class="hero jumbo is-medium is-light ">
       <div class="hero-body">
         <div class="container" id="app">
           <div class="title header element"></div>
-          <h1 v-on:click="storyShow = !storyShow" class="title sub-header clicker">STORYTELLING.</h1>
+          <h1 v-on:click="actived('tab1')" class="title sub-header clicker">STORYTELLING.</h1>
           <transition name="slide-fade">
-            <div v-if="storyShow" class="sub-title">
+            <div v-show="isActive('tab1')" class="sub-title">
               <h1 class="title">BUSINESS ANALYSIS</h1>
               <h1 class="title">DIGITAL MEDIA PLANNING</h1>
               <h1 class="title">DIGITAL CAMPAIGN PLANNING</h1>
             </div>
           </transition>
-          <h1 v-on:click="designShow = !designShow" class="title sub-header clicker">CRAFT/DESIGN.</h1>
+          <h1 v-on:click="actived('tab2')" class="title sub-header clicker">CRAFT/DESIGN.</h1>
           <transition name="slide-fade">
-            <div v-if="designShow" class="sub-title">
+            <div v-show="isActive('tab2')" class="sub-title">
               <h1 class="title">UI/UX DESIGN</h1>
               <h1 class="title">PHOTOGRAPHY</h1>
               <h1 class="title">CAMPAIGN</h1>
             </div>
           </transition>
-          <h1 v-on:click="techShow = !techShow" class="title sub-header clicker">TECHNOLOGY.</h1>
+          <h1 v-on:click="actived('tab3')" class="title sub-header clicker">TECHNOLOGY.</h1>
           <transition name="slide-fade">
-            <div v-if="techShow" class="sub-title">
+            <div v-show="isActive('tab3')" class="sub-title">
               <h1 class="title">PHOTOGRAPHY</h1>
               <h1 class="title">CAMPAIGN</h1>
             </div>
@@ -125,7 +124,16 @@
       storyShow: true,
       designShow: false,
       techShow: false,
-      menu: false
+      menu: false,
+      choice: 'tab1'
+    },
+    methods: {
+      actived: function(val){
+        this.choice = val ;
+      },
+      isActive: function(val){
+        return this.choice === val ;
+      }
     }
   });
 </script>
