@@ -46,41 +46,44 @@
 
   </div>
   <div class="main-container">
-    <%= render 'navbar' %>
-    <section class="hero jumbo is-medium is-light ">
-      <div class="hero-body">
-        <div class="container" id="app">
-          <div class="title header element"></div>
-          <h1 v-on:click="actived('tab1')" class="title sub-header clicker">STORYTELLING.</h1>
-          <transition name="slide-fade">
-            <div v-show="isActive('tab1')" class="sub-title">
-              <h1 class="title">BUSINESS ANALYSIS</h1>
-              <h1 class="title">DIGITAL MEDIA PLANNING</h1>
-              <h1 class="title">DIGITAL CAMPAIGN PLANNING</h1>
-            </div>
-          </transition>
-          <h1 v-on:click="actived('tab2')" class="title sub-header clicker">CRAFT/DESIGN.</h1>
-          <transition name="slide-fade">
-            <div v-show="isActive('tab2')" class="sub-title">
-              <h1 class="title">UI/UX DESIGN</h1>
-              <h1 class="title">PHOTOGRAPHY</h1>
-              <h1 class="title">CAMPAIGN</h1>
-            </div>
-          </transition>
-          <h1 v-on:click="actived('tab3')" class="title sub-header clicker">TECHNOLOGY.</h1>
-          <transition name="slide-fade">
-            <div v-show="isActive('tab3')" class="sub-title">
-              <h1 class="title">PHOTOGRAPHY</h1>
-              <h1 class="title">CAMPAIGN</h1>
-            </div>
-          </transition>
+    <div class="size-50">
+      <%= render 'navbar' %>
+      <section class="hero jumbo is-light ">
+        <div class="hero-body">
+          <div class="" id="app">
+            <h1 class="header element"></h1>
+            <h1 v-on:mouseover="checkActive('tab1')" class="title sub-header clicker">STORYTELLING.</h1>
+            <transition name="slide-fade">
+              <div v-show="isActive('tab1')" class="sub-title">
+                <h1 class="title">BUSINESS ANALYSIS</h1>
+                <h1 class="title">DIGITAL MEDIA PLANNING</h1>
+                <h1 class="title">DIGITAL CAMPAIGN PLANNING</h1>
+              </div>
+            </transition>
+            <h1 v-on:mouseover="checkActive('tab2')" class="title sub-header clicker">CRAFT/DESIGN.</h1>
+            <transition name="slide-fade">
+              <div v-show="isActive('tab2')" class="sub-title">
+                <h1 class="title">UI/UX DESIGN</h1>
+                <h1 class="title">PHOTOGRAPHY</h1>
+                <h1 class="title">CAMPAIGN</h1>
+              </div>
+            </transition>
+            <h1 v-on:mouseover="checkActive('tab3')" class="title sub-header clicker">TECHNOLOGY.</h1>
+            <transition name="slide-fade">
+              <div v-show="isActive('tab3')" class="sub-title">
+                <h1 class="title">PHOTOGRAPHY</h1>
+                <h1 class="title">CAMPAIGN</h1>
+              </div>
+            </transition>
+          </div>
         </div>
-      </div>
-    </section>
-    <section class="hero is-medium is-info">
+      </section>
+    </div>
+
+    <section class="hero size-50 is-info">
       <div class="hero-body">
         <div class="container">
-          <h1 class="title header">Our Work</h1>
+          <h1 class="header" style="color:white">Our Work</h1>
           <div class="columns">
             <div class="column">
               <figure class="image pad-30">
@@ -104,7 +107,7 @@
         </div>
       </div>
     </section>
-    <footer class="footer">
+    <!-- footer class="footer">
       <div class="container">
         <div class="content has-text-centered">
           <p>
@@ -112,7 +115,7 @@
           </p>
         </div>
       </div>
-    </footer>
+    </footer -->
   </div>
 </div>
 
@@ -125,14 +128,21 @@
       designShow: false,
       techShow: false,
       menu: false,
-      choice: 'tab1'
+      choice: 'tab4'
     },
     methods: {
-      actived: function(val){
-        this.choice = val ;
-      },
       isActive: function(val){
         return this.choice === val ;
+      },
+      checkActive: function(val){
+        this.choice = val
+        /*
+        if (this.choice == val) {
+          this.choice = 'tab4'
+        }else{
+          this.choice = val
+        }
+        */
       }
     }
   });
@@ -142,7 +152,7 @@
   $(function(){
     console.log('hihihi');
       $(".element").typed({
-        strings: ["Hello World.", "We are DIGITAL ARCHITECT COMPANY."],
+        strings: ["Hello World.", "We are a DIGITAL ARCHITECT COMPANY."],
         typeSpeed: 20
       });
   });
