@@ -1,0 +1,285 @@
+<!-- template for the modal component -->
+<script type="text/x-template" id="modal-template">
+  <transition name="modal">
+    <div class="modal-mask">
+      <div class="modal-wrapper">
+        <div class="modal-container">
+
+          <div class="modal-header">
+            <slot name="header">
+              default header
+            </slot>
+          </div>
+
+          <div class="modal-body">
+            <slot name="body">
+              default body
+            </slot>
+          </div>
+
+          <div class="modal-footer">
+            <slot name="footer">
+              default footer
+              <button class="modal-default-button" @click="$emit('close')">
+                OK
+              </button>
+            </slot>
+          </div>
+        </div>
+      </div>
+    </div>
+  </transition>
+</script>
+
+<div class="flex" id="app">
+  <div class="side-bar is-fullheight">
+    <section>
+      <span class="icon hero-body">
+        <i class="fa fa-bars clicker" v-on:click="menu = !menu" ></i>
+      </span>
+    </section>
+    <transition name="fade">
+      <section v-if="menu" class="side-menu">
+        <i v-on:click="menu = !menu" class="close-butt fa fa-times"></i>
+        <aside class="menu">
+          <p class="menu-label">
+            General
+          </p>
+          <ul class="menu-list">
+            <li><a href="#">Dashboard</a></li>
+            <li><a href="#">Customers</a></li>
+          </ul>
+          <p class="menu-label">
+            Administration
+          </p>
+          <ul class="menu-list">
+            <li><a href="#">Team Settings</a></li>
+            <li>
+              <a class="is-active" href="#">Manage Your Team</a>
+              <ul>
+                <li><a href="#">Members</a></li>
+                <li><a href="#">Plugins</a></li>
+                <li><a href="#">Add a member</a></li>
+              </ul>
+            </li>
+            <li><a href="#">Invitations</a></li>
+            <li><a href="#">Authentication</a></li>
+          </ul>
+          <p class="menu-label">
+            Transactions
+          </p>
+          <ul class="menu-list">
+            <li><a href="#">Payments</a></li>
+            <li><a href="#">Transfers</a></li>
+            <li><a href="#">Balance</a></li>
+          </ul>
+        </aside>
+      </section>
+    </transition>
+  </div>
+
+  <div class="main-container">
+    <section id="nav" class="hero is-info">
+      <div class="hero-head">
+        <header class="nav">
+          <div class="container">
+            <div class="nav-left">
+              <a class="nav-item" href="<%= root_path %>">
+                <img src="https://s27.postimg.org/n4heq6zpf/logo_koh.png" alt="" style="height: 14px; margin-top: 2px; margin-left: 20px;">
+              </a>
+              <a class="nav-item nv" href="#" v-on:click="setFilter('web')">WEBSITE</a>
+              <a class="nav-item nv" href="#" v-on:click="setFilter('app')">APPLICATION</a>
+              <a class="nav-item nv" href="#" v-on:click="setFilter('film')">FILM / PHOTOGRAPHY</a>
+            </div>
+            <div class="nav-right nav-menu">
+              <a v-on:click="showModal = true" class="nav-item phone" href="#">
+                <i class="fa fa-phone"></i>
+                Contact us
+              </a>
+            </div>
+          </div>
+        </header>
+      </div>
+    </section>
+    <modal v-if="showModal" v-on:close="showModal = false">
+      <h3 slot="header">custom header</h3>
+    </modal>
+    <div class="list-of-folio" v-for="l in lists">
+      <section v-show=" getFilter(l.cweb,l.capp,l.cfilm)" class="section folio-list">
+        <div class="container">
+          <div class="heading">
+            <a :href="l.url" class="title">{{l.name}}</a>
+            <div class="flex">
+              <a :href="l.url" class="image" style="width:320px">
+                <img :src="l.img">
+              </a>
+              <div class="contents">
+                <h1>{{l.func1}}</h1>
+                <h1>{{l.func2}}</h1>
+                <h1>{{l.func3}}</h1>
+                <h1>{{l.func4}}</h1>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  </div>
+</div>
+
+<script type="text/javascript">
+  Vue.component('modal', {
+    template: '#modal-template'
+  });
+
+  new Vue({
+    el: '#app',
+    data: {
+      selector: '',
+      showModal: false,
+      menu: false,
+      lists: [
+        {
+          name: 'SUNSEEKER YACHTS',
+          func1: 'WEBSITE',
+          func2: 'PHOTOGRAPHY',
+          func3: 'CONTENTS',
+          func4: '',
+          img: '<%= '/portfolio/Sunseeker.png' %>',
+          cweb: true,
+          capp: false,
+          cfilm: true,
+          url: 'http://www.sunseekerthailand.com'
+        },
+        {
+          name: 'SUPREME DECOR',
+          func1: 'WEBSITE',
+          func2: 'VIDEO',
+          func3: 'PHOTOGRAPHY',
+          func4: '',
+          img: '<%= '/portfolio/Supreme.png' %>',
+          cweb: true,
+          capp: false,
+          cfilm: true,
+          url: 'http://www.supremedecor.com'
+        },
+        {
+          name: 'ASIAN MARINE SERVICES PUBLIC COMPANY LIMITED',
+          func1: 'WEBSITE',
+          func2: '',
+          func3: '',
+          func4: '',
+          img: '<%= '/portfolio/ASIMAR.png' %>',
+          cweb: true,
+          capp: false,
+          cfilm: false,
+          url: 'http://www.kohlifetest.com'
+        },
+        {
+          name: 'SEATRAN',
+          func1: 'WEBSITE',
+          func2: 'APPLICATION',
+          func3: 'VIDEO',
+          func4: 'PHOTOGRAPHY',
+          img: '<%= '/portfolio/Seatran.png' %>',
+          cweb: true,
+          capp: true,
+          cfilm: true,
+          url: 'http://seatranprod.kohlife.com'
+        },
+        {
+          name: 'EVERYDAY KRABI',
+          func1: 'WEBSITE',
+          func2: 'MANAGEMENT SYSTEM',
+          func3: 'BOOKING SYSTEM',
+          func4: '',
+          img: '<%= '/portfolio/EVK.png' %>',
+          cweb: true,
+          capp: false,
+          cfilm: false,
+          url: 'http://staging.evk.com'
+        },
+        {
+          name: 'KOHWEAR',
+          func1: 'WEBSITE',
+          func2: 'VIDEO',
+          func3: 'PHOTOGRAPHY',
+          func4: 'ONLINE STORE',
+          img: '<%= '/portfolio/Kohwear.png' %>',
+          cweb: true,
+          capp: false,
+          cfilm: true,
+          url: 'http://www.kohwear.com'
+        },
+        {
+          name: 'EXCELSIOR YACHTS',
+          func1: 'WEBSITE',
+          func2: 'VIDEO',
+          func3: 'PHOTOGRAPHY',
+          func4: 'RESERVATION SYSTEM',
+          img: '<%= '/portfolio/Excelsior.png' %>',
+          cweb: true,
+          capp: false,
+          cfilm: true,
+          url: 'http://www.excelsior-yachts.com'
+        },
+        {
+          name: 'KAVIN AND TRYN',
+          func1: 'WEBSITE',
+          func2: 'PHOTOGRAPHY',
+          func3: '',
+          func4: '',
+          img: '<%= '/portfolio/KAT.png' %>',
+          cweb: true,
+          capp: false,
+          cfilm: true,
+          url: 'http://www.kavinandtryn.com'
+        },
+        {
+          name: 'ECOMARINE',
+          func1: 'WEBSITE',
+          func2: '',
+          func3: '',
+          func4: '',
+          img: '<%= '/portfolio/Ecomarine.png' %>',
+          cweb: true,
+          capp: false,
+          cfilm: false,
+          url: '#'
+        },
+        {
+          name: 'KOHLIFE',
+          func1: 'WEBSITE',
+          func2: 'SYSTEM',
+          func3: 'PHOTOGRAPHY',
+          func4: '',
+          img: '<%= '/portfolio/Kohlife.png' %>',
+          cweb: true,
+          capp: false,
+          cfilm: true,
+          url: 'http://www.kohlife.com'
+        }
+
+      ]
+    },
+    methods: {
+      redirect: function(val){
+        window.location = val
+      },
+      setFilter: function(val){
+        this.selector = val
+      },
+      getFilter: function(ele1,ele2,ele3){
+        if (this.selector == 'web') {
+          return ele1
+        }else if (this.selector == 'app') {
+          return ele2
+        }else if (this.selector == 'film') {
+          return ele3
+        }else{
+          return true
+        }
+      }
+    }
+  });
+</script>

@@ -1,0 +1,55 @@
+<div class="side-bar is-fullheight">
+  <section>
+    <span class="icon hero-body">
+      <i class="fa fa-bars clicker" v-on:click="menu = !menu" ></i>
+    </span>
+  </section>
+  <transition name="fade">
+    <section v-if="menu" class="side-menu">
+      <i v-on:click="menu = !menu" class="close-butt fa fa-times"></i>
+      <aside class="menu">
+        <p class="menu-label">
+          General
+        </p>
+        <ul class="menu-list">
+          <li><a href="#">Dashboard</a></li>
+          <li><a href="#">Customers</a></li>
+        </ul>
+        <p class="menu-label">
+          Administration
+        </p>
+        <ul class="menu-list">
+          <li><a href="#">Team Settings</a></li>
+          <li>
+            <a class="is-active" href="#">Manage Your Team</a>
+            <ul>
+              <li><a href="#">Members</a></li>
+              <li><a href="#">Plugins</a></li>
+              <li><a href="#">Add a member</a></li>
+            </ul>
+          </li>
+          <li><a href="#">Invitations</a></li>
+          <li><a href="#">Authentication</a></li>
+        </ul>
+        <p class="menu-label">
+          Transactions
+        </p>
+        <ul class="menu-list">
+          <li><a href="#">Payments</a></li>
+          <li><a href="#">Transfers</a></li>
+          <li><a href="#">Balance</a></li>
+        </ul>
+      </aside>
+    </section>
+  </transition>
+</div>
+
+
+<script type="text/javascript">
+  new Vue({
+    el: '.side-bar',
+    data: {
+      menu: false,
+    }
+  });
+</script>
