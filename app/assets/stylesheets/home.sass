@@ -167,8 +167,16 @@ h1
     overflow: inherit
     overflow-x: inherit
   .nav-right
-    a
-      text-transform: uppercase
-      i
-        font-size: 24px
-        margin-right: 12px
+    &.nav-contact-menu
+      @media screen and (max-width: 720px)
+        padding: 7px 0
+        a.phone
+          &:after
+            content: '' !important
+      a.phone
+        text-transform: uppercase
+        &:after
+          content: 'contact us'
+        i
+          font-size: 24px
+          margin-right: 12px

@@ -86,16 +86,15 @@
               <a class="nav-item" href="<%= root_path %>">
                 <img src="https://s27.postimg.org/n4heq6zpf/logo_koh.png" alt="" style="height: 14px; margin-top: 2px; margin-left: 20px;">
               </a>
-              <div class="hide-mobile">
+              <div class="hide-mobile flex">
                 <a class="nav-item nv" href="<%= home_portfolio_path(filtered: 'web') %>" >WEBSITE</a>
                 <a class="nav-item nv" href="<%= home_portfolio_path(filtered: 'app') %>" >APPLICATION</a>
                 <a class="nav-item nv" href="<%= home_portfolio_path(filtered: 'film') %>" >FILM / PHOTOGRAPHY</a>
               </div>
             </div>
-            <div class="nav-right nav-menu">
+            <div class="nav-right nav-contact-menu">
               <a v-on:click="showModal = true" class="nav-item phone" href="#">
-                <i class="fa fa-phone"></i>
-                Contact us
+                <i class="fa fa-phone"></i>  
               </a>
             </div>
           </div>
