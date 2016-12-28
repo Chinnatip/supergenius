@@ -7,7 +7,9 @@
 
           <div class="modal-header">
             <slot name="header">
-              default header
+              <a class="modal-default-button" @click="$emit('close')">
+                <i class="fa fa-times"></i>
+              </a>
             </slot>
           </div>
 
@@ -19,10 +21,6 @@
 
           <div class="modal-footer">
             <slot name="footer">
-              default footer
-              <button class="modal-default-button" @click="$emit('close')">
-                OK
-              </button>
             </slot>
           </div>
         </div>
@@ -34,10 +32,10 @@
 <div class="flex" id="app">
   <div class="side-bar is-fullheight">
     <section class="side-bar-cont">
-      <i class="fa fa-bars clicker" v-on:click="menu = !menu" ></i>
-      <i class="fa fa-desktop clicker" v-on:click=" redirect('<%= home_portfolio_path %>') " ></i>
-      <i class="fa fa-mobile clicker" v-on:click=" redirect('<%= home_portfolio_path %>') " ></i>
-      <i class="fa fa-camera-retro clicker" v-on:click=" redirect('<%= home_portfolio_path %>') " ></i>
+      <!-- i class="fa fa-bars clicker" v-on:click="menu = !menu" ></i -->
+      <a href="<%= home_portfolio_path(filtered: 'web') %>"> <i class="fa fa-desktop clicker"></i> </a>
+      <a href="<%= home_portfolio_path(filtered: 'app') %>"> <i class="fa fa-mobile clicker"></i> </a>
+      <a href="<%= home_portfolio_path(filtered: 'film') %>"> <i class="fa fa-camera-retro clicker"></i> </a>
     </section>
     <transition name="fade">
       <section v-if="menu" class="side-menu">
@@ -88,9 +86,9 @@
               <a class="nav-item" href="<%= root_path %>">
                 <img src="https://s27.postimg.org/n4heq6zpf/logo_koh.png" alt="" style="height: 14px; margin-top: 2px; margin-left: 20px;">
               </a>
-              <a class="nav-item nv" href="#" v-on:click="setFilter('web')">WEBSITE</a>
-              <a class="nav-item nv" href="#" v-on:click="setFilter('app')">APPLICATION</a>
-              <a class="nav-item nv" href="#" v-on:click="setFilter('film')">FILM / PHOTOGRAPHY</a>
+              <a class="nav-item nv" href="<%= home_portfolio_path(filtered: 'web') %>" >WEBSITE</a>
+              <a class="nav-item nv" href="<%= home_portfolio_path(filtered: 'app') %>" >APPLICATION</a>
+              <a class="nav-item nv" href="<%= home_portfolio_path(filtered: 'film') %>" >FILM / PHOTOGRAPHY</a>
             </div>
             <div class="nav-right nav-menu">
               <a v-on:click="showModal = true" class="nav-item phone" href="#">
@@ -103,7 +101,10 @@
       </div>
     </section>
     <modal v-if="showModal" v-on:close="showModal = false">
-      <h3 slot="header">custom header</h3>
+      <div slot="body">
+        <div><i class="fa fa-envelope-o"></i> tryn@kohlife.com</div>
+        <div><i class="fa fa-phone"></i> +662-521-2111</div>
+      </div>
     </modal>
     <div class="list-of-folio" v-for="l in lists">
       <section v-show=" getFilter(l.cweb,l.capp,l.cfilm)" class="section folio-list">
@@ -136,7 +137,7 @@
   new Vue({
     el: '#app',
     data: {
-      selector: '',
+      selector: '<%= @filter %>',
       showModal: false,
       menu: false,
       lists: [

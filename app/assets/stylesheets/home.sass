@@ -91,20 +91,24 @@ h1
 
 .side-bar
   width: 80px
-  background-color: white
   @media screen and (max-width: 720px)
     display: none
   > section.side-bar-cont
     height: 100vh
+    background-color: white
     position: fixed
     display: flex
     flex-direction: column
     align-items: center
     justify-content: center
     width: 76px
-    i
-      font-size: 28px
-      margin-bottom: 28px
+    a
+      color: #4e4e4e
+      i
+        font-size: 28px
+        margin-bottom: 36px
+        &.fa-mobile
+          font-size: 42px
 
 .main-container
   width: 100%
@@ -130,7 +134,7 @@ h1
       h1
         font-size: 32px
         margin-bottom: 6px
-        color: #64599a !important
+        color: #2d01ff !important
         font-weight: 200 !important
         font-style: italic
 .nav

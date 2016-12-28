@@ -16,9 +16,9 @@
 
 
 .modal-container
-  width: 300px
+  max-width: 440px
   margin: 0px auto
-  padding: 20px 30px
+  padding: 40px 30px
   background-color: #fff
   border-radius: 2px
   box-shadow: 0 2px 8px rgba(0, 0, 0, .33)
@@ -28,17 +28,27 @@
 .modal-header h3
   margin-top: 0
   color: #42b983
+  position: relative
+
+.modal-header
+  .modal-default-button
+    margin-top: -16px
+    color: black
+    font-size: 30px
 
 
 .modal-body
   margin: 20px 0
+  font-size: 30px
+  font-weight: 200
+  div
+    vertical-align: middle
+    i
+      display: inline
+      margin-right: 14px
 
 .modal-footer
   position: relative
-  .modal-default-button
-    position: absolute
-    bottom: -60px
-    right: 0
 
 .modal-default-button
   float: right

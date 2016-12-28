@@ -7,7 +7,9 @@
 
           <div class="modal-header">
             <slot name="header">
-              default header
+              <a class="modal-default-button" @click="$emit('close')">
+                <i class="fa fa-times"></i>
+              </a>
             </slot>
           </div>
 
@@ -19,7 +21,6 @@
 
           <div class="modal-footer">
             <slot name="footer">
-              <a class="modal-default-button" @click="$emit('close')">Close</a>
             </slot>
           </div>
         </div>
@@ -31,10 +32,10 @@
 <div class="flex" id="app">
   <div class="side-bar is-fullheight">
     <section class="side-bar-cont">
-      <i class="fa fa-bars clicker" v-on:click="menu = !menu" ></i>
-      <i class="fa fa-desktop clicker" v-on:click=" redirect('<%= home_portfolio_path %>') " ></i>
-      <i class="fa fa-mobile clicker" v-on:click=" redirect('<%= home_portfolio_path %>') " ></i>
-      <i class="fa fa-camera-retro clicker" v-on:click=" redirect('<%= home_portfolio_path %>') " ></i>
+      <!-- i class="fa fa-bars clicker" v-on:click="menu = !menu" ></i -->
+      <a href="<%= home_portfolio_path(filtered: 'web') %>"> <i class="fa fa-desktop clicker"></i> </a>
+      <a href="<%= home_portfolio_path(filtered: 'app') %>"> <i class="fa fa-mobile clicker"></i> </a>
+      <a href="<%= home_portfolio_path(filtered: 'film') %>"> <i class="fa fa-camera-retro clicker"></i> </a>
     </section>
     <transition name="fade">
       <section v-if="menu" class="side-menu">
@@ -99,10 +100,9 @@
         </div>
       </section>
       <modal v-if="showModal" v-on:close="showModal = false">
-        <h3 slot="header">Contact us</h3>
         <div slot="body">
-          <div><i class="fa fa-envelope-open-o"></i> info@kohlife.com</div>
-          <div><i class="fa fa-phone"></i> 090.984.7814</div>
+          <div><i class="fa fa-envelope-o"></i> tryn@kohlife.com</div>
+          <div><i class="fa fa-phone"></i> +662-521-2111</div>
         </div>
       </modal>
       <section class="hero jumbo is-light ">
@@ -143,19 +143,19 @@
           <h1 class="header" style="color:white">Our Work</h1>
           <div class="columns">
             <div class="column">
-              <a v-on:click="redirect('<%= home_portfolio_path %>')" class="image pad-30">
+              <a href="<%= home_portfolio_path(filtered: 'web') %>" class="image pad-30">
                 <img src="<%='img_ref/web_ref.png'%>">
               </a>
               <h3 class="cent">WEBSITE</h3>
             </div>
             <div class="column ">
-              <a v-on:click="redirect('<%= home_portfolio_path %>')" class="image pad-30">
+              <a href="<%= home_portfolio_path(filtered: 'app') %>" class="image pad-30">
                 <img src="<%= 'img_ref/mobile_ref.png' %>">
               </a>
               <h3 class="cent">APPLICATION</h3>
             </div>
             <div class="column ">
-              <a v-on:click="redirect('<%= home_portfolio_path %>')" class="image pad-30">
+              <a href="<%= home_portfolio_path(filtered: 'film') %>" class="image pad-30">
                 <img src="<%= 'img_ref/prod_ref.png' %>">
               </a>
               <h3 class="cent">FILM/PHOTOGRAPHY</h3>

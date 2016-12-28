@@ -5,7 +5,12 @@ class HomeController < ApplicationController
   def test
   end
 
+  def portfolio
+    @filter = params[:filtered]
+  end
+
   def playground
+
 
   end
 end
