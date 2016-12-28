@@ -92,7 +92,18 @@ h1
 .side-bar
   width: 80px
   @media screen and (max-width: 720px)
-    display: none
+    position: fixed
+    height: 66px
+    width: 100vw
+    bottom: 0
+    z-index: 3
+    > section
+      height: inherit !important
+      width: 100% !important
+      flex-direction: row !important
+      a
+        padding: 0 28px
+        margin-top: 33px
   > section.side-bar-cont
     height: 100vh
     background-color: white
@@ -127,6 +138,20 @@ h1
     background: none
     margin: 0 40px
     border-bottom: 1px solid grey
+    @media screen and (max-width: 720px)
+      margin: auto
+      .heading
+        .flex
+          flex-direction: column
+          a
+            margin: auto
+          .contents
+            margin-left: 0
+            margin-top: 20px
+            text-align: center
+            h1
+              font-size: 22px
+
     .flex
       margin-top: 24px
     .contents
