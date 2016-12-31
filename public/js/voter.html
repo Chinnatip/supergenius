@@ -1,0 +1,8 @@
+<template id="post-template">
+	<li class="list-group-item">
+    <button @click="upvote" type="button">up</button>
+		<span class="is-primary">{{ vote }}</span>
+    <button @click="downvote" type="button">down</button>
+		<a>{{ post.title }}</a>
+	</li>
+</template>

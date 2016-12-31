@@ -3,6 +3,13 @@ Rails.application.routes.draw do
   get 'home/test'
   get 'home/playground'
   get 'home/portfolio'
-  root 'home#playground'
+  get 'home/comp'
+  get 'home/reddit'
+  get 'home/single'
+
+  root 'home#single'
+  #root 'home#reddit'
+  #root 'home#comp'
+  #root 'home#playground'
   #root 'home#index'
 end

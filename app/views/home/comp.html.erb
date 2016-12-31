@@ -1,0 +1,50 @@
+<div id="app">
+  <greeting :title="title" :authores="writer" :content="content" :result="anum + bnum"></greeting>
+  <div id="app2">
+    {{name}} - {{surname}}
+  </div>
+
+</div>
+
+<template id="bind">
+  <div>
+   <h1>Welcome {{authores}}!</h1>
+   <h4>{{title}}</h4>
+   <p>{{content}}</p>
+   <p>result of calculation {{result}}</p>
+   <button>login</button>
+   <button>signup</button>
+   <a href="http://coligo.io">Check out the other tutorials!
+  </div>
+</template>
+
+<script type="text/javascript">
+  Vue.component('greeting', {
+    template: '#bind',
+    props: ['title','authores','content','result']
+  });
+
+  var vm2 = new Vue({
+    el: '#app2',
+    data:{
+      name: 'chin',
+      surname: 'taemkaeo'
+    }
+  });
+
+  var vm = new Vue({
+    el: '#app',
+    data:{
+      //name: 'chin',
+      //surname: 'taemkaeo',
+      anum: 100 ,
+      bnum: 200 ,
+      writer: 'Johnnie Walker',
+      title: 'Aging Your Own Whisky',
+      content: 'A bunch of steps and a whole lot of content'
+    }
+  });
+
+
+
+</script>

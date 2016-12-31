@@ -1,0 +1,35 @@
+<!-- Header of HTML COMPONENT ><-->
+<div id="app">
+  <section class="hero" v-bind:class="[body.theme,body.size]">
+    <nav-bar   :nav="nav" :body="body" ></nav-bar>
+    <hero-body :text="body"></hero-body>
+  </section>
+  <masonry :masons="masons"></masonry>
+  <section class="hero is-dark is-medium">
+    <hero-body :text="testimo"></hero-body>
+  </section>
+  <black-ribbon></black-ribbon>
+  <mapping lat="100" lng="13.455" zoom="12"></mapping>
+</div>
+
+
+<script type="text/javascript">
+  Vue.component('mapping' , {
+    template: `
+      <section class="hero is-light is-primary" style="height:600px">
+        <div style="height:100%; width:100%">
+          <div id="map" style="height:100%; width:50%"></div>
+        </div>
+      </section>
+    `,
+    props: ['lat','lng','zoom']
+  });
+</script>
+
+<!-- Include JAVASCRIPT here ><-->
+<script src="js/map.js"></script>
+<script src="js/body.js"></script>
+<script src="js/ribbon.js"></script>
+<script src="js/masonry.js"></script>
+<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCdUSDSheJVPKt2eCrJE1sZEx3cAud_aT0&callback=initMap"> </script>
+<script src="js/app-data.js"></script>
