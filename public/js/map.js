@@ -7,7 +7,10 @@ Vue.component('mapping' , {
         <h1>Contact us</h1>
         <h2 v-for="m in map">
           <span class="head">{{m.head}}</span>
-          <a :href="m.url" class="content">{{m.content}}</a>
+          <a :href="m.url" class="content">
+            <i class="fa" v-bind:class="[m.icon]"></i>
+            {{m.content}}
+          </a>
         </h2>
       </div>
     </div>
