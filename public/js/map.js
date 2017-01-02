@@ -1,11 +1,19 @@
 Vue.component('mapping' , {
   template: `
-    <section class="hero is-light is-light" style="height:600px">
-      <div style="height:100%; width:100%">
-        <div id="map" style="height:100%; width:50%"></div>
+  <section class="_hero_map hero is-light is-light" style="height:600px">
+    <div class="content">
+      <div id="map" ></div>
+      <div class="_contact">
+        <h1>Contact us</h1>
+        <h2 v-for="m in map">
+          <span class="head">{{m.head}}</span>
+          <a :href="m.url" class="content">{{m.content}}</a>
+        </h2>
       </div>
-    </section>
-  `
+    </div>
+  </section>
+  `,
+  props: ['map']
 });
 
 function initMap(lat,lng) {
