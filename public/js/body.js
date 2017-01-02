@@ -1,15 +1,3 @@
-Vue.component('heroBody',{
-  template: `
-    <div class="hero-body">
-      <div class="container has-text-centered">
-        <h1 class="title">{{text.title}}</h1>
-        <h2 class="subtitle">{{text.sub}}</h2>
-      </div>
-    </div>
-  `,
-  props: ['text']
-});
-
 Vue.component('navBar',{
   template: `
   <div class="hero-head">
@@ -40,4 +28,56 @@ Vue.component('navBar',{
   </div>
   `,
   props: ['nav','body']
+});
+
+Vue.component('heroBody',{
+  template: `
+    <div class="hero-body">
+      <div class="container has-text-centered">
+        <h1 class="title">{{text.title}}</h1>
+        <h2 class="subtitle">{{text.sub}}</h2>
+      </div>
+    </div>
+  `,
+  props: ['text']
+});
+
+
+Vue.component('heroLevel',{
+  template: `
+    <section class="hero is-primary">
+      <div class="hero-body">
+        <div class="columns has-text-centered">
+          <div class="column">
+            <span class="title">{{title}}</span>
+            <a target="_blank" :href="url" class="button is-inverted">
+              <span>{{button}}</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+  `,
+  props: ['title','button','url']
+});
+
+Vue.component('heroGrid',{
+  template: `
+  <section class="hero is-light _hero_grid">
+    <div class="hero-body">
+      <div class="container has-text-centered">
+        <h1 class="title">{{grid.title}}</h1>
+        <h2 class="subtitle">{{grid.desc}}</h2>
+        <div class="columns">
+          <div class="column" v-for="g in grid.lists">
+            <img :src="g.image" alt="">
+            <h2>{{g.head}}</h2>
+            <h3>{{g.detail}}</h3>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  `,
+  props: ['grid']
 });

@@ -1,6 +1,7 @@
 var comp = new Vue({
   el: '#app',
   data: {
+    hell: 'moromoromoro',
     body: {
       theme: 'is-info',
       size:  'is-large',
@@ -28,33 +29,82 @@ var comp = new Vue({
         link: 'http://www.facebook.com/zinatip'
       }
     },
+    footer:{
+      contacts:[
+        {icon: 'fa-facebook-official' , url: '#'},
+        {icon: 'fa-envelope' , url: '#'},
+        {icon: 'fa-phone-square' , url: '#'}
+      ],
+      languages: [
+        {native: 'THAI' , url: '#'},
+        {native: 'ENGLISH' , url: '#'}
+      ],
+      sites: [
+        {
+          //first list
+          head : 'First list',
+          lists:[
+            { content: 'click me', url: '#' },
+            { content: 'click me', url: '#' },
+            { content: 'click me', url: '#' }
+          ]
+        },{
+          //second list
+          head : 'Second list',
+          lists:[
+            { content: 'click me', url: '#' },
+            { content: 'click me', url: '#' },
+          ]
+        },{
+          //third list
+          head : 'Last list',
+          lists:[
+            { content: 'click me', url: '#' },
+          ]
+        }
+      ]
+    },
+    grid: {
+      title: 'Show me some text',
+      desc: 'see our reason that why we difference.',
+      lists: [
+          {head: 'Sample#1',detail: 'see more details',image: "/img_ref/web_ref.png"},
+          {head: 'Sample#2',detail: 'see more details',image: "/img_ref/web_ref.png"},
+          {head: 'Sample#3',detail: 'see more details',image: "/img_ref/web_ref.png"},
+      ]
+    },
     testimo: {
       title: 'Are you OK with this ?',
       sub:   'just answer me at this time | then I will share your story'
     },
-    masons: [
-      {
-          name: 'Chinnatip',
-          address: 'chinnatip@me.com',
-          desc: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus nec iaculis mauris.',
-          date: '11:09 PM - 1 Jan 2016',
-          profile: 'http://placehold.it/64x64',
-          image: 'http://placehold.it/300x225'
-      },{
-          name: 'Tryn',
-          address: 'Tryn@kohlife.com',
-          desc: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus nec iaculis mauris.',
-          date: '11:09 PM - 1 Jan 2016',
-          profile: 'http://placehold.it/64x64',
-          image: 'http://placehold.it/300x225'
-      },{
-          name: 'Pawit',
-          address: 'Pawit@kohlife.com',
-          desc: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus nec iaculis mauris.',
-          date: '11:09 PM - 1 Jan 2016',
-          profile: 'http://placehold.it/64x64',
-          image: 'http://placehold.it/300x225'
-      }
-    ]
+    mason: {
+      title: 'Show me some text',
+      desc: 'see our reason that why we difference.',
+      lists: [
+        {
+            name: 'Chinnatip',
+            address: 'chinnatip@me.com',
+            desc: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus nec iaculis mauris.',
+            date: '11:09 PM - 1 Jan 2016',
+            profile: 'http://placehold.it/64x64',
+            image: 'http://placehold.it/300x225'
+        },{
+            name: 'Tryn',
+            address: 'Tryn@kohlife.com',
+            desc: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus nec iaculis mauris.',
+            date: '11:09 PM - 1 Jan 2016',
+            profile: 'http://placehold.it/64x64',
+            image: 'http://placehold.it/300x225'
+        },{
+            name: 'Pawit',
+            address: 'Pawit@kohlife.com',
+            desc: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus nec iaculis mauris.',
+            date: '11:09 PM - 1 Jan 2016',
+            profile: 'http://placehold.it/64x64',
+            image: 'http://placehold.it/300x225'
+        }
+      ]
+    },
+
   }
 });

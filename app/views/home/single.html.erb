@@ -1,34 +1,33 @@
-<!-- Header of HTML COMPONENT ><-->
 <div id="app">
+  <!-- header ><-->
   <section class="hero" v-bind:class="[body.theme,body.size]">
     <nav-bar   :nav="nav" :body="body" ></nav-bar>
     <hero-body :text="body"></hero-body>
   </section>
-  <masonry :masons="masons"></masonry>
+
+  <!-- body ><-->
+  <masonry :mason="mason"></masonry>
+  <hr>
+  <hero-grid :grid="grid"></hero-grid>
   <section class="hero is-dark is-medium">
     <hero-body :text="testimo"></hero-body>
   </section>
-  <black-ribbon></black-ribbon>
-  <mapping lat="100" lng="13.455" zoom="12"></mapping>
+  <hero-level title="Follow our newest contents" button="GO NOW!" url="#"></hero-level>
+  <mapping></mapping>
+
+
+  <!-- footer ><-->
+  <footer-site :footer="footer"></footer-site>
+  <footer-copy year="2016" company="-KOH-Coporate.co.ltd"></footer-copy>
 </div>
 
-
 <script type="text/javascript">
-  Vue.component('mapping' , {
-    template: `
-      <section class="hero is-light is-primary" style="height:600px">
-        <div style="height:100%; width:100%">
-          <div id="map" style="height:100%; width:50%"></div>
-        </div>
-      </section>
-    `,
-    props: ['lat','lng','zoom']
-  });
 </script>
 
 <!-- Include JAVASCRIPT here ><-->
 <script src="js/map.js"></script>
 <script src="js/body.js"></script>
+<script src="js/footer.js"></script>
 <script src="js/ribbon.js"></script>
 <script src="js/masonry.js"></script>
 <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCdUSDSheJVPKt2eCrJE1sZEx3cAud_aT0&callback=initMap"> </script>

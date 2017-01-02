@@ -1,10 +1,11 @@
-console.log('this is masonry');
-
 Vue.component('masonry',{
   //template: '#mason-template',
   template: `
-    <div id="mason-container" class="container">
-      <span v-for="m in masons">
+  <section class="hero is-light _hero_mason">
+    <div class="container _mason_container">
+      <h1 class="title">{{mason.title}}</h1>
+      <h2 class="subtitle">{{mason.desc}}</h2>
+      <span v-for="m in mason.lists">
         <div class="card" style="display:inline-block; margin: 12px 8px">
           <div class="card-image">
             <figure class="image is-4by3">
@@ -32,6 +33,7 @@ Vue.component('masonry',{
         </div>
       </span>
     </div>
+  </section>
   `,
-  props: ['masons']
+  props: ['mason']
 });
