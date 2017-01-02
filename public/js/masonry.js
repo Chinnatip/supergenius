@@ -5,8 +5,8 @@ Vue.component('masonry',{
     <div class="container _mason_container">
       <h1 class="title">{{mason.title}}</h1>
       <h2 class="subtitle">{{mason.desc}}</h2>
-      <span v-for="m in mason.lists">
-        <div class="card" style="display:inline-block; margin: 12px 8px">
+      <span v-for=" ( m , index ) in mason.lists">
+        <div v-if="index < mason.counts" class="card" style="display:inline-block; margin: 12px 8px">
           <div class="card-image">
             <figure class="image is-4by3">
               <img :src="m.image" alt="">
@@ -32,6 +32,17 @@ Vue.component('masonry',{
           </div>
         </div>
       </span>
+      <div v-if="mason.counts == 3">
+        <a @click="mason.counts = mason.lists.length" class="button is-inverted">
+          Show more
+        </a>
+      </div>
+      <div v-else>
+      <a @click="mason.counts = 3" class="button is-inverted">
+        Show less
+      </a>
+      </div>
+
     </div>
   </section>
   `,

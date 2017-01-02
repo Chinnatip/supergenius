@@ -80,6 +80,7 @@ var comp = new Vue({
     mason: {
       title: 'Show me some text',
       desc: 'see our reason that why we difference.',
+      counts: 3 ,
       lists: [
         {
             name: 'Chinnatip',
@@ -102,9 +103,27 @@ var comp = new Vue({
             date: '11:09 PM - 1 Jan 2016',
             profile: 'http://placehold.it/64x64',
             image: 'http://placehold.it/300x225'
-        }
-      ]
+        },{
+            name: 'Chinnatip',
+            address: 'chinnatip@me.com',
+            desc: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus nec iaculis mauris.',
+            date: '11:09 PM - 1 Jan 2016',
+            profile: 'http://placehold.it/64x64',
+            image: 'http://placehold.it/300x225'
+        },{
+            name: 'Tryn',
+            address: 'Tryn@kohlife.com',
+            desc: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus nec iaculis mauris.',
+            date: '11:09 PM - 1 Jan 2016',
+            profile: 'http://placehold.it/64x64',
+            image: 'http://placehold.it/300x225'
+        }      ]
     },
+    maps: [
+      { head: 'facebook' , url: 'http://www.facebook.com/zinatip', content: 'www.facebook.com/zinatip'},
+      { head: 'email'    , url: 'mailto:chinnatip@me.com' , content: 'chinnatip@me.com'},
+      { head: 'telephone', url: 'tel:+66909847814' ,content: '090.984.7814'}
+    ]
 
   }
 });

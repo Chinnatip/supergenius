@@ -6,14 +6,27 @@
   </section>
 
   <!-- body ><-->
+  <hero-level title="Follow our newest contents" button="GO NOW!" url="#"></hero-level>
   <masonry :mason="mason"></masonry>
   <hr>
   <hero-grid :grid="grid"></hero-grid>
   <section class="hero is-dark is-medium">
     <hero-body :text="testimo"></hero-body>
   </section>
-  <hero-level title="Follow our newest contents" button="GO NOW!" url="#"></hero-level>
-  <mapping></mapping>
+  <!--mapping></mapping-->
+
+  <section class="_hero_map hero is-light is-light" style="height:600px">
+    <div class="content">
+      <div id="map" ></div>
+      <div class="_contact">
+        <h1>Contact us</h1>
+        <h2 v-for="m in maps">
+          <span class="head">{{m.head}}</span>
+          <a :href="m.url" class="content">{{m.content}}</a>
+        </h2>
+      </div>
+    </div>
+  </section>
 
 
   <!-- footer ><-->
