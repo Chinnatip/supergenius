@@ -2,7 +2,8 @@
   <!-- header ><-->
   <section class="hero" v-bind:class="[body.theme,body.size]">
     <nav-bar   :nav="nav" :body="body" ></nav-bar>
-    <hero-body :text="body"></hero-body>
+    <!-- hero-body :text="body"></hero-body -->
+    <hero-slider :slider="sliders" :choice="choice" ></hero-slider>
   </section>
 
   <!-- body ><-->
@@ -15,8 +16,6 @@
   </section>
   <mapping :map="maps"></mapping>
 
-
-
   <!-- footer ><-->
   <footer-site :footer="footer"></footer-site>
   <footer-copy year="2016" company="-KOH-Coporate.co.ltd"></footer-copy>
@@ -28,6 +27,7 @@
 <!-- Include JAVASCRIPT here ><-->
 <script src="js/map.js"></script>
 <script src="js/body.js"></script>
+<script src="js/slider.js"></script>
 <script src="js/footer.js"></script>
 <script src="js/ribbon.js"></script>
 <script src="js/masonry.js"></script>

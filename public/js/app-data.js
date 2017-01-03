@@ -2,12 +2,19 @@ var comp = new Vue({
   el: '#app',
   data: {
     hell: 'moromoromoro',
+    choice: 'tab1',
     body: {
       theme: 'is-info',
       size:  'is-large',
       title: 'Vue&Bulma sample with Rails stack',
       sub:   'Vuejs 2.1.6 | Bulma 0.2.3 | Rails 5.0.0'
     },
+    slider: false ,
+    sliders: [
+      { title: 'Vue&Bulma in Rails stack', subtitle: 'scroll down to learn how good of component world',tab: 'tab1'},
+      { title: 'Hey this is SECOND TAB', subtitle: 'are you ok with this ?',tab: 'tab2'},
+      { title: 'I beleive I can fly', subtitle: 'Osmosis ',tab: 'tab3'},
+    ],
     nav: {
       brand: 'https://s29.postimg.org/5xtetqw6v/vbr.png',
       brandLink: '#',
@@ -124,6 +131,9 @@ var comp = new Vue({
       { head: 'email'    , icon: 'fa-envelope'         , url: 'mailto:chinnatip@me.com' , content: 'chinnatip@me.com'},
       { head: 'telephone', icon: 'fa-phone-square'     , url: 'tel:+66909847814' ,content: '090.984.7814'}
     ]
+  },
+  methods: {
+
 
   }
 });

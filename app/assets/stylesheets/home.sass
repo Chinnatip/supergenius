@@ -221,3 +221,41 @@ h1
           display: block
         a
           color: #b86bff
+
+
+
+._hero_body_slider
+  position: relative
+  &:hover
+    .arrow-picker
+      display: block
+  .arrow-picker
+    display: none
+    position: absolute
+    width: 100%
+    top: 48%
+    a.pick
+      font-size: 50px
+      color: rgba(255, 255, 255, 0.60)
+      transition: 0.5s
+      &:hover
+        color: white
+      &:first-child
+        margin-left: 3%
+      &:last-child
+        float: right
+        margin-right: 3%
+  .slider-picker
+    text-align: center
+    position: absolute
+    bottom: 4%
+    width: 100%
+    a
+      width: 10px
+      height: 10px
+      background: white
+      display: inline-block
+      border-radius: 5px
+      margin-right: 16px
+      &.active
+        opacity: 0.4
