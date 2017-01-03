@@ -1,4 +1,6 @@
 Vue.component('marquee',{
+  // sample
+  // <marquee date="Jan 03, 2017 14:30" last="49.75" change="+0.00%" volumn="5,052,045.00" high="50.25" low="49.75"></marquee>
   template: `
     <div class="_marquee_container">
       <p class="_marquee_text">

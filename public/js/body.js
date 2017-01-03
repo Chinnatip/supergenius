@@ -1,4 +1,6 @@
 Vue.component('navBar',{
+  // sample
+  // <nav-bar   :nav="nav" :body="body" ></nav-bar>
   template: `
   <div class="hero-head">
     <header class="nav">
@@ -10,7 +12,7 @@ Vue.component('navBar',{
         </div>
         <div class="nav-right nav-menu">
           <span v-for="l in nav.links" style="display: flex; align-items: center">
-            <a :href="l.link" target="_blank" class="nav-item">
+            <a :href="l.link" :target="l.target" class="nav-item">
               {{l.title}}
             </a>
           </span>
@@ -31,6 +33,8 @@ Vue.component('navBar',{
 });
 
 Vue.component('heroBody',{
+  // sample
+  // <!-- hero-body :text="body"></hero-body -->
   template: `
     <div class="hero-body">
       <div class="container has-text-centered">

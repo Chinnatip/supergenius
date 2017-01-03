@@ -1,7 +1,21 @@
 .nav
   min-height: 60px !important
+
 .nav-item
   &.nv
     &:before
       content: "//"
       margin-right: 10px
+
+.nav
+  &._nav_affix
+    .columns
+      width: 100%
+      margin-bottom: 0px
+      .column
+        padding: 22px 0px
+        &:hover, &:active, &.active
+          border-bottom: 4px solid #ffc800
+        a
+          color: white
+          font-size: 16px

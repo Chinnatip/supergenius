@@ -2,8 +2,6 @@
   <!-- header ><-->
   <section class="hero" v-bind:class="[body.theme,body.size]">
     <nav-bar   :nav="nav" :body="body" ></nav-bar>
-    <!-- hero-body :text="body"></hero-body -->
-    <marquee date="Jan 03, 2017 14:30" last="49.75" change="+0.00%" volumn="5,052,045.00" high="50.25" low="49.75"></marquee>
     <hero-slider :slider="sliders" :choice="choice" ></hero-slider>
   </section>
 
@@ -18,21 +16,164 @@
   <mapping :map="maps"></mapping>
 
   <!-- footer ><-->
+  <black-ribbon></black-ribbon>
   <footer-site :footer="footer"></footer-site>
   <footer-copy year="2016" company="-KOH-Coporate.co.ltd"></footer-copy>
 </div>
 
-<script type="text/javascript">
-
-</script>
-
 <!-- Include JAVASCRIPT here ><-->
-<script src="js/map.js"></script>
-<script src="js/body.js"></script>
-<script src="js/slider.js"></script>
-<script src="js/stockir.js"></script>
-<script src="js/footer.js"></script>
-<script src="js/ribbon.js"></script>
-<script src="js/masonry.js"></script>
+<script src="/js/map.js"></script>
+<script src="/js/body.js"></script>
+<script src="/js/slider.js"></script>
+<script src="/js/stockir.js"></script>
+<script src="/js/footer.js"></script>
+<script src="/js/ribbon.js"></script>
+<script src="/js/masonry.js"></script>
 <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCdUSDSheJVPKt2eCrJE1sZEx3cAud_aT0&callback=initMap"> </script>
-<script src="js/app-data.js"></script>
+<script src="/js/app-data.js"></script>
+
+<script type="text/javascript">
+  var comp = new Vue({
+    el: '#app',
+    data: {
+      hell: 'moromoromoro',
+      choice: 'tab1',
+      body: {
+        theme: 'is-info',
+        size:  'is-large',
+        title: 'Vue&Bulma sample with Rails stack',
+        sub:   'Vuejs 2.1.6 | Bulma 0.2.3 | Rails 5.0.0'
+      },
+      slider: false ,
+      sliders: [
+        { title: 'Vue&Bulma in Rails stack', subtitle: 'scroll down to learn how good of component world',tab: 'tab1'},
+        { title: 'Hey this is SECOND TAB', subtitle: 'are you ok with this ?',tab: 'tab2'},
+        { title: 'I beleive I can fly', subtitle: 'Osmosis ',tab: 'tab3'},
+      ],
+      nav: {
+        brand: 'https://s29.postimg.org/5xtetqw6v/vbr.png',
+        brandLink: "<%= root_path %>",
+        links: [
+          {
+            title: 'About us',
+            link: "<%= page_about_path %>",
+            target: ''
+          },{
+            title: 'Investor relationship',
+            link: "<%= investor_index_path %>",
+            target: ''
+          },{
+            title: 'News & Activities',
+            link: "<%= page_news_path %>",
+            target: ''
+          },{
+            title: 'Contact',
+            link: "<%= page_contact_path %>",
+            target: ''
+          }
+        ],
+        backLink: {
+          title: 'Craighub',
+          icon: 'fa-arrows-alt',
+          link: 'http://www.facebook.com/zinatip'
+        }
+      },
+      footer:{
+        contacts:[
+          {icon: 'fa-facebook-official' , url: '#'},
+          {icon: 'fa-envelope' , url: '#'},
+          {icon: 'fa-phone-square' , url: '#'}
+        ],
+        languages: [
+          {native: 'THAI' , url: '#'},
+          {native: 'ENGLISH' , url: '#'}
+        ],
+        sites: [
+          {
+            //first list
+            head : 'First list',
+            lists:[
+              { content: 'click me', url: '#' },
+              { content: 'click me', url: '#' },
+              { content: 'click me', url: '#' }
+            ]
+          },{
+            //second list
+            head : 'Second list',
+            lists:[
+              { content: 'click me', url: '#' },
+              { content: 'click me', url: '#' },
+            ]
+          },{
+            //third list
+            head : 'Last list',
+            lists:[
+              { content: 'click me', url: '#' },
+            ]
+          }
+        ]
+      },
+      grid: {
+        title: 'Show me some text',
+        desc: 'see our reason that why we difference.',
+        lists: [
+            {head: 'Sample#1',detail: 'see more details',image: "/img_ref/web_ref.png"},
+            {head: 'Sample#2',detail: 'see more details',image: "/img_ref/web_ref.png"},
+            {head: 'Sample#3',detail: 'see more details',image: "/img_ref/web_ref.png"},
+        ]
+      },
+      testimo: {
+        title: 'Are you OK with this ?',
+        sub:   'just answer me at this time | then I will share your story'
+      },
+      mason: {
+        title: 'Show me some text',
+        desc: 'see our reason that why we difference.',
+        counts: 3 ,
+        lists: [
+          {
+              name: 'Chinnatip',
+              address: 'chinnatip@me.com',
+              desc: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus nec iaculis mauris.',
+              date: '11:09 PM - 1 Jan 2016',
+              profile: 'http://placehold.it/64x64',
+              image: 'http://placehold.it/300x225'
+          },{
+              name: 'Tryn',
+              address: 'Tryn@kohlife.com',
+              desc: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus nec iaculis mauris.',
+              date: '11:09 PM - 1 Jan 2016',
+              profile: 'http://placehold.it/64x64',
+              image: 'http://placehold.it/300x225'
+          },{
+              name: 'Pawit',
+              address: 'Pawit@kohlife.com',
+              desc: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus nec iaculis mauris.',
+              date: '11:09 PM - 1 Jan 2016',
+              profile: 'http://placehold.it/64x64',
+              image: 'http://placehold.it/300x225'
+          },{
+              name: 'Chinnatip',
+              address: 'chinnatip@me.com',
+              desc: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus nec iaculis mauris.',
+              date: '11:09 PM - 1 Jan 2016',
+              profile: 'http://placehold.it/64x64',
+              image: 'http://placehold.it/300x225'
+          },{
+              name: 'Tryn',
+              address: 'Tryn@kohlife.com',
+              desc: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus nec iaculis mauris.',
+              date: '11:09 PM - 1 Jan 2016',
+              profile: 'http://placehold.it/64x64',
+              image: 'http://placehold.it/300x225'
+          }      ]
+      },
+      maps: [
+        { head: 'address'  , icon: 'fa-map-marker', url: '#', content: '114/13 Phra-a-thit rd, Chanasongkram, Phranakorn, Bangkok 10200'},
+        { head: 'facebook' , icon: 'fa-facebook-official', url: 'http://www.facebook.com/zinatip', content: 'www.facebook.com/zinatip'},
+        { head: 'email'    , icon: 'fa-envelope'         , url: 'mailto:chinnatip@me.com' , content: 'chinnatip@me.com'},
+        { head: 'telephone', icon: 'fa-phone-square'     , url: 'tel:+66909847814' ,content: '090.984.7814'}
+      ]
+    }
+  });
+</script>
