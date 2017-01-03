@@ -9,7 +9,7 @@ Vue.component('mapping' , {
           <span class="head">{{m.head}}</span>
           <a :href="m.url" class="content">
             <i class="fa" v-bind:class="[m.icon]"></i>
-            {{m.content}}
+            <span>{{m.content}}</span>
           </a>
         </h2>
       </div>

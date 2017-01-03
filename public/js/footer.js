@@ -21,7 +21,7 @@ Vue.component('footer-site',{
           <div class="column _site" v-for="s in footer.sites">
             <div class="header">{{s.head}}</div>
             <span v-for="l in s.lists">
-              <a :href="l.url">{{l.content}}</a>
+              <a class="links" :href="l.url">{{l.content}}</a>
             </span>
           </div>
           <div class="column _site">

@@ -1,0 +1,45 @@
+._marquee_container{
+  overflow: hidden;
+  position: relative;
+  height: 44px;
+  background: rgba(51, 51, 51, 0.08);
+}
+._marquee_text{
+ //font-size: 3em;
+ color: white;
+ position: absolute;
+ width: 100%;
+ height: 100%;
+ margin: 0;
+ line-height: 44px;
+ text-align: center;
+ /* Starting position */
+ -moz-transform:translateX(100%);
+ -webkit-transform:translateX(100%);
+ transform:translateX(100%);
+ /* Apply animation to this element */
+ -moz-animation: example1 22s linear infinite;
+ -webkit-animation: example1 22s linear infinite;
+ animation: example1 22s linear infinite;
+}
+/* Move it (define the animation) */
+@-moz-keyframes example1 {
+ 0%   { -moz-transform: translateX(100%); }
+ 100% { -moz-transform: translateX(-100%); }
+}
+@-webkit-keyframes example1 {
+ 0%   { -webkit-transform: translateX(100%); }
+ 100% { -webkit-transform: translateX(-100%); }
+}
+@keyframes example1 {
+ 0%   {
+ -moz-transform: translateX(100%); /* Firefox bug fix */
+ -webkit-transform: translateX(100%); /* Firefox bug fix */
+ transform: translateX(100%);
+ }
+ 100% {
+ -moz-transform: translateX(-100%); /* Firefox bug fix */
+ -webkit-transform: translateX(-100%); /* Firefox bug fix */
+ transform: translateX(-100%);
+ }
+}

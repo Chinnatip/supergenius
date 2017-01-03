@@ -127,6 +127,7 @@ var comp = new Vue({
         }      ]
     },
     maps: [
+      { head: 'address'  , icon: 'fa-map-marker', url: '#', content: '114/13 Phra-a-thit rd, Chanasongkram, Phranakorn, Bangkok 10200'},
       { head: 'facebook' , icon: 'fa-facebook-official', url: 'http://www.facebook.com/zinatip', content: 'www.facebook.com/zinatip'},
       { head: 'email'    , icon: 'fa-envelope'         , url: 'mailto:chinnatip@me.com' , content: 'chinnatip@me.com'},
       { head: 'telephone', icon: 'fa-phone-square'     , url: 'tel:+66909847814' ,content: '090.984.7814'}
