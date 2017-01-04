@@ -1,0 +1,68 @@
+@import "variable"
+
+._body_quote
+  padding: 28px 84px !important
+  .columns
+    width: 100%
+    padding: 20px 0
+    .column
+      &.__header_quote
+        min-width: 280px
+        h1
+          font-size: 28px
+          padding-bottom: 4px
+          border-bottom: 4px solid $is-info
+          color: $text-is-info
+          display: inline
+        h2
+          margin-bottom: 6px
+          font-size: 20px
+      &:not(:first-child)
+        border-left: 1px solid grey
+        padding: 20px 24px
+        h1
+          font-size: 24px
+          color: $text-is-info
+        h2
+          font-size: 16px
+          margin-top: 3px
+  a
+    float: right
+    color: $text-is-info
+    &._update
+    &._history
+      font-size: 18px
+      line-height: 24px
+      border-bottom: 1px solid $is-info
+      &:after
+        content: '>'
+        margin-left: 8px
+
+._body_jumbo
+  padding: 40px 84px !important
+  .__body
+    width: 100%
+    padding: 20px 0
+    position: relative
+    h1
+      font-size: 28px
+      padding-bottom: 6px
+      border-bottom: 3px solid $is-info
+      color: $text-is-info
+      display: inline
+    h2
+      margin-bottom: 24px
+      margin-top: 33px
+      font-size: 20px
+      max-width: 60%
+    a
+      color: $text-is-info
+      font-size: 18px
+      line-height: 24px
+      &:after
+        content: '>'
+        margin-left: 8px
+      &.__middle
+        position: absolute
+        top: 50%
+        right: 0px

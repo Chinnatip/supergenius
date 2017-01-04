@@ -1,4 +1,7 @@
 class InvestorController < ApplicationController
+
+  layout 'investor'
+
   def index
   end
 

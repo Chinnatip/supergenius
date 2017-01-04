@@ -11,7 +11,22 @@
   </head>
 
   <body>
-    <%= yield %>
-    <div class="padding-bottom-nav"></div>
+    <div id="controller">
+      <%= yield %>
+      <footer-copy :year="footer.year" :company="footer.company"></footer-copy>
+    </div>
+
+    <script src="/js/footer.js"></script>
+    <script type="text/javascript">
+      var comp = new Vue({
+        el: '#controller',
+        data: {
+          footer: {
+            year: '2016',
+            company: '-KOH-Coporate.co.ltd'
+          }
+        }
+      });
+    </script>
   </body>
 </html>

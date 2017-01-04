@@ -1,74 +1,39 @@
 <div id="app">
-  <section class="hero is-medium" v-bind:class="[body.theme]">
-    <nav-bar   :nav="nav" :body="body" ></nav-bar>
-    <hero-body :text="body"></hero-body>
-    <header class="nav _nav_affix">
-        <div class="columns" style="width:100%">
-          <span class="column" v-for="l in iLinks">
-            <a :href="l.url">{{l.title}}</a>
-          </span>
-        </div>
-    </header>
-
-  </section>
-
+  <blog-quote :stock="stock"></blog-quote>
+  <hr>
+  <blog-jumbo :data="share"></blog-jumbo>
+  <hr>
+  <blog-jumbo :data="email"></blog-jumbo>
+  <hr>
 </div>
 
 <!-- Include JAVASCRIPT here ><-->
-<script src="/js/body.js"></script>
-<script src="/js/slider.js"></script>
-<script src="/js/stockir.js"></script>
-<script src="/js/footer.js"></script>
-<script src="/js/app-data.js"></script>
-
+<script src="/js/investor.js"></script>
 <script type="text/javascript">
-  var comp = new Vue({
+  var app = new Vue({
     el: '#app',
     data: {
-      iLinks:[
-        { title: 'Investor Relations'     , url: '<%= investor_index_path %>'},
-        { title: 'Financial Information'  , url: '<%= investor_financial_path %>'},
-        { title: 'Shareholder Information', url: '<%= investor_share_path %>'},
-        { title: 'Bondholder'             , url: '<%= investor_bond_path %>'},
-        { title: 'Stock Information'      , url: '<%= investor_stock_path %>'},
-        { title: 'Newsroom'               , url: '<%= investor_news_path %>'},
-        { title: 'Information Request'    , url: '<%= investor_contact_path %>'}
-      ],
-      body: {
-        theme: 'is-info',
-        size:  'is-large',
-        title: 'INVESTOR RELATIONS',
-        sub:   'PSH aims to be a top Thai diversified property company that delivers end-to-end modern urban lifestyles to customers.'
+      stock: {
+        quote:"BBL",
+        price:"22.50",
+        volumn:"3,165,900",
+        date:"4 มค. 2560 15:44",
+        high:"22.60",
+        low:"22.30",
+        highyear:"24.00",
+        lowyear:"21.20",
+        link:"#"
       },
-      nav: {
-        brand: 'https://s29.postimg.org/5xtetqw6v/vbr.png',
-        brandLink: "<%= root_path %>",
-        links: [
-          {
-            title: 'About us',
-            link: "<%= page_about_path %>",
-            target: ''
-          },{
-            title: 'Investor relationship',
-            link: "<%= investor_index_path %>",
-            target: ''
-          },{
-            title: 'News & Activities',
-            link: "<%= page_news_path %>",
-            target: ''
-          },{
-            title: 'Contact',
-            link: "<%= page_contact_path %>",
-            target: ''
-          }
-        ],
-        backLink: {
-          title: 'Craighub',
-          icon: 'fa-arrows-alt',
-          link: 'http://www.facebook.com/zinatip'
-        }
+      share: {
+        title: "โครงสร้างผู้ถือหุ้น" ,
+        desc: "รายชื่อผู้ถือหุ้นบริษัท พฤกษา โฮลดิ้ง จำกัด (มหาชน) ณ วันที่ 29 เมษายน 2559" ,
+        link: "ดูเพิ่มเติม", href: "#", linkclass: "" ,
       },
+      email: {
+        title: "อีเมล์รับข่าวสาร" ,
+        desc: "ท่านสามารถลงทะเบียนเพื่อรับข่าวสารอิเล็กทรอนิกส์ เราจะส่งข่าวสารให้ท่านทาง อีเมล์ เมื่อมีข่าวสารที่เกี่ยวกับบริษัท (ประกาศ, ปรับปรุงเว็บไซต์) ที่ประกาศผ่านเว็บไซต์นี้" ,
+        link: "สมัคร", href: "#", linkclass: "__middle"
+      }
     }
   });
-
 </script>

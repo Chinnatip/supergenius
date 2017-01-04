@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>VueSample</title>
+    <%= csrf_meta_tags %>
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'application' %>
+    <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  </head>
+
+  <body>
+    <div id="controller">
+      <section class="hero is-medium" v-bind:class="[body.theme]">
+        <nav-bar   :nav="nav" :body="body" ></nav-bar>
+        <span v-if=" url_action == 'index' ">
+          <hero-body :text="body"></hero-body>
+        </span>
+        <header class="nav _nav_affix">
+            <div class="columns" style="width:100%">
+              <span class="column" v-for="l in iLinks" v-bind:class="[{ active : isActive( url_action , l.action ) }]">
+                <a :href="l.url">{{l.title}}</a>
+              </span>
+            </div>
+        </header>
+      </section>
+
+      <%= yield %>
+      
+      <footer-copy :year="footer.year" :company="footer.company"></footer-copy>
+    </div>
+  </body>
+  <!-- Include JAVASCRIPT here ><-->
+  <script src="/js/body.js"></script>
+  <script src="/js/slider.js"></script>
+  <script src="/js/stockir.js"></script>
+  <script src="/js/footer.js"></script>
+  <script src="/js/app-data.js"></script>
+
+  <script type="text/javascript">
+    var comp = new Vue({
+      el: '#controller',
+      methods: {
+        isActive: function( a , b ){
+          if ( a == b ) {
+            return true
+          }else {
+            return false
+          }
+        }
+      },
+      data: {
+        url_action: '<%= controller.action_name %>' ,
+        iLinks:[
+          { title: 'Investor Relations'     , action: 'index' , url: '<%= investor_index_path %>'},
+          { title: 'Financial Information'  , action: 'financial' , url: '<%= investor_financial_path %>'},
+          { title: 'Shareholder Information', action: 'share' , url: '<%= investor_share_path %>'},
+          { title: 'Bondholder'             , action: 'bond' , url: '<%= investor_bond_path %>'},
+          { title: 'Stock Information'      , action: 'stock' , url: '<%= investor_stock_path %>'},
+          { title: 'Newsroom'               , action: 'news' , url: '<%= investor_news_path %>'},
+          { title: 'Information Request'    , action: 'contact' , url: '<%= investor_contact_path %>'}
+        ],
+        body: {
+          theme: 'is-info',
+          size:  'is-large',
+          title: 'INVESTOR RELATIONS',
+          sub:   'PSH aims to be a top Thai diversified property company that delivers end-to-end modern urban lifestyles to customers.'
+        },
+        nav: {
+          brand: 'https://s29.postimg.org/5xtetqw6v/vbr.png',
+          brandLink: "<%= root_path %>",
+          links: [
+            {
+              title: 'About us',
+              link: "<%= page_about_path %>",
+              target: ''
+            },{
+              title: 'Investor relationship',
+              link: "<%= investor_index_path %>",
+              target: ''
+            },{
+              title: 'News & Activities',
+              link: "<%= page_news_path %>",
+              target: ''
+            },{
+              title: 'Contact',
+              link: "<%= page_contact_path %>",
+              target: ''
+            }
+          ],
+          backLink: {
+            title: 'Craighub',
+            icon: 'fa-arrows-alt',
+            link: 'http://www.facebook.com/zinatip'
+          }
+        },
+        footer: {
+          year: '2016',
+          company: '-KOH-Coporate.co.ltd'
+        }
+      }
+    });
+
+  </script>
+</html>
