@@ -28,7 +28,7 @@ Vue.component('heroSlider',{
       return this.choice === val ;
     },
     checkActive: function(val){
-      console.log(val);
+      //console.log(val);
       this.choice = val;
     },
     tabs: function(val){

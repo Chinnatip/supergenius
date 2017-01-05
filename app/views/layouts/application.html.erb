@@ -3,23 +3,84 @@
   <head>
     <title>VueSample</title>
     <%= csrf_meta_tags %>
-
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application' %>
     <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
   </head>
-
   <body>
-    <div id="controller">
-      <%= yield %>
+
+    <!-- header ><-->
+    <div id="cHeader">
+      <section class="hero" v-bind:class="[body.theme,body.size]">
+        <nav-bar   :nav="nav" :body="body" ></nav-bar>
+        <hero-slider :slider="sliders" :choice="choice" ></hero-slider>
+      </section>
+    </div>
+
+    <%= yield %>
+
+    <!-- footer ><-->
+    <div id="cFooter">
       <footer-copy :year="footer.year" :company="footer.company"></footer-copy>
     </div>
 
+    <!-- Include JAVASCRIPT here ><-->
+    <script src="/js/body.js"></script>
+    <script src="/js/slider.js"></script>
     <script src="/js/footer.js"></script>
     <script type="text/javascript">
+      //component of header
+      var header = new Vue({
+        el: '#cHeader',
+        data: {
+          body: {
+            theme: 'is-info',
+            size:  'is-large',
+            title: 'Vue&Bulma sample with Rails stack',
+            sub:   'Vuejs 2.1.6 | Bulma 0.2.3 | Rails 5.0.0'
+          },
+          sliders: [
+            { title: 'Vue&Bulma in Rails stack', subtitle: 'scroll down to learn how good of component world',tab: 'tab1'},
+            { title: 'Hey this is SECOND TAB', subtitle: 'are you ok with this ?',tab: 'tab2'},
+            { title: 'I beleive I can fly', subtitle: 'Osmosis ',tab: 'tab3'},
+          ],
+          slider: false ,
+          choice: 'tab1',
+          nav: {
+            brand: 'https://s29.postimg.org/5xtetqw6v/vbr.png',
+            brandLink: "<%= root_path %>",
+            links: [
+              {
+                title: 'About us',
+                link: "<%= page_about_path %>",
+                target: ''
+              },{
+                title: 'Investor relationship',
+                link: "<%= investor_index_path %>",
+                target: ''
+              },{
+                title: 'News & Activities',
+                link: "<%= page_news_path %>",
+                target: ''
+              },{
+                title: 'Contact',
+                link: "<%= page_contact_path %>",
+                target: ''
+              }
+            ],
+            backLink: {
+              title: 'Craighub',
+              icon: 'fa-arrows-alt',
+              link: 'http://www.facebook.com/zinatip'
+            }
+          }
+        }
+      });
+
+      //component of footer
       var comp = new Vue({
-        el: '#controller',
+        el: '#cFooter',
         data: {
           footer: {
             year: '2016',

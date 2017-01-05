@@ -10,7 +10,7 @@
   </head>
 
   <body>
-    <div id="controller">
+    <div id="cHeader">
       <section class="hero is-medium" v-bind:class="[body.theme]">
         <nav-bar   :nav="nav" :body="body" ></nav-bar>
         <span v-if=" url_action == 'index' ">
@@ -34,9 +34,10 @@
             </div>
         </header>
       </section>
+    </div>
 
       <%= yield %>
-
+    <div id="cFooter">
       <footer-copy :year="footer.year" :company="footer.company"></footer-copy>
     </div>
   </body>
@@ -49,7 +50,7 @@
 
   <script type="text/javascript">
     var comp = new Vue({
-      el: '#controller',
+      el: '#cHeader',
       methods: {
         isActive: function( a , b ){
           if ( a == b ) {
@@ -124,13 +125,17 @@
             icon: 'fa-arrows-alt',
             link: 'http://www.facebook.com/zinatip'
           }
-        },
+        }
+      }
+    });
+    var foot = new Vue({
+      el: '#cFooter',
+      data: {
         footer: {
           year: '2016',
           company: '-KOH-Coporate.co.ltd'
         }
       }
     });
-
   </script>
 </html>

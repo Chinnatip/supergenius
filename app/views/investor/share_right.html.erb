@@ -4,11 +4,11 @@
   <section class="is-medium">
     <div class="container">
       <div class="collapsiv" v-for="content in collapse">
-        <div class="_header" v-on:click="content.show = true">
+        <div class="_header" v-on:click="toggle">
           <span>{{content.header}}</span>
           <a class="right" href="#">+</a>
         </div>
-        {{content.show}}
+        {{show}}
         <div class="_content" v-if="content.show">
           <div class="_blog" v-for="line in content.blog">
             <div class="__blog-data" v-for="text in line.chat">{{text}}</div>
@@ -30,7 +30,13 @@
 <script type="text/javascript">
   var app = new Vue({
     el: '#app',
+    methods: {
+      toggle: function(){
+        this.show = !this.show
+      }
+    },
     data: {
+      choice: false ,
       collapse: [
         {
           header: 'การประชุมผู้ถือหุ้น',

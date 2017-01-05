@@ -1,10 +1,4 @@
 <div id="app">
-  <!-- header ><-->
-  <section class="hero" v-bind:class="[body.theme,body.size]">
-    <nav-bar   :nav="nav" :body="body" ></nav-bar>
-    <hero-slider :slider="sliders" :choice="choice" ></hero-slider>
-  </section>
-
   <!-- body ><-->
   <hero-level title="Follow our newest contents" button="GO NOW!" url="#"></hero-level>
   <masonry :mason="mason"></masonry>
@@ -23,7 +17,6 @@
 <!-- Include JAVASCRIPT here ><-->
 <script src="/js/map.js"></script>
 <script src="/js/body.js"></script>
-<script src="/js/slider.js"></script>
 <script src="/js/stockir.js"></script>
 <script src="/js/footer_site.js"></script>
 <script src="/js/ribbon.js"></script>
@@ -35,83 +28,6 @@
   var comp = new Vue({
     el: '#app',
     data: {
-      hell: 'moromoromoro',
-      choice: 'tab1',
-      body: {
-        theme: 'is-info',
-        size:  'is-large',
-        title: 'Vue&Bulma sample with Rails stack',
-        sub:   'Vuejs 2.1.6 | Bulma 0.2.3 | Rails 5.0.0'
-      },
-      slider: false ,
-      sliders: [
-        { title: 'Vue&Bulma in Rails stack', subtitle: 'scroll down to learn how good of component world',tab: 'tab1'},
-        { title: 'Hey this is SECOND TAB', subtitle: 'are you ok with this ?',tab: 'tab2'},
-        { title: 'I beleive I can fly', subtitle: 'Osmosis ',tab: 'tab3'},
-      ],
-      nav: {
-        brand: 'https://s29.postimg.org/5xtetqw6v/vbr.png',
-        brandLink: "<%= root_path %>",
-        links: [
-          {
-            title: 'About us',
-            link: "<%= page_about_path %>",
-            target: ''
-          },{
-            title: 'Investor relationship',
-            link: "<%= investor_index_path %>",
-            target: ''
-          },{
-            title: 'News & Activities',
-            link: "<%= page_news_path %>",
-            target: ''
-          },{
-            title: 'Contact',
-            link: "<%= page_contact_path %>",
-            target: ''
-          }
-        ],
-        backLink: {
-          title: 'Craighub',
-          icon: 'fa-arrows-alt',
-          link: 'http://www.facebook.com/zinatip'
-        }
-      },
-      footer:{
-        contacts:[
-          {icon: 'fa-facebook-official' , url: '#'},
-          {icon: 'fa-envelope' , url: '#'},
-          {icon: 'fa-phone-square' , url: '#'}
-        ],
-        languages: [
-          {native: 'THAI' , url: '#'},
-          {native: 'ENGLISH' , url: '#'}
-        ],
-        sites: [
-          {
-            //first list
-            head : 'First list',
-            lists:[
-              { content: 'click me', url: '#' },
-              { content: 'click me', url: '#' },
-              { content: 'click me', url: '#' }
-            ]
-          },{
-            //second list
-            head : 'Second list',
-            lists:[
-              { content: 'click me', url: '#' },
-              { content: 'click me', url: '#' },
-            ]
-          },{
-            //third list
-            head : 'Last list',
-            lists:[
-              { content: 'click me', url: '#' },
-            ]
-          }
-        ]
-      },
       grid: {
         title: 'Show me some text',
         desc: 'see our reason that why we difference.',
@@ -172,7 +88,42 @@
         { head: 'facebook' , icon: 'fa-facebook-official', url: 'http://www.facebook.com/zinatip', content: 'www.facebook.com/zinatip'},
         { head: 'email'    , icon: 'fa-envelope'         , url: 'mailto:chinnatip@me.com' , content: 'chinnatip@me.com'},
         { head: 'telephone', icon: 'fa-phone-square'     , url: 'tel:+66909847814' ,content: '090.984.7814'}
-      ]
+      ],
+      footer:{
+        contacts:[
+          {icon: 'fa-facebook-official' , url: '#'},
+          {icon: 'fa-envelope' , url: '#'},
+          {icon: 'fa-phone-square' , url: '#'}
+        ],
+        languages: [
+          {native: 'THAI' , url: '#'},
+          {native: 'ENGLISH' , url: '#'}
+        ],
+        sites: [
+          {
+            //first list
+            head : 'First list',
+            lists:[
+              { content: 'click me', url: '#' },
+              { content: 'click me', url: '#' },
+              { content: 'click me', url: '#' }
+            ]
+          },{
+            //second list
+            head : 'Second list',
+            lists:[
+              { content: 'click me', url: '#' },
+              { content: 'click me', url: '#' },
+            ]
+          },{
+            //third list
+            head : 'Last list',
+            lists:[
+              { content: 'click me', url: '#' },
+            ]
+          }
+        ]
+      }
     }
   });
 </script>
