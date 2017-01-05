@@ -1,3 +1,5 @@
+@import "variable"
+
 .nav
   min-height: 60px !important
 
@@ -15,6 +17,7 @@
       margin-top: 0px
       .column
         padding: 18px 0px
+        position: relative
         &:hover, &:active,
           background-color: lighten( #3273dc, 5% )
           border-bottom: 4px solid rgba(#ffc800, 0.5)
@@ -23,3 +26,24 @@
         a
           color: white
           font-size: 14px
+      .column
+        &:hover
+          ul
+            display: block !important
+            background: #737475 !important
+        ._link_with_sub
+          ul
+            display: none
+            background: $is-info
+            position: absolute
+            top: 60px
+            left: 0
+            width: 200px
+            text-align: left
+            li
+              color: white
+              padding: 18px 24px
+              &:not(:last-child)
+                border-bottom: 1px solid #ffffff
+              &:hover
+                background-color: opacify(#2d2d2d, 0.4)

@@ -1,2 +1,48 @@
-<h1>Investor#share</h1>
-<p>Find me in app/views/investor/share.html.erb</p>
+<div id="app">
+  <blog-header  :data="header" ></blog-header>
+  <table-blog   :table="table"></table-blog>
+</div>
+
+<script type="text/javascript">
+</script>
+
+<!-- Include JAVASCRIPT here ><-->
+<script src="/js/investor.js"></script>
+<script type="text/javascript">
+  var app = new Vue({
+    el: '#app',
+    data: {
+      header: 'โครงสร้างผู้ถือหุ้น',
+      table: {
+        thead:[
+          { title: 'ลำดับที่'},
+          { title: 'รายชื่อผู้ถือหุ้น'},
+          { title: 'จำนวนหุ้น'},
+          { title: '%'},
+        ],
+        tfoot:[
+          { title: 'เอกสารอ้างอิง'},
+          { title: ''},
+          { title: ''},
+          { title: ''},
+        ],
+
+        tbody:[
+          { content: ['นายทองมา วิจิตรพงศ์พันธุ์', '1,214,009,986'	,'55.54%'] },
+          { content: ['UBS AG SINGAPORE BRANCH',	'100,346,500',	'4.59%'] },
+        	{ content: ['ด.ญ.ชัญญา วิจิตรพงศ์พันธุ์',	'85,000,000',	'3.89%'] },
+        	{ content: ['นางทิพย์สุดา วิจิตรพงศ์พันธุ์',	'85,000,000',	"3.89%"] },
+        	{ content: ['น.ส.มาลินี วิจิตรพงศ์พันธุ์',	'85,000,000',	'3.89%'] },
+        	{ content: ['สำนักงานประกันสังคม',	'57,015,200',	'2.61%'] },
+        	{ content: ['นางรัตนา พรมสวัสดิ์',	'39,720,401',	'1.82%'] },
+        	{ content: ['CHASE NOMINEES LIMITED',	'33,376,473',	'1.53%'] },
+        	{ content: ['STATE STREET BANK EUROPE LIMITED',	'26,576,901',	'1.22%'] },
+        	{ content: ['DEUTSCHE BANK AG LONDON PRIME BROKERAGE', '13,121,100',	'0.60%'] },
+
+          { content: ['รวม 10 อันดับเเรก', '1,739,166,561',	'79.56%'] },
+          { content: ['จำนวนหุ้นทั้งหมด', '2,185,857,580',	''] },
+        ]
+      }
+    }
+  });
+</script>

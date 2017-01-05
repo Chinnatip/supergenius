@@ -1,2 +1,46 @@
-<h1>Investor#financial</h1>
-<p>Find me in app/views/investor/financial.html.erb</p>
+<div id="app">
+  <blog-header  :data="header" ></blog-header>
+  <table-rating :table="table" :selector="selector"></table-rating>
+</div>
+
+<script type="text/javascript">
+</script>
+
+<!-- Include JAVASCRIPT here ><-->
+<script src="/js/investor.js"></script>
+<script type="text/javascript">
+  var app = new Vue({
+    el: '#app',
+    data: {
+      header: 'อันดับความน่าเชื่อถือ',
+      table: {
+        thead:[
+          { title: 'รายการ'},
+          { title: 'วันที่'},
+          { title: 'อันดับเครดิตองค์กร'},
+          { title: 'อันดับเครดิตตราสารหนี้ใหม่'},
+          { title: 'ดาวน์โหลด'},
+        ],
+        tfoot:[
+          { title: 'เอกสารอ้างอิง -KOH-Coprporate @2017'},
+          { title: ''},
+          { title: ''},
+          { title: ''},
+          { title: ''},
+        ],
+        tbody:[
+          { year: '2556' , content: ['TRIS Rating - ประกาศผลอันดับเครดิต ครั้งที่ 80/2556',	'20 ธ.ค. 2556', 'A/Stable', 'A','#'] },
+          { year: '2556' , content: ['TRIS Rating - ประกาศผลอันดับเครดิต ครั้งที่ 60/2556',	'07 ส.ค. 2556', 'A/Stable', 'A','#'] },
+          { year: '2556' , content: ['TRIS Rating - ประกาศผลอันดับเครดิต ครั้งที่ 17/2556',	'20 มี.ค. 2556', 'A/Stable', 'A','#'] },
+          { year: '2557' , content: ['TRIS Rating - ประกาศผลอันดับเครดิต ครั้งที่ 56/2557',	'07 ส.ค. 2557', 'A/Stable', 'A','#'] },
+          { year: '2557' , content: ['TRIS Rating - ประกาศผลอันดับเครดิต ครั้งที่ 22/2557',	'20 มี.ค. 2557', 'A/Stable', 'A','#'] },
+          { year: '2558' , content: ['TRIS Rating - ประกาศผลอันดับเครดิต ครั้งที่ 57/2558',	'10 ก.ค. 2558', 'A/Stable', 'A','#'] },
+          { year: '2558' , content: ['TRIS Rating - ประกาศผลอันดับเครดิต ครั้งที่ 22/2558',	'16 เม.ษ. 2558', 'A/Stable', 'A','#'] },
+          { year: '2559' , content: ['TRIS Rating - ประกาศผลอันดับเครดิต ครั้งที่ 70/2559',	'14 ก.ค. 2559', 'A/Stable', 'A','#'] },
+          { year: '2559' , content: ['TRIS Rating - ประกาศผลอันดับเครดิต ครั้งที่ 8/2559',	'25 ก.พ. 2559', 'A/Stable', 'A','#'] }
+        ]
+      },
+      selector:[ '2559','2558','2557','2556','2555','2554','2553' ]
+    }
+  });
+</script>

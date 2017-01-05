@@ -19,14 +19,24 @@
         <header class="nav _nav_affix">
             <div class="columns" style="width:100%">
               <span class="column" v-for="l in iLinks" v-bind:class="[{ active : isActive( url_action , l.action ) }]">
-                <a :href="l.url">{{l.title}}</a>
+                <span v-if="l.sublink == false">
+                  <a :href="l.url">{{l.title}}</a>
+                </span>
+                <span v-else class="_link_with_sub">
+                  <a>{{l.title}}</a>
+                  <ul>
+                    <li v-for="a in l.suburl">
+                      <a :href="a.url">{{a.text}}</a>
+                    </li>
+                  </ul>
+                </span>
               </span>
             </div>
         </header>
       </section>
 
       <%= yield %>
-      
+
       <footer-copy :year="footer.year" :company="footer.company"></footer-copy>
     </div>
   </body>
@@ -52,13 +62,34 @@
       data: {
         url_action: '<%= controller.action_name %>' ,
         iLinks:[
-          { title: 'Investor Relations'     , action: 'index' , url: '<%= investor_index_path %>'},
-          { title: 'Financial Information'  , action: 'financial' , url: '<%= investor_financial_path %>'},
-          { title: 'Shareholder Information', action: 'share' , url: '<%= investor_share_path %>'},
-          { title: 'Bondholder'             , action: 'bond' , url: '<%= investor_bond_path %>'},
-          { title: 'Stock Information'      , action: 'stock' , url: '<%= investor_stock_path %>'},
-          { title: 'Newsroom'               , action: 'news' , url: '<%= investor_news_path %>'},
-          { title: 'Information Request'    , action: 'contact' , url: '<%= investor_contact_path %>'}
+          { title: 'Investor Relations'     , action: 'index' , url: '<%= investor_index_path %>' , sublink: false },
+          { title: 'Financial Information'  , action: 'financial' , url: '<%= investor_financial_path %>' , sublink: false },
+          { title: 'Shareholder Information', action: 'share' , url: '#' , sublink: true , suburl:[
+            {text:'Major Chareholders'          , url:'<%= investor_share_path %>'},
+            {text:'Dividend History and Policy' , url:'<%= investor_share_history_path %>'},
+            {text:'Right of Shareholders'       , url:'<%= investor_share_right_path %>'},
+            {text: "Shareholders' Meeting"      , url:'<%= investor_share_holder_path %>'}]
+          },
+          { title: 'Bondholder'           , action: 'bond' , url: '#' , sublink: true , suburl:[
+            {text:'Financial Policy'      , url:'<%= investor_bond_policy_path %>'},
+            {text:'THB Bond Information'  , url:'<%= investor_bond_path %>'},
+            {text:'Prospectus'            , url:'http://capital.sec.or.th/webapp/corp_fin2/cgi-bin/final69.php?txt_compid=1807&txt_offerid=001576&txt_secuid=01&txt_offertypeid=01&txt_language=T&txt_applydate=2016-06-17&start_date=2016-10-19'}]
+          },
+          { title: 'Stock Information'    , action: 'stock' , url: '#' , sublink: true , suburl:[
+            {text:'Stock Quotes'          , url:'<%= investor_stock_path %>'},
+            {text:'History Price'         , url:'<%= investor_stock_history_path %>'},
+            {text:'Consensus'             , url:'<%= investor_stock_concensus_path %>'},
+            {text: 'Analyst Contact List' , url:'<%= investor_stock_analyst_path %>'}]
+          },
+          { title: 'Newsroom'               , action: 'news' , url: '#' , sublink: true , suburl:[
+            {text:'IR Calendar'      , url:'<%= investor_news_calendar_path %>'},
+            {text:'SET Notification' , url:'<%= investor_news_set_path %>'},
+            {text:'News Clippings'   , url:'<%= investor_news_path %>'}]
+          },
+          { title: 'Information Request'    , action: 'contact' , url: '#' , sublink: true , suburl:[
+            {text: 'Email Alerts' , url:'<%= investor_contact_email_path %>'},
+            {text: 'IR Contact'   , url:'<%= investor_contact_path %>'}]
+          }
         ],
         body: {
           theme: 'is-info',
