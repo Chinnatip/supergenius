@@ -128,13 +128,19 @@ Vue.component('tableBlog',{
       </thead>
       <tbody>
         <!-- normal table ><-->
-        <tr v-for="(td,index) in table.tbody" v-if=" table.bodytype == 'list'" v-bind:class="{ '_highlight': td.highlight }">
-          <td v-if="td.index">
+        <tr
+          v-for="(td,index) in table.tbody"
+          v-if=" table.bodytype == 'list'"
+          v-bind:class="{ '_highlight': td.highlight }"
+        >
+          <td
+            v-if="td.index"
+            :colspan="td.colspan">
             <span v-if="td.index">
               <span v-if="!td.noindex">{{index + 1}}</span>
             </span>
           </td>
-          <td v-for="c in td.text" >{{c}}</td>
+          <td v-for="c in td.text" :colspan="td.colspan">{{c}}</td>
         </tr>
         <!-- download table ><-->
         <tr v-for="(td,index) in table.tbody" v-if=" table.bodytype == 'download'">
@@ -144,7 +150,7 @@ Vue.component('tableBlog',{
       </tbody>
       <tfoot v-if="table.tfoot.length > 0">
         <tr>
-          <th v-for="l in table.tfoot">{{l.title}}</th>
+          <th v-for="l in table.tfoot" :colspan="l.colspan" >{{l.title}}</th>
         </tr>
       </tfoot>
     </table>

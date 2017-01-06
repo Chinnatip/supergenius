@@ -1,1 +1,32 @@
-analyst
+<div id="app">
+  <blog-header  :data="header" ></blog-header>
+  <table-blog   :table="table"></table-blog>
+</div>
+
+<script type="text/javascript">
+</script>
+
+<!-- Include JAVASCRIPT here ><-->
+<script src="/js/investor.js"></script>
+<script type="text/javascript">
+  var app = new Vue({
+    el: '#app',
+    data: {
+      header: 'รายชื่อนักวิเคราะห์',
+      table: {
+        hint:{ check: false},
+        headtype: '',
+        thead:[
+          { title: 'บริษัทหลักทรัพย์'},
+          { title: 'ชื่อ-สกุล'},
+          { title: 'ติดต่อ'},
+        ],
+        tfoot:[],
+        bodytype: 'list',
+        tbody:[
+          { text: ['บริษัทหลักทรัพย์ ไอร่า จำกัด (มหาชน)',	'คุณอรณิชา เลิศสัจจานันท์',	'โทรศัพท์: 02 684 8798'  ] },
+        ]
+      }
+    }
+  });
+</script>

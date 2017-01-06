@@ -1,2 +1,27 @@
-<h1>Investor#stock</h1>
-<p>Find me in app/views/investor/stock.html.erb</p>
+<div id="app">
+  <blog-header :data="header"></blog-header>
+  <blog-quote :stock="stock"></blog-quote>
+  <hr>
+</div>
+
+<!-- Include JAVASCRIPT here ><-->
+<script src="/js/investor.js"></script>
+<script type="text/javascript">
+  var app = new Vue({
+    el: '#app',
+    data: {
+      header: 'ราคาหลักทรัพย์',
+      stock: {
+        quote:"BBL",
+        price:"22.50",
+        volumn:"3,165,900",
+        date:"4 มค. 2560 15:44",
+        high:"22.60",
+        low:"22.30",
+        highyear:"24.00",
+        lowyear:"21.20",
+        link:"#"
+      }
+    }
+  });
+</script>

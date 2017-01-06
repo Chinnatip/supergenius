@@ -1,1 +1,14 @@
-concensus
+<div id="app">
+  <blog-header :data="header"></blog-header>
+</div>
+
+<!-- Include JAVASCRIPT here ><-->
+<script src="/js/investor.js"></script>
+<script type="text/javascript">
+  var app = new Vue({
+    el: '#app',
+    data: {
+      header: 'ราคาตลาด และมูลค่าตามราคาตลาดของบริษัท',
+    }
+  });
+</script>
