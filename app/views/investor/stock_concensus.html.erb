@@ -1,14 +1,33 @@
 <div id="app">
   <blog-header :data="header"></blog-header>
 </div>
+<section class="is-light is-medium">
+  <div class="hero-body container">
+    <div id="chart" style="width: 80%; height: 480px; margin:auto"></div>
+  </div>
+</section>
 
 <!-- Include JAVASCRIPT here ><-->
 <script src="/js/investor.js"></script>
 <script type="text/javascript">
+  //app config
   var app = new Vue({
     el: '#app',
     data: {
       header: 'ราคาตลาด และมูลค่าตามราคาตลาดของบริษัท',
     }
   });
+  //graph config
+  var myChart = echarts.init(document.getElementById('chart'));
+  var option = {
+      title: { text: 'ราคาล่าสุด | PSH' },
+      xAxis: {data: ["2012","2013","2014","2015","2016","2017"]},
+      yAxis: {},
+      series: [{
+          name: 'ราคาหุ้น(บาท)',
+          type: 'bar',
+          data: [5, 20, 36, 10, 10, 20]
+      }]
+  };
+  myChart.setOption(option);
 </script>

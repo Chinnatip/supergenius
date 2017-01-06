@@ -52,6 +52,7 @@ GEM
     coffee-script-source (1.12.2)
     concurrent-ruby (1.0.3)
     debug_inspector (0.0.2)
+    echarts-rails (0.1.6)
     erubis (2.7.0)
     execjs (2.7.0)
     ffi (1.9.14)
@@ -162,6 +163,7 @@ DEPENDENCIES
   bulma-rails (~> 0.2.3)
   byebug
   coffee-rails (~> 4.2)
+  echarts-rails (~> 0.1.6)
   font-awesome-rails
   jbuilder (~> 2.5)
   jquery-rails

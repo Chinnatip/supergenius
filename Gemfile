@@ -18,6 +18,9 @@ gem "font-awesome-rails"
 # Use Postgres
 gem 'pg'
 
+# Use ECHART for cool graph
+gem 'echarts-rails', '~> 0.1.6'
+
 # Use Puma as the app server
 gem 'puma', '~> 3.0'
 # Use SCSS for stylesheets

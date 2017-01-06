@@ -1,4 +1,8 @@
 class HomeController < ApplicationController
+  def celebrity
+    render :layout => 'standalone'
+  end
+
   def index
   end
 

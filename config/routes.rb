@@ -7,6 +7,7 @@ Rails.application.routes.draw do
   get 'home/comp'
   get 'home/reddit'
   get 'home/single'
+  get 'home/celebrity'
 
   #investor page
   get 'investor/index'
@@ -33,7 +34,7 @@ Rails.application.routes.draw do
   get 'page/news'
   get 'page/contact'
 
-  root 'home#single'
+  root 'home#celebrity'
   #root 'home#reddit'
   #root 'home#comp'
   #root 'home#playground'
