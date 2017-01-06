@@ -12,7 +12,7 @@
   <body>
     <div id="cHeader">
       <section class="hero is-medium" v-bind:class="[body.theme]">
-        <nav-bar   :nav="nav" :body="body" ></nav-bar>
+        <nav-bar   :nav="nav" :body="body" :active="url_controller" ></nav-bar>
         <span v-if=" url_action == 'index' ">
           <hero-body :text="body"></hero-body>
         </span>
@@ -38,14 +38,14 @@
 
       <%= yield %>
     <div id="cFooter">
-      <footer-copy :year="footer.year" :company="footer.company"></footer-copy>
+      <footer-site :footer="footer"></footer-site>
     </div>
   </body>
   <!-- Include JAVASCRIPT here ><-->
   <script src="/js/body.js"></script>
   <script src="/js/slider.js"></script>
   <script src="/js/stockir.js"></script>
-  <script src="/js/footer.js"></script>
+  <script src="/js/footer_site.js"></script>
   <script src="/js/app-data.js"></script>
 
   <script type="text/javascript">
@@ -62,6 +62,7 @@
       },
       data: {
         url_action: '<%= controller.action_name %>' ,
+        url_controller: '<%= controller.controller_name %>' ,
         iLinks:[
           { title: 'Investor Relations'     , action: 'index' , url: '<%= investor_index_path %>' , sublink: false },
           { title: 'Financial Information'  , action: 'financial' , url: '<%= investor_financial_path %>' , sublink: false },
@@ -104,18 +105,22 @@
           links: [
             {
               title: 'About us',
+              controller: 'about',
               link: "<%= page_about_path %>",
               target: ''
             },{
               title: 'Investor relationship',
+              controller: 'investor',
               link: "<%= investor_index_path %>",
               target: ''
             },{
               title: 'News & Activities',
+              controller: 'new',
               link: "<%= page_news_path %>",
               target: ''
             },{
               title: 'Contact',
+              controller: 'contact',
               link: "<%= page_contact_path %>",
               target: ''
             }
@@ -131,9 +136,40 @@
     var foot = new Vue({
       el: '#cFooter',
       data: {
-        footer: {
-          year: '2016',
-          company: '-KOH-Coporate.co.ltd'
+        footer:{
+          contacts:[
+            {icon: 'fa-facebook-official' , url: '#'},
+            {icon: 'fa-envelope' , url: '#'},
+            {icon: 'fa-phone-square' , url: '#'}
+          ],
+          languages: [
+            {native: 'THAI' , url: '#'},
+            {native: 'ENGLISH' , url: '#'}
+          ],
+          sites: [
+            {
+              //first list
+              head : 'First list',
+              lists:[
+                { content: 'click me', url: '#' },
+                { content: 'click me', url: '#' },
+                { content: 'click me', url: '#' }
+              ]
+            },{
+              //second list
+              head : 'Second list',
+              lists:[
+                { content: 'click me', url: '#' },
+                { content: 'click me', url: '#' },
+              ]
+            },{
+              //third list
+              head : 'Last list',
+              lists:[
+                { content: 'click me', url: '#' },
+              ]
+            }
+          ]
         }
       }
     });

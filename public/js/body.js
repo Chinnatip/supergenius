@@ -11,11 +11,14 @@ Vue.component('navBar',{
           </a>
         </div>
         <div class="nav-right nav-menu">
-          <span v-for="l in nav.links" style="display: flex; align-items: center">
-            <a :href="l.link" :target="l.target" class="nav-item">
+            <a class="nav-item"
+              v-for="l in nav.links"
+              :href="l.link"
+              :target="l.target"
+              v-bind:class="{active : checkActive( active , l.controller )}"
+            >
               {{l.title}}
             </a>
-          </span>
           <span class="nav-item">
             <a target="_blank" :href="nav.backLink.link" class="button is-inverted" v-bind:class="[body.theme]">
               <span class="icon">
@@ -29,7 +32,18 @@ Vue.component('navBar',{
     </header>
   </div>
   `,
-  props: ['nav','body']
+  props: ['nav','body','active'],
+  methods: {
+    checkActive: function( a,b ) {
+      console.log(b);
+      console.log(a);
+      if (a == b) {
+        return true
+      }else{
+        return false
+      }
+    }
+  },
 });
 
 Vue.component('heroBody',{

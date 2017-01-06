@@ -1,4 +1,7 @@
 class PageController < ApplicationController
+
+  layout 'page'
+
   def about
   end
 

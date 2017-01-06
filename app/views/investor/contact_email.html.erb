@@ -1,1 +1,67 @@
-email pusher
+<div id="app">
+  <blog-header  :data="header" ></blog-header>
+  <content-simple :content="head"></content-simple>
+  <div class="_simple_container">
+    <div class="container _input_form">
+      <div class="control is-grouped">
+        <p class="control is-expanded">
+          <label class="label">อิเมล์</label>
+          <input class="input" type="text" placeholder="Insert your email">
+        </p>
+        <p class="control is-expanded">
+          <label class="label">ชื่อ-สกุล</label>
+          <input class="input" type="email" placeholder="Insert your name">
+        </p>
+      </div>
+
+      <div class="control is-grouped">
+        <p class="control is-expanded">
+          <label class="label">ประเทศ</label>
+          <input class="input" type="text" placeholder="Insert your country">
+        </p>
+        <p class="control is-expanded">
+          <label class="label">อาชีพ</label>
+          <input class="input" type="email" placeholder="Insert your job">
+        </p>
+      </div>
+
+      <div class="control is-grouped">
+        <p class="control is-expanded">
+          <label class="label">ตำแหน่งงาน</label>
+          <input class="input" type="text" placeholder="Insert your works">
+        </p>
+        <p class="control is-expanded">
+          <label class="label">อุตสาหกรรม</label>
+          <input class="input" type="email" placeholder="Insert your industry">
+        </p>
+      </div>
+
+      <p class="control">
+        <button class="button is-info">สมัครสมาชิกรับข่าวสาร</button>
+      </p>
+
+    </div>
+  </div>
+  <content-simple :content="foot"></content-simple>
+</div>
+
+<script type="text/javascript">
+
+</script>
+
+<!-- Include JAVASCRIPT here ><-->
+<script src="/js/investor.js"></script>
+<script type="text/javascript">
+  var app = new Vue({
+    el: '#app',
+    data: {
+      header: 'อีเมล์รับข่าวสาร',
+      head:[
+        { ex:'text',text:'ท่านสามารถลงทะเบียนเพื่อรับข่าวสารอิเล็กทรอนิกส์ เราจะส่งข่าวสารให้ท่านทาง อีเมล์ เมื่อมีข่าวสารที่เกี่ยวกับบริษัท (ประกาศ, ปรับปรุงเว็บไซต์) ที่ประกาศผ่านเว็บไซต์นี้เพื่อลงทะเบียนรับข้อมูลข่าวสารอิเล็กทรอนิกส์กรุณากรอกรายละเอียด ของท่านและคลิกปุ่ม “สมัครสมาชิกรับข่าวสาร”'},
+      ],
+      foot:[
+        { ex:'text',text:'หมายเหตุ: หากท่านต้องการยกเลิกข่าวสารอิเล็กทรอนิกส์จาก โปรดคลิกที่นี่'},
+      ]
+    }
+  });
+</script>

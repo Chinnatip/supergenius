@@ -1,2 +1,61 @@
-<h1>Investor#contact</h1>
-<p>Find me in app/views/investor/contact.html.erb</p>
+<div id="app">
+  <blog-header  :data="header" ></blog-header>
+  <div class="_simple_container">
+    <div class="container _input_form">
+      <div class="control is-grouped">
+        <p class="control is-expanded">
+          <label class="label">อิเมล์</label>
+          <input class="input" type="text" placeholder="Insert your email">
+        </p>
+        <p class="control is-expanded">
+          <label class="label">ชื่อ-สกุล</label>
+          <input class="input" type="email" placeholder="Insert your name">
+        </p>
+      </div>
+
+      <div class="control is-grouped">
+        <p class="control is-expanded">
+          <label class="label">โทรศัพท์</label>
+          <input class="input" type="text" placeholder="Insert your tel. number">
+        </p>
+        <p class="control is-expanded">
+          <label class="label">โทรสาร</label>
+          <input class="input" type="email" placeholder="Insert your fax. number">
+        </p>
+      </div>
+
+      <div class="control is-grouped">
+        <p class="control is-expanded">
+          <label class="label">ข้อความ</label>
+          <textarea class="textarea" placeholder="Textarea"></textarea>
+
+        </p>
+      </div>
+
+      <div class="control is-grouped">
+        <p class="control">
+          <button class="button is-info">ส่งข้อความ</button>
+        </p>
+        <p class="control">
+          <button class="button is-info-o">ยกเลิก</button>
+        </p>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<script type="text/javascript">
+
+</script>
+
+<!-- Include JAVASCRIPT here ><-->
+<script src="/js/investor.js"></script>
+<script type="text/javascript">
+  var app = new Vue({
+    el: '#app',
+    data: {
+      header: 'ติดต่อนักลงทุนสัมพันธ์',
+    }
+  });
+</script>

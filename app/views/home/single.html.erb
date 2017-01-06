@@ -11,7 +11,6 @@
 
   <!-- footer ><-->
   <black-ribbon></black-ribbon>
-  <footer-site :footer="footer"></footer-site>
 </div>
 
 <!-- Include JAVASCRIPT here ><-->
@@ -89,41 +88,6 @@
         { head: 'email'    , icon: 'fa-envelope'         , url: 'mailto:chinnatip@me.com' , content: 'chinnatip@me.com'},
         { head: 'telephone', icon: 'fa-phone-square'     , url: 'tel:+66909847814' ,content: '090.984.7814'}
       ],
-      footer:{
-        contacts:[
-          {icon: 'fa-facebook-official' , url: '#'},
-          {icon: 'fa-envelope' , url: '#'},
-          {icon: 'fa-phone-square' , url: '#'}
-        ],
-        languages: [
-          {native: 'THAI' , url: '#'},
-          {native: 'ENGLISH' , url: '#'}
-        ],
-        sites: [
-          {
-            //first list
-            head : 'First list',
-            lists:[
-              { content: 'click me', url: '#' },
-              { content: 'click me', url: '#' },
-              { content: 'click me', url: '#' }
-            ]
-          },{
-            //second list
-            head : 'Second list',
-            lists:[
-              { content: 'click me', url: '#' },
-              { content: 'click me', url: '#' },
-            ]
-          },{
-            //third list
-            head : 'Last list',
-            lists:[
-              { content: 'click me', url: '#' },
-            ]
-          }
-        ]
-      }
     }
   });
 </script>

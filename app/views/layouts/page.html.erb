@@ -14,7 +14,6 @@
     <div id="cHeader">
       <section class="hero" v-bind:class="[body.theme,body.size]">
         <nav-bar   :nav="nav" :body="body" :active="url_action" ></nav-bar>
-        <hero-slider :slider="sliders" :choice="choice" ></hero-slider>
       </section>
     </div>
 
@@ -24,13 +23,12 @@
     <!-- footer ><-->
     <div id="cFooter">
       <footer-site :footer="footer"></footer-site>
-      <footer-copy :year="footerBottom.year" :company="footerBottom.company"></footer-copy>
     </div>
 
     <!-- Include JAVASCRIPT here ><-->
     <script src="/js/body.js"></script>
     <script src="/js/slider.js"></script>
-    <script src="/js/footer.js"></script>
+    <script src="/js/footer_site.js"></script>
     <script type="text/javascript">
       //component of header
       var header = new Vue({
@@ -90,10 +88,6 @@
       var comp = new Vue({
         el: '#cFooter',
         data: {
-          footerBottom: {
-            year: '2016',
-            company: '-KOH-Coporate.co.ltd'
-          },
           footer:{
             contacts:[
               {icon: 'fa-facebook-official' , url: '#'},
