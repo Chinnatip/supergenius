@@ -18,17 +18,18 @@
       </section>
     </div>
 
-
     <%= yield %>
 
     <!-- footer ><-->
+
     <div id="cFooter">
+      <black-ribbon></black-ribbon>
       <footer-site :footer="footer"></footer-site>
-      <footer-copy :year="footerBottom.year" :company="footerBottom.company"></footer-copy>
     </div>
 
     <!-- Include JAVASCRIPT here ><-->
     <script src="/js/body.js"></script>
+    <script src="/js/ribbon.js"></script>
     <script src="/js/slider.js"></script>
     <script src="/js/footer.js"></script>
     <script type="text/javascript">
@@ -102,10 +103,6 @@
       var comp = new Vue({
         el: '#cFooter',
         data: {
-          footerBottom: {
-            year: '2016',
-            company: '-KOH-Coporate.co.ltd'
-          },
           footer:{
             contacts:[
               {icon: 'fa-facebook-official' , url: '#'},
