@@ -1,5 +1,11 @@
 @import "variable"
 
+.container
+  .title
+  .subtitle
+    max-width: 70%
+    margin: auto
+
 ._simple_container
   padding: 10px 84px !important
   margin-top: 0px
@@ -11,10 +17,12 @@
   ul
     padding: 0 20px 18px
     list-style-type: circle
-
     li
       font-size: 18px
       padding: 8px 0
+  ._text_column
+    font-size: 16px
+    margin-bottom: 10px !important
 
 ._body_quote
   padding: 28px 84px !important
@@ -88,6 +96,9 @@
     width: 100%
     padding: 20px 0
     position: relative
+    &.center
+      max-width: 840px
+      margin: auto
     h1
       font-size: 28px
       padding-bottom: 6px
@@ -99,6 +110,11 @@
       margin-top: 33px
       font-size: 20px
       max-width: 60%
+    h4
+      max-width: 60%
+      font-size: 16px
+      margin-bottom: 10px
+
     a
       color: $text-is-info
       font-size: 18px
@@ -148,14 +164,22 @@
 
 ._news_cube
   display: inline-block
-  width: 280px
-  height: 280px
+  width: 254px
+  height: 254px
   background: #eaeaea
   padding: 22px
   text-decoration: none
   position: relative
   vertical-align: bottom
-  margin: 0 4px 4px 0
+  margin: 0 6px 6px 0
+  &.staff
+    h1
+      font-size: 16px
+      margin: 76% 0 0
+      color: #2d2d2d
+      &:before
+        bottom: 34%
+        top: inherit !important
   h1
     font-size: 22px
     margin: 28px 0px 18px

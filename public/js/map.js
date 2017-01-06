@@ -19,6 +19,17 @@ Vue.component('mapping' , {
   props: ['map']
 });
 
+Vue.component('mapCenter' , {
+  template: `
+  <section class="_hero_map hero is-light is-light" style="height:600px">
+    <div class="content">
+      <div id="map" class="_fullscreen" ></div>
+    </div>
+  </section>
+  `,
+  props: ['map']
+});
+
 function initMap(lat,lng) {
   var marker = {lat:  13.79184, lng: 100.4236};
   var map = new google.maps.Map(document.getElementById('map'), {

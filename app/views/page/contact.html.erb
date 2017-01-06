@@ -1,2 +1,38 @@
-<h1>Page#contact</h1>
-<p>Find me in app/views/page/contact.html.erb</p>
+<div id="app">
+  <blog-header  :data="header" ></blog-header>
+  <content-simple :content="content"></content-simple>
+  <map-center></map-center>
+</div>
+
+<script type="text/javascript">
+
+</script>
+
+<!-- Include JAVASCRIPT here ><-->
+<script src="/js/investor.js"></script>
+<script src="/js/map.js"></script>
+<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCdUSDSheJVPKt2eCrJE1sZEx3cAud_aT0&callback=initMap"> </script>
+<script type="text/javascript">
+  var app = new Vue({
+    el: '#app',
+    data: {
+      header: 'ข้อมูลการติดต่อ',
+      contact: [
+        { head: 'address'  , icon: 'fa-map-marker', url: '#', content: '114/13 Phra-a-thit rd, Chanasongkram, Phranakorn, Bangkok 10200'},
+        { head: 'facebook' , icon: 'fa-facebook-official', url: 'http://www.facebook.com/zinatip', content: 'www.facebook.com/zinatip'},
+        { head: 'email'    , icon: 'fa-envelope'         , url: 'mailto:chinnatip@me.com' , content: 'chinnatip@me.com'},
+        { head: 'telephone', icon: 'fa-phone-square'     , url: 'tel:+66909847814' ,content: '090.984.7814'}
+      ],
+      content:[
+        { ex:'text'   ,text:'บริษัท พฤกษา โฮลดิ้ง จำกัด (มหาชน)'},
+        { ex:'text'   ,text:'ชั้น 27 อาคารเอสเอ็ม ทาวเวอร์ 979/83 ถ.พหลโยธิน แขวงสามเสนใน เขตพญาไท กรุงเทพฯ 10400'},
+        { ex:'column' ,text:['คุณ จิรโรจน์ เจริญรุ่งจิรานนท์','T. +66-2-2980101 Ext. 1107']},
+        { ex:'column' ,text:['คุณ วรัฏฐา ยงเจริญ','T. +66-2-2980793']},
+        { ex:'column' ,text:['คุณ อมรรัตน์ เจนจัดการ','T. +66-2-2980101 Ext. 1615']},
+        { ex:'text'   ,text:'F. +66-2-2980789'},
+        { ex:'text'   ,text:'E. jiraroj_c@pruksa.com, varutha_y@pruksa.com, amornrat_c@pruksa.com'},
+      ]
+
+    }
+  });
+</script>

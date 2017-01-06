@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>VueSample</title>
+    <title>-KOH-Corporate</title>
     <%= csrf_meta_tags %>
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application' %>
@@ -45,15 +45,27 @@
             sub:   'Vuejs 2.1.6 | Bulma 0.2.3 | Rails 5.0.0'
           },
           sliders: [
-            { title: 'Vue&Bulma in Rails stack', subtitle: 'scroll down to learn how good of component world',tab: 'tab1'},
-            { title: 'Hey this is SECOND TAB', subtitle: 'are you ok with this ?',tab: 'tab2'},
-            { title: 'I beleive I can fly', subtitle: 'Osmosis ',tab: 'tab3'},
+            {
+              title: 'บริษัท พฤกษา โฮลดิ้ง จำกัด (มหาชน)',
+              subtitle: 'PSH มุ่งมั่นที่จะเป็นบริษัทอสังหาริมทรัพย์ชั้นนำของประเทศไทย ที่มีธุรกิจและบริการที่หลากหลายเพื่อตอบสนองรูปแบบการดำเนินชีวิตสมัยใหม่ และสามารถตอบโจทย์ทุกความต้องการของลูกค้าได้อย่างครบถ้วน',
+              tab: 'tab1'
+            },
+            {
+              title: 'Hey this is SECOND TAB',
+              subtitle: 'are you ok with this ?',
+              tab: 'tab2'
+            },
+            {
+              title: 'I beleive I can fly',
+              subtitle: 'Osmosis ',
+              tab: 'tab3'
+            },
           ],
           slider: false ,
           choice: 'tab1',
           nav: {
             brand: 'https://s29.postimg.org/5xtetqw6v/vbr.png',
-            brandLink: "<%= root_path %>",
+            brandLink: "<%= home_index_path %>",
             links: [
               {
                 title: 'About us',

@@ -7,6 +7,9 @@ Vue.component('contentSimple',{
           <ul v-if="t.ex == 'list'">
             <li v-for="l in t.set">{{l}}</li>
           </ul>
+          <div v-if="t.ex == 'column'" class="columns _text_column">
+            <div class="column" v-for="p in t.text">{{p}}</div>
+          </div>
         </div>
       </div>
     </div>
@@ -31,15 +34,16 @@ Vue.component('blogJumbo',{
   template: `
   <section class="is-medium _body_jumbo">
     <div class="hero-body container">
-      <div class="__body">
+      <div class="__body" :class="blogstyle">
         <h1>{{data.title}}</h1>
         <h2>{{data.desc}}</h2>
-        <a v-if="data.link > 0" :href="data.href" :class="data.linkclass">{{data.link}}</a>
+        <h4 v-for="d in data.text">{{d}}</h4>
+        <a v-if="data.hasLink" :href="data.href" :class="data.linkclass">{{data.link}}</a>
       </div>
     </div>
   </section>
   `,
-  props: ['data']
+  props: ['data','blogstyle']
 });
 
 Vue.component('blogQuote',{
@@ -218,12 +222,12 @@ Vue.component('squareGrid',{
   template: `
   <div class="_simple_container">
     <div class="container">
-      <a class="_news_cube" v-for="n in news" :href="n.url">
+      <a class="_news_cube" v-for="n in news" :href="n.url" v-bind:class="[styler]">
           <h1>{{n.head}}</h1>
           <h3>{{n.date}}</h3>
       </a>
     </div>
   </div>
   `,
-  props:['news']
+  props:['news','styler']
 });

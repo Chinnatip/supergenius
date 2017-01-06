@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>VueSample</title>
+    <title>-KOH-Corporate</title>
     <%= csrf_meta_tags %>
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application' %>
@@ -14,6 +14,22 @@
     <div id="cHeader">
       <section class="hero" v-bind:class="[body.theme,body.size]">
         <nav-bar   :nav="nav" :body="body" :active="url_action" ></nav-bar>
+        <span>
+          <hero-body :text="selectContent"></hero-body>
+        </span>
+        <header class="nav _nav_affix">
+            <div class="columns" style="width:100%">
+              <span class="column"
+                v-if="url_action == 'about'"
+                v-for="l in iLinks"
+                v-bind:class="['active']"
+              >
+                <span>
+                  <a :href="l.url">{{l.title}}</a>
+                </span>
+              </span>
+            </div>
+        </header>
       </section>
     </div>
 
@@ -33,15 +49,38 @@
       //component of header
       var header = new Vue({
         el: '#cHeader',
+        computed: {
+          selectContent: function(){
+            for (var i = 0; i < this.content.length; i++) {
+              var select ;
+              if (this.content[i].key == this.url_action) {
+                select = i ;
+              }
+            }
+            return this.content[select]
+          }
+        },
         data: {
           url_action: '<%= controller.action_name %>' ,
           url_controller: '<%= controller.controller_name %>' ,
           body: {
             theme: 'is-info',
-            size:  'is-large',
-            title: 'Vue&Bulma sample with Rails stack',
-            sub:   'Vuejs 2.1.6 | Bulma 0.2.3 | Rails 5.0.0'
+            size:  'is-medium',
           },
+          iLinks:[
+            { title: 'ประวัติบริษัท'          ,action:'' , url: 'index' },
+            { title: 'วิสัยทัศน์ พันธกิจ' ,action:'' , url: 'index' },
+            { title: 'การประกอบธุรกิจ'      ,action:'' , url: 'index' },
+            { title: 'โครงสร้างธุรกิจ'       ,action:'' , url: 'index' },
+            { title: 'โครงสร้างองค์กร'      ,action:'' , url: 'index' },
+            { title: 'คณะกรรมการบริษัท'     ,action:'' , url: 'index' },
+            { title: 'CORPORATE IDENTITY' ,action:'' , url: 'index' },
+          ],
+          content: [
+            { key: 'about'   , title: 'เกี่ยวกับเรา' , sub: 'PSH มุ่งมั่นที่จะเป็นบริษัทอสังหาริมทรัพย์ชั้นนำของประเทศไทย ที่มีธุรกิจและบริการที่หลากหลายเพื่อตอบสนองรูปแบบการดำเนินชีวิตสมัยใหม่ และสามารถตอบโจทย์ความต้องการของลูกค้าได้อย่างครบถ้วน',},
+            { key: 'news'    , title: 'ข่าวและกิจกรรม', sub: 'PSH มุ่งมั่นที่จะเป็นบริษัทอสังหาริมทรัพย์ชั้นนำของประเทศไทย ที่มีธุรกิจและบริการที่หลากหลายเพื่อตอบสนองรูปแบบการดำเนินชีวิตสมัยใหม่ และสามารถตอบโจทย์ทุกความต้องการของลูกค้าได้อย่างครบถ้วน',},
+            { key: 'contact' , title: 'ติดต่อเรา'     , sub: 'PSH มุ่งมั่นที่จะเป็นบริษัทอสังหาริมทรัพย์ชั้นนำของประเทศไทย ที่มีธุรกิจและบริการที่หลากหลายเพื่อตอบสนองรูปแบบการดำเนินชีวิตสมัยใหม่ และสามารถตอบโจทย์ทุกความต้องการของลูกค้าได้อย่างครบถ้วน',},
+          ],
           sliders: [
             { title: 'Vue&Bulma in Rails stack', subtitle: 'scroll down to learn how good of component world',tab: 'tab1'},
             { title: 'Hey this is SECOND TAB', subtitle: 'are you ok with this ?',tab: 'tab2'},
@@ -51,7 +90,7 @@
           choice: 'tab1',
           nav: {
             brand: 'https://s29.postimg.org/5xtetqw6v/vbr.png',
-            brandLink: "<%= root_path %>",
+            brandLink: "<%= home_index_path %>",
             links: [
               {
                 title: 'About us',
