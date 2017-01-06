@@ -1,1 +1,34 @@
-holder
+<div id="app">
+  <blog-header  :data="header" ></blog-header>
+  <table-blog   :table="table"></table-blog>
+
+</div>
+
+<script type="text/javascript">
+</script>
+
+<!-- Include JAVASCRIPT here ><-->
+<script src="/js/investor.js"></script>
+<script type="text/javascript">
+  var app = new Vue({
+    el: '#app',
+    data: {
+      header: 'การประชุมผู้ถือหุ้น',
+      table: {
+        hint:{ check: false},
+        headtype: '',
+        thead:[
+          { title: 'เอกสาร'},
+          { title: ''},
+        ],
+        tfoot:[],
+        bodytype: 'download',
+        tbody:[
+          { text: ['หลักเกณฑ์และเงื่อนไขการใช้สิทธิของผู้ถือหุ้นรายย่อย ในการเสนอระเบียบวาระการประชุมสามัญผู้ถือหุ้น และเสนอชื่อบุคคลเพื่อเลือกตั้งเป็นกรรมการ สำหรับการประชุมสามัญผู้ถือหุ้นประจำปีของบริษัทล่วงหน้า', '#'] },
+          { text: ['แบบเสนอระเบียบวาระการประชุม การประชุมสามัญผู้ถือหุ้นประจำปี 2560	',	'#'] },
+        	{ text: ['แบบเสนอชื่อบุคคลเพื่อเข้ารับการเลือกตั้งเป็นกรรมการ การประชุมสามัญผู้ถือหุ้นประจำปี 2560',	'#'] },
+        ]
+      }
+    }
+  });
+</script>

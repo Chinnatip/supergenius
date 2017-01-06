@@ -1,3 +1,19 @@
+Vue.component('contentSimple',{
+  template: `
+    <div class="_simple_container">
+      <div class="container">
+        <div v-for="t in content">
+          <p v-if="t.ex == 'text'">{{t.text}}</p>
+          <ul v-if="t.ex == 'list'">
+            <li v-for="l in t.set">{{l}}</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  `,
+  props: ['content']
+});
+
 Vue.component('blogHeader',{
   template: `
   <section class="is-medium _body_header">
@@ -18,7 +34,7 @@ Vue.component('blogJumbo',{
       <div class="__body">
         <h1>{{data.title}}</h1>
         <h2>{{data.desc}}</h2>
-        <a :href="data.href" :class="data.linkclass">{{data.link}}</a>
+        <a v-if="data.link > 0" :href="data.href" :class="data.linkclass">{{data.link}}</a>
       </div>
     </div>
   </section>
@@ -98,24 +114,35 @@ Vue.component('tableRating',{
 Vue.component('tableBlog',{
   template: `
   <section class="is-medium _body_table">
-    <div class="_content">
-      ณ วันที่ 29 พฤศจิกายน 2559
+    <div class="_content" v-if="table.hint.check">
+      {{table.hint.text}}
     </div>
     <table class="table">
       <thead>
-        <tr>
-          <th v-for="l in table.thead">{{l.title}}</th>
+        <tr v-if="table.headtype == 'special'" v-for="set in table.thead">
+          <th v-for="t in set.tr" :colspan="t.colspan" :rowspan="t.rowspan" >{{t.text}}</th>
+        </tr>
+        <tr v-if="table.headtype == ''">
+          <th v-for="t in table.thead">{{t.title}}</th>
         </tr>
       </thead>
       <tbody>
-        <tr v-for="(td,index) in table.tbody">
-          <td>{{index + 1}}</td>
-          <td>{{td.content[0]}}</td>
-          <td>{{td.content[1]}}</td>
-          <td>{{td.content[2]}}</td>
+        <!-- normal table ><-->
+        <tr v-for="(td,index) in table.tbody" v-if=" table.bodytype == 'list'" v-bind:class="{ '_highlight': td.highlight }">
+          <td v-if="td.index">
+            <span v-if="td.index">
+              <span v-if="!td.noindex">{{index + 1}}</span>
+            </span>
+          </td>
+          <td v-for="c in td.text" >{{c}}</td>
+        </tr>
+        <!-- download table ><-->
+        <tr v-for="(td,index) in table.tbody" v-if=" table.bodytype == 'download'">
+          <td>{{td.text[0]}}</td>
+          <td><a class="button" :href="td.text[1]">ดาวโหลด</a></td>
         </tr>
       </tbody>
-      <tfoot>
+      <tfoot v-if="table.tfoot.length > 0">
         <tr>
           <th v-for="l in table.tfoot">{{l.title}}</th>
         </tr>

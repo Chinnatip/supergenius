@@ -1,5 +1,22 @@
 @import "variable"
 
+._simple_container
+  padding: 10px 84px !important
+  margin-top: 0px
+  .container
+    margin: 0 2%
+  p
+    font-size: 16px
+    margin-bottom: 20px
+  ul
+    padding: 0 20px 18px
+    list-style-type: circle
+
+    li
+      font-size: 18px
+      padding: 8px 0
+
+
 ._body_quote
   padding: 28px 84px !important
   .columns
@@ -48,6 +65,11 @@
     select
       margin-left: 4px
       vertical-align: baseline
+  table
+    tr._highlight
+      background-color: #eaeaea
+
+
 
 ._body_header
   padding: 0 84px !important
@@ -56,6 +78,11 @@
 
 ._body_jumbo
   padding: 40px 84px !important
+
+._body_jumbo_notop
+  padding: 0 84px !important
+  &.__top_to_blog
+    margin-top: -90px
 
 ._body_jumbo, ._body_header
   .__body
@@ -84,3 +111,26 @@
         position: absolute
         top: 50%
         right: 0px
+
+._collapsiv
+  ._header
+    background: #e2e2e2
+    padding: 12px 24px
+    font-size: 21px
+    margin-bottom: 10px
+  ._content
+    margin-top: -10px
+    border: 1px solid #d2d2d2
+    padding: 22px 5%
+    margin-bottom: 14px
+    ._blog
+      .__blog_data
+        font-size: 17px
+        margin-bottom: 8px
+      .header
+        color: $text-is-info
+        font-size: 20px
+        font-weight: 500
+        margin: 36px 4px 10px
+        &:first-child
+          margin-top: 16px
