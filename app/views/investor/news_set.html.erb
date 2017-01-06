@@ -1,1 +1,32 @@
-set news
+<div id="app">
+  <blog-header  :data="header" ></blog-header>
+  <square-grid  :news="news"></square-grid>
+</div>
+
+<script type="text/javascript">
+</script>
+
+<!-- Include JAVASCRIPT here ><-->
+<script src="/js/investor.js"></script>
+<script type="text/javascript">
+  var app = new Vue({
+    el: '#app',
+    data: {
+      header: 'สารสนเทศถึง ตลท.',
+      news: [
+        { head: 'เเจ้งกรรมการบริษัทลาออก', date: '4 มกราคม 2559', url:'#'},
+        { head: ' กำหนดวันหยุดตามประเพณีประจำปี', date: '8 ธันวาคม 2559', url:'#'},
+        { head: 'เเจ้งกรรมการบริษัทลาออก', date: '4 มกราคม 2559', url:'#'},
+        { head: ' กำหนดวันหยุดตามประเพณีประจำปี', date: '8 ธันวาคม 2559', url:'#'},
+        { head: 'เเจ้งกรรมการบริษัทลาออก', date: '4 มกราคม 2559', url:'#'},
+        { head: ' กำหนดวันหยุดตามประเพณีประจำปี', date: '8 ธันวาคม 2559', url:'#'},
+        { head: 'เเจ้งกรรมการบริษัทลาออก', date: '4 มกราคม 2559', url:'#'},
+        { head: ' กำหนดวันหยุดตามประเพณีประจำปี', date: '8 ธันวาคม 2559', url:'#'},
+        { head: 'เเจ้งกรรมการบริษัทลาออก', date: '4 มกราคม 2559', url:'#'},
+        { head: ' กำหนดวันหยุดตามประเพณีประจำปี', date: '8 ธันวาคม 2559', url:'#'},
+        { head: 'เเจ้งกรรมการบริษัทลาออก', date: '4 มกราคม 2559', url:'#'},
+        { head: ' กำหนดวันหยุดตามประเพณีประจำปี', date: '8 ธันวาคม 2559', url:'#'},
+      ]
+    }
+  });
+</script>

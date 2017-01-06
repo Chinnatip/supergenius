@@ -1,1 +1,39 @@
-calendar
+<div id="app">
+  <blog-header  :data="header" ></blog-header>
+  <table-blog   :table="table"></table-blog>
+</div>
+
+<script type="text/javascript">
+</script>
+
+<!-- Include JAVASCRIPT here ><-->
+<script src="/js/investor.js"></script>
+<script type="text/javascript">
+  var app = new Vue({
+    el: '#app',
+    data: {
+      header: 'IR CALENDAR',
+      table: {
+        hint:{ check: false},
+        headtype: '',
+        thead:[
+          { title: 'Date'},
+          { title: 'Event / Venue'},
+        ],
+        tfoot:[],
+        bodytype: 'list',
+        tbody:[
+          { text: ['November 10, 2016',	'3Q16 Analyst Meeting' ] },
+          { text: ['November 10, 2016',	'3Q16 Analyst Meeting' ] },
+          { text: ['November 10, 2016',	'3Q16 Analyst Meeting' ] },
+          { text: ['November 10, 2016',	'3Q16 Analyst Meeting' ] },
+          { text: ['November 10, 2016',	'3Q16 Analyst Meeting' ] },
+          { text: ['November 10, 2016',	'3Q16 Analyst Meeting' ] },
+          { text: ['November 10, 2016',	'3Q16 Analyst Meeting' ] },
+          { text: ['November 10, 2016',	'3Q16 Analyst Meeting' ] },
+          { text: ['November 10, 2016',	'3Q16 Analyst Meeting' ] },
+        ]
+      }
+    }
+  });
+</script>

@@ -127,6 +127,7 @@ Vue.component('tableBlog',{
         </tr>
       </thead>
       <tbody>
+
         <!-- normal table ><-->
         <tr
           v-for="(td,index) in table.tbody"
@@ -140,8 +141,15 @@ Vue.component('tableBlog',{
               <span v-if="!td.noindex">{{index + 1}}</span>
             </span>
           </td>
-          <td v-for="c in td.text" :colspan="td.colspan">{{c}}</td>
+          <td v-for="c in td.text" :colspan="td.colspan">
+            <div v-if="c.type == 'contact'">
+              <span>โทรศัพท์: {{c.tel}} </span> <br>
+              <span>Email:   {{c.email}} </span>
+            </div>
+            <div v-else >{{c}}</div>
+          </td>
         </tr>
+
         <!-- download table ><-->
         <tr v-for="(td,index) in table.tbody" v-if=" table.bodytype == 'download'">
           <td>{{td.text[0]}}</td>
@@ -157,4 +165,65 @@ Vue.component('tableBlog',{
   </section>
   `,
   props: [ 'table' ]
+});
+
+
+Vue.component('selectQuote',{
+  template: `
+  <div class="_simple_container">
+    <div class="container">
+      <div class="_select_date">
+      <span class="header">เลือกช่วงวันที่</span> <br>
+        <span class="hint">จาก</span>
+        <select class="select">
+          <option value="1" selected="selected">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+        </select>
+        <select class="select">
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="12" selected="selected">12</option>
+        </select>
+        <select class="select">
+          <option value="2559">2559</option>
+          <option value="2560" selected="selected">2560</option>
+        </select>
+        <span class="hint">ถึง</span>
+        <select class="select">
+          <option value="1" selected="selected">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+        </select>
+        <select class="select">
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="12" selected="selected">12</option>
+        </select>
+        <select class="select">
+          <option value="2559">2559</option>
+          <option value="2560" selected="selected">2560</option>
+        </select>
+        <a class="button" href="#">ดูผล</a>
+      </div>
+    </div>
+  </div>
+  `,
+  props:['']
+});
+
+Vue.component('squareGrid',{
+  template: `
+  <div class="_simple_container">
+    <div class="container">
+      <a class="_news_cube" v-for="n in news" :href="n.url">
+          <h1>{{n.head}}</h1>
+          <h3>{{n.date}}</h3>
+      </a>
+    </div>
+  </div>
+  `,
+  props:['news']
 });

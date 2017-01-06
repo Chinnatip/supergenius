@@ -1,48 +1,10 @@
 <div id="app">
   <blog-header :data="header"></blog-header>
-  <div class="_simple_container">
-    <div class="container">
-      <div class="_select_date">
-      <span class="header">เลือกช่วงวันที่</span> <br>
-        <span class="hint">จาก</span>
-        <select class="select">
-          <option value="1" selected="selected">1</option>
-          <option value="2">2</option>
-          <option value="3">3</option>
-        </select>
-        <select class="select">
-          <option value="1">1</option>
-          <option value="2">2</option>
-          <option value="3">3</option>
-          <option value="12" selected="selected">12</option>
-        </select>
-        <select class="select">
-          <option value="2559">2559</option>
-          <option value="2560" selected="selected">2560</option>
-        </select>
-        <span class="hint">ถึง</span> 
-        <select class="select">
-          <option value="1" selected="selected">1</option>
-          <option value="2">2</option>
-          <option value="3">3</option>
-        </select>
-        <select class="select">
-          <option value="1">1</option>
-          <option value="2">2</option>
-          <option value="3">3</option>
-          <option value="12" selected="selected">12</option>
-        </select>
-        <select class="select">
-          <option value="2559">2559</option>
-          <option value="2560" selected="selected">2560</option>
-        </select>
-        <a class="button" href="#">ดูผล</a>
-      </div>
-
-    </div>
-  </div>
+  <select-quote></select-quote>
   <table-blog  :table="table"></table-blog>
 </div>
+
+<script type="text/javascript"></script>
 
 <!-- Include JAVASCRIPT here ><-->
 <script src="/js/investor.js"></script>

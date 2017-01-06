@@ -1,2 +1,17 @@
-<h1>Page#news</h1>
-<p>Find me in app/views/page/news.html.erb</p>
+<div id="app">
+  <blog-header  :data="header" ></blog-header>
+</div>
+
+<script type="text/javascript">
+</script>
+
+<!-- Include JAVASCRIPT here ><-->
+<script src="/js/investor.js"></script>
+<script type="text/javascript">
+  var app = new Vue({
+    el: '#app',
+    data: {
+      header: 'ข่าวจากสื่อสิ่งพิมพ์',
+    }
+  });
+</script>
