@@ -31,7 +31,8 @@ Vue.component('navBar',{
               </a>
               <ul class="_sub_nav_item" >
                 <li><a href="/home/index">Manage Profile</a></li>
-                <li><a href="/users/sign_out">logout</a></li>
+                <!-- li><a  href="/users/sign_out">logout</a></li -->
+                <li><a @click="logout" >logout</a>
               </ul>
             </div>
           </span>
@@ -54,6 +55,11 @@ Vue.component('navBar',{
       if (a == b) {
         return 'active'
       }
+    },
+    logout: function(){
+      $.post('/users/sign_out',"_method=delete", function(){
+        window.location = '/home/index' ;
+      });
     }
   },
 });
