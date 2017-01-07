@@ -12,23 +12,7 @@
   <body>
     <div id="cHeader" class="_dashboard_navbar">
       <section class="hero is-medium" v-bind:class="[body.theme]">
-        <div class="hero-head">
-          <header class="nav">
-            <div class="container">
-              <div class="nav-left">
-                <a :href="nav.brandLink" class="nav-item">
-                  <img :src="nav.brand" alt="" style="height: 33px;">
-                </a>
-              </div>
-              <div class="nav-right nav-menu">
-                <span class="nav-item">
-                    <%= link_to('Logout', destroy_user_session_path, :method => :delete, :class => "button is-inverted is-info") %>
-                </span>
-              </div>
-            </div>
-          </header>
-        </div>
-
+        <nav-bar   :nav="nav" :body="body" :login="login"></nav-bar>
       </section>
     </div>
 
@@ -70,6 +54,7 @@
     var side = new Vue({
       el: '#sidebar',
       data: {
+        url_control: '<%= controller.controller_name %>' ,
         url_action: '<%= controller.action_name %>' ,
         url_active: '<%= @active %>',
         lists: [

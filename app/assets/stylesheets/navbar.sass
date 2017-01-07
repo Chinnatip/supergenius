@@ -4,6 +4,7 @@
   min-height: 60px !important
 
 .nav-item
+  position: relative
   &.active
     color: #ffc800 !important
     font-weight: 500 !important
@@ -11,6 +12,25 @@
     &:before
       content: "//"
       margin-right: 10px
+  ._with_sub_item
+    margin-left: 14px
+    &:hover
+      ul._sub_nav_item
+        display: block
+    ul._sub_nav_item
+      display: none
+      position: absolute
+      padding-top: 15px
+      right: 0px
+      min-width: 160px
+      li
+        &:not(:last-child)
+          border-bottom: 1px solid white
+        a
+          background: #797979
+          display: block
+          font-size: 15px
+          padding: 10px 20px
 
 .nav
   &._nav_affix

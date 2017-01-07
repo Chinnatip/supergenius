@@ -13,7 +13,12 @@
     <!-- header ><-->
     <div id="cHeader">
       <section class="hero" v-bind:class="[body.theme,body.size]">
-        <nav-bar   :nav="nav" :body="body" :dashboard="login" :role="checkRole" :active="url_action" ></nav-bar>
+        <nav-bar
+          :nav="nav"
+          :body="body"
+          :login="login"
+          :role="checkRole" 
+          ></nav-bar>
         <hero-slider :slider="sliders" :choice="choice" ></hero-slider>
       </section>
     </div>
@@ -39,7 +44,7 @@
         computed:{
           checkRole: function(){
             if (this.login) {
-              return '<%= current_user.role rescue ''%>' ;
+              return '<%= current_user.role rescue '' %>' ;
             }
           }
         },

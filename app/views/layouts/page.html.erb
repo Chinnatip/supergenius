@@ -13,7 +13,13 @@
     <!-- header ><-->
     <div id="cHeader">
       <section class="hero" v-bind:class="[body.theme,body.size]">
-        <nav-bar   :nav="nav" :body="body" :dashboard="login" :active="url_action" ></nav-bar>
+        <nav-bar
+          :nav="nav"
+          :body="body"
+          :login="login"
+          :role="checkRole"
+          :active="url_action"
+          ></nav-bar>
         <span>
           <hero-body :text="selectContent"></hero-body>
         </span>
@@ -52,6 +58,11 @@
       var header = new Vue({
         el: '#cHeader',
         computed: {
+          checkRole: function(){
+            if (this.login) {
+              return '<%= current_user.role rescue '' %>' ;
+            }
+          },
           selectContent: function(){
             for (var i = 0; i < this.content.length; i++) {
               var select ;

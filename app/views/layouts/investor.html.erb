@@ -12,7 +12,13 @@
   <body>
     <div id="cHeader">
       <section class="hero is-medium" v-bind:class="[body.theme]">
-        <nav-bar   :nav="nav" :body="body" :dashboard="login" :active="url_controller" ></nav-bar>
+        <nav-bar
+          :nav="nav"
+          :body="body"
+          :login="login"
+          :role="checkRole"
+          :active="url_controller"
+          ></nav-bar>
         <span v-if=" url_action == 'index' ">
           <hero-body :text="body"></hero-body>
         </span>
@@ -53,6 +59,13 @@
   <script type="text/javascript">
     var comp = new Vue({
       el: '#cHeader',
+      computed:{
+        checkRole: function(){
+          if (this.login) {
+            return '<%= current_user.role rescue '' %>' ;
+          }
+        }
+      },
       methods: {
         isActive: function( val ){
           if ( val == this.url_active ) {

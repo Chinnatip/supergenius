@@ -20,20 +20,20 @@ Vue.component('navBar',{
               {{l.title}}
             </a>
 
-          <span class="nav-item" v-if="dashboard">
-
-            <a v-if="role == 'admin'" :href="nav.backLink.link" class="button is-inverted" v-bind:class="[body.theme]">
-              <span class="icon">
-                <i class="fa" v-bind:class="[nav.backLink.icon]"></i>
-              </span>
-              <span>{{nav.backLink.title}}</span>
+          <span class="nav-item" v-if="login">
+            <a v-if="role == 'admin'" href="/dashboard/index" class="button is-inverted" v-bind:class="[body.theme]">
+              <span class="icon"> <i class="fa" v-bind:class="[nav.backLink.icon]"></i> </span>
+              <span>Dashboard</span>
             </a>
-            <a v-else href="#" class="button is-inverted is-info">
-              <span class="icon">
-                <i class="fa" v-bind:class="[nav.backLink.icon]"></i>
-              </span>
-              <span>Profile</span>
-            </a>
+            <div class="_with_sub_item">
+              <a class="button is-inverted is-info">
+                <span>Profile</span>
+              </a>
+              <ul class="_sub_nav_item" >
+                <li><a href="/home/index">Manage Profile</a></li>
+                <li><a href="/users/sign_out">logout</a></li>
+              </ul>
+            </div>
           </span>
           <span class="nav-item" v-else >
             <a target="" href="/users/sign_in" class="button is-inverted" v-bind:class="[body.theme]">
@@ -48,7 +48,7 @@ Vue.component('navBar',{
     </header>
   </div>
   `,
-  props: ['nav','body','active','dashboard','role'],
+  props: ['nav','body','active','login','role','controller'],
   methods: {
     isActive: function( a,b ) {
       if (a == b) {
