@@ -24,6 +24,10 @@ body
 footer
   padding: 24px 20px !important
 
+._dashboard_navbar
+  position: fixed
+  width: 100%
+
 .slide-fade-enter-active
   transition: all .6s cubic-bezier(0.2, 0.5, 0.8, 0.2)
 .slide-fade-leave-active
@@ -64,3 +68,38 @@ footer
 .hide-mobile
   @media screen and (max-width: 720px)
     display: none
+
+._devise
+  ._nav
+    background-color: white
+  ._box_canvas
+    background-color: white
+    padding: 40px
+    box-shadow: 0 13px 60px rgba(78, 78, 78, 0.58)
+    color: #2d2d2d
+    max-width: 41vw
+    margin: auto
+    text-align: left
+    border-radius: 4px
+    h2
+      font-size: 28px
+      margin-bottom: 17px
+      border-bottom: 1px solid #bbbbbb
+      padding-bottom: 6px
+    form
+      margin-bottom: 20px
+      .field
+        display: block
+        margin: auto
+        margin-bottom: 12px
+        label
+          margin-bottom: 5px
+          display: inline-block
+        input
+          height: 33px
+          min-width: 200px
+          padding: 0 14px
+          border-radius: 2px
+          border: 1px solid #c5c5c5
+    > a
+      display: inline-block

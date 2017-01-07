@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  devise_for :users
   #home page
   get 'home/index'
   get 'home/test'
@@ -33,6 +34,12 @@ Rails.application.routes.draw do
   get 'page/about'
   get 'page/news'
   get 'page/contact'
+
+  #dashboard page
+  get 'dashboard/index'
+  get 'dashboard/new'
+  get 'dashboard/product'
+  get 'dashboard/board'
 
   root 'home#celebrity'
   #root 'home#reddit'

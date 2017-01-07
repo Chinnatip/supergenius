@@ -13,7 +13,7 @@
     <!-- header ><-->
     <div id="cHeader">
       <section class="hero" v-bind:class="[body.theme,body.size]">
-        <nav-bar   :nav="nav" :body="body" :active="url_action" ></nav-bar>
+        <nav-bar   :nav="nav" :body="body" :dashboard="login" :active="url_action" ></nav-bar>
         <span>
           <hero-body :text="selectContent"></hero-body>
         </span>
@@ -65,6 +65,7 @@
         data: {
           url_action: '<%= controller.action_name %>' ,
           url_controller: '<%= controller.controller_name %>' ,
+          login: <%= user_signed_in? %>,
           body: {
             theme: 'is-info',
             size:  'is-medium',
@@ -117,9 +118,9 @@
               }
             ],
             backLink: {
-              title: 'Craighub',
+              title: 'Dashboard',
               icon: 'fa-arrows-alt',
-              link: 'http://www.facebook.com/zinatip'
+              link: '<%= dashboard_index_path %>'
             }
           }
         }

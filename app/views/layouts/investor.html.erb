@@ -12,13 +12,13 @@
   <body>
     <div id="cHeader">
       <section class="hero is-medium" v-bind:class="[body.theme]">
-        <nav-bar   :nav="nav" :body="body" :active="url_controller" ></nav-bar>
+        <nav-bar   :nav="nav" :body="body" :dashboard="login" :active="url_controller" ></nav-bar>
         <span v-if=" url_action == 'index' ">
           <hero-body :text="body"></hero-body>
         </span>
         <header class="nav _nav_affix">
             <div class="columns" style="width:100%">
-              <span class="column" v-for="l in iLinks" v-bind:class="[{ active : isActive( url_action , l.action ) }]">
+              <span class="column" v-for="l in iLinks" :class=" isActive( l.action ) ">
                 <span v-if="l.sublink == false">
                   <a :href="l.url">{{l.title}}</a>
                 </span>
@@ -54,17 +54,19 @@
     var comp = new Vue({
       el: '#cHeader',
       methods: {
-        isActive: function( a , b ){
-          if ( a == b ) {
-            return true
+        isActive: function( val ){
+          if ( val == this.url_active ) {
+            return 'active'
           }else {
-            return false
+            return ''
           }
         }
       },
       data: {
         url_action: '<%= controller.action_name %>' ,
         url_controller: '<%= controller.controller_name %>' ,
+        url_active: '<%= @active %>',
+        login: <%= user_signed_in? %>,
         iLinks:[
           { title: 'Investor Relations'     , action: 'index' , url: '<%= investor_index_path %>' , sublink: false },
           { title: 'Financial Information'  , action: 'financial' , url: '<%= investor_financial_path %>' , sublink: false },
@@ -128,9 +130,9 @@
             }
           ],
           backLink: {
-            title: 'Craighub',
+            title: 'Dashboard',
             icon: 'fa-arrows-alt',
-            link: 'http://www.facebook.com/zinatip'
+            link: '<%= dashboard_index_path %>'
           }
         }
       }

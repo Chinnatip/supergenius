@@ -13,7 +13,7 @@
     <!-- header ><-->
     <div id="cHeader">
       <section class="hero" v-bind:class="[body.theme,body.size]">
-        <nav-bar   :nav="nav" :body="body" :active="url_action" ></nav-bar>
+        <nav-bar   :nav="nav" :body="body" :dashboard="login" :role="checkRole" :active="url_action" ></nav-bar>
         <hero-slider :slider="sliders" :choice="choice" ></hero-slider>
       </section>
     </div>
@@ -36,9 +36,17 @@
       //component of header
       var header = new Vue({
         el: '#cHeader',
+        computed:{
+          checkRole: function(){
+            if (this.login) {
+              return '<%= current_user.role rescue ''%>' ;
+            }
+          }
+        },
         data: {
           url_action: '<%= controller.action_name %>' ,
           url_controller: '<%= controller.controller_name %>' ,
+          login: <%= user_signed_in? %>,
           body: {
             theme: 'is-info',
             size:  'is-large',
@@ -91,9 +99,9 @@
               }
             ],
             backLink: {
-              title: 'Craighub',
+              title: 'Dashboard',
               icon: 'fa-arrows-alt',
-              link: 'http://www.facebook.com/zinatip'
+              link: '<%= dashboard_index_path %>'
             }
           }
         }

@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>-KOH-Corporate</title>
+    <%= csrf_meta_tags %>
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'application' %>
+    <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  </head>
+
+  <body>
+    <div id="cHeader" class="_dashboard_navbar">
+      <section class="hero is-medium" v-bind:class="[body.theme]">
+        <div class="hero-head">
+          <header class="nav">
+            <div class="container">
+              <div class="nav-left">
+                <a :href="nav.brandLink" class="nav-item">
+                  <img :src="nav.brand" alt="" style="height: 33px;">
+                </a>
+              </div>
+              <div class="nav-right nav-menu">
+                <span class="nav-item">
+                    <%= link_to('Logout', destroy_user_session_path, :method => :delete, :class => "button is-inverted is-info") %>
+                </span>
+              </div>
+            </div>
+          </header>
+        </div>
+
+      </section>
+    </div>
+
+    <section class="is-fullheight _dashboard">
+      <div class="__sidebar" id="sidebar">
+        <ul v-for=" ul in lists">
+          <li v-for="li in ul">
+            <a v-if="li.link == 'head'" class="_head" >{{li.text}}</a>
+            <a v-else :href="li.link" :class=" isActive(li.active) " >{{li.text}}</a>
+          </li>
+        </ul>
+      </div>
+      <div class="__content">
+        <div class="__content_padding">
+
+          <% if notice %>
+            <p class="alert alert-success"><%= notice %></p>
+          <% end %>
+          <% if alert %>
+            <p class="alert alert-danger"><%= alert %></p>
+          <% end %>
+
+
+          <%= yield %>
+        </div>
+      </div>
+    </section>
+
+  </body>
+  <!-- Include JAVASCRIPT here ><-->
+  <script src="/js/body.js"></script>
+  <script src="/js/ribbon.js"></script>
+  <script src="/js/slider.js"></script>
+  <script src="/js/stockir.js"></script>
+  <script src="/js/footer_site.js"></script>
+  <script src="/js/app-data.js"></script>
+
+  <script type="text/javascript">
+    var side = new Vue({
+      el: '#sidebar',
+      data: {
+        url_action: '<%= controller.action_name %>' ,
+        url_active: '<%= @active %>',
+        lists: [
+          [
+            { text: 'Dashboard'  , link: 'head' },
+            { text: 'หน้าหลัก'     , link: '<%= dashboard_index_path %>'  , active: 'index', },
+            { text: 'ข่าวสารองค์กร', link: '<%= dashboard_new_path %>'    , active: 'new', },
+            { text: 'ผู้บริหาร'     , link: '<%= dashboard_board_path %>'  , active: 'board', },
+            { text: 'ผลิตภัณฑ์'     , link: '<%= dashboard_product_path %>', active: 'product', },
+          ]
+        ],
+      },
+      methods: {
+        isActive: function( val ){
+          if (val == this.url_active) {
+            return 'active'
+          }
+        }
+      }
+    });
+    var comp = new Vue({
+      el: '#cHeader',
+      data: {
+        url_action: '<%= controller.action_name %>' ,
+        url_controller: '<%= controller.controller_name %>' ,
+        current: '<%= current_user.email %>',
+        login: <%= user_signed_in? %>,
+        body: {
+          theme: 'is-info',
+          size:  'is-large',
+          title: 'INVESTOR RELATIONS',
+          sub:   'PSH aims to be a top Thai diversified property company that delivers end-to-end modern urban lifestyles to customers.'
+        },
+        nav: {
+          brand: 'https://s29.postimg.org/5xtetqw6v/vbr.png',
+          brandLink: "<%= home_index_path %>",
+          links: [],
+          backLink: {
+            title: 'Logout',
+            icon: 'fa-arrows-alt',
+            link: '<%= destroy_user_session_path %>'
+          }
+        }
+      }
+    });
+  </script>
+</html>

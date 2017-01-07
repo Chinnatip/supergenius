@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>-KOH-Corporate</title>
+    <%= csrf_meta_tags %>
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'application' %>
+    <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  </head>
+
+  <body>
+    <section class="hero is-info is-fullheight _devise">
+      <div class="hero-head _nav">
+        <header class="nav">
+          <div class="container">
+            <div class="nav-center">
+              <a class="nav-item">
+                <img src="/img_ref/logo_studio.png" alt="Logo">
+              </a>
+            </div>
+          </div>
+        </header>
+      </div>
+      <div class="hero-body">
+        <div class="container has-text-centered">
+          <div class="_box_canvas">
+            <%= yield %>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+
+
+
+  </body>
+  <!-- Include JAVASCRIPT here ><-->
+
+  <script type="text/javascript">
+  </script>
+</html>

@@ -11,7 +11,7 @@ default: &default
 
 development:
   <<: *default
-  database: stockdevelopment
+  database: kohcorporate
   host: localhost
   username: chinnatip
   password: cupurion23
