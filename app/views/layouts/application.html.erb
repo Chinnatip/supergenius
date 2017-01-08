@@ -3,7 +3,7 @@
   <head>
     <title>-KOH-Corporate</title>
     <%= csrf_meta_tags %>
-    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= stylesheet_link_tag    'application', media: 'all'%>
     <%= javascript_include_tag 'application' %>
     <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -17,13 +17,14 @@
           :nav="nav"
           :body="body"
           :login="login"
-          :role="checkRole" 
+          :role="checkRole"
           ></nav-bar>
         <hero-slider :slider="sliders" :choice="choice" ></hero-slider>
       </section>
     </div>
 
     <%= yield %>
+
 
     <!-- footer ><-->
 

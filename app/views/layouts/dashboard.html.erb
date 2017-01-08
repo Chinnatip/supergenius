@@ -27,15 +27,6 @@
       </div>
       <div class="__content">
         <div class="__content_padding">
-
-          <% if notice %>
-            <p class="alert alert-success"><%= notice %></p>
-          <% end %>
-          <% if alert %>
-            <p class="alert alert-danger"><%= alert %></p>
-          <% end %>
-
-
           <%= yield %>
         </div>
       </div>
@@ -61,9 +52,9 @@
           [
             { text: 'Dashboard'  , link: 'head' },
             { text: 'หน้าหลัก'     , link: '<%= dashboard_index_path %>'  , active: 'index', },
-            { text: 'ข่าวสารองค์กร', link: '<%= dashboard_new_path %>'    , active: 'new', },
-            { text: 'ผู้บริหาร'     , link: '<%= dashboard_board_path %>'  , active: 'board', },
-            { text: 'ผลิตภัณฑ์'     , link: '<%= dashboard_product_path %>', active: 'product', },
+            { text: 'ข่าวสารองค์กร', link: '<%= newsfeeds_path %>'        , active: 'news', },
+            { text: 'ผู้บริหาร'     , link: '<%= boards_path %>'           , active: 'board', },
+            //{ text: 'ผลิตภัณฑ์'     , link: '<%= dashboard_product_path %>', active: 'product', },
           ]
         ],
       },

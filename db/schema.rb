@@ -10,10 +10,50 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170107064509) do
+ActiveRecord::Schema.define(version: 20170108120440) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "boards", force: :cascade do |t|
+    t.string   "name"
+    t.integer  "stock"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.decimal  "volumn"
+  end
+
+  create_table "employees", force: :cascade do |t|
+    t.string   "name"
+    t.string   "email"
+    t.boolean  "manager"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "news", force: :cascade do |t|
+    t.string   "title"
+    t.text     "desc"
+    t.string   "image"
+    t.text     "writer"
+    t.string   "status"
+    t.text     "link"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer  "viewer"
+  end
+
+  create_table "newsfeeds", force: :cascade do |t|
+    t.string   "title"
+    t.text     "desc"
+    t.string   "writer"
+    t.string   "image"
+    t.string   "status"
+    t.string   "link"
+    t.integer  "viewer"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "users", force: :cascade do |t|
     t.string   "email",                  default: "", null: false

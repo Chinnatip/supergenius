@@ -1,0 +1,33 @@
+<% @board_capital = Board.sum(:stock) %>
+
+<div class="_dashboard_content">
+  <h1>รายชื่อผู้บริหาร</h1>
+  <%= link_to '+ เพิ่มรายชื่อใหม่' , new_board_path, class: 'button'  %>
+
+  <table class="table _news_table">
+    <thead>
+      <tr>
+        <th>ลำดับที่</th>
+        <th>รายชื่อกรรมการ</th>
+        <th>จำนวนหุ้น (บาท)</th>
+        <th>สัดส่วน%</th>
+        <th colspan="3">จัดการรายชื่อ</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @boards.each_with_index do |board,index| %>
+        <tr>
+          <td><%= index + 1 %></td>
+          <td><%= board.name %></td>
+          <td><%= board.stock %></td>
+          <td><%= (100 * board.stock.to_f / @board_capital).round(2) %> %</td>
+          <td class="_manage">
+            <%= link_to 'แสดง', board , class: 'button' %>
+            <%= link_to 'แก้ไข', edit_board_path(board) , class: 'button' %>
+            <%= link_to 'ลบกรรมการ', board, method: :delete, data: { confirm: 'คุณต้องการลบรายชื่อนี้?' } , class: 'button _del_button' %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

@@ -1,0 +1,24 @@
+<div class="_dashboard_content">
+  <div class="_show_content">
+    <h2> <%= @newsfeed.title %> </h2>
+    <div class="_splitter">
+      <div class="_content">
+        <h3> <%= @newsfeed.desc %> </h3>
+        <img src="<%= @newsfeed.image %>" alt="">
+      </div>
+      <div class="_brief">
+        <div class="_list">
+          <span>ผู้เเต่ง : <%= @newsfeed.writer %></span>
+          <span>สถานะบทความ: <%= @newsfeed.status %></span>
+          <span>จำนวนคนดู : <%= @newsfeed.viewer %> ครั้ง</span>
+          <span>แก้ไขล่าสุด : <%= @newsfeed.updated_at %></span>
+        </div>
+      </div>
+    </div>
+    <div class="_action">
+      <%= link_to 'ย้อนกลับ', newsfeeds_path , class: 'button  _del_button' %>
+      <%= link_to 'แก้ไขบทความ', edit_newsfeed_path(@newsfeed) , class: 'button'%>
+    </div>
+  </div>
+
+</div>

@@ -1,0 +1,39 @@
+<div class="_dashboard_content">
+  <h1>ข่าวสารองค์กร</h1>
+  <%= link_to '+ สร้างข่าวใหม่' , new_newsfeed_path, class: 'button'  %>
+
+  <table class="table _news_table">
+    <thead>
+      <tr>
+        <th>หัวเรื่อง</th>
+        <th>คำบรรยาย</th>
+        <th>ผู้เขียน</th>
+        <th>สถานะข่าว</th>
+        <th>คนดู</th>
+        <th colspan="3">จัดการข่าว</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% @newsfeeds.each do |newsfeed| %>
+        <tr>
+          <td><%= newsfeed.title %></td>
+          <td><%= newsfeed.desc %></td>
+          <td><%= newsfeed.writer %></td>
+          <td><%= newsfeed.status %></td>
+          <td><%= newsfeed.viewer %></td>
+          <td class="_manage">
+            <%= link_to 'แสดง', newsfeed , class: 'button' %>
+            <%= link_to 'แก้ไข', edit_newsfeed_path(newsfeed) , class: 'button' %>
+            <%= link_to 'ลบข่าว', newsfeed, method: :delete, data: { confirm: 'คุณต้องการลบข่าวนี้?' } , class: 'button _del_button' %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+
+  <br>
+
+
+
+</div>

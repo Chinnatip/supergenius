@@ -1,0 +1,19 @@
+<div class="_dashboard_content">
+  <div class="_show_content">
+    <h2> ข้อมูลกรรมการ </h2>
+    <div class="_splitter">
+      <div class="_brief">
+        <div class="_list">
+          <span>ชื่อ : <%= @board.name %></span>
+          <span>จำนวนหุ้น : <%= @board.stock %> บาท</span>
+          <span>แก้ไขล่าสุด : <%= @board.updated_at %></span>
+        </div>
+      </div>
+    </div>
+    <div class="_action">
+      <%= link_to 'ย้อนกลับ',boards_path , class: 'button  _del_button' %>
+      <%= link_to 'แก้ไขข้อมูล', edit_board_path(@board) , class: 'button'%>
+    </div>
+  </div>
+
+</div>

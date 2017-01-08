@@ -1,5 +1,12 @@
 Rails.application.routes.draw do
+
+
   devise_for :users
+
+  resources :newsfeeds
+  resources :employees
+  resources :boards
+
   #home page
   get 'home/index'
   get 'home/test'
