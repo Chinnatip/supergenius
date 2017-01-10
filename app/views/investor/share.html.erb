@@ -1,10 +1,7 @@
 <div id="app">
   <blog-header  :data="header" ></blog-header>
-  <table-blog   :table="table"></table-blog>
+  <table-blog   :table="table" :content="boards"></table-blog>
 </div>
-
-<script type="text/javascript">
-</script>
 
 <!-- Include JAVASCRIPT here ><-->
 <script src="/js/investor.js"></script>
@@ -13,6 +10,7 @@
     el: '#app',
     data: {
       header: 'โครงสร้างผู้ถือหุ้น',
+      boards: [],
       table: {
         hint:{ check: true , text: 'ณ วันที่ 29 พฤศจิกายน 2559'},
         headtype: '',
@@ -28,22 +26,25 @@
           { title: ''},
           { title: ''},
         ],
-        bodytype: 'list',
+        bodytype: 'boardList',
         tbody:[
-          { index: true , text: ['นายทองมา วิจิตรพงศ์พันธุ์', '1,214,009,986'	,'55.54%'] },
-          { index: true , text: ['UBS AG SINGAPORE BRANCH',	'100,346,500',	'4.59%'] },
-        	{ index: true , text: ['ด.ญ.ชัญญา วิจิตรพงศ์พันธุ์',	'85,000,000',	'3.89%'] },
-        	{ index: true , text: ['นางทิพย์สุดา วิจิตรพงศ์พันธุ์',	'85,000,000',	"3.89%"] },
-        	{ index: true , text: ['น.ส.มาลินี วิจิตรพงศ์พันธุ์',	'85,000,000',	'3.89%'] },
-        	{ index: true , text: ['สำนักงานประกันสังคม',	'57,015,200',	'2.61%'] },
-        	{ index: true , text: ['นางรัตนา พรมสวัสดิ์',	'39,720,401',	'1.82%'] },
-        	{ index: true , text: ['CHASE NOMINEES LIMITED',	'33,376,473',	'1.53%'] },
-        	{ index: true , text: ['STATE STREET BANK EUROPE LIMITED',	'26,576,901',	'1.22%'] },
-        	{ index: true , text: ['DEUTSCHE BANK AG LONDON PRIME BROKERAGE', '13,121,100',	'0.60%'] },
           { index: true , noindex: true , highlight: true , text: ['รวม 10 อันดับเเรก', '1,739,166,561',	'79.56%'] },
           { index: true , noindex: true , highlight: true , text: ['จำนวนหุ้นทั้งหมด', '2,185,857,580',	''] },
         ]
       }
+    },
+    //include json file of board
+    mounted: function() {
+      this.$nextTick(function () {
+        var that;
+        that = this;
+        $.ajax({
+          url: '/boards.json',
+          success: function(res) {
+            that.boards = res;
+          }
+        });
+      });
     }
   });
 </script>

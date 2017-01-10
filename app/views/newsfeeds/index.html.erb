@@ -7,8 +7,9 @@
       <tr>
         <th>หัวเรื่อง</th>
         <th>คำบรรยาย</th>
+        <th>หมวด</th>
         <th>ผู้เขียน</th>
-        <th>สถานะข่าว</th>
+        <th>สถานะ</th>
         <th>คนดู</th>
         <th colspan="3">จัดการข่าว</th>
       </tr>
@@ -19,6 +20,7 @@
         <tr>
           <td><%= newsfeed.title %></td>
           <td><%= newsfeed.desc %></td>
+          <td><%= newsfeed.newstype %></td>
           <td><%= newsfeed.writer %></td>
           <td><%= newsfeed.status %></td>
           <td><%= newsfeed.viewer %></td>

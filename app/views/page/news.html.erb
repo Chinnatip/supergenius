@@ -1,6 +1,6 @@
 <div id="app">
   <blog-header  :data="header" ></blog-header>
-  <square-grid  :news="news"></square-grid>
+  <square-grid  :news="newfeeds"></square-grid>
 </div>
 
 <script type="text/javascript">
@@ -14,14 +14,20 @@
     el: '#app',
     data: {
       header: 'ข่าวเเละกิจกรรม',
-      news: [
-        { head: 'เปิดโผ 7หุ้นเด่นปีหน้า รายได้-กำไรโตแกร่ง', date: '27 ธันวาคม 2559', url:'#'},
-        { head: 'PSH รุกเสริมแกร่งเล็งทุ่มงบพันล้าน แตกไลน์ธุรกิจเพิ่ม', date: '16 ธันวาคม 2559', url:'#'},
-        { head: 'เปิดโผ 7หุ้นเด่นปีหน้า รายได้-กำไรโตแกร่ง', date: '27 ธันวาคม 2559', url:'#'},
-        { head: 'PSH รุกเสริมแกร่งเล็งทุ่มงบพันล้าน แตกไลน์ธุรกิจเพิ่ม', date: '16 ธันวาคม 2559', url:'#'},
-        { head: 'เปิดโผ 7หุ้นเด่นปีหน้า รายได้-กำไรโตแกร่ง', date: '27 ธันวาคม 2559', url:'#'},
-        { head: 'PSH รุกเสริมแกร่งเล็งทุ่มงบพันล้าน แตกไลน์ธุรกิจเพิ่ม', date: '16 ธันวาคม 2559', url:'#'}
-      ]
+      newfeeds: [],
+    },
+    //include json file of board
+    mounted: function() {
+      this.$nextTick(function () {
+        var that;
+        that = this;
+        $.ajax({
+          url: '/newsfeeds.json',
+          success: function(res) {
+            that.newfeeds = res;
+          }
+        });
+      });
     }
   });
 </script>

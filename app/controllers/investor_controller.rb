@@ -1,5 +1,7 @@
 class InvestorController < ApplicationController
 
+  require 'json'
+
   layout 'investor'
 
   def index

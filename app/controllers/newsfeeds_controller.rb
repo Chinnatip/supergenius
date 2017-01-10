@@ -78,6 +78,6 @@ class NewsfeedsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def newsfeed_params
-      params.require(:newsfeed).permit(:title, :desc, :writer, :image, :status, :link, :viewer)
+      params.require(:newsfeed).permit(:title, :desc, :writer, :image, :status, :link, :viewer, :newstype)
     end
 end

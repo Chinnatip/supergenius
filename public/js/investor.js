@@ -154,6 +154,20 @@ Vue.component('tableBlog',{
           </td>
         </tr>
 
+        <!-- board list ><-->
+        <tr v-for="(td,index) in content" v-if=" table.bodytype = 'boardList'">
+          <td>{{index + 1}}</td>
+          <td>{{td.name}}</td>
+          <td>{{td.stock}}</td>
+          <td>{{ calc(td.stock,total) }} %</td>
+        </tr>
+        <tr v-if=" table.bodytype = 'boardList' " class="_highlight" >
+          <td></td>
+          <td>รวม 10 อันดับเเรก</td>
+          <td>{{total}}</td>
+          <td>{{ calc(total,total) }} %</td>
+        </tr>
+
         <!-- download table ><-->
         <tr v-for="(td,index) in table.tbody" v-if=" table.bodytype == 'download'">
           <td>{{td.text[0]}}</td>
@@ -168,7 +182,19 @@ Vue.component('tableBlog',{
     </table>
   </section>
   `,
-  props: [ 'table' ]
+  props: [ 'table' , 'content' ],
+  methods: {
+    calc: function( val , total ){
+      return  Math.round( val / total * 10000 ) / 100 ;
+    }
+  },
+  computed: {
+    total: function(){
+      return this.content.reduce(function(prev, board){
+        return prev + board.stock;
+      },0);
+    }
+  },
 });
 
 
@@ -223,8 +249,8 @@ Vue.component('squareGrid',{
   <div class="_simple_container">
     <div class="container">
       <a class="_news_cube" v-for="n in news" :href="n.url" v-bind:class="[styler]">
-          <h1>{{n.head}}</h1>
-          <h3>{{n.date}}</h3>
+          <h1>{{n.title}}</h1>
+          <h3>{{n.created_at}}</h3>
       </a>
     </div>
   </div>

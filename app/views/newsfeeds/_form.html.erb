@@ -40,6 +40,15 @@
   </div>
 
   <div class="field">
+    <%= f.label :newstype , class: 'label' %>
+    <p class="control">
+      <span class="select">
+        <%= f.select(:newstype , [['ข่าวset', 'ข่าวset'], ['ปฏิทินหุ้น', 'ปฏิทินหุ้น'], ['สื่อมวลชน', 'สื่อมวลชน']]) %>
+      </span>
+    </p>
+  </div>
+
+  <div class="field">
     <%= f.label :status , class: 'label' %>
     <p class="control">
       <span class="select">
