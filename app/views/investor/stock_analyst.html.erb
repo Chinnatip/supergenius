@@ -1,6 +1,6 @@
 <div id="app">
   <blog-header  :data="header" ></blog-header>
-  <table-blog   :table="table"></table-blog>
+  <table-analyst :table="table" :content="analyst"></table-analyst>
 </div>
 
 <script type="text/javascript">
@@ -13,28 +13,33 @@
     el: '#app',
     data: {
       header: 'รายชื่อนักวิเคราะห์',
+      analyst:[],
       table: {
         hint:{ check: false},
         headtype: '',
         thead:[
+          { title: 'ลำดับที่'},
           { title: 'บริษัทหลักทรัพย์'},
           { title: 'ชื่อ-สกุล'},
           { title: 'ติดต่อ'},
         ],
-        tfoot:[],
         bodytype: 'list',
-        tbody:[
-          { text: ['บริษัทหลักทรัพย์ ไอร่า จำกัด (มหาชน)',	'คุณอรณิชา เลิศสัจจานันท์',	{ type: 'contact' , tel: '02 684 8798', email: 'onnicha@aira.co.th' }  ] },
-          { text: ['บริษัทหลักทรัพย์ ไอร่า จำกัด (มหาชน)',	'คุณอรณิชา เลิศสัจจานันท์',	{ type: 'contact' , tel: '02 684 8798', email: 'onnicha@aira.co.th' }  ] },
-          { text: ['บริษัทหลักทรัพย์ ไอร่า จำกัด (มหาชน)',	'คุณอรณิชา เลิศสัจจานันท์',	{ type: 'contact' , tel: '02 684 8798', email: 'onnicha@aira.co.th' }  ] },
-          { text: ['บริษัทหลักทรัพย์ ไอร่า จำกัด (มหาชน)',	'คุณอรณิชา เลิศสัจจานันท์',	{ type: 'contact' , tel: '02 684 8798', email: 'onnicha@aira.co.th' }  ] },
-          { text: ['บริษัทหลักทรัพย์ ไอร่า จำกัด (มหาชน)',	'คุณอรณิชา เลิศสัจจานันท์',	{ type: 'contact' , tel: '02 684 8798', email: 'onnicha@aira.co.th' }  ] },
-          { text: ['บริษัทหลักทรัพย์ ไอร่า จำกัด (มหาชน)',	'คุณอรณิชา เลิศสัจจานันท์',	{ type: 'contact' , tel: '02 684 8798', email: 'onnicha@aira.co.th' }  ] },
-          { text: ['บริษัทหลักทรัพย์ ไอร่า จำกัด (มหาชน)',	'คุณอรณิชา เลิศสัจจานันท์',	{ type: 'contact' , tel: '02 684 8798', email: 'onnicha@aira.co.th' }  ] },
-          { text: ['บริษัทหลักทรัพย์ ไอร่า จำกัด (มหาชน)',	'คุณอรณิชา เลิศสัจจานันท์',	{ type: 'contact' , tel: '02 684 8798', email: 'onnicha@aira.co.th' }  ] },
-          { text: ['บริษัทหลักทรัพย์ ไอร่า จำกัด (มหาชน)',	'คุณอรณิชา เลิศสัจจานันท์',	{ type: 'contact' , tel: '02 684 8798', email: 'onnicha@aira.co.th' }  ] },
-        ]
+        tbody:[],
+        tfoot:[]
       }
+    },
+    //include json file of board
+    mounted: function() {
+      this.$nextTick(function () {
+        var that;
+        that = this;
+        $.ajax({
+          url: '/analysts.json',
+          success: function(res) {
+            that.analyst = res;
+          }
+        });
+      });
     }
   });
 </script>

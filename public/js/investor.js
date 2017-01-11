@@ -58,18 +58,18 @@ Vue.component('blogQuote',{
           </div>
           <div class="column">
             <h1>{{stock.price}} THB</h1>
-            <h2>เปลี่ยนแปลง(%) -(%)</h2>
+            <h2>เปลี่ยนแปลง({{stock.change}}%) -({{stock.cpercent}}%)</h2>
           </div>
           <div class="column">
             <h1>{{stock.volumn}}</h1>
             <h2>ปริมาณการซื้อขายหุ้น:</h2>
           </div>
           <div class="column">
-            <h1>{{stock.low}} - {{stock.high}}</h1>
+            <h1>{{ stock.range }}</h1>
             <h2>ช่วงราคาระหว่างวัน:</h2>
           </div>
           <div class="column">
-            <h1>{{stock.lowyear}} - {{stock.highyear}}</h1>
+            <h1>{{ stock.yearRange }}</h1>
             <h2>ช่วงราคาใน 52สัปดาห์:</h2>
           </div>
         </div>
@@ -174,7 +174,7 @@ Vue.component('tableHolder',{
   },
 });
 
-Vue.component('tableBlog',{
+Vue.component('tableAnalyst',{
   template: `
   <section class="is-medium _body_table">
     <div class="_content" v-if="table.hint.check">
@@ -191,26 +191,57 @@ Vue.component('tableBlog',{
       </thead>
       <tbody>
 
-        <!-- normal table ><-->
-        <tr
-          v-for="(td,index) in table.tbody"
-          v-if=" table.bodytype == 'list'"
-          v-bind:class="{ '_highlight': td.highlight }">
-          <td
-            v-if="td.index"
-            :colspan="td.colspan">
-            <span v-if="td.index">
-              <span v-if="!td.noindex">{{index + 1}}</span>
-            </span>
-          </td>
-          <td v-for="c in td.text" :colspan="td.colspan">
-            <div v-if="c.type == 'contact'">
-              <span>โทรศัพท์: {{c.tel}} </span> <br>
-              <span>Email:   {{c.email}} </span>
-            </div>
-            <div v-else >{{c}}</div>
-          </td>
+      <!-- normal table ><-->
+      <tr
+        v-for="(td,index) in content"
+        v-if=" table.bodytype == 'list'">
+        <td
+          v-if="td.index"
+          :colspan="td.colspan">
+          <span v-if="td.index">
+            <span v-if="!td.noindex">{{index + 1}}</span>
+          </span>
+        </td>
+        <td>{{ index + 1 }}</td>
+        <td>{{td.company}}</td>
+        <td>{{td.name}}</td>
+        <td>
+          <div>
+            <span>โทรศัพท์: {{td.tel}} </span> <br>
+            <span>Email:   {{td.email}} </span>
+          </div>
+        </td>
+      </tr>
+
+      </tbody>
+      <tfoot v-if="table.tfoot.length > 0">
+        <tr>
+          <th v-for="l in table.tfoot" :colspan="l.colspan" >{{l.title}}</th>
         </tr>
+      </tfoot>
+    </table>
+  </section>
+  `,
+  props: [ 'table' , 'content' ]
+});
+
+
+Vue.component('tableBlog',{
+  template: `
+  <section class="is-medium _body_table">
+    <div class="_content" v-if="table.hint.check">
+      {{table.hint.text}}
+    </div>
+    <table class="table">
+      <thead>
+        <tr v-if="table.headtype == 'special'" v-for="set in table.thead">
+          <th v-for="t in set.tr" :colspan="t.colspan" :rowspan="t.rowspan" >{{t.text}}</th>
+        </tr>
+        <tr v-if="table.headtype == ''">
+          <th v-for="t in table.thead">{{t.title}}</th>
+        </tr>
+      </thead>
+      <tbody>
 
         <!-- download table ><-->
         <tr v-for="(td,index) in table.tbody" v-if=" table.bodytype == 'download'">

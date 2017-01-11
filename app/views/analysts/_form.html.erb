@@ -1,0 +1,45 @@
+<%= form_for(analyst) do |f| %>
+  <% if analyst.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(analyst.errors.count, "error") %> prohibited this analyst from being saved:</h2>
+
+      <ul>
+      <% analyst.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :company  , 'บริษัทหลักทรัพย์' , class: 'label' %>
+    <p class="control">
+      <%= f.text_field :company , class: 'input' %>
+    </p>
+  </div>
+
+  <div class="field">
+    <%= f.label :name  , 'ชื่อ - นามสกุล' , class: 'label' %>
+    <p class="control">
+      <%= f.text_field :name , class: 'input' %>
+    </p>
+  </div>
+
+  <div class="field">
+    <%= f.label :tel  , 'เบอร์โทรศัพท์' , class: 'label' %>
+    <p class="control">
+      <%= f.number_field :tel , class: 'input' %>
+    </p>
+  </div>
+
+  <div class="field">
+    <%= f.label :email  , 'อิเมล์' , class: 'label' %>
+    <p class="control">
+      <%= f.text_field :email , class: 'input' %>
+    </p>
+  </div>
+
+  <div class="actions">
+    <%= f.submit 'ส่งข้อความ' , :class => 'button _ready' %>
+  </div>
+<% end %>

@@ -1,0 +1,37 @@
+<p id="notice"><%= notice %></p>
+
+<div class="_dashboard_content">
+  <h1>รายชื่อนักวิเคราะห์</h1>
+  <%= link_to '+ เพิ่มรายชื่อใหม่' , new_analyst_path, class: 'button'  %>
+
+  <table class="table _news_table">
+    <thead>
+      <tr>
+        <th>ลำดับที่</th>
+        <th>บริษัทหลักทรัพย์</th>
+        <th>ชื่อ-สกุล</th>
+        <th>อิเมล์</th>
+        <th>เบอร์โทรศัพท์</th>
+        <th colspan="1">จัดการรายชื่อ</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @analysts.each_with_index do |analyst,index| %>
+        <tr>
+          <td class="_w_col"><%= index + 1 %></td>
+          <td class="_w_col"><%= analyst.company %></td>
+          <td><%= analyst.name %></td>
+          <td><%= analyst.email %></td>
+          <td><%= analyst.tel %></td>
+          <td class="_manage">
+            <%= link_to 'แสดง', analyst , class: 'button' %>
+            <%= link_to 'แก้ไข', edit_analyst_path(analyst) , class: 'button' %>
+            <%= link_to 'ลบรายชื่อ', analyst, method: :delete, data: { confirm: 'คุณต้องการลบรายชื่อนี้?' } , class: 'button _del_button' %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+
+<br>

@@ -1,0 +1,21 @@
+<div class="_dashboard_content">
+  <div class="_show_content">
+    <h2> ข้อมูลนักวิเคราะห์ </h2>
+    <div class="_splitter">
+      <div class="_brief">
+        <div class="_list">
+          <span>บริษัทหลักทรัพย์ : <%= @analyst.company %></span>
+          <span>ชื่อ-นามสกุล : <%= @analyst.name %></span>
+          <span>เบอร์โทรศัพท์ : <%= @analyst.tel %> </span>
+          <span>อิเมล์ : <%= @analyst.email %></span>
+          <span>แก้ไขล่าสุด : <%= @analyst.updated_at %></span>
+        </div>
+      </div>
+    </div>
+    <div class="_action">
+      <%= link_to 'ย้อนกลับ',analysts_path , class: 'button  _del_button' %>
+      <%= link_to 'แก้ไขข้อมูล', edit_analyst_path(@analyst) , class: 'button'%>
+    </div>
+  </div>
+
+</div>

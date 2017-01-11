@@ -1,11 +1,15 @@
 class InvestorController < ApplicationController
 
   require 'json'
-
+  require 'open-uri'
+  require 'nokogiri'
+  require_relative 'scrap'
   layout 'investor'
 
   def index
     @active = 'index'
+    @quote  = 'PSH'
+    @stock_data = parse_set(@quote)[0]
   end
 
   def financial
@@ -37,6 +41,8 @@ class InvestorController < ApplicationController
   #stock group
   def stock
     @active = 'stock'
+    @quote  = 'PSH'
+    @stock_data = parse_set(@quote)[0]
   end
   def stock_history
     @active = 'stock'
@@ -70,4 +76,5 @@ class InvestorController < ApplicationController
   def contact_email
     @active = 'contact'
   end
+
 end
