@@ -32,7 +32,8 @@
                   <a>{{l.title}}</a>
                   <ul>
                     <li v-for="a in l.suburl">
-                      <a :href="a.url">{{a.text}}</a>
+                      <a v-if="a.target == 'blank'" target="_blank" :href="a.url">{{a.text}}</a>
+                      <a v-else :href="a.url">{{a.text}}</a>
                     </li>
                   </ul>
                 </span>
@@ -84,7 +85,7 @@
           { title: 'Investor Relations'     , action: 'index' , url: '<%= investor_index_path %>' , sublink: false },
           { title: 'Financial Information'  , action: 'financial' , url: '<%= investor_financial_path %>' , sublink: false },
           { title: 'Shareholder Information', action: 'share' , url: '#' , sublink: true , suburl:[
-            {text:'Major Chareholders'          , url:'<%= investor_share_path %>'},
+            {text:'Major Shareholders'          , url:'<%= investor_share_path %>'},
             {text:'Dividend History and Policy' , url:'<%= investor_share_history_path %>'},
             {text:'Right of Shareholders'       , url:'<%= investor_share_right_path %>'},
             {text: "Shareholders' Meeting"      , url:'<%= investor_share_holder_path %>'}]
@@ -92,7 +93,7 @@
           { title: 'Bondholder'           , action: 'bond' , url: '#' , sublink: true , suburl:[
             {text:'Financial Policy'      , url:'<%= investor_bond_policy_path %>'},
             {text:'THB Bond Information'  , url:'<%= investor_bond_path %>'},
-            {text:'Prospectus'            , url:'http://capital.sec.or.th/webapp/corp_fin2/cgi-bin/final69.php?txt_compid=1807&txt_offerid=001576&txt_secuid=01&txt_offertypeid=01&txt_language=T&txt_applydate=2016-06-17&start_date=2016-10-19'}]
+            {text:'Prospectus'            , target: 'blank' , url:'http://capital.sec.or.th/webapp/corp_fin2/cgi-bin/final69.php?txt_compid=1807&txt_offerid=001576&txt_secuid=01&txt_offertypeid=01&txt_language=T&txt_applydate=2016-06-17&start_date=2016-10-19'}]
           },
           { title: 'Stock Information'    , action: 'stock' , url: '#' , sublink: true , suburl:[
             {text:'Stock Quotes'          , url:'<%= investor_stock_path %>'},

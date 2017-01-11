@@ -115,6 +115,65 @@ Vue.component('tableRating',{
   props: [ 'table' , 'selector']
 });
 
+Vue.component('tableHolder',{
+  template: `
+  <section class="is-medium _body_table">
+    <div class="_content" v-if="table.hint.check">
+      {{table.hint.text}}
+    </div>
+    <table class="table">
+      <thead>
+        <tr v-if="table.headtype == 'special'" v-for="set in table.thead">
+          <th v-for="t in set.tr" :colspan="t.colspan" :rowspan="t.rowspan" >{{t.text}}</th>
+        </tr>
+        <tr v-if="table.headtype == ''">
+          <th v-for="t in table.thead">{{t.title}}</th>
+        </tr>
+      </thead>
+      <tbody>
+
+      <!-- board list ><-->
+      <tr v-for="(td,index) in content" v-if=" table.bodytype = 'boardList'">
+        <td>{{index + 1}}</td>
+        <td>{{td.name}}</td>
+        <td>{{ addComma(td.stock) }}</td>
+        <td>{{ calc(td.stock,total) }} %</td>
+      </tr>
+      <tr v-if=" table.bodytype = 'boardList' " class="_highlight" >
+        <td></td>
+        <td>รวม 10 อันดับเเรก</td>
+        <td>{{ addComma(total) }}</td>
+        <td>{{ calc(total,total) }} %</td>
+      </tr>
+
+      </tbody>
+      <tfoot v-if="table.tfoot.length > 0">
+        <tr>
+          <th v-for="l in table.tfoot" :colspan="l.colspan" >{{l.title}}</th>
+        </tr>
+      </tfoot>
+    </table>
+  </section>
+  `,
+  props: [ 'table' , 'content' ],
+  methods: {
+    calc: function( val , total ){
+      return  Math.round( val / total * 10000 ) / 100 ;
+    },
+    addComma: function(val){
+      //return val.toString() ;
+      return val.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,");
+    }
+  },
+  computed: {
+    total: function(){
+      return this.content.reduce(function(prev, board){
+        return prev + board.stock;
+      },0);
+    }
+  },
+});
+
 Vue.component('tableBlog',{
   template: `
   <section class="is-medium _body_table">
@@ -136,8 +195,7 @@ Vue.component('tableBlog',{
         <tr
           v-for="(td,index) in table.tbody"
           v-if=" table.bodytype == 'list'"
-          v-bind:class="{ '_highlight': td.highlight }"
-        >
+          v-bind:class="{ '_highlight': td.highlight }">
           <td
             v-if="td.index"
             :colspan="td.colspan">
@@ -154,25 +212,12 @@ Vue.component('tableBlog',{
           </td>
         </tr>
 
-        <!-- board list ><-->
-        <tr v-for="(td,index) in content" v-if=" table.bodytype = 'boardList'">
-          <td>{{index + 1}}</td>
-          <td>{{td.name}}</td>
-          <td>{{td.stock}}</td>
-          <td>{{ calc(td.stock,total) }} %</td>
-        </tr>
-        <tr v-if=" table.bodytype = 'boardList' " class="_highlight" >
-          <td></td>
-          <td>รวม 10 อันดับเเรก</td>
-          <td>{{total}}</td>
-          <td>{{ calc(total,total) }} %</td>
-        </tr>
-
         <!-- download table ><-->
         <tr v-for="(td,index) in table.tbody" v-if=" table.bodytype == 'download'">
           <td>{{td.text[0]}}</td>
           <td><a class="button" :href="td.text[1]">ดาวโหลด</a></td>
         </tr>
+
       </tbody>
       <tfoot v-if="table.tfoot.length > 0">
         <tr>
@@ -182,19 +227,8 @@ Vue.component('tableBlog',{
     </table>
   </section>
   `,
-  props: [ 'table' , 'content' ],
-  methods: {
-    calc: function( val , total ){
-      return  Math.round( val / total * 10000 ) / 100 ;
-    }
-  },
-  computed: {
-    total: function(){
-      return this.content.reduce(function(prev, board){
-        return prev + board.stock;
-      },0);
-    }
-  },
+  props: [ 'table' ],
+
 });
 
 

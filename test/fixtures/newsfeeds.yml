@@ -7,6 +7,7 @@ one:
   image: MyString
   status: MyString
   link: MyString
+  newstype: MyString
   viewer: 1
 
 two:
@@ -16,4 +17,5 @@ two:
   image: MyString
   status: MyString
   link: MyString
+  newstype: MyString
   viewer: 1

@@ -1,6 +1,6 @@
 <div id="app">
   <blog-header  :data="header" ></blog-header>
-  <square-grid  :news="news"></square-grid>
+  <square-grid  :news="selectNews"></square-grid>
 </div>
 
 <script type="text/javascript">
@@ -13,20 +13,31 @@
     el: '#app',
     data: {
       header: 'สารสนเทศถึง ตลท.',
-      news: [
-        { head: 'เเจ้งกรรมการบริษัทลาออก', date: '4 มกราคม 2559', url:'#'},
-        { head: ' กำหนดวันหยุดตามประเพณีประจำปี', date: '8 ธันวาคม 2559', url:'#'},
-        { head: 'เเจ้งกรรมการบริษัทลาออก', date: '4 มกราคม 2559', url:'#'},
-        { head: ' กำหนดวันหยุดตามประเพณีประจำปี', date: '8 ธันวาคม 2559', url:'#'},
-        { head: 'เเจ้งกรรมการบริษัทลาออก', date: '4 มกราคม 2559', url:'#'},
-        { head: ' กำหนดวันหยุดตามประเพณีประจำปี', date: '8 ธันวาคม 2559', url:'#'},
-        { head: 'เเจ้งกรรมการบริษัทลาออก', date: '4 มกราคม 2559', url:'#'},
-        { head: ' กำหนดวันหยุดตามประเพณีประจำปี', date: '8 ธันวาคม 2559', url:'#'},
-        { head: 'เเจ้งกรรมการบริษัทลาออก', date: '4 มกราคม 2559', url:'#'},
-        { head: ' กำหนดวันหยุดตามประเพณีประจำปี', date: '8 ธันวาคม 2559', url:'#'},
-        { head: 'เเจ้งกรรมการบริษัทลาออก', date: '4 มกราคม 2559', url:'#'},
-        { head: ' กำหนดวันหยุดตามประเพณีประจำปี', date: '8 ธันวาคม 2559', url:'#'},
-      ]
+      newfeeds: [],
+      type: "ข่าวset"
+    },
+    computed:{
+      selectNews: function(){
+        var type = this.type ;
+        return this.newfeeds.filter( function(newfeed){
+          if ( newfeed.newstype == type ) {
+            return newfeed
+          }
+        });
+      }
+    },
+    //include json file of board
+    mounted: function() {
+      this.$nextTick(function () {
+        var that;
+        that = this;
+        $.ajax({
+          url: '/newsfeeds.json',
+          success: function(res) {
+            that.newfeeds = res;
+          }
+        });
+      });
     }
   });
 </script>
