@@ -5,7 +5,7 @@
     .hero-head
       position: fixed
       width: 100%
-      background-color: $is-info
+      //background-color: $is-info
       z-index: 20
     ._hero_body_slider
       margin-top: 60px
@@ -14,6 +14,9 @@
 
 .nav
   min-height: 60px !important
+  transition: 1s
+  &._bg_blue
+    background: rgba(0,42,88,1) !important
 
 .nav-item
   position: relative
@@ -52,6 +55,8 @@
     background: $is-info !important
   &._nav_affix
     transition: 1s
+    &._add_color
+      background: rgba(0,42,88,0.8)
     .columns
       width: 100%
       margin-bottom: 0px
@@ -61,9 +66,9 @@
         position: relative
         &:hover, &:active,
           background-color: lighten( #3273dc, 5% )
-          border-bottom: 4px solid rgba(#ffc800, 0.5)
+          border-bottom: 4px solid rgba( #3273dc, 0.5)
         &.active
-          border-bottom: 4px solid #ffc800
+          border-bottom: 4px solid #3273dc
         a
           color: white
           font-size: 14px

@@ -12,14 +12,31 @@
 
     <!-- header ><-->
     <div id="cHeader">
-      <section class="hero _fixed_top" v-bind:class="[body.theme,body.size]">
+      <section class="hero _fixed_top" :class="[body.theme,body.size]" :style="{ background: 'url(' + body.background + ') no-repeat center center' , backgroundSize: 'cover' }">
         <nav-bar
           :nav="nav"
           :body="body"
           :login="login"
           :role="checkRole"
           ></nav-bar>
-        <hero-slider :slider="sliders" :choice="choice" ></hero-slider>
+        <!-- hero-slider :slider="sliders" :choice="choice" ></hero-slider -->
+        <span class="_fixed_margin">
+          <hero-body-split :text="body"></hero-body-split>
+        </span>
+        <header class="nav _nav_affix _add_color">
+          <div class="container">
+            <div class="columns" style="width:100%">
+              <span class="column"
+                v-for="l in iLinks"
+                v-bind:class="['active']"
+              >
+                <span>
+                  <a :href="l.url">{{l.title}}</a>
+                </span>
+              </span>
+            </div>
+          </div>
+        </header>
       </section>
     </div>
 
@@ -39,6 +56,18 @@
     <script src="/js/slider.js"></script>
     <script src="/js/footer.js"></script>
     <script type="text/javascript">
+    $( document ).ready(function() {
+      var navH = $('#navbar').outerHeight();
+      $(window).scroll(function (event) {
+        var scroll = $(window).scrollTop();
+        if (scroll >= navH ) {
+          $('.nav').addClass('_bg_blue');
+        }else{
+          $('.nav').removeClass('_bg_blue');
+        }
+      });
+    });
+
       //component of header
       var header = new Vue({
         el: '#cHeader',
@@ -55,10 +84,22 @@
           login: <%= user_signed_in? %>,
           body: {
             theme: 'is-info',
-            size:  'is-large',
-            title: 'Vue&Bulma sample with Rails stack',
-            sub:   'Vuejs 2.1.6 | Bulma 0.2.3 | Rails 5.0.0'
+            background: '/img_ref/bg_blue.jpg',
+            size:  'is-medium',
+            title: 'นักลงทุนสัมพันธ์',
+            sub:   'Public Company Limited มุ่งมั่นที่จะเป็นบริษัทอสังหาริมทรัพย์ชั้นนำของประเทศไทย ที่มีธุรกิจและบริการที่หลากหลายเพื่อตอบสนองรูปแบบการดำเนินชีวิตสมัยใหม่ และสามารถตอบโจทย์ความต้องการของลูกค้าได้อย่างครบถ้วน',
+            link: 'นักลงทุนสัมพันธ์',
+            url:  ''
           },
+          iLinks:[
+            { title: 'นักลงทุนสัมพันธ์'          ,action:'' , url: 'index' },
+            { title: 'ข้อมูลทางการเงิน' ,action:'' , url: 'index' },
+            { title: 'ข้อมู,สำหรับผู้ถือหุ้น'      ,action:'' , url: 'index' },
+            { title: 'ผู้ถือหุ้นกู้'       ,action:'' , url: 'index' },
+            { title: 'ข้อมูลราคาหลักทรัพย์'      ,action:'' , url: 'index' },
+            { title: 'ห้องข่าว'     ,action:'' , url: 'index' },
+            { title: 'สอบถามข้อมูลนักลงทุน' ,action:'' , url: 'index' },
+          ],
           sliders: [
             {
               title: 'บริษัท พฤกษา โฮลดิ้ง จำกัด (มหาชน)',
@@ -79,26 +120,26 @@
           slider: false ,
           choice: 'tab1',
           nav: {
-            brand: 'https://s29.postimg.org/5xtetqw6v/vbr.png',
+            brand: '/img_ref/logo_p.png',
             brandLink: "<%= home_index_path %>",
             links: [
               {
-                title: 'About us',
+                title: 'เกี่ยวกับเรา',
                 controller: 'about',
                 link: "<%= page_about_path %>",
                 target: ''
               },{
-                title: 'Investor relationship',
+                title: 'นักลงทุนสัมพันธ์',
                 controller: 'investor',
                 link: "<%= investor_index_path %>",
                 target: ''
               },{
-                title: 'News & Activities',
+                title: 'ข่าวเเละกิจกรรม',
                 controller: 'news',
                 link: "<%= page_news_path %>",
                 target: ''
               },{
-                title: 'Contact',
+                title: 'ติดต่อเรา',
                 controller: 'contact',
                 link: "<%= page_contact_path %>",
                 target: ''

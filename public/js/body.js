@@ -7,7 +7,7 @@ Vue.component('navBar',{
       <div class="container">
         <div class="nav-left">
           <a :href="nav.brandLink" class="nav-item">
-            <img :src="nav.brand" alt="" style="height: 33px;">
+            <img :src="nav.brand" alt="" style="height: 28px; max-height: inherit;">
           </a>
         </div>
         <div class="nav-right nav-menu">
@@ -73,6 +73,32 @@ Vue.component('heroBody',{
         <h1 class="title">{{text.title}}</h1>
         <h2 class="subtitle">{{text.sub}}</h2>
       </div>
+    </div>
+  `,
+  props: ['text']
+});
+
+Vue.component('hero-body-split',{
+  // sample
+  // <!-- hero-body :text="body"></hero-body -->
+  template: `
+    <div class="hero-body _body_split">
+      <div class="container">
+        <div class="split">
+          <h1 class="title">{{text.title}}</h1>
+          <h2 class="subtitle">{{text.sub}}</h2>
+          <a class="button" :href="text.url">{{text.link}}</a>
+        </div>
+        <div class="square">
+          <div class="quote">PCL</div>
+          <div class="price">80.70 (THB)</div>
+          <div class="change">
+            CHANGE (%) <br>
+            -0.21 (1.25%)
+          </div>
+        </div>
+      </div>
+
     </div>
   `,
   props: ['text']
