@@ -1,5 +1,17 @@
 @import "variable"
 
+.hero
+  &._fixed_top
+    .hero-head
+      position: fixed
+      width: 100%
+      background-color: $is-info
+      z-index: 20
+    ._hero_body_slider
+      margin-top: 60px
+._fixed_margin
+  margin-top: 60px
+
 .nav
   min-height: 60px !important
 
@@ -33,7 +45,13 @@
           padding: 10px 20px
 
 .nav
+  &._fixed
+    position: fixed
+    top: 60px
+    width: 100%
+    background: $is-info !important
   &._nav_affix
+    transition: 1s
     .columns
       width: 100%
       margin-bottom: 0px

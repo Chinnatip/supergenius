@@ -12,7 +12,7 @@
 
     <!-- header ><-->
     <div id="cHeader">
-      <section class="hero" v-bind:class="[body.theme,body.size]">
+      <section class="hero _fixed_top" v-bind:class="[body.theme,body.size]">
         <nav-bar
           :nav="nav"
           :body="body"
@@ -20,7 +20,7 @@
           :role="checkRole"
           :active="url_action"
           ></nav-bar>
-        <span>
+        <span class="_fixed_margin">
           <hero-body :text="selectContent"></hero-body>
         </span>
         <header class="nav _nav_affix">

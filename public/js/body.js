@@ -2,7 +2,7 @@ Vue.component('navBar',{
   // sample
   // <nav-bar   :nav="nav" :body="body" ></nav-bar>
   template: `
-  <div class="hero-head">
+  <div class="hero-head" id="navbar" >
     <header class="nav">
       <div class="container">
         <div class="nav-left">

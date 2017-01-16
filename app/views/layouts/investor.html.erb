@@ -11,7 +11,7 @@
 
   <body>
     <div id="cHeader">
-      <section class="hero is-medium" v-bind:class="[body.theme]">
+      <section class="hero is-medium _fixed_top" v-bind:class="[body.theme]">
         <nav-bar
           :nav="nav"
           :body="body"
@@ -19,29 +19,31 @@
           :role="checkRole"
           :active="url_controller"
           ></nav-bar>
-        <span v-if=" url_action == 'index' ">
-          <hero-body :text="body"></hero-body>
+        <span class="_fixed_margin">
+          <hero-body id="body_content" :text="body"  v-if=" url_action == 'index' " ></hero-body>
+          <header class="nav _nav_affix">
+              <div class="columns" style="width:100%">
+                <span class="column" v-for="l in iLinks" :class=" isActive( l.action ) ">
+                  <span v-if="l.sublink == false">
+                    <a :href="l.url">{{l.title}}</a>
+                  </span>
+                  <span v-else class="_link_with_sub">
+                    <a>{{l.title}}</a>
+                    <ul>
+                      <li v-for="a in l.suburl">
+                        <a v-if="a.target == 'blank'" target="_blank" :href="a.url">{{a.text}}</a>
+                        <a v-else :href="a.url">{{a.text}}</a>
+                      </li>
+                    </ul>
+                  </span>
+                </span>
+              </div>
+          </header>
         </span>
-        <header class="nav _nav_affix">
-            <div class="columns" style="width:100%">
-              <span class="column" v-for="l in iLinks" :class=" isActive( l.action ) ">
-                <span v-if="l.sublink == false">
-                  <a :href="l.url">{{l.title}}</a>
-                </span>
-                <span v-else class="_link_with_sub">
-                  <a>{{l.title}}</a>
-                  <ul>
-                    <li v-for="a in l.suburl">
-                      <a v-if="a.target == 'blank'" target="_blank" :href="a.url">{{a.text}}</a>
-                      <a v-else :href="a.url">{{a.text}}</a>
-                    </li>
-                  </ul>
-                </span>
-              </span>
-            </div>
-        </header>
       </section>
     </div>
+
+      <div id="float"></div>
 
       <%= yield %>
     <div id="cFooter">
@@ -58,6 +60,23 @@
   <script src="/js/app-data.js"></script>
 
   <script type="text/javascript">
+    $( document ).ready(function() {
+      var navH = $('#navbar').outerHeight();
+      var bodyH = $('#body_content').outerHeight();
+      $(window).scroll(function (event) {
+        var scroll = $(window).scrollTop();
+        if (scroll >= (navH + bodyH)) {
+          //console.log(scroll);
+          $('._nav_affix').addClass('_fixed');
+          $('#float').addClass('_fixed_margin');
+        }else{
+          $('._nav_affix').removeClass('_fixed');
+          $('#float').removeClass('_fixed_margin');
+        }
+      });
+    });
+
+
     var comp = new Vue({
       el: '#cHeader',
       computed:{
