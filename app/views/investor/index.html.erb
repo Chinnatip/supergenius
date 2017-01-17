@@ -1,9 +1,27 @@
 <div id="app">
-  <blog-quote :stock="stock"></blog-quote>
+  <!-- blog-quote :stock="stock"></blog-quote>
   <hr>
   <blog-jumbo :data="share"></blog-jumbo>
   <hr>
-  <blog-jumbo :data="email"></blog-jumbo>
+  <blog-jumbo :data="email"></blog-jumbo -->
+  <div class="container _main_cupboard">
+    <div class="_side">
+      <h1>ข่าวล่าสุด</h1>
+      <div class="_list" v-for="(n,index) in newsfeeds" v-if="index <= 3">
+        <span class="new">{{n.title}}</span>
+        <span class="date">{{n.created_at}}</span>
+      </div>
+      <a class="_right_link" href="<%= page_news_path %>">อ่านข่าวทั้งหมด >></a>
+    </div>
+    <div class="_main">
+      <blog-quote-main :stock="stock"></blog-quote-main>
+      <hr>
+      <div class="_split_jumbo">
+        <blog-jumbo :data="report"></blog-jumbo>
+        <blog-jumbo :data="email"></blog-jumbo>
+      </div>
+    </div>
+  </div>
 </div>
 
 <!-- Include JAVASCRIPT here ><-->
@@ -12,6 +30,7 @@
   var app = new Vue({
     el: '#app',
     data: {
+      newsfeeds: [],
       stock: {
         quote:"<%= @quote %>",
         price: "<%= @stock_data[0] %>",
@@ -23,16 +42,33 @@
         volumn: "<%= @stock_data[6] %>",
         link:"#"
       },
-      share: {
-        title: "โครงสร้างผู้ถือหุ้น" ,
-        desc: "รายชื่อผู้ถือหุ้นบริษัท พฤกษา โฮลดิ้ง จำกัด (มหาชน) ณ วันที่ 29 เมษายน 2559" ,
+      report: {
+        title: "รายงานประจำปี" ,
+        desc: "รายชื่อผู้ถือหุ้นบริษัท จำกัด มหาชน ณ วันที่ 1 มกราคม 2560" ,
         hasLink: true, link: "ดูเพิ่มเติม", href: "<%= investor_share_path %>", linkclass: "" ,
       },
       email: {
         title: "อีเมล์รับข่าวสาร" ,
         desc: "ท่านสามารถลงทะเบียนเพื่อรับข่าวสารอิเล็กทรอนิกส์ เราจะส่งข่าวสารให้ท่านทาง อีเมล์ เมื่อมีข่าวสารที่เกี่ยวกับบริษัท (ประกาศ, ปรับปรุงเว็บไซต์) ที่ประกาศผ่านเว็บไซต์นี้" ,
-        hasLink: true, link: "สมัคร", href: "<%= investor_contact_email_path %>", linkclass: "__middle"
+        hasLink: true, link: "รับข่าวสาร", href: "<%= investor_contact_email_path %>", linkclass: "" ,
+      },
+      share: {
+        title: "โครงสร้างผู้ถือหุ้น" ,
+        desc: "รายชื่อผู้ถือหุ้นบริษัท พฤกษา โฮลดิ้ง จำกัด (มหาชน) ณ วันที่ 29 เมษายน 2559" ,
+        hasLink: true, link: "ดูเพิ่มเติม", href: "<%= investor_share_path %>", linkclass: "" ,
       }
+    },
+    mounted: function() {
+      this.$nextTick(function () {
+        var that;
+        that = this;
+        $.ajax({
+          url: '/newsfeeds.json',
+          success: function(res) {
+            that.newsfeeds = res;
+          }
+        });
+      });
     }
   });
 </script>

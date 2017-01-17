@@ -128,6 +128,9 @@ Vue.component('blogQuote',{
 Vue.component('tableRating',{
   template: `
   <section class="is-medium _body_table">
+    <div class="left" v-if="header">
+      <h1>{{header}}</h1>
+    </div>
     <div class="right _content">
       เลือกปีที่ต้องการค้นหา
       <select class="select">
@@ -157,13 +160,16 @@ Vue.component('tableRating',{
     </table>
   </section>
   `,
-  props: [ 'table' , 'selector']
+  props: [ 'table' , 'selector','header']
 });
 
 Vue.component('tableHolder',{
   template: `
   <section class="is-medium _body_table">
-    <div class="_content" v-if="table.hint.check">
+    <div class="left" v-if="table.hint.check">
+      <h1 v-if="header">{{header}}</h1> <br>
+    </div>
+    <div class="right _content">
       {{table.hint.text}}
     </div>
     <table class="table">
@@ -200,7 +206,7 @@ Vue.component('tableHolder',{
     </table>
   </section>
   `,
-  props: [ 'table' , 'content' ],
+  props: [ 'table' , 'content' , 'header' ],
   methods: {
     calc: function( val , total ){
       return  Math.round( val / total * 10000 ) / 100 ;

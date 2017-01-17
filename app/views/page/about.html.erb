@@ -1,14 +1,44 @@
 <div id="app">
-  <blog-jumbo :data="history"></blog-jumbo>
-  <hr>
-  <blog-jumbo :data="business"></blog-jumbo>
-  <hr>
-  <blog-jumbo :data="structure" blogstyle="center"></blog-jumbo>
-  <hr>
-  <blog-header  :data="staffHeader"></blog-header>
-  <square-grid  :news="staff" styler="staff"></square-grid>
-  <hr>
-  <blog-jumbo :data="ci"></blog-jumbo>
+  <div :style="{height: '40px'}"></div>
+  <div class="container _main_cupboard">
+    <div class="_side __320px">
+      <h1>COMPANY TIMELINE</h1>
+      <ul class="_timeline">
+        <li v-for="t in timelines">
+          <span class="_img_comp"><img :src="t.img" alt=""></span>
+          <span class="_content">
+            <p class="__year">{{t.year}}</p>
+            <p class="__title">{{t.title}}</p>
+          </span>
+        </li>
+      </ul>
+
+    </div>
+    <div class="_main">
+      <blog-jumbo :data="history"></blog-jumbo>
+      <br>
+      <div
+        class="_testimo_player"
+        :style="{ background: 'url(' + player.bg + ') no-repeat center center' , backgroundSize: 'cover' }"
+      >
+        <h1 class="">{{player.title}}</h1>
+        <a :href="player.url">{{player.text}}</a>
+      </div>
+
+      <br>
+      <div :style="{height: '40px'}"></div>
+
+      <ul class="_invoker">
+        <li v-for="i in invokes">
+          <img :src="i.img" alt="">
+          <span>
+            <p class="title">{{i.title}}</p>
+            <p class="text">{{i.text}}</p>
+          </span>
+        </li>
+      </ul>
+    </div>
+  </div>
 </div>
 
 <!-- Include JAVASCRIPT here ><-->
@@ -17,12 +47,27 @@
   var app = new Vue({
     el: '#app',
     data: {
+      invokes: [
+        { img: '/img_ref/ic_01.png', title: 'ความไว้วางใจ', text: 'ด้วยมาตราฐานที่เราใช้ทำธุรกิจ คุณมั่นใจได้ว่าบริษัทของเราสามารถผลิตโครงการอสังหาริมทรัพย์ที่มีคุณภาพ ไม่มีปัญหาในภายหลัง' },
+        { img: '/img_ref/ic_02.png', title: 'เทคโนโลยีสากล', text: 'เราใช้เทคโนโลยีในการพัฒนาองค์กรของเรา ทั้งในส่วนการจัดการภายในและตัวผลิตภัณฑ์' },
+        { img: '/img_ref/ic_03.png', title: 'ราคาที่เป็นธรรม', text: 'เรามุ่งเน้นที่จะทำธุรกิจในระยะยาว และสร้างความสัมพันธ์กับลูกค้าของเรา' }
+      ],
+      timelines: [
+        {year: 'พศ.2530', title: 'บริษัทได้ถูกก่อตั้งขึ้นโดยกลุ่มทุนนักธุรกิจชาวไทย', img: '/img_ref/im_01.png'},
+        {year: 'พศ.2536', title: 'บริษัทจดทะเบียนเป็นบริษัทมหาชน', img: '/img_ref/im_02.png'},
+        {year: 'พศ.2540', title: 'ยอดขายบริษัทมีสูงกว่า 10,000 ล้านบาท ', img: '/img_ref/im_03.png'},
+        {year: 'ปัจุบัน', title: 'เครือข่ายลูกค้าทั่วโลก ', img: '/img_ref/im_04.png'},
+      ],
+      player: {
+        bg: '/img_ref/bg_city_01.png',
+        title: 'กว่า 30 ปีที่บริษัทของเราได้รับใช้ชาวไทย',
+        text: 'เล่นวิดิโอที่เกี่ยวกับบริษัทของเรา',
+        url: '#' ,
+      },
       history: {
         title: "ประวัติบริษัท" ,
         text: [
-          "ปี 2559",
-          "คณะกรรมการบริษัทฯ มีมติอนุมัติจัดตั้งบริษัทโฮลดิ้งขึ้นใหม่ ภายใต้ชื่อ บริษัท พฤกษา โฮลดิ้ง จำกัด (มหาชน)",
-          "และจะนำหุ้นสามัญของบริษัทโฮลดิ้ง เข้าจดทะเบียนในตลาดหลักทรัพย์ฯ และเพิกถอนหุ้นของบริษัท ฯ โดยคาดว่าการปรับโครงสร้างนี้ จะแล้วเสร็จภายในเดือนพฤศจิกายน 2559 ข้อมูลสรุปบริษัทโฮลดิ้ง และพฤกษา เรียลเอสเตท ดังแแผนภาพด้านล่าง"
+          "Public Company Limited มุ่งมั่นที่จะเป็นบริษัทอสังหาริมทรัพย์ชั้นนำของประเทศไทย ที่มีธุรกิจและบริการที่หลากหลายเพื่อตอบสนองรูปแบบการดำเนินชีวิตสมัยใหม่ และสามารถตอบโจทย์ความต้องการของลูกค้าได้อย่างครบถ้วน Public Company Limited มุ่งมั่นที่จะเป็นบริษัทอสังหาริมทรัพย์ชั้นนำของประเทศไทย ที่มีธุรกิจและบริการที่หลากหลายเพื่อตอบสนองรูปแบบการดำเนินชีวิตสมัยใหม่ และสามารถตอบโจทย์ความต้องการของลูกค้าได้อย่างครบถ้วน Public Company Limited มุ่งมั่นที่จะเป็นบริษัทอสังหาริมทรัพย์ชั้นนำของประเทศไทย ที่มีธุรกิจและบริการที่หลากหลายเพื่อตอบสนองรูปแบบการดำเนินชีวิตสมัยใหม่ และสามารถตอบโจทย์ความต้องการของลูกค้าได้อย่างครบถ้วน"
         ] ,
         hasLink: false
       },

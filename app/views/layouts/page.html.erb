@@ -12,7 +12,11 @@
 
     <!-- header ><-->
     <div id="cHeader">
-      <section class="hero _fixed_top" v-bind:class="[body.theme,body.size]">
+      <section
+        class="hero _fixed_top"
+        v-bind:class="[body.theme,body.size]"
+        :style="{ backgroundColor: '#002a58' , background: 'url(' + body.background + ') no-repeat center center' , backgroundSize: 'cover' }"
+        >
         <nav-bar
           :nav="nav"
           :body="body"
@@ -21,9 +25,10 @@
           :active="url_action"
           ></nav-bar>
         <span class="_fixed_margin">
-          <hero-body :text="selectContent"></hero-body>
+          <hero-body-split id="body_content" :text="selectContent"></hero-body-split>
+          <!-- hero-body :text="selectContent"></hero-body -->
         </span>
-        <header class="nav _nav_affix">
+        <header class="nav _nav_affix _add_color">
             <div class="columns" style="width:100%">
               <span class="column"
                 v-if="url_action == 'about'"
@@ -45,7 +50,7 @@
     <!-- footer ><-->
     <div id="cFooter">
       <black-ribbon></black-ribbon>
-      <footer-site :footer="footer"></footer-site>
+      <footer-site-corp :footer="footer"></footer-site-corp>
     </div>
 
     <!-- Include JAVASCRIPT here ><-->
@@ -54,6 +59,30 @@
     <script src="/js/slider.js"></script>
     <script src="/js/footer_site.js"></script>
     <script type="text/javascript">
+      //controll navbar
+      $( document ).ready(function() {
+        var navH = $('#navbar').outerHeight();
+        var bodyH = $('#body_content').outerHeight();
+        $(window).scroll(function (event) {
+          var scroll = $(window).scrollTop();
+          if (scroll >= navH) {
+            $('.nav').addClass('_bg_blue');
+          }else if(scroll < navH){
+            console.log('rem');
+            $('.nav').removeClass('_bg_blue');
+          }
+
+          if (scroll >= (navH + bodyH)) {
+            $('._nav_affix').addClass('_fixed');
+            $('#float').addClass('_fixed_margin');
+          }else{
+            $('._nav_affix').removeClass('_fixed');
+            $('#float').removeClass('_fixed_margin');
+          }
+        });
+      });
+
+
       //component of header
       var header = new Vue({
         el: '#cHeader',
@@ -64,12 +93,14 @@
             }
           },
           selectContent: function(){
+            console.log('hello');
             for (var i = 0; i < this.content.length; i++) {
               var select ;
               if (this.content[i].key == this.url_action) {
                 select = i ;
               }
             }
+            console.log( this.content[select]);
             return this.content[select]
           }
         },
@@ -79,6 +110,7 @@
           login: <%= user_signed_in? %>,
           body: {
             theme: 'is-info',
+            background: '/img_ref/bg_city_02.png',
             size:  'is-medium',
           },
           iLinks:[
@@ -91,9 +123,9 @@
             { title: 'CORPORATE IDENTITY' ,action:'' , url: 'index' },
           ],
           content: [
-            { key: 'about'   , title: 'เกี่ยวกับเรา' , sub: 'PSH มุ่งมั่นที่จะเป็นบริษัทอสังหาริมทรัพย์ชั้นนำของประเทศไทย ที่มีธุรกิจและบริการที่หลากหลายเพื่อตอบสนองรูปแบบการดำเนินชีวิตสมัยใหม่ และสามารถตอบโจทย์ความต้องการของลูกค้าได้อย่างครบถ้วน',},
-            { key: 'news'    , title: 'ข่าวและกิจกรรม', sub: 'PSH มุ่งมั่นที่จะเป็นบริษัทอสังหาริมทรัพย์ชั้นนำของประเทศไทย ที่มีธุรกิจและบริการที่หลากหลายเพื่อตอบสนองรูปแบบการดำเนินชีวิตสมัยใหม่ และสามารถตอบโจทย์ทุกความต้องการของลูกค้าได้อย่างครบถ้วน',},
-            { key: 'contact' , title: 'ติดต่อเรา'     , sub: 'PSH มุ่งมั่นที่จะเป็นบริษัทอสังหาริมทรัพย์ชั้นนำของประเทศไทย ที่มีธุรกิจและบริการที่หลากหลายเพื่อตอบสนองรูปแบบการดำเนินชีวิตสมัยใหม่ และสามารถตอบโจทย์ทุกความต้องการของลูกค้าได้อย่างครบถ้วน',},
+            { key: 'about'   , title: 'เกี่ยวกับเรา'   , link: 'เกี่ยวกับเรา' , sub: 'PSH มุ่งมั่นที่จะเป็นบริษัทอสังหาริมทรัพย์ชั้นนำของประเทศไทย ที่มีธุรกิจและบริการที่หลากหลายเพื่อตอบสนองรูปแบบการดำเนินชีวิตสมัยใหม่ และสามารถตอบโจทย์ความต้องการของลูกค้าได้อย่างครบถ้วน',},
+            { key: 'news'    , title: 'ข่าวและกิจกรรม', link: 'ข่าวเเละกิจกรรม' , sub: 'PSH มุ่งมั่นที่จะเป็นบริษัทอสังหาริมทรัพย์ชั้นนำของประเทศไทย ที่มีธุรกิจและบริการที่หลากหลายเพื่อตอบสนองรูปแบบการดำเนินชีวิตสมัยใหม่ และสามารถตอบโจทย์ทุกความต้องการของลูกค้าได้อย่างครบถ้วน',},
+            { key: 'contact' , title: 'ติดต่อเรา'     , link: 'ติดต่อเรา' , sub: 'PSH มุ่งมั่นที่จะเป็นบริษัทอสังหาริมทรัพย์ชั้นนำของประเทศไทย ที่มีธุรกิจและบริการที่หลากหลายเพื่อตอบสนองรูปแบบการดำเนินชีวิตสมัยใหม่ และสามารถตอบโจทย์ทุกความต้องการของลูกค้าได้อย่างครบถ้วน',},
           ],
           sliders: [
             { title: 'Vue&Bulma in Rails stack', subtitle: 'scroll down to learn how good of component world',tab: 'tab1'},
@@ -107,22 +139,22 @@
             brandLink: "<%= home_index_path %>",
             links: [
               {
-                title: 'About us',
+                title: 'เกี่ยวกับเรา',
                 controller: 'about',
                 link: "<%= page_about_path %>",
                 target: ''
               },{
-                title: 'Investor relationship',
+                title: 'นักลงทุนสัมพันธ์',
                 controller: 'investor',
                 link: "<%= investor_index_path %>",
                 target: ''
               },{
-                title: 'News & Activities',
+                title: 'ข่าวเเละกิจกรรม',
                 controller: 'news',
                 link: "<%= page_news_path %>",
                 target: ''
               },{
-                title: 'Contact',
+                title: 'ติดต่อเรา',
                 controller: 'contact',
                 link: "<%= page_contact_path %>",
                 target: ''

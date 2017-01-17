@@ -16,7 +16,8 @@
   min-height: 60px !important
   transition: 1s
   &._bg_blue
-    background: rgba(0,42,88,1) !important
+    background: $linear-gb !important
+    //background: rgba(0,42,88,1) !important
 
 .nav-item
   position: relative
@@ -52,11 +53,12 @@
     position: fixed
     top: 60px
     width: 100%
-    background: $is-info !important
+    //background: $is-info !important
   &._nav_affix
     transition: 1s
     &._add_color
-      background: rgba(0,42,88,0.8)
+      background: $linear-gb
+      //background: rgba(0,42,88,0.8)
     .columns
       width: 100%
       margin-bottom: 0px
@@ -68,7 +70,7 @@
           background-color: lighten( #3273dc, 5% )
           border-bottom: 4px solid rgba( #3273dc, 0.5)
         &.active
-          border-bottom: 4px solid #3273dc
+          border-bottom: 4px solid #5294ff
         a
           color: white
           font-size: 14px

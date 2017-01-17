@@ -22,6 +22,8 @@ $family-serif: "Georgia", serif
     margin-right: 28px
     padding-right: 20px
     border-right: 1px solid #dcdcdc
+    &.__320px
+      min-width: 320px
     a._right_link
       color: $is-info
       margin-top: 14px
@@ -92,7 +94,16 @@ $family-serif: "Georgia", serif
               max-width: inherit
               font-size: 16px
               margin-top: 8px
-            a
+    ._body_jumbo
+      padding: 0 20px !important
+      .container , .__body
+        padding: 0
+      h1
+        border-bottom: 1px solid #d6d6d6
+        color: grey
+        padding-bottom: 12px
+      h4
+        max-width: 100%
 
 h1
   color: $blue

@@ -8,10 +8,11 @@
     <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
   </head>
-
   <body>
+
+    <!-- header ><-->
     <div id="cHeader">
-      <section class="hero is-medium _fixed_top" v-bind:class="[body.theme]">
+      <section class="hero _fixed_top" v-bind:class="[body.theme,body.size]" :style="{ backgroundColor: '#002a58' , background: 'url(' + body.background + ') no-repeat center center' , backgroundSize: 'cover' }">
         <nav-bar
           :nav="nav"
           :body="body"
@@ -20,8 +21,9 @@
           :active="url_controller"
           ></nav-bar>
         <span class="_fixed_margin">
-          <hero-body id="body_content" :text="body"  v-if=" url_action == 'index' " ></hero-body>
-          <header class="nav _nav_affix">
+          <hero-body-split id="body_content" :text="body" v-if=" url_action == 'index' "></hero-body-split>
+          <!-- hero-body id="body_content" :text="body"  v-if=" url_action == 'index' " ></hero-body -->
+          <header class="nav _nav_affix _add_color">
               <div class="columns" style="width:100%">
                 <span class="column" v-for="l in iLinks" :class=" isActive( l.action ) ">
                   <span v-if="l.sublink == false">
@@ -48,7 +50,7 @@
       <%= yield %>
     <div id="cFooter">
       <black-ribbon></black-ribbon>
-      <footer-site :footer="footer"></footer-site>
+      <footer-site-corp :footer="footer"></footer-site-corp>
     </div>
   </body>
   <!-- Include JAVASCRIPT here ><-->
@@ -65,8 +67,14 @@
       var bodyH = $('#body_content').outerHeight();
       $(window).scroll(function (event) {
         var scroll = $(window).scrollTop();
+        if (scroll >= navH) {
+          $('.nav').addClass('_bg_blue');
+        }else if(scroll < navH){
+          console.log('rem');
+          $('.nav').removeClass('_bg_blue');
+        }
+
         if (scroll >= (navH + bodyH)) {
-          //console.log(scroll);
           $('._nav_affix').addClass('_fixed');
           $('#float').addClass('_fixed_margin');
         }else{
@@ -101,62 +109,65 @@
         url_active: '<%= @active %>',
         login: <%= user_signed_in? %>,
         iLinks:[
-          { title: 'Investor Relations'     , action: 'index' , url: '<%= investor_index_path %>' , sublink: false },
-          { title: 'Financial Information'  , action: 'financial' , url: '<%= investor_financial_path %>' , sublink: false },
-          { title: 'Shareholder Information', action: 'share' , url: '#' , sublink: true , suburl:[
-            {text:'Major Shareholders'          , url:'<%= investor_share_path %>'},
-            {text:'Dividend History and Policy' , url:'<%= investor_share_history_path %>'},
-            {text:'Right of Shareholders'       , url:'<%= investor_share_right_path %>'},
-            {text: "Shareholders' Meeting"      , url:'<%= investor_share_holder_path %>'}]
+          { title: 'นักลงทุนสัมพันธ์'     , action: 'index' , url: '<%= investor_index_path %>' , sublink: false },
+          { title: 'ข้อมูลทางการเงิน'  , action: 'financial' , url: '<%= investor_financial_path %>' , sublink: false },
+          { title: 'ข้อมูลสำหรับผู้ถือหุ้น', action: 'share' , url: '#' , sublink: true , suburl:[
+            {text:'โครงสร้างผู้ถือหุ้น'    , url:'<%= investor_share_path %>'},
+            {text:'นโยบายเเละประวัติการจ่ายปันผล' , url:'<%= investor_share_history_path %>'},
+            {text:'สิทธิของผู้ถือหุ้น'       , url:'<%= investor_share_right_path %>'},
+            {text: "การประชุมผู้ถือหุ้น"      , url:'<%= investor_share_holder_path %>'}]
           },
-          { title: 'Bondholder'           , action: 'bond' , url: '#' , sublink: true , suburl:[
-            {text:'Financial Policy'      , url:'<%= investor_bond_policy_path %>'},
-            {text:'THB Bond Information'  , url:'<%= investor_bond_path %>'},
-            {text:'Prospectus'            , target: 'blank' , url:'http://capital.sec.or.th/webapp/corp_fin2/cgi-bin/final69.php?txt_compid=1807&txt_offerid=001576&txt_secuid=01&txt_offertypeid=01&txt_language=T&txt_applydate=2016-06-17&start_date=2016-10-19'}]
+          { title: 'ผู้ถือหุ้นกู้'           , action: 'bond' , url: '#' , sublink: true , suburl:[
+            {text:'นโยบายการเงิน'      , url:'<%= investor_bond_policy_path %>'},
+            {text:'ข้อมูลหุ้นกู้'  , url:'<%= investor_bond_path %>'},
+            {text:'หนังสือชี้ชวน'            , target: 'blank' , url:'http://capital.sec.or.th/webapp/corp_fin2/cgi-bin/final69.php?txt_compid=1807&txt_offerid=001576&txt_secuid=01&txt_offertypeid=01&txt_language=T&txt_applydate=2016-06-17&start_date=2016-10-19'}]
           },
-          { title: 'Stock Information'    , action: 'stock' , url: '#' , sublink: true , suburl:[
-            {text:'Stock Quotes'          , url:'<%= investor_stock_path %>'},
-            {text:'History Price'         , url:'<%= investor_stock_history_path %>'},
+          { title: 'ข้อมูลราคาหลักทรัพย์'    , action: 'stock' , url: '#' , sublink: true , suburl:[
+            {text:'ราคาหลักทรัพย์'          , url:'<%= investor_stock_path %>'},
+            {text:'ราคาย้อนหลัง'         , url:'<%= investor_stock_history_path %>'},
             {text:'Consensus'             , url:'<%= investor_stock_concensus_path %>'},
-            {text: 'Analyst Contact List' , url:'<%= investor_stock_analyst_path %>'}]
+            {text: 'รายชื่อนักวิเคราะห์' , url:'<%= investor_stock_analyst_path %>'}]
           },
-          { title: 'Newsroom'               , action: 'news' , url: '#' , sublink: true , suburl:[
+          { title: 'ห้องข่าว'               , action: 'news' , url: '#' , sublink: true , suburl:[
             {text:'IR Calendar'      , url:'<%= investor_news_calendar_path %>'},
-            {text:'SET Notification' , url:'<%= investor_news_set_path %>'},
-            {text:'News Clippings'   , url:'<%= investor_news_path %>'}]
+            {text:'สารสนเทศถึง ตลท.' , url:'<%= investor_news_set_path %>'},
+            {text:'ข่าวจากสื่อสิ่งพิมพ์'   , url:'<%= investor_news_path %>'}]
           },
-          { title: 'Information Request'    , action: 'contact' , url: '#' , sublink: true , suburl:[
-            {text: 'Email Alerts' , url:'<%= investor_contact_email_path %>'},
-            {text: 'IR Contact'   , url:'<%= investor_contact_path %>'}]
+          { title: 'สอบถามข้อมูลนักลงทุน'    , action: 'contact' , url: '#' , sublink: true , suburl:[
+            {text: 'อีเมล์รับข่าวสาร' , url:'<%= investor_contact_email_path %>'},
+            {text: 'ติดต่อนักลงทุนสัมพันธ์'   , url:'<%= investor_contact_path %>'}]
           }
         ],
         body: {
           theme: 'is-info',
-          size:  'is-large',
-          title: 'INVESTOR RELATIONS',
-          sub:   'PSH aims to be a top Thai diversified property company that delivers end-to-end modern urban lifestyles to customers.'
+          background: '/img_ref/bg_blue.jpg',
+          size:  'is-medium',
+          title: 'นักลงทุนสัมพันธ์',
+          sub:   'Public Company Limited มุ่งมั่นที่จะเป็นบริษัทอสังหาริมทรัพย์ชั้นนำของประเทศไทย ที่มีธุรกิจและบริการที่หลากหลายเพื่อตอบสนองรูปแบบการดำเนินชีวิตสมัยใหม่ และสามารถตอบโจทย์ความต้องการของลูกค้าได้อย่างครบถ้วน',
+          link: 'นักลงทุนสัมพันธ์',
+          url:  ''
         },
         nav: {
           brand: '/img_ref/logo_p.png',
           brandLink: "<%= home_index_path %>",
           links: [
             {
-              title: 'About us',
+              title: 'เกี่ยวกับเรา',
               controller: 'about',
               link: "<%= page_about_path %>",
               target: ''
             },{
-              title: 'Investor relationship',
+              title: 'นักลงทุนสัมพันธ์',
               controller: 'investor',
               link: "<%= investor_index_path %>",
               target: ''
             },{
-              title: 'News & Activities',
+              title: 'ข่าวเเละกิจกรรม',
               controller: 'new',
               link: "<%= page_news_path %>",
               target: ''
             },{
-              title: 'Contact',
+              title: 'ติดต่อเรา',
               controller: 'contact',
               link: "<%= page_contact_path %>",
               target: ''

@@ -81,6 +81,14 @@
 
 ._body_table
   padding: 10px 84px !important
+  .left
+    display: inline-block
+    padding: 14px 0
+    h1
+      font-size: 25px
+      padding-bottom: 6px
+      color: #4a4a4a
+      display: inline
   .right
     float: right
   ._content
@@ -90,15 +98,35 @@
       margin-left: 4px
       vertical-align: baseline
   table
+    margin-top: 14px
+    thead
+      //background-color: #002a58
+      background-image: $linear-gb
+      background-attachment: fixed
+      tr
+        &:hover , &:focus
+          background: none
+          //background-image: linear-gradient(90deg, #004599 0%, #006CB7 49%, #004599 100%) !important
+        th
+          color: white !important
+          text-align: center
+          font-size: 15px
+          padding: 18px 0
+          &:not(:last-child)
+            border-right: 1px solid white
     tr._highlight
-      background-color: #eaeaea
+      //background-color: #eaeaea
+      color: $is-info
+      &:hover , &:focus
+        background: white
 
 
 
 ._body_header
   padding: 0 84px !important
   .hero-body
-    padding-bottom: 10px
+    padding-bottom: 0px
+
 
 ._body_jumbo
   padding: 40px 84px !important
@@ -117,10 +145,11 @@
       max-width: 840px
       margin: auto
     h1
-      font-size: 28px
-      padding-bottom: 6px
       border-bottom: 3px solid $is-info
       color: $text-is-info
+      font-size: 25px
+      padding-bottom: 6px
+      //color: #4a4a4a
       display: inline
     h2
       margin-bottom: 24px

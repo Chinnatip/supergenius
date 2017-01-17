@@ -1,6 +1,7 @@
 <div id="app">
-  <blog-header  :data="header" ></blog-header>
-  <table-holder   :table="table" :content="boards"></table-holder>
+  <!-- blog-header  :data="header" ></blog-header -->
+  <div :style="{height: '40px'}"></div>
+  <table-holder  :header="header" :table="table" :content="boards"></table-holder>
 </div>
 
 <!-- Include JAVASCRIPT here ><-->
@@ -12,7 +13,7 @@
       header: 'โครงสร้างผู้ถือหุ้น',
       boards: [],
       table: {
-        hint:{ check: true , text: 'ณ วันที่ 29 พฤศจิกายน 2559'},
+        hint:{ check: true , text: 'วันที่ 1 มกราคม 2560'},
         headtype: '',
         thead:[
           { title: 'ลำดับที่'},
@@ -20,12 +21,7 @@
           { title: 'จำนวนหุ้น'},
           { title: '%'},
         ],
-        tfoot:[
-          { title: 'เอกสารอ้างอิง'},
-          { title: ''},
-          { title: ''},
-          { title: ''},
-        ],
+        tfoot:[],
         bodytype: 'boardList',
         tbody:[
           { index: true , noindex: true , highlight: true , text: ['รวม 10 อันดับเเรก', '1,739,166,561',	'79.56%'] },

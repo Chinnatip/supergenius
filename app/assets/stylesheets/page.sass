@@ -1,3 +1,86 @@
 // Place all the styles related to the page controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+@import "variable"
+
+._timeline
+  li
+    display: flex
+    align-items: center
+    ._img_comp
+      margin-right: 24px
+      width: 80px
+      min-width: 80px
+      padding: 12px 0
+      position: relative
+      &:before , &:after
+        content: ""
+        height: 40px
+        background-color: #095bbf
+        position: absolute
+        left: 40px
+    &:not(:first-child)
+      ._img_comp
+        &:before
+          top: 0
+          width: 3px
+    &:not(:last-child)
+      ._img_comp
+        &:after
+          bottom: 0
+          width: 3px
+      img
+        vertical-align: middle
+        z-index: 1
+        position: relative
+    ._content
+      .__year
+        color: $is-info
+        font-size: 13px
+        margin-bottom: 8px
+      .__title
+
+._testimo_player
+  min-height: 300px
+  display: flex
+  justify-content: center
+  padding: 0 64px
+  border-radius: 6px
+  margin: 0 20px
+  flex-direction: column
+  h1
+    color: white
+    font-size: 30px
+    margin-bottom: 18px
+  a
+    color: white !important
+    text-decoration: none
+    border-radius: 40px
+    padding: 14px 32px
+    font-size: 16px
+    display: table
+    border: 1px solid white
+    transition: 0.4s
+    &:hover, &:focus
+      background-color: $is-info
+      border: 0
+
+._invoker
+  padding: 0 20px
+  li
+    margin-bottom: 36px
+    img
+      vertical-align: middle
+      margin-right: 40px
+      width: 66px
+    span
+      display: inline-block
+      vertical-align: middle
+      p.title
+        color: $is-info
+        font-size: 16px
+        margin-bottom: 4px
+      p.text
+        font-size: 14px
+        max-width: 600px
