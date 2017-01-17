@@ -5,6 +5,24 @@
     <hero-body :text="testimo"></hero-body>
   </section -->
   <!-- mapping :map="maps"></mapping -->
+  <div class="container _main_cupboard">
+    <div class="_side">
+      <h1>ข่าวล่าสุด</h1>
+      <div class="_list" v-for="(n,index) in newsfeeds" v-if="index <= 3">
+        <span class="new">{{n.title}}</span>
+        <span class="date">{{n.created_at}}</span>
+      </div>
+      <a class="_right_link" href="<%= page_news_path %>">อ่านข่าวทั้งหมด >></a>
+    </div>
+    <div class="_main">
+      <blog-quote-main :stock="stock"></blog-quote-main>
+      <hr>
+      <div class="_split_jumbo">
+        <blog-jumbo :data="report"></blog-jumbo>
+        <blog-jumbo :data="email"></blog-jumbo>
+      </div>
+    </div>
+  </div>
 </div>
 
 <!-- Include JAVASCRIPT here ><-->
@@ -12,6 +30,7 @@
 <script src="/js/body.js"></script>
 <script src="/js/stockir.js"></script>
 <script src="/js/footer_site.js"></script>
+<script src="/js/investor.js"></script>
 <script src="/js/masonry.js"></script>
 <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCdUSDSheJVPKt2eCrJE1sZEx3cAud_aT0&callback=initMap"> </script>
 <script src="/js/app-data.js"></script>
@@ -20,13 +39,35 @@
   var comp = new Vue({
     el: '#app',
     data: {
+      newsfeeds: [],
+      stock: {
+        quote:"<%= @quote %>",
+        price: "<%= @stock_data[0] %>",
+        change:"<%= @stock_data[1] %>",
+        cpercent:"<%= @stock_data[2] %>",
+        date:"<%= @stock_data[3] %>",
+        range: '<%= @stock_data[4] %>',
+        yearRange: '<%= @stock_data[5] %>',
+        volumn: "<%= @stock_data[6] %>",
+        link:"#"
+      },
+      report: {
+        title: "รายงานประจำปี" ,
+        desc: "รายชื่อผู้ถือหุ้นบริษัท จำกัด มหาชน ณ วันที่ 1 มกราคม 2560" ,
+        hasLink: true, link: "ดูเพิ่มเติม", href: "<%= investor_share_path %>", linkclass: "" ,
+      },
+      email: {
+        title: "อีเมล์รับข่าวสาร" ,
+        desc: "ท่านสามารถลงทะเบียนเพื่อรับข่าวสารอิเล็กทรอนิกส์ เราจะส่งข่าวสารให้ท่านทาง อีเมล์ เมื่อมีข่าวสารที่เกี่ยวกับบริษัท (ประกาศ, ปรับปรุงเว็บไซต์) ที่ประกาศผ่านเว็บไซต์นี้" ,
+        hasLink: true, link: "รับข่าวสาร", href: "<%= investor_share_path %>", linkclass: "" ,
+      },
       grid: {
         title: 'Show me some text',
         desc: 'see our reason that why we difference.',
         lists: [
-            {head: 'Sample#1',detail: 'see more details',image: "/img_ref/web_ref.png"},
-            {head: 'Sample#2',detail: 'see more details',image: "/img_ref/web_ref.png"},
-            {head: 'Sample#3',detail: 'see more details',image: "/img_ref/web_ref.png"},
+          {head: 'Sample#1',detail: 'see more details',image: "/img_ref/web_ref.png"},
+          {head: 'Sample#2',detail: 'see more details',image: "/img_ref/web_ref.png"},
+          {head: 'Sample#3',detail: 'see more details',image: "/img_ref/web_ref.png"},
         ]
       },
       testimo: {
@@ -39,6 +80,18 @@
         { head: 'email'    , icon: 'fa-envelope'         , url: 'mailto:chinnatip@me.com' , content: 'chinnatip@me.com'},
         { head: 'telephone', icon: 'fa-phone-square'     , url: 'tel:+66909847814' ,content: '090.984.7814'}
       ],
+    },
+    mounted: function() {
+      this.$nextTick(function () {
+        var that;
+        that = this;
+        $.ajax({
+          url: '/newsfeeds.json',
+          success: function(res) {
+            that.newsfeeds = res;
+          }
+        });
+      });
     }
   });
 </script>

@@ -46,6 +46,51 @@ Vue.component('blogJumbo',{
   props: ['data','blogstyle']
 });
 
+Vue.component('blog-quote-main',{
+  template: `
+    <section class="is-light is-medium _body_quote">
+      <div class="hero-body container">
+        <div class="column __header_quote">
+          <h2>ราคาหลักทรัพย์</h2>
+          <h1>{{stock.quote}}:SET</h1>
+        </div>
+        <div class="columns">
+          <div class="column"></div>
+          <div class="column">
+            <h1>{{stock.price}} THB</h1>
+            <h2>
+              เปลี่ยนแปลง(%)<br>
+              <span class="text">{{stock.change}} ({{stock.cpercent}}%) </span>
+            </h2>
+          </div>
+          <div class="column">
+            <h1></h1>
+            <h2>
+              ปริมาณการซื้อขายหุ้น: <br>
+              <span class="text">{{stock.volumn}}</span>
+            </h2>
+          </div>
+          <div class="column">
+            <h1></h1>
+            <h2>
+              ช่วงราคาระหว่างวัน: <br>
+              <span class="text">{{stock.range}}</span>
+            </h2>
+          </div>
+          <div class="column">
+            <h1></h1>
+            <h2>
+              ช่วงราคาใน 52สัปดาห์: <br>
+              <span class="text">{{stock.yearRange}}</span>
+            </h2>
+          </div>
+        </div>
+      </div>
+    </section>
+  `,
+  props: ['stock']
+});
+
 Vue.component('blogQuote',{
   template: `
     <section class="is-light is-medium _body_quote">

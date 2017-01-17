@@ -28,3 +28,32 @@ Vue.component('footer-site',{
   `,
   props: ['footer']
 });
+
+Vue.component('footer-site-corp',{
+  template: `
+    <footer class="footer hero is-dark _footer-site-corp">
+      <div class="container">
+        <div class="columns ">
+          <div class="column">
+            <p>ติดต่อฝ่ายนักลงทุนสัมพันธ์</p>
+            <p>คุณนิเวศน์ ทรัพย์ยืนยง โทรศัพท์ 02-999-9999 อีเมล์ niwet@pcl.co.th</p>
+          </div>
+          <div class="column">
+            <p>สำนักงานฝ่ายนักลงทุนสัมพันธ์</p>
+            <p>อาคารดับเบิลยู ชั้น 3 ถนนพระอาทิตย์ แขวงชนะสงคราม เขตพระนคร กรุงเทพมหานคร 10200</p>
+          </div>
+        </div>
+        <div class="columns ">
+          <div class="column">
+            <p>ขอสงวนลิขสิทธิ์ © 2017 บริษัท มหาชน จำกัด</p>
+          </div>
+          <div class="column">
+            <a href="">ข้อกำหนดและเงื่อนไข</a>
+            <a href="">นโยบายความเป็นส่วนตัว</a>
+          </div>
+        </div>
+      </div>
+    </footer>
+  `,
+  props: ['footer']
+});

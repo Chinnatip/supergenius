@@ -1,6 +1,8 @@
 // Place all the styles related to the Home controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+@import "variable"
+
 $blue: #72d0eb
 $pink: #ffb3b3
 $family-serif: "Georgia", serif
@@ -11,6 +13,86 @@ $family-serif: "Georgia", serif
 
 .flex
   display: flex
+
+._main_cupboard
+  display: flex
+  margin: 40px auto 120px !important
+  ._side
+    min-width: 240px
+    margin-right: 28px
+    padding-right: 20px
+    border-right: 1px solid #dcdcdc
+    a._right_link
+      color: $is-info
+      margin-top: 14px
+      float: right
+    h1
+      color: grey
+      font-size: 24px
+      margin-bottom: 10px
+      padding-bottom: 10px
+      border-bottom: 1px solid #dcdcdc
+    ._list
+      border-bottom: 1px solid #dcdcdc
+      padding-bottom: 14px
+      margin-top: 18px
+      .new
+        display: block
+        margin-bottom: 20px
+        font-size: 14px
+      .date
+        color: $is-info
+        font-size: 14px
+  ._main
+    width: 100%
+    ._body_quote
+      padding: 0px !important
+      .container
+        padding-top: 0px
+        padding-bottom: 0px
+        .column.__header_quote
+          h2 , h1
+            display: inline-block
+          h2
+            font-size: 22px !important
+            color: #7d7d7d
+            margin-right: 14px
+          h1
+            font-size: 22px !important
+            color: $is-info
+        .columns
+          .column
+            border-left: 1px solid #dbdbdb
+            h2 span.text
+              color: $is-info
+            &:first-child
+              display: none
+            &:nth-child(2)
+              border-left: none
+            &:not(:first-child)
+              padding: 10px 24px
+              h1
+                height: 36px
+
+    ._split_jumbo
+      display: flex
+      ._body_jumbo
+        padding: 0 16px !important
+        width: 50%
+        &:first-child
+          border-right: 1px solid #e4e4e4
+        .hero-body
+          padding: 14px 0px
+          .__body
+            h1
+              color: grey
+              border-bottom: 0
+              font-size: 22px
+            h2
+              max-width: inherit
+              font-size: 16px
+              margin-top: 8px
+            a
 
 h1
   color: $blue

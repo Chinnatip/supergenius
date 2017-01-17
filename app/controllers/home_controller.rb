@@ -1,9 +1,18 @@
 class HomeController < ApplicationController
+  
+  require 'json'
+  require 'open-uri'
+  require 'nokogiri'
+  require_relative 'scrap'
+
   def celebrity
     render :layout => 'standalone'
   end
 
   def index
+    @active = 'index'
+    @quote  = 'PSH'
+    @stock_data = parse_set(@quote)[0]
   end
 
   def test
