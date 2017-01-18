@@ -21,10 +21,11 @@
           :active="url_controller"
           ></nav-bar>
         <span class="_fixed_margin">
-          <hero-body-split id="body_content" :text="body" v-if=" url_action == 'index' "></hero-body-split>
+          <hero-body-split id="body_content" :text="body"></hero-body-split>
           <!-- hero-body id="body_content" :text="body"  v-if=" url_action == 'index' " ></hero-body -->
+          <span id="navAffix" ></span>
           <header class="nav _nav_affix _add_color">
-              <div class="columns" style="width:100%">
+              <div class="columns" style="width:100%" >
                 <span class="column" v-for="l in iLinks" :class=" isActive( l.action ) ">
                   <span v-if="l.sublink == false">
                     <a :href="l.url">{{l.title}}</a>
@@ -62,6 +63,7 @@
   <script src="/js/app-data.js"></script>
 
   <script type="text/javascript">
+    //nav controller
     $( document ).ready(function() {
       var navH = $('#navbar').outerHeight();
       var bodyH = $('#body_content').outerHeight();
@@ -82,6 +84,18 @@
           $('#float').removeClass('_fixed_margin');
         }
       });
+    });
+
+    //Smooth scroll
+    $(document).on('click', 'a[href^="#"]', function(e) {
+        var id = $(this).attr('href');
+        var $id = $(id);
+        if ($id.length === 0) {
+            return;
+        }
+        e.preventDefault();
+        var pos = $(id).offset().top;
+        $('body, html').animate({scrollTop: pos},1000);
     });
 
 
@@ -109,34 +123,34 @@
         url_active: '<%= @active %>',
         login: <%= user_signed_in? %>,
         iLinks:[
-          { title: 'นักลงทุนสัมพันธ์'     , action: 'index' , url: '<%= investor_index_path %>' , sublink: false },
-          { title: 'ข้อมูลทางการเงิน'  , action: 'financial' , url: '<%= investor_financial_path %>' , sublink: false },
+          { title: 'นักลงทุนสัมพันธ์'   , action: 'index' , url: '<%= investor_index_path %>' , sublink: false },
+          { title: 'ข้อมูลทางการเงิน' , action: 'financial' , url: '/investor/financial#navAffix' , sublink: false },
           { title: 'ข้อมูลสำหรับผู้ถือหุ้น', action: 'share' , url: '#' , sublink: true , suburl:[
-            {text:'โครงสร้างผู้ถือหุ้น'    , url:'<%= investor_share_path %>'},
-            {text:'นโยบายเเละประวัติการจ่ายปันผล' , url:'<%= investor_share_history_path %>'},
-            {text:'สิทธิของผู้ถือหุ้น'       , url:'<%= investor_share_right_path %>'},
-            {text: "การประชุมผู้ถือหุ้น"      , url:'<%= investor_share_holder_path %>'}]
+            {text:'โครงสร้างผู้ถือหุ้น'             , url:'/investor/share#navAffix'},
+            {text:'นโยบายเเละประวัติการจ่ายปันผล' , url:'/investor/share_history#navAffix'},
+            {text:'สิทธิของผู้ถือหุ้น'               , url:'/investor/share_right#navAffix'},
+            {text: "การประชุมผู้ถือหุ้น"            , url:'/investor/share_holder#navAffix'}]
           },
           { title: 'ผู้ถือหุ้นกู้'           , action: 'bond' , url: '#' , sublink: true , suburl:[
-            {text:'นโยบายการเงิน'      , url:'<%= investor_bond_policy_path %>'},
-            {text:'ข้อมูลหุ้นกู้'  , url:'<%= investor_bond_path %>'},
+            {text:'นโยบายการเงิน'      , url:'/investor/bond_policy#navAffix'},
+            {text:'ข้อมูลหุ้นกู้'  , url:'/investor/bond#navAffix'},
             //{text:'หนังสือชี้ชวน'            , target: 'blank' , url:'http://capital.sec.or.th/webapp/corp_fin2/cgi-bin/final69.php?txt_compid=1807&txt_offerid=001576&txt_secuid=01&txt_offertypeid=01&txt_language=T&txt_applydate=2016-06-17&start_date=2016-10-19'}
             ]
           },
           { title: 'ข้อมูลราคาหลักทรัพย์'    , action: 'stock' , url: '#' , sublink: true , suburl:[
-            {text:'ราคาหลักทรัพย์'          , url:'<%= investor_stock_path %>'},
-            {text:'ราคาย้อนหลัง'         , url:'<%= investor_stock_history_path %>'},
-            {text:'Consensus'             , url:'<%= investor_stock_concensus_path %>'},
-            {text: 'รายชื่อนักวิเคราะห์' , url:'<%= investor_stock_analyst_path %>'}]
+            {text:'ราคาหลักทรัพย์'        , url:'/investor/stock#navAffix'},
+            {text:'ราคาย้อนหลัง'         , url:'/investor/stock_history#navAffix'},
+            {text:'Consensus'          , url:'/investor/stock_concensus#navAffix'},
+            {text: 'รายชื่อนักวิเคราะห์' , url:'/investor/stock_analyst#navAffix'}]
           },
           { title: 'ห้องข่าว'               , action: 'news' , url: '#' , sublink: true , suburl:[
-            {text:'IR Calendar'      , url:'<%= investor_news_calendar_path %>'},
-            {text:'สารสนเทศถึง ตลท.' , url:'<%= investor_news_set_path %>'},
-            {text:'ข่าวจากสื่อสิ่งพิมพ์'   , url:'<%= investor_news_path %>'}]
+            {text:'IR Calendar'      , url:'/investor/news_calendar#navAffix'},
+            {text:'สารสนเทศถึง ตลท.' , url:'/investor/news_set#navAffix'},
+            {text:'ข่าวจากสื่อสิ่งพิมพ์'   , url:'/investor/news#navAffix'}]
           },
           { title: 'สอบถามข้อมูลนักลงทุน'    , action: 'contact' , url: '#' , sublink: true , suburl:[
-            {text: 'อีเมล์รับข่าวสาร' , url:'<%= investor_contact_email_path %>'},
-            {text: 'ติดต่อนักลงทุนสัมพันธ์'   , url:'<%= investor_contact_path %>'}]
+            {text: 'อีเมล์รับข่าวสาร' , url:'/investor/contact_email#navAffix'},
+            {text: 'ติดต่อนักลงทุนสัมพันธ์'   , url:'/investor/contact#navAffix'}]
           }
         ],
         body: {
@@ -146,7 +160,7 @@
           title: 'นักลงทุนสัมพันธ์',
           sub:   'Public Company Limited มุ่งมั่นที่จะเป็นบริษัทอสังหาริมทรัพย์ชั้นนำของประเทศไทย ที่มีธุรกิจและบริการที่หลากหลายเพื่อตอบสนองรูปแบบการดำเนินชีวิตสมัยใหม่ และสามารถตอบโจทย์ความต้องการของลูกค้าได้อย่างครบถ้วน',
           link: 'นักลงทุนสัมพันธ์',
-          url:  ''
+          url:  '#navAffix'
         },
         nav: {
           brand: '/img_ref/logo_p.png',
