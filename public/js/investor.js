@@ -52,7 +52,8 @@ Vue.component('blog-quote-main',{
       <div class="hero-body container">
         <div class="column __header_quote">
           <h2>ราคาหลักทรัพย์</h2>
-          <h1>{{stock.quote}}:SET</h1>
+          <!-- h1>{{stock.quote}}:SET</h1 -->
+          <h1>PCL:SET</h1>
         </div>
         <div class="columns">
           <div class="column"></div>
@@ -103,19 +104,31 @@ Vue.component('blogQuote',{
           </div>
           <div class="column">
             <h1>{{stock.price}} THB</h1>
-            <h2>เปลี่ยนแปลง({{stock.change}}%) -({{stock.cpercent}}%)</h2>
+            <h2>
+              เปลี่ยนแปลง(%)<br>
+              <span class="text">{{stock.change}} ({{stock.cpercent}}%) </span>
+            </h2>
           </div>
           <div class="column">
-            <h1>{{stock.volumn}}</h1>
-            <h2>ปริมาณการซื้อขายหุ้น:</h2>
+            <h1></h1>
+            <h2>
+              ปริมาณการซื้อขายหุ้น: <br>
+              <span class="text">{{stock.volumn}}</span>
+            </h2>
           </div>
           <div class="column">
-            <h1>{{ stock.range }}</h1>
-            <h2>ช่วงราคาระหว่างวัน:</h2>
+            <h1></h1>
+            <h2>
+              ช่วงราคาระหว่างวัน: <br>
+              <span class="text">{{stock.range}}</span>
+            </h2>
           </div>
           <div class="column">
-            <h1>{{ stock.yearRange }}</h1>
-            <h2>ช่วงราคาใน 52สัปดาห์:</h2>
+            <h1></h1>
+            <h2>
+              ช่วงราคาใน 52สัปดาห์: <br>
+              <span class="text">{{stock.yearRange}}</span>
+            </h2>
           </div>
         </div>
         <a class="_history" :href="stock.link">ราคาหลักทรัพย์</a>
@@ -146,10 +159,10 @@ Vue.component('tableRating',{
       <tbody>
         <tr v-for="td in table.tbody">
           <td>{{td.content[0]}}</td>
-          <td>{{td.content[1]}}</td>
-          <td>{{td.content[2]}}</td>
-          <td>{{td.content[3]}}</td>
-          <td><a :href="td.content[4]" class="button is-primary is-outlined">ดาวโหลด</a></td>
+          <td style="text-align: center">{{td.content[1]}}</td>
+          <td style="text-align: center">{{td.content[2]}}</td>
+          <td style="text-align: center">{{td.content[3]}}</td>
+          <td style="text-align: center"><a :href="td.content[4]" class="button  _simple_button">ดาวโหลด</a></td>
         </tr>
       </tbody>
       <tfoot>
@@ -185,16 +198,16 @@ Vue.component('tableHolder',{
 
       <!-- board list ><-->
       <tr v-for="(td,index) in content" v-if=" table.bodytype = 'boardList'">
-        <td>{{index + 1}}</td>
-        <td>{{td.name}}</td>
-        <td>{{ addComma(td.stock) }}</td>
-        <td>{{ calc(td.stock,total) }} %</td>
+        <td style="text-align:center">{{index + 1}}</td>
+        <td style="text-align:left">{{td.name}}</td>
+        <td style="text-align:right">{{ addComma(td.stock) }}</td>
+        <td style="text-align:right">{{ calc(td.stock,total) }} %</td>
       </tr>
       <tr v-if=" table.bodytype = 'boardList' " class="_highlight" >
         <td></td>
         <td>รวม 10 อันดับเเรก</td>
-        <td>{{ addComma(total) }}</td>
-        <td>{{ calc(total,total) }} %</td>
+        <td style="text-align:right">{{ addComma(total) }}</td>
+        <td style="text-align:right">{{ calc(total,total) }} %</td>
       </tr>
 
       </tbody>
@@ -253,7 +266,7 @@ Vue.component('tableAnalyst',{
             <span v-if="!td.noindex">{{index + 1}}</span>
           </span>
         </td>
-        <td>{{ index + 1 }}</td>
+        <td style="text-align:center">{{ index + 1 }}</td>
         <td>{{td.company}}</td>
         <td>{{td.name}}</td>
         <td>
@@ -293,11 +306,19 @@ Vue.component('tableBlog',{
         </tr>
       </thead>
       <tbody>
-
         <!-- download table ><-->
         <tr v-for="(td,index) in table.tbody" v-if=" table.bodytype == 'download'">
           <td>{{td.text[0]}}</td>
-          <td><a class="button" :href="td.text[1]">ดาวโหลด</a></td>
+          <td style="text-align: center"><a class="button _simple_button" :href="td.text[1]">ดาวโหลด</a></td>
+        </tr>
+        <!-- normal table ><-->
+        <tr v-for="(td,index) in table.tbody" v-if=" table.bodytype == 'list'">
+          <td
+            v-for="t in td.text"
+            :colspan="td.colspan"
+            :class=" td.class "
+            :style="{ textAlign: td.style}"
+          >{{t}}</td>
         </tr>
 
       </tbody>

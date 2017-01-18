@@ -22,7 +22,10 @@
         :style="{ background: 'url(' + player.bg + ') no-repeat center center' , backgroundSize: 'cover' }"
       >
         <h1 class="">{{player.title}}</h1>
-        <a :href="player.url">{{player.text}}</a>
+        <a :href="player.url">
+          <img :src="player.icon">
+          {{player.text}}
+        </a>
       </div>
 
       <br>
@@ -62,6 +65,7 @@
         bg: '/img_ref/bg_city_01.png',
         title: 'กว่า 30 ปีที่บริษัทของเราได้รับใช้ชาวไทย',
         text: 'เล่นวิดิโอที่เกี่ยวกับบริษัทของเรา',
+        icon:  '/img_ref/ic_play.png',
         url: '#' ,
       },
       history: {

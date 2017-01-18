@@ -30,10 +30,10 @@
         &:after
           bottom: 0
           width: 3px
-      img
-        vertical-align: middle
-        z-index: 1
-        position: relative
+    img
+      vertical-align: middle
+      z-index: 1
+      position: relative
     ._content
       .__year
         color: $is-info
@@ -57,14 +57,17 @@
     color: white !important
     text-decoration: none
     border-radius: 40px
-    padding: 14px 32px
+    padding: 12px 28px 12px 22px
     font-size: 16px
     display: table
     border: 1px solid white
     transition: 0.4s
+    img
+      vertical-align: middle
+      margin-right: 8px
+      width: 27px
     &:hover, &:focus
-      background-color: $is-info
-      border: 0
+      background-color: rgba(0, 0, 0, 0.29)
 
 ._invoker
   padding: 0 20px
@@ -84,3 +87,4 @@
       p.text
         font-size: 14px
         max-width: 600px
+        color: #565656

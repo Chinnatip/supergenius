@@ -74,7 +74,7 @@
           $('.nav').removeClass('_bg_blue');
         }
 
-        if (scroll >= (navH + bodyH)) {
+        if (scroll >= (bodyH)) {
           $('._nav_affix').addClass('_fixed');
           $('#float').addClass('_fixed_margin');
         }else{
@@ -120,7 +120,8 @@
           { title: 'ผู้ถือหุ้นกู้'           , action: 'bond' , url: '#' , sublink: true , suburl:[
             {text:'นโยบายการเงิน'      , url:'<%= investor_bond_policy_path %>'},
             {text:'ข้อมูลหุ้นกู้'  , url:'<%= investor_bond_path %>'},
-            {text:'หนังสือชี้ชวน'            , target: 'blank' , url:'http://capital.sec.or.th/webapp/corp_fin2/cgi-bin/final69.php?txt_compid=1807&txt_offerid=001576&txt_secuid=01&txt_offertypeid=01&txt_language=T&txt_applydate=2016-06-17&start_date=2016-10-19'}]
+            //{text:'หนังสือชี้ชวน'            , target: 'blank' , url:'http://capital.sec.or.th/webapp/corp_fin2/cgi-bin/final69.php?txt_compid=1807&txt_offerid=001576&txt_secuid=01&txt_offertypeid=01&txt_language=T&txt_applydate=2016-06-17&start_date=2016-10-19'}
+            ]
           },
           { title: 'ข้อมูลราคาหลักทรัพย์'    , action: 'stock' , url: '#' , sublink: true , suburl:[
             {text:'ราคาหลักทรัพย์'          , url:'<%= investor_stock_path %>'},

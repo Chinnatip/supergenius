@@ -21,8 +21,12 @@
 
 .nav-item
   position: relative
-  &.active
-    color: #ffc800 !important
+  min-width: 120px
+  padding: 0 20px
+  border-bottom: 3px solid rgba(0,0,0,0)
+  &:hover, &:focus, &.active
+    color: white !important
+    border-bottom: 3px solid white
     font-weight: 500 !important
   &.nv
     &:before
@@ -67,12 +71,17 @@
         padding: 18px 0px
         position: relative
         &:hover, &:active,
-          background-color: lighten( #3273dc, 5% )
-          border-bottom: 4px solid rgba( #3273dc, 0.5)
+          //background-color: rgba(255, 255, 255, 0.2)
+          border-bottom: 3px solid white
+          a
+            color: white
         &.active
-          border-bottom: 4px solid #5294ff
+          a
+            color: white
+            //background-color: rgba(255, 255, 255, 0.2)
+            //border-bottom: 4px solid #5294ff
         a
-          color: white
+          color: rgba(255, 255, 255, 0.6)
           font-size: 14px
       .column
         &:hover
@@ -86,7 +95,7 @@
             position: absolute
             top: 60px
             left: 0
-            width: 200px
+            width: 180px
             text-align: left
             li
               color: white

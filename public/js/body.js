@@ -36,14 +36,14 @@ Vue.component('navBar',{
               </ul>
             </div>
           </span>
-          <span class="nav-item" v-else >
+          <!-- span class="nav-item" v-else >
             <a target="" href="/users/sign_in" class="button is-inverted" v-bind:class="[body.theme]">
               <span class="icon">
                 <i class="fa" v-bind:class="[nav.backLink.icon]"></i>
               </span>
               <span>Login</span>
             </a>
-          </span>
+          </span -->
         </div>
       </div>
     </header>
