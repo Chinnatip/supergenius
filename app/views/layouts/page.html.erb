@@ -11,7 +11,24 @@
   <body>
 
     <!-- header ><-->
+
     <div id="cHeader">
+      <section
+        id="main_side"
+        class="hero is-fullheight _home_bg"
+        :style="{ backgroundColor: '#002a58' , background: 'url(' + body.mainbg + ') no-repeat center center' , backgroundSize: 'cover' }"
+        v-if="url_action == 'about'"
+        >
+        <div class="_center">
+          <img class="main" src="/img_ref/pcl_logo.png" alt="">
+          <h1>ปี 2559 บริษัทมหาชนจำกัด ได้มีการเจริญเติบโตอย่างเก้ากระโดดคิดเป็น 46% เมื่อเทียบกับปี 2558 ทำให้บริษัทของเรากลายเป็นบริษัทผู้นำทางด้านอสังหารมิทรัพย์ในประเทศไทย </h1>
+          <a id="scrollTo" href="#navbar">
+            <img src="/img_ref/logo_down.png" alt="">
+            PCL GROUP’S SUCCESS
+          </a>
+        </div>
+      </section>
+
       <section
         class="hero _fixed_top"
         v-bind:class="[body.theme,body.size]"
@@ -28,7 +45,7 @@
           <hero-body-split id="body_content" :text="selectContent"></hero-body-split>
           <!-- hero-body :text="selectContent"></hero-body -->
         </span>
-        <header class="nav _nav_affix _add_color">
+        <header class="nav _nav_affix _add_color" v-if="url_action == 'about'">
             <div class="columns" style="width:100%">
               <span class="column"
                 v-if="url_action == 'about'"
@@ -36,7 +53,7 @@
                 v-bind:class="['active']"
               >
                 <span>
-                  <a :href="l.url">{{l.title}}</a>
+                  <a>{{l.title}}</a>
                 </span>
               </span>
             </div>
@@ -61,18 +78,29 @@
     <script type="text/javascript">
       //controll navbar
       $( document ).ready(function() {
+        //nav controller
+        var mainH = $('#main_side').outerHeight();
         var navH = $('#navbar').outerHeight();
         var bodyH = $('#body_content').outerHeight();
+        if (mainH > 0) {
+          $('#navbar').addClass('_mainH_wait_nav');
+        }
         $(window).scroll(function (event) {
           var scroll = $(window).scrollTop();
-          if (scroll >= navH) {
+          if (scroll > mainH) {
+            $('#navbar').removeClass('_mainH_wait_nav');
+          }else{
+            $('#navbar').addClass('_mainH_wait_nav');
+            $('.nav').removeClass('_bg_blue');
+          }
+          if (scroll >= (navH + mainH)) {
             $('.nav').addClass('_bg_blue');
           }else if(scroll < navH){
             console.log('rem');
             $('.nav').removeClass('_bg_blue');
           }
 
-          if (scroll >= (bodyH)) {
+          if (scroll >= ( mainH + bodyH)) {
             $('._nav_affix').addClass('_fixed');
             $('#float').addClass('_fixed_margin');
           }else{
@@ -81,6 +109,19 @@
           }
         });
       });
+
+      //Smooth scroll
+      $(document).on('click', 'a[href^="#"]', function(e) {
+          var id = $(this).attr('href');
+          var $id = $(id);
+          if ($id.length === 0) {
+              return;
+          }
+          e.preventDefault();
+          var pos = $(id).offset().top;
+          $('body, html').animate({scrollTop: pos},1000);
+      });
+
 
 
       //component of header
@@ -111,11 +152,12 @@
           body: {
             theme: 'is-info',
             background: '/img_ref/bg_city_02.png',
+            mainbg: '/img_ref/main_logo.png',
             size:  'is-medium',
           },
           iLinks:[
             { title: 'ประวัติบริษัท'          ,action:'' , url: 'index' },
-            { title: 'วิสัยทัศน์ พันธกิจ' ,action:'' , url: 'index' },
+            { title: 'วิสัยทัศน์ พันธกิจ'       ,action:'' , url: 'index' },
             { title: 'การประกอบธุรกิจ'      ,action:'' , url: 'index' },
             { title: 'โครงสร้างธุรกิจ'       ,action:'' , url: 'index' },
             { title: 'โครงสร้างองค์กร'      ,action:'' , url: 'index' },
@@ -136,7 +178,7 @@
           choice: 'tab1',
           nav: {
             brand: '/img_ref/logo_p.png',
-            brandLink: "<%= home_index_path %>",
+            brandLink: "<%= root_path %>",
             links: [
               {
                 title: 'เกี่ยวกับเรา',

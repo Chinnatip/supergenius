@@ -50,9 +50,6 @@ Rails.application.routes.draw do
   get 'dashboard/product'
   get 'dashboard/board'
 
-  root 'home#celebrity'
-  #root 'home#reddit'
-  #root 'home#comp'
-  #root 'home#playground'
-  #root 'home#index'
+  #root 'home#celebrity'
+  root 'page#about'
 end
