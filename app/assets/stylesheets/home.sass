@@ -17,11 +17,20 @@ $family-serif: "Georgia", serif
 ._main_cupboard
   display: flex
   margin: 40px auto 120px !important
+  @media screen and (max-width: 560px)
+    flex-direction: column
   ._side
     min-width: 240px
     margin-right: 28px
     padding-right: 20px
     border-right: 1px solid #dcdcdc
+    @media screen and (max-width: 560px)
+      padding: 0 20px
+      margin-bottom: 40px
+      min-width: 240px
+      margin-right: 0px
+      padding-right: 0px
+      border-right: none
     &.__320px
       min-width: 320px
     a._right_link
@@ -359,3 +368,8 @@ h1
       margin-right: 16px
       &.active
         opacity: 0.4
+
+#cFooter
+  img
+    @media screen and (max-width: 560px)
+      width: 80px

@@ -17,7 +17,7 @@
         id="main_side"
         class="hero is-fullheight _home_bg"
         :style="{ backgroundColor: '#002a58' , background: 'url(' + body.mainbg + ') no-repeat center center' , backgroundSize: 'cover' }"
-        v-if="url_action == 'about'"
+        v-if="mainEnable"
         >
         <div class="_center">
           <img class="main" src="/img_ref/pcl_logo.png" alt="">
@@ -141,11 +141,22 @@
             }
             console.log( this.content[select]);
             return this.content[select]
-          }
+          },
+          desktopCheck: function(){
+            //console.log(this.screenW);
+            if (this.screenW > 560) { return true } else { return false }
+          },
+          aboutCheck: function(){
+            if (this.url_action == 'about') { return true } else { return false }
+          },
+          mainEnable: function(){
+            if (this.aboutCheck  && this.desktopCheck) { return true }else{ return false }
+          },
         },
         data: {
           url_action: '<%= controller.action_name %>' ,
           url_controller: '<%= controller.controller_name %>' ,
+          screenW: screen.width ,
           login: <%= user_signed_in? %>,
           body: {
             theme: 'is-info',
