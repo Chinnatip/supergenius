@@ -20,18 +20,22 @@
           :role="checkRole"
           :active="url_controller"
           ></nav-bar>
-        <span class="_fixed_margin">
+        <span class="_fixed_margin _with_nav_affix">
           <hero-body-split id="body_content" :text="body"></hero-body-split>
           <!-- hero-body id="body_content" :text="body"  v-if=" url_action == 'index' " ></hero-body -->
           <span id="navAffix" ></span>
           <header class="nav _nav_affix _add_color">
+              <div class="_top_affix">
+                {{findGenre}}
+                <a id="toggle_button" @click="toggleAffix" class="ar_up"></a>
+              </div>
               <div class="columns" style="width:100%" >
-                <span class="column" v-for="l in iLinks" :class=" isActive( l.action ) ">
-                  <span v-if="l.sublink == false">
+                <span class="column" v-for="l in linkWithOutActive" :class=" isActive( l.action )">
+                  <span v-if="l.sublink == false ">
                     <a :href="l.url">{{l.title}}</a>
                   </span>
                   <span v-else class="_link_with_sub">
-                    <a>{{l.title}}</a>
+                    <a :href="l.suburl[0].url">{{l.title}}</a>
                     <ul>
                       <li v-for="a in l.suburl">
                         <a v-if="a.target == 'blank'" target="_blank" :href="a.url">{{a.text}}</a>
@@ -75,7 +79,6 @@
           console.log('rem');
           $('.nav').removeClass('_bg_blue');
         }
-
         if (scroll >= (bodyH)) {
           $('._nav_affix').addClass('_fixed');
           $('#float').addClass('_fixed_margin');
@@ -98,7 +101,7 @@
         $('body, html').animate({scrollTop: pos},1000);
     });
 
-
+    //start vue js
     var comp = new Vue({
       el: '#cHeader',
       computed:{
@@ -106,6 +109,23 @@
           if (this.login) {
             return '<%= current_user.role rescue '' %>' ;
           }
+        },
+        findGenre: function(){
+          var scopes = this.iLinks ;
+          var active = this.url_active
+          for (var i = 0; i < scopes.length; i++) {
+            if ( active == scopes[i].action ) {
+              return scopes[i].title;
+            }
+          }
+        },
+        linkWithOutActive: function(){
+          var link = this.iLinks ;
+          var checker = this.url_active ;
+          function out(val) {
+            return val.action != checker
+          }
+          return link.filter(out);
         }
       },
       methods: {
@@ -115,7 +135,21 @@
           }else {
             return ''
           }
-        }
+        },
+        toggleAffix: function(){
+          var display = $('._nav_affix .columns');
+          var status = display.css('display');
+
+          if ( status == 'none') {
+            display.css("display","block");
+            $('#toggle_button').removeClass('ar_up');
+            $('#toggle_button').addClass('ar_down');
+          }else{
+            display.css("display","none");
+            $('#toggle_button').removeClass('ar_down');
+            $('#toggle_button').addClass('ar_up');
+          }
+        },
       },
       data: {
         url_action: '<%= controller.action_name %>' ,

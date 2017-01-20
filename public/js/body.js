@@ -75,7 +75,6 @@ Vue.component('navBar',{
       }else{
         $('.nav-menu').css("display","none");
       }
-
     },
   },
 });

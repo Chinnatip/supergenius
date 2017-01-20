@@ -14,6 +14,9 @@
       margin-top: 60px
 ._fixed_margin
   margin-top: 60px
+  @media screen and (max-width: 768px)
+    &._with_nav_affix
+      margin-top: 120px
 
 .nav
   min-height: 60px !important
@@ -86,18 +89,52 @@
     //background: $is-info !important
   &._nav_affix
     transition: 1s
+    @media screen and (max-width: 768px)
+      flex-direction: column
+      position: fixed
+      top: 60px
+      width: 100%
+      box-shadow: none !important
     &._add_color
       background: $linear-gb
-      //background: rgba(0,42,88,0.8)
+      @media screen and (max-width: 768px)
+        background: #1a4d8c
+    ._top_affix
+      display: none
+      @media screen and (max-width: 768px)
+        display: block
+        padding: 18px 0
+        width: 100%
+        font-size: 16px
+        height: 60px
+      a
+        position: absolute
+        right: 16px
+        color: white
+        width: 24px
+        height: 24px
+        background-size: cover
+        transition: 0.2s
+        &.ar_up
+          background-image: url('/img_ref/ar_down.png')
+        &.ar_down
+          background-image: url('/img_ref/ar_up.png')
     .columns
       width: 100%
       margin-bottom: 0px
       margin-top: 0px
+      @media screen and (max-width: 768px)
+        display: none
+        background: rgba(66, 66, 66, 0.85)
+        width: 103% !important
       .column
         padding: 18px 0px
         position: relative
+        @media screen and (max-width: 768px)
+          text-align: left
+          padding: 20px 9% !important
+          border-bottom: 1px solid #5a5a5a
         &:hover, &:active,
-          //background-color: rgba(255, 255, 255, 0.2)
           border-bottom: 3px solid white
           a
             color: white
@@ -114,6 +151,9 @@
           ul
             display: block !important
             background: #737475 !important
+          @media screen and (max-width: 768px)
+            ul
+              display: none !important
         ._link_with_sub
           ul
             display: none

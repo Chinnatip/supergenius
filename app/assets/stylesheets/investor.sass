@@ -97,6 +97,8 @@
 
 ._body_table
   padding: 10px 84px !important
+  @media screen and (max-width: 560px)
+    padding: 10px 36px !important
   .left
     display: inline-block
     padding: 14px 0
@@ -107,6 +109,8 @@
       display: inline
   .right
     float: right
+    @media screen and (max-width: 560px)
+      float: left !important
   ._content
     padding: 14px 0
     font-size: 16px
@@ -273,8 +277,8 @@
 
 .square
   border: 2px solid white
-  width: 240px
-  height: 240px
+  min-width: 240px
+  min-height: 240px
   padding: 20px
   .quote
     font-size: 36px
@@ -286,6 +290,8 @@
   .change
     font-size: 18px
   @media screen and (max-width: 560px)
+    min-width: inherit
+    min-height: inherit
     width: 200px
     height: 200px
     padding: 14px

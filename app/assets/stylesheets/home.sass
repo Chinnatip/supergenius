@@ -31,6 +31,8 @@ $family-serif: "Georgia", serif
       margin-right: 0px
       padding-right: 0px
       border-right: none
+      &._not_necessary
+        display: none
     &.__320px
       min-width: 320px
     a._right_link
@@ -74,6 +76,8 @@ $family-serif: "Georgia", serif
         .columns
           .column
             border-left: 1px solid #dbdbdb
+            @media screen and (max-width: 560px)
+              border-left: 0
             h2 span.text
               color: $is-info
             &:first-child
@@ -84,14 +88,27 @@ $family-serif: "Georgia", serif
               padding: 10px 24px
               h1
                 height: 36px
+              @media screen and (max-width: 560px)
+                &:not(:nth-child(2))
+                  h1
+                    min-height: 0
+                    height: 0
 
     ._split_jumbo
       display: flex
+      @media screen and (max-width: 560px)
+        flex-direction: column
       ._body_jumbo
         padding: 0 16px !important
         width: 50%
+        @media screen and (max-width: 560px)
+          width: 100%
+          padding: 24px 36px !important
         &:first-child
           border-right: 1px solid #e4e4e4
+          @media screen and (max-width: 560px)
+            border-right: 0
+            border-bottom: 1px solid #e4e4e4
         .hero-body
           padding: 14px 0px
           .__body
