@@ -43,7 +43,12 @@
       series: [{
           name: 'ราคาหุ้น(บาท)',
           type: 'bar',
-          data: [5, 20, 36, 10, 10, 20]
+          data: [5, 20, 36, 10, 10, 20],
+          itemStyle: {
+            normal: {
+                color: '#c1c1c1'
+            }
+          }
       }]
   };
   myChart.setOption(option);
