@@ -10,16 +10,20 @@ Vue.component('navBar',{
             <img :src="nav.brand" alt="" style="height: 28px; max-height: inherit;">
           </a>
         </div>
+        <div class="nav-right nav-mobi-show">
+          <a @click="toggleNav">
+            <i class="fa fa-bars"></i>
+          </a>
+        </div>
         <div class="nav-right nav-menu">
-            <a class="nav-item"
-              v-for="l in nav.links"
-              :href="l.link"
-              :target="l.target"
-              :class="{active : isActive( active , l.controller )}"
-            >
-              {{l.title}}
-            </a>
-
+          <a class="nav-item"
+            v-for="l in nav.links"
+            :href="l.link"
+            :target="l.target"
+            :class="{active : isActive( active , l.controller )}"
+          >
+            {{l.title}}
+          </a>
           <span class="nav-item" v-if="login">
             <a v-if="role == 'admin'" href="/dashboard/index" class="button is-inverted" v-bind:class="[body.theme]">
               <span class="icon"> <i class="fa" v-bind:class="[nav.backLink.icon]"></i> </span>
@@ -49,6 +53,9 @@ Vue.component('navBar',{
     </header>
   </div>
   `,
+  data: function(){
+    return{}
+  },
   props: ['nav','body','active','login','role','controller'],
   methods: {
     isActive: function( a,b ) {
@@ -58,9 +65,18 @@ Vue.component('navBar',{
     },
     logout: function(){
       $.post('/users/sign_out',"_method=delete", function(){
-        window.location = '/home/index' ;
+        window.location = '/' ;
       });
-    }
+    },
+    toggleNav: function(){
+      var display = $('.nav-menu').css('display');
+      if ( display == 'none') {
+        $('.nav-menu').css("display","block");
+      }else{
+        $('.nav-menu').css("display","none");
+      }
+
+    },
   },
 });
 

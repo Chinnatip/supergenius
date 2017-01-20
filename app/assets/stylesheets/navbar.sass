@@ -22,15 +22,38 @@
     background: $linear-gb !important
     //background: rgba(0,42,88,1) !important
 
+.nav-mobi-show
+  display: none !important
+  @media screen and (max-width: 768px)
+    display: flex !important
+    a
+      font-size: 22px
+      padding: 0 30px
+      position: relative
+      color: white
+      &:hover, &:active
+        color: rgba(255, 255, 255, 0.4)
+      i
+        position: absolute
+        top: 50%
+        left: 50%
+        transform: translate(-50%,-50%)
+
 .nav-item
   position: relative
   min-width: 120px
   padding: 0 20px
   border-bottom: 3px solid rgba(0,0,0,0)
+  &.active
+    @media screen and (max-width: 768px)
+      border-bottom: 0 !important
+      font-weight: 700 !important
   &:hover, &:focus, &.active
     color: white !important
     border-bottom: 3px solid white
     font-weight: 500 !important
+    @media screen and (max-width: 768px)
+      border-bottom: 0 !important
   &.nv
     &:before
       content: "//"
