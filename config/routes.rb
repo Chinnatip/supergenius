@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
 
 
+  resources :quotations
   resources :products
   resources :analysts
   devise_for :users

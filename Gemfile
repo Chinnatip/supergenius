@@ -18,6 +18,12 @@ gem "font-awesome-rails"
 # Use Postgres
 gem 'pg'
 
+# Use wicked PDF
+gem 'wicked_pdf'
+
+# Use pdf from html
+gem 'wkhtmltopdf-binary'
+
 # Use ECHART for cool graph
 gem 'echarts-rails', '~> 0.1.6'
 
