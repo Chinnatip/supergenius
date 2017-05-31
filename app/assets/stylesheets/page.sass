@@ -101,24 +101,27 @@
     bottom: 0
     min-height: 80vh
     width: 560px
-    background: rgba(0, 44, 90, 0.5)
+    background: rgba(255, 255, 255, 0.93)
+    border-radius: 8px 8px 0 0
+    box-shadow: 0 -2px 16px #cecece
     img.main
-      width: 264px
+      width: 290px
     h1
-      color: white
+      color: #5d5d5d
       padding: 60px 0
       font-size: 18px
       line-height: 28px
       font-weight: 300
     a
-      color: white
+      color: #5d5d5d
       position: absolute
       bottom: 80px
       font-size: 16px
       font-weight: bold
       &:hover
         background: none
-        color: rgba(255, 255, 255, 0.52) !important
+        color: darken(#5d5d5d, 40%) !important
+        //color: rgba(255, 255, 255, 0.52) !important
       img
         vertical-align: middle
         margin-right: 6px
@@ -127,3 +130,11 @@
 #nav-affix
   @media screen and (max-width: 768px)
     display: none
+
+.banner-top
+  color: white
+  background: #990003
+  height: 36px
+  line-height: 36px
+  font-size: 13px
+  padding: 0 36px

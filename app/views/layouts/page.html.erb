@@ -19,12 +19,13 @@
         :style="{ backgroundColor: '#002a58' , background: 'url(' + body.mainbg + ') no-repeat center center' , backgroundSize: 'cover' }"
         v-if="mainEnable"
         >
+        <div class="banner-top"> Tel. 0897606279 (พี่วิน) , 085-334-8815 (พี่ป๊อป)|windz_bs@hotmail.com </div>
         <div class="_center">
-          <img class="main" src="/img_ref/pcl_logo.png" alt="">
-          <h1>ปี 2559 บริษัทมหาชนจำกัด ได้มีการเจริญเติบโตอย่างเก้ากระโดดคิดเป็น 46% เมื่อเทียบกับปี 2558 ทำให้บริษัทของเรากลายเป็นบริษัทผู้นำทางด้านอสังหารมิทรัพย์ในประเทศไทย </h1>
+          <img class="main" src="/img_ref/sup_01.png" alt="">
+          <h1>เพราะการเล่นทำให้เด็กฉลาด เราจึงเป็นโรงเรียนสอนพิเศษที่ให้ มากกว่าเเค่ความรู้ สถานที่ที่น้องๆจะได้สาระพร้อมทั้งความสนุก ผู้ปกครองสบายใจ เด็กได้เกรดดี มีสังคมของเพื่อนๆต่างโรงเรียน</h1>
           <a id="scrollTo" href="#navbar">
             <img src="/img_ref/logo_down.png" alt="">
-            เข้าสู่เวปไซท์
+            เข้าสู่เวปไซท์ Super Genius
           </a>
         </div>
       </section>
@@ -161,22 +162,19 @@
           login: <%= user_signed_in? %>,
           body: {
             theme: 'is-info',
-            background: '/img_ref/bg_city_02.jpg',
-            mainbg: '/img_ref/main_logo.jpg',
+            background: '/img_ref/bg_top.jpg',
+            mainbg: '/super/DSC_6848.jpg',
             size:  'is-medium',
           },
           iLinks:[
-            { title: 'ประวัติบริษัท'          ,action:'' , url: 'index' },
-            { title: 'วิสัยทัศน์ พันธกิจ'       ,action:'' , url: 'index' },
-            { title: 'การประกอบธุรกิจ'      ,action:'' , url: 'index' },
-            { title: 'โครงสร้างธุรกิจ'       ,action:'' , url: 'index' },
-            { title: 'โครงสร้างองค์กร'      ,action:'' , url: 'index' },
-            { title: 'คณะกรรมการบริษัท'     ,action:'' , url: 'index' },
-            { title: 'CORPORATE IDENTITY' ,action:'' , url: 'index' },
+            { title: 'สถาบันกวดวิชา'   ,action:'' , url: 'index' },
+            { title: 'Student Gallery'  ,action:'' , url: 'index' },
+            { title: 'Tutors'        ,action:'' , url: 'index' },
+            { title: 'Top Students'  ,action:'' , url: 'index' },
           ],
           content: [
             { key: 'about'   , title: 'เกี่ยวกับเรา'   ,url: '#nav-affix', link: 'เกี่ยวกับเรา' , sub: 'PCL มุ่งมั่นที่จะเป็นบริษัทอสังหาริมทรัพย์ชั้นนำของประเทศไทย ที่มีธุรกิจและบริการที่หลากหลายเพื่อตอบสนองรูปแบบการดำเนินชีวิตสมัยใหม่ และสามารถตอบโจทย์ความต้องการของลูกค้าได้อย่างครบถ้วน',},
-            { key: 'news'    , title: 'ข่าวและกิจกรรม',url: '', link: 'ข่าวเเละกิจกรรม' , sub: 'PCL มุ่งมั่นที่จะเป็นบริษัทอสังหาริมทรัพย์ชั้นนำของประเทศไทย ที่มีธุรกิจและบริการที่หลากหลายเพื่อตอบสนองรูปแบบการดำเนินชีวิตสมัยใหม่ และสามารถตอบโจทย์ทุกความต้องการของลูกค้าได้อย่างครบถ้วน',},
+            { key: 'courses'    , title: 'ข่าวและกิจกรรม',url: '', link: 'ข่าวเเละกิจกรรม' , sub: 'PCL มุ่งมั่นที่จะเป็นบริษัทอสังหาริมทรัพย์ชั้นนำของประเทศไทย ที่มีธุรกิจและบริการที่หลากหลายเพื่อตอบสนองรูปแบบการดำเนินชีวิตสมัยใหม่ และสามารถตอบโจทย์ทุกความต้องการของลูกค้าได้อย่างครบถ้วน',},
             { key: 'contact' , title: 'ติดต่อเรา'     ,url: '', link: 'ติดต่อเรา' , sub: 'PCL มุ่งมั่นที่จะเป็นบริษัทอสังหาริมทรัพย์ชั้นนำของประเทศไทย ที่มีธุรกิจและบริการที่หลากหลายเพื่อตอบสนองรูปแบบการดำเนินชีวิตสมัยใหม่ และสามารถตอบโจทย์ทุกความต้องการของลูกค้าได้อย่างครบถ้วน',},
           ],
           sliders: [
@@ -187,7 +185,7 @@
           slider: false ,
           choice: 'tab1',
           nav: {
-            brand: '/img_ref/logo_p.png',
+            brand: '/img_ref/logo_s.png',
             brandLink: "<%= root_path %>",
             links: [
               {
@@ -197,12 +195,12 @@
                 link: '/page/about#navbar',
                 target: ''
               },{
-                title: 'นักลงทุนสัมพันธ์',
+                title: 'คอร์สเรียนของเรา',
                 controller: 'investor',
                 link: "<%= investor_index_path %>",
                 target: ''
               },{
-                title: 'ข่าวเเละกิจกรรม',
+                title: 'เช็คผลการเรียน',
                 controller: 'news',
                 link: "<%= page_news_path %>",
                 target: ''

@@ -7,7 +7,7 @@ Vue.component('navBar',{
       <div class="container">
         <div class="nav-left">
           <a :href="nav.brandLink" class="nav-item">
-            <img :src="nav.brand" alt="" style="height: 28px; max-height: inherit;">
+            <img :src="nav.brand" alt="" style="height: 34px; margin-top:2px; max-height: inherit;">
           </a>
         </div>
         <div class="nav-right nav-mobi-show">
