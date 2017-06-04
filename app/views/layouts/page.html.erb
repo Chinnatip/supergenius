@@ -16,7 +16,7 @@
       <section
         id="main_side"
         class="hero is-fullheight _home_bg"
-        :style="{ backgroundColor: '#002a58' , background: 'url(' + body.mainbg + ') no-repeat center center' , backgroundSize: 'cover' }"
+        :style="{ backgroundColor: '#002a58' , background: 'url(' + body.mainbg + ') no-repeat center center' , backgroundSize: 'cover' , boxShadow: '0 -1px 8px rgba(112, 112, 112, 0.47)' }"
         v-if="mainEnable"
         >
         <div class="banner-top"> Tel. 0897606279 (พี่วิน) , 085-334-8815 (พี่ป๊อป)|windz_bs@hotmail.com </div>
@@ -62,7 +62,7 @@
         </header>
       </section>
     </div>
-
+    <div id="gap-baker"></div>
 
     <%= yield %>
 
@@ -100,11 +100,13 @@
           if (scroll >= ( mainH + bodyH + navH)) {
             $('._nav_affix').addClass('_fixed');
             $('#float').addClass('_fixed_margin');
-            //$('.banner-top').addClass('_fixed_bottom');
+            $('#gap-baker').addClass('top-60');
+            $('.banner-top').addClass('_fixed_bottom');
           }else{
             $('._nav_affix').removeClass('_fixed');
             $('#float').removeClass('_fixed_margin');
-            //$('.banner-top').removeClass('_fixed_bottom');
+            $('#gap-baker').removeClass('top-60');
+            $('.banner-top').removeClass('_fixed_bottom');
           }
         });
       });
