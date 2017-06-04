@@ -43,11 +43,12 @@
           :active="url_action"
           ></nav-bar>
         <span class="_fixed_margin">
-          <hero-body-split id="body_content" :text="selectContent"></hero-body-split>
-          <!-- hero-body :text="selectContent"></hero-body -->
+          <hero-slider :slider="sliders" :choice="choice"></hero-slider>
+          <!-- hero-body-split id="body_content" :text="selectContent"></hero-body-split -->
+          <!-- hero-body :text="selectContent"></hero-body-->
         </span>
         <header class="nav _nav_affix _add_color" v-if="url_action == 'about'" id="nav-affix">
-            <div class="columns" style="width:100%">
+            <div class="columns  super-columns" style="">
               <span class="column"
                 v-if="url_action == 'about'"
                 v-for="l in iLinks"
@@ -132,17 +133,6 @@
               return '<%= current_user.role rescue '' %>' ;
             }
           },
-          selectContent: function(){
-            console.log('hello');
-            for (var i = 0; i < this.content.length; i++) {
-              var select ;
-              if (this.content[i].key == this.url_action) {
-                select = i ;
-              }
-            }
-            console.log( this.content[select]);
-            return this.content[select]
-          },
           desktopCheck: function(){
             console.log(this.screenW);
             if (this.screenW > 560) { return true } else { return false }
@@ -172,24 +162,19 @@
             { title: 'Tutors'        ,action:'' , url: 'index' },
             { title: 'Top Students'  ,action:'' , url: 'index' },
           ],
-          content: [
-            { key: 'about'   , title: 'เกี่ยวกับเรา'   ,url: '#nav-affix', link: 'เกี่ยวกับเรา' , sub: 'PCL มุ่งมั่นที่จะเป็นบริษัทอสังหาริมทรัพย์ชั้นนำของประเทศไทย ที่มีธุรกิจและบริการที่หลากหลายเพื่อตอบสนองรูปแบบการดำเนินชีวิตสมัยใหม่ และสามารถตอบโจทย์ความต้องการของลูกค้าได้อย่างครบถ้วน',},
-            { key: 'courses'    , title: 'ข่าวและกิจกรรม',url: '', link: 'ข่าวเเละกิจกรรม' , sub: 'PCL มุ่งมั่นที่จะเป็นบริษัทอสังหาริมทรัพย์ชั้นนำของประเทศไทย ที่มีธุรกิจและบริการที่หลากหลายเพื่อตอบสนองรูปแบบการดำเนินชีวิตสมัยใหม่ และสามารถตอบโจทย์ทุกความต้องการของลูกค้าได้อย่างครบถ้วน',},
-            { key: 'contact' , title: 'ติดต่อเรา'     ,url: '', link: 'ติดต่อเรา' , sub: 'PCL มุ่งมั่นที่จะเป็นบริษัทอสังหาริมทรัพย์ชั้นนำของประเทศไทย ที่มีธุรกิจและบริการที่หลากหลายเพื่อตอบสนองรูปแบบการดำเนินชีวิตสมัยใหม่ และสามารถตอบโจทย์ทุกความต้องการของลูกค้าได้อย่างครบถ้วน',},
-          ],
           sliders: [
-            { title: 'Vue&Bulma in Rails stack', subtitle: 'scroll down to learn how good of component world',tab: 'tab1'},
-            { title: 'Hey this is SECOND TAB', subtitle: 'are you ok with this ?',tab: 'tab2'},
-            { title: 'I beleive I can fly', subtitle: 'Osmosis ',tab: 'tab3'},
+            { title: 'SUPER GENIUS school',tab: 'tab1',url: '#nav-affix', link: 'ดูคอร์สเรียนของเรา >>', subtitle: 'เพราะการเล่นทำให้เด็กฉลาด เราจึงเป็นโรงเรียนสอนพิเศษที่ให้ มากกว่าเเค่ความรู้ สถานที่ที่น้องๆจะได้สาระพร้อมทั้งความสนุก ผู้ปกครองสบายใจ เด็กได้เกรดดี มีสังคมของเพื่อนๆต่างโรงเรียน'},
+            { title: 'Hey this is SECOND TAB', subtitle: 'are you ok with this ?',tab: 'tab2',url: '#nav-affix', link: 'เกี่ยวกับเรา'},
+            { title: 'I beleive I can fly', subtitle: 'Osmosis ',tab: 'tab3',url: '#nav-affix', link: 'เกี่ยวกับเรา'},
           ],
-          slider: false ,
+          slider: true ,
           choice: 'tab1',
           nav: {
-            brand: '/img_ref/logo_s.png',
+            brand: '/img_ref/sup_01.png',
             brandLink: "<%= root_path %>",
             links: [
               {
-                title: 'เกี่ยวกับเรา',
+                title: 'หน้าหลัก',
                 controller: 'about',
                 //link: "<%= page_about_path %>",
                 link: '/page/about#navbar',

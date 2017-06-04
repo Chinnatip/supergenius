@@ -35,25 +35,52 @@ Vue.component('footer-site-corp',{
       <div class="container">
         <div class="columns ">
           <div class="column">
-            <p>ติดต่อฝ่ายนักลงทุนสัมพันธ์</p>
-            <p>คุณนิเวศน์ ทรัพย์ยืนยง โทรศัพท์ 02-999-9999 อีเมล์ niwet@pcl.co.th</p>
+            <p class="head-up ">Find Us on Facebook</p>
+            <iframe src="https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2Fsupergeniusschool%2F&tabs=timeline&width=320&height=150px&small_header=true&adapt_container_width=false&hide_cover=false&show_facepile=true&appId=155981588273147" width="340" height="150px" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowTransparency="true"></iframe>
           </div>
           <div class="column">
-            <p>สำนักงานฝ่ายนักลงทุนสัมพันธ์</p>
-            <p>อาคารดับเบิลยู ชั้น 3 ถนนพระอาทิตย์ แขวงชนะสงคราม เขตพระนคร กรุงเทพมหานคร 10200</p>
+            <p class="head-up ">Recent Posts</p>
+            <div v-for="(f,index) in feed">
+              <a target="_blank" class="news-footer news" :href="f.url" v-if="index < 3">{{f.title}}</a>
+            </div>
+            <a target="_blank" class="news-footer" href="/page/news">อ่านโพสต์ทั้งหมด </a>
+          </div>
+          <div class="column">
+            <p class="head-up content-right">Contact Info</p>
+            <p class="content-right">
+              รังสิต-ปทุมธานี 14 ซอย 9 ต. ประชาธิปัตย์ <br>
+              อ.ธัญบุรี จ. ปทุมธานี 12130 <br>
+              Map: <a target="_blank" href="https://www.google.co.th/maps/place/%E0%B8%81%E0%B8%A7%E0%B8%94%E0%B8%A7%E0%B8%B4%E0%B8%8A%E0%B8%B2+Super+Genius/@13.9906129,100.6010133,17z/data=!3m1!4b1!4m5!3m4!1s0x30e281c4239839c3:0xc5a8d637c409ce6d!8m2!3d13.9906129!4d100.603202?hl=en" class="yellow">ดูแผนที่บน Google Map</a>  <br>
+              Mobile: <a href="tel:0897606279" class="yellow"> 089-760-6279(พี่วิน)</a>  <br>
+              Email: <a href="mailto:windz_bs@hotmail.com" class="yellow">windz_bs@hotmail.com</a>
+            </p>
           </div>
         </div>
         <div class="columns ">
           <div class="column">
-            <p>ขอสงวนลิขสิทธิ์ © 2017 บริษัท มหาชน จำกัด</p>
+            <p>ขอสงวนลิขสิทธิ์ © 2017 บริษัท Super Genius จำกัด</p>
           </div>
           <div class="column">
-            <a href="">ข้อกำหนดและเงื่อนไข</a>
+            <a class="_bread" href="">ข้อกำหนดและเงื่อนไข</a>
             <a href="">นโยบายความเป็นส่วนตัว</a>
           </div>
         </div>
       </div>
     </footer>
   `,
-  props: ['footer']
+  props: ['footer'],
+  data: function(){
+    return {
+      feed: []
+    }
+  },
+  mounted: function() {
+    var that = this;
+    $.ajax({
+      url: '/newsfeeds.json',
+      success: function(res) {
+        that.feed = res;
+      }
+    });
+  }
 });

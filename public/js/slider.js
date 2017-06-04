@@ -1,3 +1,4 @@
+// <!-- hero-slider :slider="slider" :choice="choice"></hero-slider -->
 Vue.component('heroSlider',{
   template: `
     <div class="_hero_body_slider ok">
@@ -8,15 +9,27 @@ Vue.component('heroSlider',{
       <div class="slider-picker">
         <span v-for="s in slider">
           <span v-if="slider.length > 1">
-            <a href="#" v-on:click="checkActive( s.tab )" v-bind:class="{'active': isActive( s.tab )}"></a>
+            <a v-on:click="checkActive( s.tab )" v-bind:class="{'active': isActive( s.tab )}"></a>
           </span>
         </span>
       </div>
       <span v-for="s in slider">
-        <div class="hero-body" v-show="isActive( s.tab )">
-          <div class="container has-text-centered">
-            <h1 class="title">{{s.title}}</h1>
-            <h2 class="subtitle">{{s.subtitle}}</h2>
+        <div class="hero-body _body_split" v-show="isActive( s.tab )">
+          <div class="container">
+            <div class="split _dark-round">
+              <h1 class="title">{{s.title}}</h1>
+              <h2 class="subtitle">{{s.subtitle}}</h2>
+              <a class="button" :href="s.url">{{s.link}}</a>
+            </div>
+            <div style="flex-grow:1"></div>
+            <div class="square">
+              <div class="quote">100%</div>
+              <div class="price">สอบติด 5ปีซ้อน</div>
+              <div class="change">
+                สถิติที่เราภูมิใจ <br>
+                <span style="font-style: italic">ครูวิน สอนเลข</span>
+              </div>
+            </div>
           </div>
         </div>
       </span>

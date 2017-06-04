@@ -21,8 +21,10 @@
 .nav
   min-height: 60px !important
   transition: 1s
+  background: #ffffff !important
+  box-shadow: 0 2px 6px rgba(40, 40, 40, 0.2) !important
   &._bg_blue
-    background: $linear-gb !important
+    //background: $linear-gb !important
     //background: rgba(0,42,88,1) !important
 
 .nav-mobi-show
@@ -47,14 +49,17 @@
   min-width: 120px
   padding: 0 20px
   border-bottom: 3px solid rgba(0,0,0,0)
+  color: #aa3537 !important
   &.active
     @media screen and (max-width: 768px)
       border-bottom: 0 !important
       font-weight: 700 !important
+      color: #aa3537 !important
+      font-weight: bolder !important
   &:hover, &:focus, &.active
-    color: white !important
+    color: #aa3537 !important
     border-bottom: 3px solid white
-    font-weight: 500 !important
+    font-weight: bolder !important
     @media screen and (max-width: 768px)
       border-bottom: 0 !important
   &.nv
@@ -96,7 +101,7 @@
       width: 100%
       box-shadow: none !important
     &._add_color
-      background: $linear-gb
+      background: $linear-gb !important
       @media screen and (max-width: 768px)
         background: #1a4d8c
     ._top_affix
@@ -123,6 +128,9 @@
       width: 100%
       margin-bottom: 0px
       margin-top: 0px
+      &.super-columns
+        width: 70% !important
+        margin-left: 15%
       @media screen and (max-width: 768px)
         display: none
         background: rgba(66, 66, 66, 0.85)

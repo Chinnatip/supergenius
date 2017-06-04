@@ -30,7 +30,7 @@
 ._footer-site-corp
   padding: 60px 40px !important
   //background: #002a58 !important
-  background: $linear-gb
+  //background: $linear-gb
   .container
     width: 100%
     max-width: 1200px
@@ -42,10 +42,32 @@
       .column
         padding-left: 0
         padding-right: 0
+        a.news-footer
+          color: white
+          border-bottom: 0px
+          line-height: 23px
+          &.news
+            &::before
+              content: '🏳️ '
+              margin-right: 8px
+        p
+          &.head-up
+            font-size: 16px
+            margin-bottom: 10px !important
+          &.content-right
+            max-width: 250px
+            margin-right: 0
+            margin-left: auto
+            margin-bottom: 10px
+            text-align: left
+            line-height: 21px
         &:last-child
           text-align: right
           a
             color: white
             border: none
             &:not(:last-child)
-              margin-right: 24px
+              &._bread
+                margin-right: 24px
+a.yellow
+  color: #ffc800 !important
