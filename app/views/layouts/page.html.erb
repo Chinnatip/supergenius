@@ -43,14 +43,14 @@
           :active="url_action"
           ></nav-bar>
         <span class="_fixed_margin">
-          <hero-slider :slider="sliders" :choice="choice"></hero-slider>
-          <!-- hero-body-split id="body_content" :text="selectContent"></hero-body-split -->
+          <hero-slider v-if="aboutCheck" :slider="sliders" :choice="choice"></hero-slider>
+          <hero-body-split v-else id="body_content" :text="selectContent"></hero-body-split>
           <!-- hero-body :text="selectContent"></hero-body-->
         </span>
         <header class="nav _nav_affix _add_color" v-if="url_action == 'about'" id="nav-affix">
             <div class="columns  super-columns" style="">
               <span class="column"
-                v-if="url_action == 'about'"
+                v-if="aboutCheck"
                 v-for="l in iLinks"
                 v-bind:class="['active']"
               >
@@ -64,6 +64,7 @@
     </div>
     <div id="gap-baker"></div>
 
+    <!-- content-body -->
     <%= yield %>
 
     <!-- footer ><-->
@@ -146,6 +147,17 @@
               return false
             }
           },
+          selectContent: function(){
+            console.log('hello');
+            for (var i = 0; i < this.content.length; i++) {
+              var select ;
+              if (this.content[i].key == this.url_action) {
+                select = i ;
+              }
+            }
+            console.log( this.content[select]);
+            return this.content[select]
+          },
         },
         data: {
           url_action: '<%= controller.action_name %>' ,
@@ -164,6 +176,11 @@
             { title: 'Student Gallery'  ,action:'' , url: 'index' },
             { title: 'Tutors'        ,action:'' , url: 'index' },
             { title: 'Top Students'  ,action:'' , url: 'index' },
+          ],
+          content: [
+            { key: 'about'   , title: 'เกี่ยวกับเรา'   ,url: '#nav-affix', link: 'เกี่ยวกับเรา' , sub: 'ที่มาของโรงเรียนเเละความภูมิใจของเรา',},
+            { key: 'news'    , title: 'ข่าวและกิจกรรม',url: '', link: 'ข่าวเเละกิจกรรม' , sub: 'รวบรวมข่าวคราวล่าสุดจากโรงเรียน Super Genius',},
+            { key: 'contact' , title: 'ติดต่อเรา'     ,url: '', link: 'ติดต่อเรา' , sub: 'แผนที่สถานที่ตั้งโรงเรียน เเละช่องทางติดต่อ',},
           ],
           sliders: [
             { title: 'SUPER GENIUS school',tab: 'tab1',url: '#nav-affix', link: 'ดูคอร์สเรียนของเรา >>', subtitle: 'เพราะการเล่นทำให้เด็กฉลาด เราจึงเป็นโรงเรียนสอนพิเศษที่ให้ มากกว่าเเค่ความรู้ สถานที่ที่น้องๆจะได้สาระพร้อมทั้งความสนุก ผู้ปกครองสบายใจ เด็กได้เกรดดี มีสังคมของเพื่อนๆต่างโรงเรียน'},
@@ -194,6 +211,11 @@
                 target: ''
               },{
                 title: 'เช็คผลการเรียน',
+                controller: 'news',
+                link: "<%= page_news_path %>",
+                target: ''
+              },{
+                title: 'ข่าวเเละกิจกรรม',
                 controller: 'news',
                 link: "<%= page_news_path %>",
                 target: ''

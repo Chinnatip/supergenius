@@ -99,19 +99,9 @@ Vue.component('hero-body-split',{
   template: `
     <div class="hero-body _body_split">
       <div class="container">
-        <div class="split _dark-round">
+        <div class="split _dark-round-split">
           <h1 class="title">{{text.title}}</h1>
           <h2 class="subtitle">{{text.sub}}</h2>
-          <a class="button" :href="text.url">{{text.link}}</a>
-        </div>
-        <div style="flex-grow:1"></div>
-        <div class="square">
-          <div class="quote">PCL</div>
-          <div class="price">80.70 (THB)</div>
-          <div class="change">
-            CHANGE (%) <br>
-            -0.21 (1.25%)
-          </div>
         </div>
       </div>
     </div>
