@@ -1,7 +1,7 @@
 // <!-- hero-slider :slider="slider" :choice="choice"></hero-slider -->
 Vue.component('heroSlider',{
   template: `
-    <div class="_hero_body_slider ok">
+    <div class="_hero_body_slider ok" id="body_content">
       <div class="arrow-picker">
         <a @click="tabs(-1)" class="pick"> < </a>
         <a @click="tabs(1)" class="pick">  > </a>

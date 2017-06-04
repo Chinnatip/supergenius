@@ -51,8 +51,8 @@ Vue.component('footer-site-corp',{
               รังสิต-ปทุมธานี 14 ซอย 9 ต. ประชาธิปัตย์ <br>
               อ.ธัญบุรี จ. ปทุมธานี 12130 <br>
               Map: <a target="_blank" href="https://www.google.co.th/maps/place/%E0%B8%81%E0%B8%A7%E0%B8%94%E0%B8%A7%E0%B8%B4%E0%B8%8A%E0%B8%B2+Super+Genius/@13.9906129,100.6010133,17z/data=!3m1!4b1!4m5!3m4!1s0x30e281c4239839c3:0xc5a8d637c409ce6d!8m2!3d13.9906129!4d100.603202?hl=en" class="yellow">ดูแผนที่บน Google Map</a>  <br>
-              Mobile: <a href="tel:0897606279" class="yellow"> 089-760-6279(พี่วิน)</a>  <br>
-              Email: <a href="mailto:windz_bs@hotmail.com" class="yellow">windz_bs@hotmail.com</a>
+              Mobile: <a href="tel:0897606279" class="yellow">📱 089-760-6279(พี่วิน)</a>  <br>
+              Email: <a href="mailto:windz_bs@hotmail.com" class="yellow">✉️ windz_bs@hotmail.com</a>
             </p>
           </div>
         </div>

@@ -87,27 +87,24 @@
         if (mainH > 0) {
           $('#navbar').addClass('_mainH_wait_nav');
         }
+
         $(window).scroll(function (event) {
           var scroll = $(window).scrollTop();
           if (scroll > mainH) {
             $('#navbar').removeClass('_mainH_wait_nav');
+            //header.scrollCheck = false;
           }else{
             $('#navbar').addClass('_mainH_wait_nav');
-            $('.nav').removeClass('_bg_blue');
-          }
-          if (scroll >= (navH + mainH)) {
-            $('.nav').addClass('_bg_blue');
-          }else if(scroll < navH){
-            console.log('rem');
-            $('.nav').removeClass('_bg_blue');
           }
 
-          if (scroll >= ( mainH + bodyH)) {
+          if (scroll >= ( mainH + bodyH + navH)) {
             $('._nav_affix').addClass('_fixed');
             $('#float').addClass('_fixed_margin');
+            //$('.banner-top').addClass('_fixed_bottom');
           }else{
             $('._nav_affix').removeClass('_fixed');
             $('#float').removeClass('_fixed_margin');
+            //$('.banner-top').removeClass('_fixed_bottom');
           }
         });
       });
@@ -141,13 +138,17 @@
             if (this.url_action == 'about') { return true } else { return false }
           },
           mainEnable: function(){
-            if (this.aboutCheck  && this.desktopCheck) { return true }else{ return false }
+            if (this.aboutCheck  && this.desktopCheck && this.scrollCheck) {
+              return true
+            } else {
+              return false
+            }
           },
         },
         data: {
           url_action: '<%= controller.action_name %>' ,
           url_controller: '<%= controller.controller_name %>' ,
-          //screenW: screen.width ,
+          scrollCheck: true,
           screenW: $(window).width() ,
           login: <%= user_signed_in? %>,
           body: {
