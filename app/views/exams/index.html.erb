@@ -1,0 +1,34 @@
+<div class="admin-block">
+  <p id="notice"><%= notice %></p>
+
+  <h1>
+    Exams
+    <%= link_to 'New Exam', new_exam_path , class: 'btn-ner'%>
+  </h1>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Ref class</th>
+        <th>Student</th>
+        <th>Issue</th>
+        <th>Score</th>
+        <th colspan="3"></th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% @exams.each do |exam| %>
+        <tr>
+          <td><%= exam.ref_class %></td>
+          <td><%= exam.student %></td>
+          <td><%= exam.issue %></td>
+          <td><%= exam.score %></td>
+          <td><%= link_to 'Show', exam %></td>
+          <td><%= link_to 'Edit', edit_exam_path(exam) %></td>
+          <td><%= link_to 'Destroy', exam, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

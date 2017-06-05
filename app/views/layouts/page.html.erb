@@ -196,13 +196,13 @@
           choice: 'tab1',
           nav: {
             brand: '/img_ref/sup_01.png',
-            brandLink: "<%= root_path %>",
+            brandLink: "<%= root_path %>#navbar",
             links: [
               {
                 title: 'หน้าหลัก',
                 controller: 'about',
                 //link: "<%= page_about_path %>",
-                link: '/page/about#navbar',
+                link: '<%= root_path %>#navbar',
                 target: ''
               },{
                 title: 'คอร์สเรียน',
@@ -230,6 +230,12 @@
               title: 'Dashboard',
               icon: 'fa-arrows-alt',
               link: '<%= dashboard_index_path %>'
+            },
+            login: {
+              icon: 'fa-sign-in'
+            },
+            logout: {
+              icon: 'fa-sign-out'
             }
           }
         }

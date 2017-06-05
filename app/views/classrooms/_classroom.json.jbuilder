@@ -1,0 +1,2 @@
+json.extract! classroom, :id, :name, :spec, :course, :teacher, :seat, :booked, :pass, :status, :schedule, :start, :end, :price, :start_time, :end_time, :duration, :created_at, :updated_at
+json.url classroom_url(classroom, format: :json)

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170120151529) do
+ActiveRecord::Schema.define(version: 20170604152113) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -32,10 +32,49 @@ ActiveRecord::Schema.define(version: 20170120151529) do
     t.decimal  "volumn"
   end
 
+  create_table "classrooms", force: :cascade do |t|
+    t.text     "name"
+    t.integer  "spec"
+    t.integer  "course"
+    t.integer  "teacher"
+    t.integer  "seat"
+    t.integer  "booked"
+    t.integer  "pass"
+    t.string   "status"
+    t.integer  "schedule"
+    t.datetime "start"
+    t.datetime "end"
+    t.float    "price"
+    t.time     "start_time"
+    t.time     "end_time"
+    t.integer  "duration"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "courses", force: :cascade do |t|
+    t.text     "name"
+    t.string   "major"
+    t.float    "price"
+    t.integer  "grade"
+    t.integer  "seat"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "employees", force: :cascade do |t|
     t.string   "name"
     t.string   "email"
     t.boolean  "manager"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "exams", force: :cascade do |t|
+    t.integer  "ref_class"
+    t.integer  "student"
+    t.integer  "issue"
+    t.integer  "score"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -79,6 +118,52 @@ ActiveRecord::Schema.define(version: 20170120151529) do
   create_table "quotations", force: :cascade do |t|
     t.text     "title"
     t.text     "desc"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "schools", force: :cascade do |t|
+    t.text     "name"
+    t.integer  "student"
+    t.integer  "graduated"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "seats", force: :cascade do |t|
+    t.integer  "classroom"
+    t.integer  "student"
+    t.string   "status"
+    t.integer  "checkin"
+    t.string   "valuate"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "students", force: :cascade do |t|
+    t.text     "name"
+    t.text     "surname"
+    t.integer  "grade"
+    t.text     "school"
+    t.text     "parent"
+    t.string   "email"
+    t.integer  "tel"
+    t.string   "line"
+    t.string   "facebook"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "teachers", force: :cascade do |t|
+    t.text     "name"
+    t.text     "surname"
+    t.string   "major"
+    t.string   "email"
+    t.integer  "tel"
+    t.text     "graduate"
+    t.float    "gpa"
+    t.string   "line"
+    t.string   "facebook"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

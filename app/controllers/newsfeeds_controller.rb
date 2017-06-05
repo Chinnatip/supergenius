@@ -3,8 +3,8 @@ class NewsfeedsController < ApplicationController
   layout 'dashboard'
 
   # authenticate user before load pages
-  # before_action :authenticate_user!
   before_action :set_newsfeed, only: [:show, :edit, :update, :destroy]
+  before_action :authenticate_user!
 
   # GET /newsfeeds
   # GET /newsfeeds.json

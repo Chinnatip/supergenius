@@ -1,0 +1,24 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Ref class:</strong>
+  <%= @exam.ref_class %>
+</p>
+
+<p>
+  <strong>Student:</strong>
+  <%= @exam.student %>
+</p>
+
+<p>
+  <strong>Issue:</strong>
+  <%= @exam.issue %>
+</p>
+
+<p>
+  <strong>Score:</strong>
+  <%= @exam.score %>
+</p>
+
+<%= link_to 'Edit', edit_exam_path(@exam) %> |
+<%= link_to 'Back', exams_path %>

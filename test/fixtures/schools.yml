@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyText
+  student: 1
+  graduated: 1
+
+two:
+  name: MyText
+  student: 1
+  graduated: 1

@@ -1,0 +1,35 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyText
+  spec: 1
+  course: 1
+  teacher: 1
+  seat: 1
+  booked: 1
+  pass: 1
+  status: MyString
+  schedule: 1
+  start: 2017-06-04 21:59:59
+  end: 2017-06-04 21:59:59
+  price: 1.5
+  start_time: 2017-06-04 21:59:59
+  end_time: 2017-06-04 21:59:59
+  duration: 1
+
+two:
+  name: MyText
+  spec: 1
+  course: 1
+  teacher: 1
+  seat: 1
+  booked: 1
+  pass: 1
+  status: MyString
+  schedule: 1
+  start: 2017-06-04 21:59:59
+  end: 2017-06-04 21:59:59
+  price: 1.5
+  start_time: 2017-06-04 21:59:59
+  end_time: 2017-06-04 21:59:59
+  duration: 1

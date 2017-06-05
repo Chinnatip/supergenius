@@ -24,30 +24,24 @@ Vue.component('navBar',{
           >
             {{l.title}}
           </a>
-          <span class="nav-item" v-if="login">
-            <a v-if="role == 'admin'" href="/dashboard/index" class="button is-inverted" v-bind:class="[body.theme]">
+          <span class="inherit-nav" v-if="login">
+            <a v-if="role == 'admin'" href="/dashboard/index" class="nav-item">
               <span class="icon"> <i class="fa" v-bind:class="[nav.backLink.icon]"></i> </span>
               <span>Dashboard</span>
             </a>
-            <div class="_with_sub_item">
-              <a class="button is-inverted is-info">
-                <span>Profile</span>
-              </a>
-              <ul class="_sub_nav_item" >
-                <li><a href="/home/index">Manage Profile</a></li>
-                <!-- li><a  href="/users/sign_out">logout</a></li -->
-                <li><a @click="logout" >logout</a>
-              </ul>
-            </div>
-          </span>
-          <!-- span class="nav-item" v-else >
-            <a target="" href="/users/sign_in" class="button is-inverted" v-bind:class="[body.theme]">
-              <span class="icon">
-                <i class="fa" v-bind:class="[nav.backLink.icon]"></i>
-              </span>
-              <span>Login</span>
+            <a @click="logout" class="nav-item">
+              <span class="icon"> <i class="fa" v-bind:class="[nav.logout.icon]"></i> </span>
+              <span>ออกจากระบบ</span>
             </a>
-          </span -->
+          </span>
+          <span  class="inherit-nav" v-else >
+            <a target="" href="/users/sign_in" class="nav-item">
+              <span class="icon">
+                <i class="fa" v-bind:class="[nav.login.icon]"></i>
+              </span>
+              <span>เข้าสู่ระบบ</span>
+            </a>
+          </span>
         </div>
       </div>
     </header>
@@ -97,7 +91,7 @@ Vue.component('hero-body-split',{
   // sample
   // <!-- hero-body :text="body"></hero-body -->
   template: `
-    <div class="hero-body _body_split">
+    <div class="hero-body _body_split _mini-splitter">
       <div class="container">
         <div class="split _dark-round-split">
           <h1 class="title">{{text.title}}</h1>

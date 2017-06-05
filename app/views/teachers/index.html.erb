@@ -1,0 +1,43 @@
+<div class="admin-block">
+  <p id="notice"><%= notice %></p>
+
+  <h1>
+    Teachers
+    <%= link_to 'New Teacher', new_teacher_path , class: 'btn-ner'%>
+  </h1>
+
+  <table>
+    <thead>
+      <tr>
+        <th>ชื่อ-นามสกุล</th>
+        <th>วิชาที่ถนัด</th>
+        <th>Email</th>
+        <th>Tel</th>
+        <th>เรียนจบจาก</th>
+        <th>เกรดเฉลี่ย</th>
+        <th>Line</th>
+        <th>Facebook</th>
+        <th colspan="3"></th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% @teachers.each do |teacher| %>
+        <tr>
+          <td><%= teacher.name %> <%= teacher.surname %></td>
+          <td><%= teacher.major %></td>
+          <td><%= teacher.email %></td>
+          <td><%= teacher.tel %></td>
+          <td><%= teacher.graduate %></td>
+          <td><%= teacher.gpa %></td>
+          <td><%= teacher.line %></td>
+          <td><%= teacher.facebook %></td>
+          <td><%= link_to 'Show', teacher %></td>
+          <td><%= link_to 'Edit', edit_teacher_path(teacher) %></td>
+          <td><%= link_to 'Destroy', teacher, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+
+</div>

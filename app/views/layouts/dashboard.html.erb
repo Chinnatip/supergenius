@@ -9,10 +9,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
   </head>
 
-  <body>
-    <div id="cHeader" class="_dashboard_navbar">
-      <section class="hero is-medium" v-bind:class="[body.theme]">
-        <nav-bar   :nav="nav" :body="body" :login="login"></nav-bar>
+  <body  class="admin-body">
+    <div id="cHeader">
+      <section class="hero _fixed_top" :class="[body.theme,body.size]" :style="{ background: 'url(' + body.background + ') no-repeat center center' , backgroundSize: 'cover' }">
+        <nav-bar
+          :nav="nav"
+          :body="body"
+          :login="login"
+          :role="checkRole"
+          ></nav-bar>
       </section>
     </div>
 
@@ -81,13 +86,19 @@
           sub:   'PCL aims to be a top Thai diversified property company that delivers end-to-end modern urban lifestyles to customers.'
         },
         nav: {
-          brand: '/img_ref/logo_p.png',
-          brandLink: "<%= home_index_path %>",
+          brand: '/img_ref/sup_01.png',
+          brandLink: "<%= page_about_path %>#navbar",
           links: [],
           backLink: {
-            title: 'Logout',
-            icon: 'fa-arrows-alt',
-            link: '<%= destroy_user_session_path %>'
+            title: 'Dashboard',
+            icon: 'fa-commenting-o',
+            link: '<%= dashboard_index_path %>'
+          },
+          login: {
+            icon: 'fa-sign-in'
+          },
+          logout: {
+            icon: 'fa-sign-out'
           }
         }
       }

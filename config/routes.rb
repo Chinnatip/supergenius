@@ -1,6 +1,13 @@
 Rails.application.routes.draw do
 
 
+  resources :exams
+  resources :schools
+  resources :seats
+  resources :classrooms
+  resources :teachers
+  resources :courses
+  resources :students
   resources :quotations
   resources :products
   resources :analysts

@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  ref_class: 1
+  student: 1
+  issue: 1
+  score: 1
+
+two:
+  ref_class: 1
+  student: 1
+  issue: 1
+  score: 1

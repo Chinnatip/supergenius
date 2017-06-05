@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Classroom:</strong>
+  <%= @seat.classroom %>
+</p>
+
+<p>
+  <strong>Student:</strong>
+  <%= @seat.student %>
+</p>
+
+<p>
+  <strong>Status:</strong>
+  <%= @seat.status %>
+</p>
+
+<p>
+  <strong>Checkin:</strong>
+  <%= @seat.checkin %>
+</p>
+
+<p>
+  <strong>Valuate:</strong>
+  <%= @seat.valuate %>
+</p>
+
+<%= link_to 'Edit', edit_seat_path(@seat) %> |
+<%= link_to 'Back', seats_path %>

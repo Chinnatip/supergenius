@@ -8,8 +8,7 @@
     <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
   </head>
-  <body>
-
+  <body class="admin-body">
     <!-- header ><-->
     <div id="cHeader">
       <section class="hero _fixed_top" :class="[body.theme,body.size]" :style="{ background: 'url(' + body.background + ') no-repeat center center' , backgroundSize: 'cover' }">
@@ -19,34 +18,24 @@
           :login="login"
           :role="checkRole"
           ></nav-bar>
-        <!-- hero-slider :slider="sliders" :choice="choice" ></hero-slider -->
-        <span class="_fixed_margin">
-          <hero-body-split :text="body"></hero-body-split>
-        </span>
-        <header class="nav _nav_affix _add_color">
-          <div class="container">
-            <div class="columns super-columns" style="">
-              <span class="column"
-                v-for="l in iLinks"
-                v-bind:class="['active']"
-              >
-                <span>
-                  <a :href="l.url">{{l.title}}</a>
-                </span>
-              </span>
-            </div>
-          </div>
-        </header>
       </section>
     </div>
 
-    <%= yield %>
+    <div id="gap-baker" class="top-60"></div>
+    <div class="admin-container">
+      <div class="sidebar" id="sidebar">
+        <div class="sidebar-container">
+          <a v-for="li in lists" :href="li.link" class="item">{{li.text}}</a>
+        </div>
+      </div>
+      <div class="main-container">
+        <%= yield %>
+      </div>
+    </div>
 
 
     <!-- footer ><-->
-
     <div id="cFooter">
-      <black-ribbon></black-ribbon>
       <footer-site-corp :footer="footer"></footer-site-corp>
     </div>
 
@@ -57,15 +46,6 @@
     <script src="/js/footer.js"></script>
     <script type="text/javascript">
     $( document ).ready(function() {
-      var navH = $('#navbar').outerHeight();
-      $(window).scroll(function (event) {
-        var scroll = $(window).scrollTop();
-        if (scroll >= navH ) {
-          $('.nav').addClass('_bg_blue');
-        }else{
-          $('.nav').removeClass('_bg_blue');
-        }
-      });
     });
 
       //component of header
@@ -91,15 +71,6 @@
             link: 'นักลงทุนสัมพันธ์',
             url:  ''
           },
-          iLinks:[
-            { title: 'นักลงทุนสัมพันธ์'          ,action:'' , url: 'index' },
-            { title: 'ข้อมูลทางการเงิน' ,action:'' , url: 'index' },
-            { title: 'ข้อมูลสำหรับผู้ถือหุ้น'      ,action:'' , url: 'index' },
-            { title: 'ผู้ถือหุ้นกู้'       ,action:'' , url: 'index' },
-            { title: 'ข้อมูลราคาหลักทรัพย์'      ,action:'' , url: 'index' },
-            { title: 'ห้องข่าว'     ,action:'' , url: 'index' },
-            { title: 'สอบถามข้อมูลนักลงทุน' ,action:'' , url: 'index' },
-          ],
           sliders: [
             {
               title: 'บริษัท พฤกษา โฮลดิ้ง จำกัด (มหาชน)',
@@ -120,37 +91,35 @@
           slider: false ,
           choice: 'tab1',
           nav: {
-            brand: '/img_ref/logo_p.png',
-            brandLink: "<%= page_about_path %>",
-            links: [
-              {
-                title: 'เกี่ยวกับเรา',
-                controller: 'about',
-                link: "<%= page_about_path %>",
-                target: ''
-              },{
-                title: 'นักลงทุนสัมพันธ์',
-                controller: 'investor',
-                link: "<%= investor_index_path %>",
-                target: ''
-              },{
-                title: 'ข่าวเเละกิจกรรม',
-                controller: 'news',
-                link: "<%= page_news_path %>",
-                target: ''
-              },{
-                title: 'ติดต่อเรา',
-                controller: 'contact',
-                link: "<%= page_contact_path %>",
-                target: ''
-              }
-            ],
+            brand: '/img_ref/sup_01.png',
+            brandLink: "<%= page_about_path %>#navbar",
+            links: [],
             backLink: {
               title: 'Dashboard',
-              icon: 'fa-arrows-alt',
+              icon: 'fa-commenting-o',
               link: '<%= dashboard_index_path %>'
+            },
+            login: {
+              icon: 'fa-sign-in'
+            },
+            logout: {
+              icon: 'fa-sign-out'
             }
           }
+        }
+      });
+
+      var sidebar = new Vue({
+        el: '#sidebar',
+        data: {
+          lists: [
+            { text: 'Dashboard'  , link: 'head' },
+            { text: 'หน้าหลัก'     , link: '<%= dashboard_index_path %>'  , active: 'index', },
+            { text: 'ข่าวสารองค์กร', link: '<%= newsfeeds_path %>'        , active: 'news', },
+            { text: 'ผู้บริหาร'     , link: '<%= boards_path %>'           , active: 'board', },
+            { text: 'รายชื่อนักวิเคราะห์'  , link: '<%= analysts_path %>'    , active: 'analyst', },
+            { text: 'ผลิตภัณฑ์'     , link: '<%= products_path %>', active: 'product', }
+          ],
         }
       });
 

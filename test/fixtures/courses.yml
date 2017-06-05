@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyText
+  major: MyString
+  price: 1.5
+  grade: 1
+  seat: 1
+
+two:
+  name: MyText
+  major: MyString
+  price: 1.5
+  grade: 1
+  seat: 1

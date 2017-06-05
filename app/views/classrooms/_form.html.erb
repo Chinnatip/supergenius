@@ -1,0 +1,92 @@
+<%= form_for(classroom) do |f| %>
+  <% if classroom.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(classroom.errors.count, "error") %> prohibited this classroom from being saved:</h2>
+
+      <ul>
+      <% classroom.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :name %>
+    <%= f.text_area :name %>
+  </div>
+
+  <div class="field">
+    <%= f.label :spec %>
+    <%= f.number_field :spec %>
+  </div>
+
+  <div class="field">
+    <%= f.label :course %>
+    <%= f.number_field :course %>
+  </div>
+
+  <div class="field">
+    <%= f.label :teacher %>
+    <%= f.number_field :teacher %>
+  </div>
+
+  <div class="field">
+    <%= f.label :seat %>
+    <%= f.number_field :seat %>
+  </div>
+
+  <div class="field">
+    <%= f.label :booked %>
+    <%= f.number_field :booked %>
+  </div>
+
+  <div class="field">
+    <%= f.label :pass %>
+    <%= f.number_field :pass %>
+  </div>
+
+  <div class="field">
+    <%= f.label :status %>
+    <%= f.text_field :status %>
+  </div>
+
+  <div class="field">
+    <%= f.label :schedule %>
+    <%= f.number_field :schedule %>
+  </div>
+
+  <div class="field">
+    <%= f.label :start %>
+    <%= f.datetime_select :start %>
+  </div>
+
+  <div class="field">
+    <%= f.label :end %>
+    <%= f.datetime_select :end %>
+  </div>
+
+  <div class="field">
+    <%= f.label :price %>
+    <%= f.text_field :price %>
+  </div>
+
+  <div class="field">
+    <%= f.label :start_time %>
+    <%= f.time_select :start_time %>
+  </div>
+
+  <div class="field">
+    <%= f.label :end_time %>
+    <%= f.time_select :end_time %>
+  </div>
+
+  <div class="field">
+    <%= f.label :duration %>
+    <%= f.number_field :duration %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

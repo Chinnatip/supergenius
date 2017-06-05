@@ -1,0 +1,79 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @classroom.name %>
+</p>
+
+<p>
+  <strong>Spec:</strong>
+  <%= @classroom.spec %>
+</p>
+
+<p>
+  <strong>Course:</strong>
+  <%= @classroom.course %>
+</p>
+
+<p>
+  <strong>Teacher:</strong>
+  <%= @classroom.teacher %>
+</p>
+
+<p>
+  <strong>Seat:</strong>
+  <%= @classroom.seat %>
+</p>
+
+<p>
+  <strong>Booked:</strong>
+  <%= @classroom.booked %>
+</p>
+
+<p>
+  <strong>Pass:</strong>
+  <%= @classroom.pass %>
+</p>
+
+<p>
+  <strong>Status:</strong>
+  <%= @classroom.status %>
+</p>
+
+<p>
+  <strong>Schedule:</strong>
+  <%= @classroom.schedule %>
+</p>
+
+<p>
+  <strong>Start:</strong>
+  <%= @classroom.start %>
+</p>
+
+<p>
+  <strong>End:</strong>
+  <%= @classroom.end %>
+</p>
+
+<p>
+  <strong>Price:</strong>
+  <%= @classroom.price %>
+</p>
+
+<p>
+  <strong>Start time:</strong>
+  <%= @classroom.start_time %>
+</p>
+
+<p>
+  <strong>End time:</strong>
+  <%= @classroom.end_time %>
+</p>
+
+<p>
+  <strong>Duration:</strong>
+  <%= @classroom.duration %>
+</p>
+
+<%= link_to 'Edit', edit_classroom_path(@classroom) %> |
+<%= link_to 'Back', classrooms_path %>
