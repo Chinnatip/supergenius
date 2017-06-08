@@ -19,6 +19,7 @@
           :login="login"
           :role="checkRole"
           :active="url_controller"
+          user="<%= current_user[:name] rescue '' %>"
           ></nav-bar>
         <span class="_fixed_margin _with_nav_affix">
           <hero-body-split id="body_content" :text="body"></hero-body-split>

@@ -58,6 +58,7 @@
           :login="login"
           :role="checkRole"
           :active="url_action"
+          user="<%= current_user[:name] rescue '' %>"
           ></nav-bar>
         <span class="_fixed_margin">
           <hero-slider v-if="aboutCheck" :slider="sliders" :choice="choice"></hero-slider>
