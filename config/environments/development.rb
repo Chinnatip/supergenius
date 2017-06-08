@@ -54,4 +54,14 @@ Rails.application.configure do
 
   # Setup local mail to confirm anthentication process in development
   config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
+
+  # Set facebook token for test mode
+  config.facebook_app_id = "1916000988622845"
+  config.facebook_app_secret = "fd9f037c447fdeb2e4b635725176773d"
+
+  # production app_domain
+  config.app_domain = "http://localhost:3000/"
+
+  # add token mailer for localhost site
+  config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
 end

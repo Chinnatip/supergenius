@@ -25,7 +25,7 @@
       <div class="__sidebar" id="sidebar">
         <ul v-for=" ul in lists">
           <li v-for="li in ul">
-            <a v-if="li.link == 'head'" class="_head" >{{li.text}}</a>
+            <a v-if="li.head == 'head'" class="_head" >{{li.text}}</a>
             <a v-else :href="li.link" :class=" isActive(li.active) " >{{li.text}}</a>
           </li>
         </ul>
@@ -35,7 +35,10 @@
           <%= yield %>
         </div>
       </div>
+      <div class="__content_footer"> Copyright, Super Genius school.co.ltd @2017</div>
+
     </section>
+
 
   </body>
   <!-- Include JAVASCRIPT here ><-->
@@ -55,12 +58,15 @@
         url_active: '<%= @active %>',
         lists: [
           [
-            { text: 'Dashboard'  , link: 'head' },
-            { text: 'หน้าหลัก'     , link: '<%= dashboard_index_path %>'  , active: 'index', },
-            { text: 'ข่าวสารองค์กร', link: '<%= newsfeeds_path %>'        , active: 'news', },
-            { text: 'ผู้บริหาร'     , link: '<%= boards_path %>'           , active: 'board', },
-            { text: 'รายชื่อนักวิเคราะห์'  , link: '<%= analysts_path %>'    , active: 'analyst', },
-            { text: 'ผลิตภัณฑ์'     , link: '<%= products_path %>', active: 'product', },
+            { text: 'Admin page'  , link: '' , head: 'head' },
+            { text: 'หน้าหลัก'     , link: '<%= dashboard_index_path %>'  , active: 'dashboard', },
+            { text: 'คอร์สเรียน' , link: '<%= courses_path %>'  , active: 'course', },
+            { text: 'ชั้นเรียน' , link: '<%= classrooms_path %>'  , active: 'classroom', },
+            { text: 'ผลคะเเนน' , link: '<%= exams_path %>'  , active: 'exam', },
+            { text: 'รายชื่อนักเรียน' , link: '<%= students_path %>'  , active: 'student', },
+            { text: 'รายชื่อโรงเรียน' , link: '<%= schools_path %>'  , active: 'school', },
+            { text: 'รายชื่อครู' , link: '<%= teachers_path %>'  , active: 'teacher', },
+            { text: 'ข่าวสารโรงเรียน', link: '<%= newsfeeds_path %>'        , active: 'news', },
           ]
         ],
       },

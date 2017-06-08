@@ -3,6 +3,6 @@ class DashboardController < ApplicationController
   before_action :authenticate_user!
 
   def index
-    @active = 'index'
+    @active = 'classrooms'
   end
 end

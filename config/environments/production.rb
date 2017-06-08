@@ -83,4 +83,11 @@ Rails.application.configure do
 
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
+
+  # production app_domain
+  config.app_domain = "https://supergeniusco.herokuapp.com/"
+
+  # Set facebook token for live mode
+  config.facebook_app_id = "222852828233310"
+  config.facebook_app_secret = "ca4e5f8e44debc032a346f65cd5f8e67"
 end

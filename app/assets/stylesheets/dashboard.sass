@@ -7,7 +7,7 @@
     width: 240px
     display: table-header-group
     height: 100%
-    background: $is-light
+    background: #ededed
     padding-top: 60px
     ul
       li
@@ -20,6 +20,7 @@
           color: #2d2d2d
           padding: 13px 28px
           font-size: 15px
+          border-bottom: 1px solid #d5d5d5
           &:hover , &:focus, &:active
             background-color: rgba(167, 167, 167, 0.2)
           &.active
@@ -37,7 +38,16 @@
     width: 100%
     overflow: auto
     .__content_padding
-      padding: 5%
+      padding: 2% 5%
+  .__content_footer
+    position: fixed
+    bottom: 0
+    width: 100%
+    padding: 5px 0px
+    background: grey
+    text-align: center
+    color: #d2d2d2
+    font-size: 12px
 
 ._dashboard_content
   h1

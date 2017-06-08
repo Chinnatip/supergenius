@@ -11,7 +11,8 @@ class ApplicationController < ActionController::Base
 
   # Overwriting the sign_out redirect path method
   def after_sign_out_path_for(resource_or_scope)
-    home_index_path
+    # home_index_path
+    Rails.application.config.app_domain + '#navbar'
   end
 
   # Overwriting the sign_out redirect path method
@@ -19,7 +20,8 @@ class ApplicationController < ActionController::Base
     if current_user.role == 'admin'
       dashboard_index_path
     else
-      home_index_path
+      # home_index_path
+      Rails.application.config.app_domain + '#navbar'
     end
   end
 end
