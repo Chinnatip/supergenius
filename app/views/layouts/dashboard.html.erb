@@ -62,19 +62,19 @@
           [
             { text: 'Admin page'  , link: '' , head: 'head' },
             { text: 'หน้าหลัก'     , link: '<%= dashboard_index_path %>'  , active: 'dashboard', },
-            { text: 'คอร์สเรียน' , link: '<%= courses_path %>'  , active: 'course', },
-            { text: 'ชั้นเรียน' , link: '<%= classrooms_path %>'  , active: 'classroom', },
-            { text: 'ผลคะเเนน' , link: '<%= exams_path %>'  , active: 'exam', },
-            { text: 'รายชื่อนักเรียน' , link: '<%= students_path %>'  , active: 'student', },
-            { text: 'รายชื่อโรงเรียน' , link: '<%= schools_path %>'  , active: 'school', },
-            { text: 'รายชื่อครู' , link: '<%= teachers_path %>'  , active: 'teacher', },
-            { text: 'ข่าวสารโรงเรียน', link: '<%= newsfeeds_path %>'        , active: 'news', },
+            { text: 'คอร์สเรียน' , link: '<%= courses_path %>'  , active: 'courses', },
+            { text: 'ชั้นเรียน' , link: '<%= classrooms_path %>'  , active: 'classrooms', },
+            { text: 'ผลคะเเนน' , link: '<%= exams_path %>'  , active: 'exams', },
+            { text: 'รายชื่อนักเรียน' , link: '<%= students_path %>'  , active: 'students', },
+            { text: 'รายชื่อโรงเรียน' , link: '<%= schools_path %>'  , active: 'schools', },
+            { text: 'รายชื่อครู' , link: '<%= teachers_path %>'  , active: 'teachers', },
+            { text: 'ข่าวสารโรงเรียน', link: '<%= newsfeeds_path %>'        , active: 'newsfeeds', },
           ]
         ],
       },
       methods: {
         isActive: function( val ){
-          if (val == this.url_active) {
+          if (val == this.url_control) {
             return 'active'
           }
         }

@@ -2,51 +2,39 @@
   <p id="notice"><%= notice %></p>
 
   <h1>
-    Classrooms
+    Classrooms - <%= Classroom.count_all %> ห้องเรียน
     <%= link_to 'New Classroom', new_classroom_path , class: 'btn-ner'%>
   </h1>
 
   <table>
     <thead>
       <tr>
-        <th>Name</th>
-        <th>Spec</th>
-        <th>Course</th>
-        <th>Teacher</th>
-        <th>Seat</th>
-        <th>Booked</th>
-        <th>Pass</th>
-        <th>Status</th>
-        <th>Schedule</th>
-        <th>Start</th>
-        <th>End</th>
-        <th>Price</th>
-        <th>Start time</th>
-        <th>End time</th>
-        <th>Duration</th>
-        <th colspan="3"></th>
+        <th>รหัสห้องเรียน</th>
+        <th>ชื่อห้องเรียน</th>
+        <th>ผู้สอน</th>
+        <th>ค่าลงทะเบียน</th>
+        <th>จำนวนนักเรียน</th>
+        <th>จำนวนครั้ง</th>
+        <th>ซีซั่น</th>
+        <th>เวลาเรียน</th>
+        <th>สถานะ</th>
+        <th colspan="2"></th>
       </tr>
     </thead>
 
     <tbody>
       <% @classrooms.each do |classroom| %>
+        <% classroom_detail = Classroom.details(classroom)%>
         <tr>
-          <td><%= classroom.name %></td>
           <td><%= classroom.spec %></td>
-          <td><%= classroom.course %></td>
-          <td><%= classroom.teacher %></td>
-          <td><%= classroom.seat %></td>
-          <td><%= classroom.booked %></td>
-          <td><%= classroom.pass %></td>
-          <td><%= classroom.status %></td>
-          <td><%= classroom.schedule %></td>
-          <td><%= classroom.start %></td>
-          <td><%= classroom.end %></td>
-          <td><%= classroom.price %></td>
-          <td><%= classroom.start_time %></td>
-          <td><%= classroom.end_time %></td>
-          <td><%= classroom.duration %></td>
-          <td><%= link_to 'Show', classroom %></td>
+          <td><%= classroom.name %></td>
+          <td><%= classroom_detail[:teacher] %></td>
+          <td><%= classroom_detail[:price] %></td>
+          <td><%= classroom_detail[:seat] %></td>
+          <td><%= classroom_detail[:schedule] %></td>
+          <td><%= classroom_detail[:course_period] %></td>
+          <td><%= classroom_detail[:timetable] %></td>
+          <td><%= classroom_detail[:status] %></td>
           <td><%= link_to 'Edit', edit_classroom_path(classroom) %></td>
           <td><%= link_to 'Destroy', classroom, method: :delete, data: { confirm: 'Are you sure?' } %></td>
         </tr>

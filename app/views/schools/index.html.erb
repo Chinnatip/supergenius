@@ -2,27 +2,66 @@
   <p id="notice"><%= notice %></p>
 
   <h1>
-    Schools
+    Schools - <%= School.count_all %> โรงเรียน
     <%= link_to 'New School', new_school_path , class: 'btn-ner'%>
   </h1>
 
   <table>
     <thead>
       <tr>
-        <th>Name</th>
-        <th>Student</th>
-        <th>Graduated</th>
-        <th colspan="3"></th>
+        <th>โรงเรียน</th>
+        <th class="t-center">ทั้งหมด</th>
+        <th class="t-center">ป.1</th>
+        <th class="t-center">ป.2</th>
+        <th class="t-center">ป.3</th>
+        <th class="t-center">ป.4</th>
+        <th class="t-center">ป.5</th>
+        <th class="t-center">ป.6</th>
+        <th class="t-center">ม.1</th>
+        <th class="t-center">ม.2</th>
+        <th class="t-center">ม.3</th>
+        <th class="t-center">ม.4</th>
+        <th class="t-center">ม.5</th>
+        <th class="t-center">ม.6</th>
+        <th colspan="2"></th>
       </tr>
     </thead>
 
     <tbody>
+      <tr>
+        <td>ทั้งหมด</td>
+        <td class="t-center"><%= Student.count_all %></td>
+        <td class="t-center t-blur">0</td>
+        <td class="t-center t-blur">0</td>
+        <td class="t-center t-blur">0</td>
+        <td class="t-center t-blur">0</td>
+        <td class="t-center t-blur">0</td>
+        <td class="t-center t-blur">0</td>
+
+        <td class="t-center t-blur">0</td>
+        <td class="t-center t-blur">0</td>
+        <td class="t-center t-blur">0</td>
+        <td class="t-center t-blur">0</td>
+        <td class="t-center t-blur">0</td>
+        <td class="t-center t-blur">0</td>
+      </tr>
       <% @schools.each do |school| %>
+        <% query = Student.query_by_school(school.id)%>
         <tr>
           <td><%= school.name %></td>
-          <td><%= school.student %></td>
-          <td><%= school.graduated %></td>
-          <td><%= link_to 'Show', school %></td>
+          <td class="t-center"><%= query[:total] %></td>
+          <td class="t-center <% if query[:p1] == 0 %>t-blur<% end%>"><%= query[:p1] %></td>
+          <td class="t-center <% if query[:p2] == 0 %>t-blur<% end%>"><%= query[:p2] %></td>
+          <td class="t-center <% if query[:p3] == 0 %>t-blur<% end%>"><%= query[:p3] %></td>
+          <td class="t-center <% if query[:p4] == 0 %>t-blur<% end%>"><%= query[:p4] %></td>
+          <td class="t-center <% if query[:p5] == 0 %>t-blur<% end%>"><%= query[:p5] %></td>
+          <td class="t-center <% if query[:p6] == 0 %>t-blur<% end%>"><%= query[:p6] %></td>
+          <td class="t-center <% if query[:m1] == 0 %>t-blur<% end%>"><%= query[:m1] %></td>
+          <td class="t-center <% if query[:m2] == 0 %>t-blur<% end%>"><%= query[:m2] %></td>
+          <td class="t-center <% if query[:m3] == 0 %>t-blur<% end%>"><%= query[:m3] %></td>
+          <td class="t-center <% if query[:m4] == 0 %>t-blur<% end%>"><%= query[:m4] %></td>
+          <td class="t-center <% if query[:m5] == 0 %>t-blur<% end%>"><%= query[:m5] %></td>
+          <td class="t-center <% if query[:m6] == 0 %>t-blur<% end%>"><%= query[:m6] %></td>
           <td><%= link_to 'Edit', edit_school_path(school) %></td>
           <td><%= link_to 'Destroy', school, method: :delete, data: { confirm: 'Are you sure?' } %></td>
         </tr>
