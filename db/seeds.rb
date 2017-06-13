@@ -30,7 +30,6 @@ csv_set = [
   "M3 SOC",
   "M3 THAI",
   "M4 MATH",
-  "M4 PHY",
   "M5 MATH",
   "M6 MATH",
   "P2 ENG",
@@ -61,6 +60,7 @@ csv_set = [
   "P6 ENG SAT2",
   "P6 ENG SUN",
   "P6 MATH SAT",
+  "P6 MATH SAT GIFTED",
   "P6 MATH SAT2",
   "P6 MATH SUN",
   "P6 SCI SAT",
@@ -174,6 +174,11 @@ def school_dictionary(key)
     {key: 'โชคชัย' , value: 'โชคชัยรังสิต'},
     {key: 'โชคชัยรังสิต' , value: 'โชคชัยรังสิต'},
     {key: 'ไผทอุดมศึกษา' , value: 'ไผทอุดมศึกษา'},
+    {key: 'เซนต์ฟรัง' , value: 'เซนต์ฟรังซีสซาเวียร์'},
+    {key: 'เซนต์ฟรังซีสเซเวียร์' , value: 'เซนต์ฟรังซีสซาเวียร์'},
+    {key: 'เซนต์ฟรังซีสเซเวียร์' , value: 'เซนต์ฟรังซีสซาเวียร์'},
+    {key: 'สาธิต ม.รังสิต' , value: 'สาธิตแห่งมหาวิทยาลัยรังสิต'},
+    {key: 'สารสาสน์คลลองหลวง' , value: 'สารสาสน์วิเทศคลองหลวง'},
 
     {key: 'ซฟ' , value: 'ซฟ'},
     {key: 'ซยม' , value: 'ซยม'},
@@ -295,6 +300,12 @@ csv_set.each do |csv|
       course.save
 
       classroom[:course] = course[:id]
+
+      # get score
+      period = (cols.count - 5)/2
+      if period > 5
+        puts "exam test of #{classroom_dictionary(csv)} class amount is #{period}"
+      end
     end
 
     # add teacher in classroom
@@ -318,9 +329,9 @@ csv_set.each do |csv|
         else
           gt += (',' + new_teacher[:id].to_s)
         end
-
       end
       classroom[:teacher] = gt
+
     end
 
     # create classrooms
@@ -337,7 +348,19 @@ csv_set.each do |csv|
     if lineidx > 3
       cols = line.split(",").map{ |x| x.strip }
       if cols[1].present?
-        grade  = grade_dictionary(csv)
+        if classroom_dictionary(csv) == 'ENG60M101' || classroom_dictionary(csv) == 'ENG60M201'
+          grade = ''
+          if cols[3].to_s == 'ม.1'
+            grade = 7
+          elsif cols[3].to_s == 'ม.2'
+            grade = 8
+          else
+            grade = 8
+          end
+          # puts "#{grade} | #{cols[1]}"
+        else
+          grade  = grade_dictionary(csv)[:v]
+        end
         school = school_dictionary(cols[2])
 
         # find or create new school
@@ -347,14 +370,14 @@ csv_set.each do |csv|
         end
 
         # find or create new student
-        children = Student.where(nickname: cols[1] , grade: grade[:v] , school: sc[:id] ).first
+        children = Student.where(nickname: cols[1] , grade: grade , school: sc[:id] ).first
         unless children
-          children = Student.create(nickname: cols[1] , grade: grade[:v] , school: sc[:id])
+          children = Student.create(nickname: cols[1] , grade: grade , school: sc[:id])
           # update student code
-          index_code = student_index[grade[:v] - 1].to_i
-          children[:student_code] =  ("%02d" % grade[:v]) + ("%03d" % index_code)
+          index_code = student_index[grade - 1].to_i
+          children[:student_code] =  ("%02d" % grade) + ("%03d" % index_code)
           children.save
-          student_index[grade[:v] - 1] += 1
+          student_index[grade - 1] += 1
         end
 
         # create new seat in classroom
@@ -362,6 +385,54 @@ csv_set.each do |csv|
         unless occupy
           occupy = Seat.create(classroom: classroom_dictionary(csv) ,student: children[:student_code])
         end
+
+        ## get period score
+        period = cols.count
+        mental  = ''
+        scoring = ''
+        class_ref = classroom_dictionary(csv)
+        cols[5..period].each_with_index do |score,idx|
+          index = idx + 1
+          ## mental test
+          if index.odd?
+            set = (index / 2).ceil
+            if idx == 0
+              mental += score.to_s
+            else
+              mental += ',' + score.to_s
+            end
+
+          ## scoring test
+          elsif index.even?
+            set = (index / 2).ceil - 1
+            if idx == 0
+              scoring += score.to_s
+            else
+              scoring += ',' + score.to_s
+            end
+
+          end
+        end
+
+        puts "#{classroom[:title]}"# | #{cols[5..period].to_json} >> #{cols[5..period].count}"
+        puts "จิตะพิสัย #{mental.to_json}"
+        puts "คะเเนน #{scoring.to_json}"
+        puts
+
+        ## track mental & score in Exam db
+        scoring_exam = Exam.where(classroom: class_ref ,student: children[:student_code] ,exam_type: 'scoring').first
+        unless scoring_exam
+            scoring_exam = Exam.create(classroom: class_ref ,student: children[:student_code] ,exam_type: 'scoring')
+        end
+        scoring_exam[:score] = scoring
+        scoring_exam.save
+
+        mental_exam = Exam.where(classroom: class_ref ,student: children[:student_code] ,exam_type: 'mental').first
+        unless mental_exam
+            mental_exam = Exam.create(classroom: class_ref ,student: children[:student_code] ,exam_type: 'mental')
+        end
+        mental_exam[:score] = mental
+        mental_exam.save
       end
     end
   end
@@ -405,9 +476,10 @@ puts
 
 students = Student.order(name: :asc)
 puts "จำนวนนักเรียนทั้งหมด #{students.count}คน"
-#students.each do |s|
-#  puts "#{s[:nickname]}"
-#end
+students.each do |s|
+  school = School.find(s[:school])
+  puts "#{s[:nickname]} | #{school[:name]} | #{s[:grade]}"
+end
 puts
 
 all_seats = Seat.all.count
