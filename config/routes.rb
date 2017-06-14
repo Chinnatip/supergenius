@@ -26,6 +26,7 @@ Rails.application.routes.draw do
   get 'home/reddit'
   get 'home/single'
   get 'home/celebrity'
+  get 'home/class_detail'
 
   #investor page
   get 'investor/index'
@@ -60,4 +61,6 @@ Rails.application.routes.draw do
 
   #root 'home#celebrity'
   root 'page#about'
+
+
 end

@@ -385,14 +385,17 @@ csv_set.each do |csv|
         unless occupy
           occupy = Seat.create(classroom: classroom_dictionary(csv) ,student: children[:student_code])
         end
+        occupy[:comment] = cols[3]
+        occupy.save
 
         ## get period score
         period = cols.count
         mental  = ''
         scoring = ''
+        set = 0
         class_ref = classroom_dictionary(csv)
         cols[5..period].each_with_index do |score,idx|
-          index = idx + 1
+          index = idx
           ## mental test
           if index.odd?
             set = (index / 2).ceil
@@ -401,18 +404,20 @@ csv_set.each do |csv|
             else
               mental += ',' + score.to_s
             end
-
           ## scoring test
           elsif index.even?
-            set = (index / 2).ceil - 1
+            set = (index / 2).ceil
             if idx == 0
               scoring += score.to_s
             else
               scoring += ',' + score.to_s
             end
-
           end
         end
+
+        # track period of class
+        rooms[:period] = set
+        rooms.save
 
         puts "#{classroom[:title]}"# | #{cols[5..period].to_json} >> #{cols[5..period].count}"
         puts "จิตะพิสัย #{mental.to_json}"

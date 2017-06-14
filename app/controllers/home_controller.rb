@@ -1,5 +1,5 @@
 class HomeController < ApplicationController
-  
+
   require 'json'
   require 'open-uri'
   require 'nokogiri'
@@ -29,6 +29,11 @@ class HomeController < ApplicationController
   end
 
   def single
+  end
+
+  def class_detail
+    @seats   = Seat.where(classroom: params[:id])
+    @periods = Classroom.where(spec: params[:id]).first[:period] + 1
   end
 
   def reddit

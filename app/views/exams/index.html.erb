@@ -20,10 +20,10 @@
     <tbody>
       <% @exams.each do |exam| %>
         <tr>
-          <td><%= exam.ref_class %></td>
+          <td><%= exam.classroom %></td>
           <td><%= exam.student %></td>
-          <td><%= exam.issue %></td>
-          <td><%= exam.score %></td>
+          <td><%= exam.exam_type %></td>
+          <td><%= Exam.parse_score(exam.score) %></td>
           <td><%= link_to 'Show', exam %></td>
           <td><%= link_to 'Edit', edit_exam_path(exam) %></td>
           <td><%= link_to 'Destroy', exam, method: :delete, data: { confirm: 'Are you sure?' } %></td>

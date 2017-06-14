@@ -1,0 +1,53 @@
+<div class="admin-block">
+  <h1>
+    ห้องเรียน - <%= params[:id] %>
+    <%= link_to 'เพิ่มนักเรียนใหม่', new_student_path , class: 'btn-ner'%>
+  </h1>
+
+  <table>
+    <thead>
+      <tr>
+        <th>นักเรียน</th>
+        <th>ชั้นปี</th>
+        <th>โรงเรียน</th>
+        <th>คอมเม้นท์</th>
+        <th>คะเเนนรวม</th>
+        <th></th>
+        <% @periods.times do |i| %>
+          <th><%= i + 1%></th>
+        <% end %>
+        <th colspan="2">คำสั่ง</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% @seats.each do |seat| %>
+        <% seat_detail = Seat.seat_detail(seat)%>
+        <tr>
+          <td><%= seat_detail[:name] %></td>
+          <td><%= seat_detail[:grade] %></td>
+          <td><%= seat_detail[:school] %></td>
+          <td style="max-width:90px; padding-right: 8px;">
+            <input type="text" name="" value="<%= seat_detail[:comment] %>" style="width:100%">
+          </td>
+          <td><%= seat_detail[:total] %></td>
+          <td>
+            <div class="sc-tb">สอบ</div>
+            <div class="ma-tb">ตั้งใจ</div>
+          </td>
+          <% seat_detail[:score][:scoring].each_with_index do |score,idx|%>
+            <td style="max-width:22px">
+              <input type="text" name="" value="<%= seat_detail[:score][:scoring][idx] %>" style="width:100%"> <br>
+              <input type="text" name="" value="<%= seat_detail[:score][:mental][idx + 1]%>"  style="width:100%">
+            </td>
+          <% end %>
+          <td><%= link_to 'อัพเดท', root_path %></td>
+          <td><%= link_to 'ลบนักเรียน', seat, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+
+  <p id="notice"><%= notice %></p>
+
+</div>

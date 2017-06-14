@@ -18,7 +18,7 @@
         <th>ซีซั่น</th>
         <th>เวลาเรียน</th>
         <th>สถานะ</th>
-        <th colspan="2"></th>
+        <th colspan="3"></th>
       </tr>
     </thead>
 
@@ -35,6 +35,7 @@
           <td><%= classroom_detail[:course_period] %></td>
           <td><%= classroom_detail[:timetable] %></td>
           <td><%= classroom_detail[:status] %></td>
+          <td><a target="_blank" href="<%= home_class_detail_path %>?id=<%= classroom.spec %>" class="btn btn-default">ผลคะเเนน</a></td>
           <td><%= link_to 'Edit', edit_classroom_path(classroom) %></td>
           <td><%= link_to 'Destroy', classroom, method: :delete, data: { confirm: 'Are you sure?' } %></td>
         </tr>

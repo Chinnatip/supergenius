@@ -22,23 +22,23 @@
       </section>
     </div>
 
-    <div id="gap-baker" class="top-60"></div>
-    <div class="admin-container">
-      <div class="sidebar" id="sidebar">
-        <div class="sidebar-container">
-          <a v-for="li in lists" :href="li.link" class="item">{{li.text}}</a>
+    <section class="is-fullheight _dashboard">
+      <div class="__sidebar" id="sidebar">
+        <ul v-for=" ul in lists">
+          <li v-for="li in ul">
+            <a v-if="li.head == 'head'" class="_head" >{{li.text}}</a>
+            <a v-else :href="li.link" :class=" isActive(li.active) " >{{li.text}}</a>
+          </li>
+        </ul>
+      </div>
+      <div class="__content">
+        <div class="__content_padding">
+          <%= yield %>
         </div>
       </div>
-      <div class="main-container">
-        <%= yield %>
-      </div>
-    </div>
+      <div class="__content_footer"> Copyright, Super Genius school.co.ltd @2017</div>
 
-
-    <!-- footer ><-->
-    <div id="cFooter">
-      <footer-site-corp :footer="footer"></footer-site-corp>
-    </div>
+    </section>
 
     <!-- Include JAVASCRIPT here ><-->
     <script src="/js/body.js"></script>
@@ -110,17 +110,32 @@
         }
       });
 
-      var sidebar = new Vue({
+      var side = new Vue({
         el: '#sidebar',
         data: {
+          url_control: '<%= controller.controller_name %>' ,
+          url_action: '<%= controller.action_name %>' ,
+          url_active: '<%= @active %>',
           lists: [
-            { text: 'Dashboard'  , link: 'head' },
-            { text: 'หน้าหลัก'     , link: '<%= dashboard_index_path %>'  , active: 'index', },
-            { text: 'ข่าวสารองค์กร', link: '<%= newsfeeds_path %>'        , active: 'news', },
-            { text: 'ผู้บริหาร'     , link: '<%= boards_path %>'           , active: 'board', },
-            { text: 'รายชื่อนักวิเคราะห์'  , link: '<%= analysts_path %>'    , active: 'analyst', },
-            { text: 'ผลิตภัณฑ์'     , link: '<%= products_path %>', active: 'product', }
+            [
+              { text: 'Admin page'  , link: '' , head: 'head' },
+              { text: 'หน้าหลัก'     , link: '<%= dashboard_index_path %>'  , active: 'dashboard', },
+              { text: 'คอร์สเรียน' , link: '<%= courses_path %>'  , active: 'courses', },
+              { text: 'ชั้นเรียน' , link: '<%= classrooms_path %>'  , active: 'classrooms', },
+              { text: 'ผลคะเเนน' , link: '<%= exams_path %>'  , active: 'exams', },
+              { text: 'รายชื่อนักเรียน' , link: '<%= students_path %>'  , active: 'students', },
+              { text: 'รายชื่อโรงเรียน' , link: '<%= schools_path %>'  , active: 'schools', },
+              { text: 'รายชื่อครู' , link: '<%= teachers_path %>'  , active: 'teachers', },
+              { text: 'ข่าวสารโรงเรียน', link: '<%= newsfeeds_path %>'        , active: 'newsfeeds', },
+            ]
           ],
+        },
+        methods: {
+          isActive: function( val ){
+            if (val == this.url_control) {
+              return 'active'
+            }
+          }
         }
       });
 
