@@ -6,6 +6,45 @@
     <%= link_to 'New Classroom', new_classroom_path , class: 'btn-ner'%>
   </h1>
 
+  <div class="modal">
+    <div class="modal-background"></div>
+    <form class="modal-card" action="<%= home_update_class_path %>" method="get">
+      <input class="cl-id" type="hidden" name="classroom" value="">
+      <header class="modal-card-head">
+        <p class="modal-card-title">เพิ่มนักเรียนเข้าสู้ห้องเรียน</p>
+      </header>
+      <section class="modal-card-body">
+        <!-- Content ... -->
+        <div class="st-course" style="margin-bottom: 16px;"></div>
+        <table>
+          <thead>
+            <tr>
+              <th>เลือก</th>
+              <th>ชื่อนักเรียน</th>
+              <th>โรงเรียน</th>
+              <th>รหัสนักเรียน</th>
+            </tr>
+          </thead>
+          <tbody class="pop-course">
+            <% Student.all.each do |s| %>
+             <% school = School.find(s[:school]) %>
+              <tr>
+                <td><input type="checkbox" name="[student]<%= s[:student_code] %>" value="" code="<%= s[:student_code] %>"> </td>
+                <td><%= s[:nickname] %></td>
+                <td><%= school[:name] %></td>
+                <td><%= s[:student_code] %></td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </section>
+      <footer class="modal-card-foot">
+        <input type="submit" class="button is-success" value="อัพเดทข้อมูล">
+        <a class="button closer">ยกเลิก</a>
+      </footer>
+    </form>
+  </div>
+
   <table>
     <thead>
       <tr>
@@ -30,7 +69,15 @@
           <td><%= classroom.name %></td>
           <td><%= classroom_detail[:teacher] %></td>
           <td><%= classroom_detail[:price] %></td>
-          <td><%= classroom_detail[:seat] %>คน <a class="btn-red-mini" href="#">+Add</a></td>
+          <td>
+            <%= classroom_detail[:seat] %>คน
+            <a
+              class="open-modal btn-red-mini" href="#"
+              spec="<%= classroom.spec %>"
+              >
+              +Add
+            </a>
+          </td>
           <td><%= classroom_detail[:schedule] %> ครั้ง</td>
           <td><%= classroom_detail[:course_period] %></td>
           <td><%= classroom_detail[:timetable] %></td>
@@ -44,3 +91,38 @@
   </table>
 
 </div>
+
+<script type="text/javascript">
+  $( document ).ready(function() {
+    $('.open-modal').on('click',function(){
+      $('.modal').addClass('is-active');
+      spec = $(this).attr("spec");
+      $('.cl-id').val(spec);
+      $.ajax({
+				url: '<%= init_get_class_advisee_path %>',
+        data: {
+          classroom: spec
+        },
+				success: function(response){
+          //alert(JSON.stringify(response.collect));
+          $('.st-course').text(response.get);
+          $("tbody.pop-course").find("tr").each(function() {
+            //find course then checked
+            var students     = $(this).find('input');
+            //clear all value
+            students.prop('checked', false);
+            var find_course = response.collect.indexOf(students.attr('code'));
+            if (find_course >= 0) {
+              //alert(find_course);
+              students.prop('checked', true);
+            }
+          });
+				}
+			});
+    });
+
+    $('.closer').on('click',function(){
+      $('.modal').removeClass('is-active');
+    });
+  });
+</script>

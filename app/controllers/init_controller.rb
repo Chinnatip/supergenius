@@ -11,4 +11,17 @@ class InitController < ApplicationController
     }
     render json: result
   end
+
+  def get_class_advisee
+    parser = []
+    seats = Seat.where(classroom: params[:classroom])
+    seats.each do |s|
+      parser << s[:student]
+    end
+    result = {
+      get: "นักเรียนลงทะเบียนทั้งหมด #{parser.count}คน",
+      collect: parser
+    }
+    render json: result
+  end
 end

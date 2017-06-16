@@ -29,9 +29,11 @@ Rails.application.routes.draw do
   get 'home/class_detail'
   get 'home/update_score'
   get 'home/update_course'
+  get 'home/update_class'
 
   #init json controllers
   get 'init/get_subscription'
+  get 'init/get_class_advisee'
 
   #investor page
   get 'investor/index'
