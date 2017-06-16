@@ -49,12 +49,12 @@ class Classroom < ApplicationRecord
   def self.details(obj)
     return {
       teacher:    parse_teacher(obj[:teacher]) ,
-      seat:       "#{parse_seat(obj[:spec])}/#{check_seat(obj[:seat])}" ,
+      seat:       "#{parse_seat(obj[:spec])}" ,# /#{check_seat(obj[:seat])}" ,
       course_period: "#{check_period(obj[:start])} - #{check_period(obj[:end])}",
       timetable:  "#{check_time(obj[:start_time])} - #{check_time(obj[:end_time])}",
       price:      if obj[:price].present? then "#{obj[:price]} บาท" else '-' end ,
       status:     if obj[:status].present? then "#{obj[:status]}" else '-' end ,
-      schedule:   if obj[:schedule].present? then "#{obj[:schedule]}" else '-' end ,
+      schedule:   if obj[:period].present? then "#{obj[:period]}" else '-' end ,
 
     }
   end

@@ -47,7 +47,7 @@ class Student < ApplicationRecord
 
   def self.parse_seat(key)
     parser = []
-    seat_in = Seat.where(student: key.to_i)
+    seat_in = Seat.where(student: key)
     seat_in.each do |s|
       parser << s[:classroom]
     end

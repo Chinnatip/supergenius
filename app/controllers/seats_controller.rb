@@ -58,9 +58,12 @@ class SeatsController < ApplicationController
   # DELETE /seats/1
   # DELETE /seats/1.json
   def destroy
+    Exam.where(classroom: @seat[:classroom], student: @seat[:student], exam_type: 'scoring').first.destroy
+    Exam.where(classroom: @seat[:classroom], student: @seat[:student], exam_type: 'mental').first.destroy
     @seat.destroy
+
     respond_to do |format|
-      format.html { redirect_to seats_url, notice: 'Seat was successfully destroyed.' }
+      format.html { redirect_to :back, notice: 'ระบบได้ถอนชื่อนักเรียนออกจากห้องเเล้ว' }
       format.json { head :no_content }
     end
   end

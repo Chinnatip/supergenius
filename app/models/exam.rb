@@ -17,7 +17,7 @@ class Exam < ApplicationRecord
 
   def self.parse_score_with_period(text,period,type)
     result = []
-    score = text.split(",").map{ |x| x.strip }
+    score = text.split(",").map{ |x| x.strip } rescue []
     p_spec = if type == 'mental' then period + 1 else period end
     p_spec.times do |i|
       if score[i].present?

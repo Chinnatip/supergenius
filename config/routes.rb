@@ -27,6 +27,11 @@ Rails.application.routes.draw do
   get 'home/single'
   get 'home/celebrity'
   get 'home/class_detail'
+  get 'home/update_score'
+  get 'home/update_course'
+
+  #init json controllers
+  get 'init/get_subscription'
 
   #investor page
   get 'investor/index'

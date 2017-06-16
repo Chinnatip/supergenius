@@ -12,7 +12,6 @@
         <th>โรงเรียน</th>
         <th>คอมเม้นท์</th>
         <th>คะเเนนรวม</th>
-        <th></th>
         <% @periods.times do |i| %>
           <th><%= i + 1%></th>
         <% end %>
@@ -23,27 +22,31 @@
     <tbody>
       <% @seats.each do |seat| %>
         <% seat_detail = Seat.seat_detail(seat)%>
-        <tr>
-          <td><%= seat_detail[:name] %></td>
-          <td><%= seat_detail[:grade] %></td>
-          <td><%= seat_detail[:school] %></td>
-          <td style="max-width:90px; padding-right: 8px;">
-            <input type="text" name="" value="<%= seat_detail[:comment] %>" style="width:100%">
-          </td>
-          <td><%= seat_detail[:total] %></td>
-          <td>
-            <div class="sc-tb">สอบ</div>
-            <div class="ma-tb">ตั้งใจ</div>
-          </td>
-          <% seat_detail[:score][:scoring].each_with_index do |score,idx|%>
-            <td style="max-width:22px">
-              <input type="text" name="" value="<%= seat_detail[:score][:scoring][idx] %>" style="width:100%"> <br>
-              <input type="text" name="" value="<%= seat_detail[:score][:mental][idx + 1]%>"  style="width:100%">
+        <form class="" action="<%= home_update_score_path %>" method="get">
+          <input type="hidden" name="classroom" value="<%= seat[:classroom] %>">
+          <input type="hidden" name="student" value="<%= seat[:student] %>">
+          <input type="hidden" name="seat_id" value="<%= seat[:id] %>">
+          <tr>
+            <td><%= seat_detail[:name] %></td>
+            <td><%= seat_detail[:grade] %></td>
+            <td><%= seat_detail[:school] %></td>
+            <td style="max-width:90px; padding-right: 8px;">
+              <input type="text" name="comment" value="<%= seat_detail[:comment] %>" style="width:100%">
             </td>
-          <% end %>
-          <td><%= link_to 'อัพเดท', root_path %></td>
-          <td><%= link_to 'ลบนักเรียน', seat, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-        </tr>
+            <td>
+              <div class="sc-tb">สอบ (<%= seat_detail[:total] %>)</div>
+              <div class="ma-tb">ตั้งใจ (<%= seat_detail[:total_mental] %>)</div>
+            </td>
+            <% seat_detail[:score][:scoring].each_with_index do |score,idx|%>
+              <td style="max-width:22px">
+                <input type="text" name="score[<%= idx.to_i %>]"  value="<%= seat_detail[:score][:scoring][idx] %>" style="width:100%"> <br>
+                <input type="text" name="mental[<%= idx.to_i %>]" value="<%= seat_detail[:score][:mental][idx + 1]%>"  style="width:100%">
+              </td>
+            <% end %>
+            <td><input type="submit" name="" value="อัพเดท"></td>
+            <td><%= link_to 'ลบนักเรียน', seat, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+          </tr>
+        </form>
       <% end %>
     </tbody>
   </table>

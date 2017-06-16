@@ -18,6 +18,7 @@ class Seat < ApplicationRecord
       school:  Student.parse_school(student[:school]) ,
       comment: seat[:comment],
       total:   Exam.total_score(scoring) ,
+      total_mental:  Exam.total_score(mental) ,
       score:  {
         scoring:  scoring ,
         mental: mental
