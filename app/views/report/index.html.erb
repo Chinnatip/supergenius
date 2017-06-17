@@ -1,0 +1,30 @@
+<div class="class-grid-container">
+
+  <h2 class="title">ตารางเเสดงคะเเนนสอบรายวิชา</h2><br>
+  <h2 class="_title_sub">คอร์สเรียนทั้งหมด <%= Classroom.count_all %>คอร์ส</h2>
+  <%= link_to root_path  do %>
+    <span class="btn-backer">
+      <i class="fa fa-chevron-left" aria-hidden="true"></i>
+      ย้อนกลับ
+    </span>
+  <% end %>
+  <br>
+  <br>
+  <% @class_index.each do |ci| %>
+    <% if ci[:classroom].count > 0 %>
+      <div class="grade-classer">
+        <h2 class="_title_sub spread">คอร์สสำหรับ <%= ci[:val] %></h2>
+        <br>
+        <div style="margin-left: -1%">
+          <% ci[:classroom].each do |gc| %>
+            <a href="<%= report_index_path %>/<%= gc[:spec] %>" class="class-grid">
+              <div class="_name"><%= gc[:name] %></div>
+              <div class="_spec"><%= gc[:spec] %></div>
+              <div>ครู<%= gc[:teacher] %> | นร.<%= gc[:student] %>คน | <%= gc[:period] %>ครั้ง</div>
+            </a>
+          <% end %>
+        </div>
+      </div>
+    <% end %>
+  <% end %>
+</div>

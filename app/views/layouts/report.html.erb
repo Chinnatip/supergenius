@@ -23,21 +23,12 @@
     </div>
 
     <section class="is-fullheight _dashboard">
-      <div class="__sidebar" id="sidebar">
-        <ul v-for=" ul in lists">
-          <li v-for="li in ul">
-            <a v-if="li.head == 'head'" class="_head" >{{li.text}}</a>
-            <a v-else :href="li.link" :class=" isActive(li.active) " >{{li.text}}</a>
-          </li>
-        </ul>
-      </div>
-      <div class="__content">
-        <div class="__content_padding">
+      <div class="__content pinky">
+        <div class="__content_padding _report_content">
           <%= yield %>
         </div>
       </div>
       <div class="__content_footer"> Copyright, Super Genius school.co.ltd @2017</div>
-
     </section>
 
     <!-- Include JAVASCRIPT here ><-->
@@ -65,31 +56,9 @@
           login: <%= user_signed_in? %>,
           body: {
             theme: 'is-info',
-            background: '/img_ref/bg_blue.jpg',
             size:  'is-medium',
-            title: 'นักลงทุนสัมพันธ์',
-            sub:   'Public Company Limited มุ่งมั่นที่จะเป็นบริษัทอสังหาริมทรัพย์ชั้นนำของประเทศไทย ที่มีธุรกิจและบริการที่หลากหลายเพื่อตอบสนองรูปแบบการดำเนินชีวิตสมัยใหม่ และสามารถตอบโจทย์ความต้องการของลูกค้าได้อย่างครบถ้วน',
-            link: 'นักลงทุนสัมพันธ์',
             url:  ''
           },
-          sliders: [
-            {
-              title: 'บริษัท พฤกษา โฮลดิ้ง จำกัด (มหาชน)',
-              subtitle: 'PCL มุ่งมั่นที่จะเป็นบริษัทอสังหาริมทรัพย์ชั้นนำของประเทศไทย ที่มีธุรกิจและบริการที่หลากหลายเพื่อตอบสนองรูปแบบการดำเนินชีวิตสมัยใหม่ และสามารถตอบโจทย์ทุกความต้องการของลูกค้าได้อย่างครบถ้วน',
-              tab: 'tab1'
-            },
-            {
-              title: 'Hey this is SECOND TAB',
-              subtitle: 'are you ok with this ?',
-              tab: 'tab2'
-            },
-            {
-              title: 'I beleive I can fly',
-              subtitle: 'Osmosis ',
-              tab: 'tab3'
-            },
-          ],
-          slider: false ,
           choice: 'tab1',
           nav: {
             brand: '/img_ref/sup_01.png',
@@ -116,18 +85,6 @@
           url_control: '<%= controller.controller_name %>' ,
           url_action: '<%= controller.action_name %>' ,
           url_active: '<%= @active %>',
-          lists: [
-            [
-              { text: <% if current_user %> 'Admin page' <% else %> 'ผลการเรียน' <% end %> , link: '' , head: 'head' },
-              { text: 'หน้าหลัก'     , link: '<%= dashboard_index_path %>'  , active: 'dashboard', },
-              { text: 'คอร์สเรียน' , link: '<%= courses_path %>'  , active: 'courses', },
-              { text: 'ชั้นเรียน' , link: '<%= classrooms_path %>'  , active: 'classrooms', },
-              { text: 'รายชื่อนักเรียน' , link: '<%= students_path %>'  , active: 'students', },
-              { text: 'รายชื่อโรงเรียน' , link: '<%= schools_path %>'  , active: 'schools', },
-              { text: 'รายชื่อครู' , link: '<%= teachers_path %>'  , active: 'teachers', },
-              { text: 'ข่าวสารโรงเรียน', link: '<%= newsfeeds_path %>'        , active: 'newsfeeds', },
-            ]
-          ],
         },
         methods: {
           isActive: function( val ){

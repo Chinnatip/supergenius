@@ -2,47 +2,42 @@
 
 <p>
   <strong>Name:</strong>
-  <%= @student.name %>
-</p>
-
-<p>
-  <strong>Surname:</strong>
-  <%= @student.surname %>
+  <%= @student.nickname %>
 </p>
 
 <p>
   <strong>Grade:</strong>
-  <%= @student.grade %>
+  <%= @student.grade rescue '' %>
 </p>
 
 <p>
   <strong>School:</strong>
-  <%= @student.school %>
+  <%= @student.school  rescue ''%>
 </p>
 
 <p>
   <strong>Parent:</strong>
-  <%= @student.parent %>
+  <%= @student.parent  rescue '' %>
 </p>
 
 <p>
   <strong>Email:</strong>
-  <%= @student.email %>
+  <%= @student.email  rescue ''%>
 </p>
 
 <p>
   <strong>Tel:</strong>
-  <%= @student.tel %>
+  <%= @student.tel  rescue ''%>
 </p>
 
 <p>
   <strong>Line:</strong>
-  <%= @student.line %>
+  <%= @student.line  rescue ''%>
 </p>
 
 <p>
   <strong>Facebook:</strong>
-  <%= @student.facebook %>
+  <%= @student.facebook  rescue ''%>
 </p>
 
 <%= link_to 'Edit', edit_student_path(@student) %> |

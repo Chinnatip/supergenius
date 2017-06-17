@@ -16,6 +16,8 @@ Rails.application.routes.draw do
   resources :newsfeeds
   resources :employees
   resources :boards
+  resources :report
+  resources :kid
 
   #home page
   get 'home/index'

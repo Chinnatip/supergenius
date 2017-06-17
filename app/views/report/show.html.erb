@@ -1,0 +1,59 @@
+<div class="class-grid-container">
+  <h2 class="title">
+    <%= @classroom[:name] %> |
+    รหัสวิชา <%= @classroom[:spec]%>
+  </h2><br>
+  <h2 class="_title_sub">
+    ครูผู้สอน <%= Classroom.parse_teacher(@classroom[:teacher]) %> |
+    จำนวนนักเรียน <%= Classroom.parse_seat(@classroom[:spec]) %> คน
+  </h2>
+  <%= link_to report_index_path  do %>
+    <span class="btn-backer">
+      <i class="fa fa-chevron-left" aria-hidden="true"></i>
+      ย้อนกลับ
+    </span>
+  <% end %>
+  <br>
+  <br>
+
+  <table>
+    <thead>
+      <tr>
+        <th>ชื่อนักเรียน</th>
+        <th>ชั้นปี</th>
+        <th>โรงเรียน</th>
+        <!-- th>คอมเม้นท์</th -->
+        <th>คะเเนนรวม</th>
+        <% (@classroom[:period] + 1).times do |i| %>
+          <th><%= i + 1 %></th>
+        <% end %>
+        <th>คำสั่ง</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @result.each do |r| %>
+        <% seat_detail = Seat.seat_detail(r)%>
+        <tr>
+          <td class="all_score"><%= r[:student_name] %></td>
+          <td class="all_score"><%= r[:grade] %></td>
+          <td class="all_score"><%= r[:school] %></td>
+          <!-- td>< % = r[:comment] % ></td -->
+          <td class="all_score">
+            <div class="sc-tb">สอบ (<%= seat_detail[:total] %>)</div>
+            <div class="ma-tb">ตั้งใจ (<%= seat_detail[:total_mental] %>)</div>
+          </td>
+          <% seat_detail[:score][:scoring].each_with_index do |score,idx|%>
+            <td style="" class="scoring">
+              <span><%= seat_detail[:score][:scoring][idx] %></span><br>
+              <span><%= seat_detail[:score][:mental][idx +1] %></span>
+            </td>
+          <% end %>
+          <td class="all_score"><a class="info-kid" href="/kid/<%= r[:student] %>">ข้อมูลเด็ก</a></td>
+        </tr>
+      <% end %>
+      <tr>
+
+      </tr>
+    </tbody>
+  </table>
+</div>
