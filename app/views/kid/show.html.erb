@@ -3,17 +3,19 @@
   <h2 class="title img_left"><%= @kid[:name]%> | รหัสนักเรียน <%= @kid[:id]%></h2><br>
   <h2 class="_title_sub img_left"><%= @kid[:grade]%> โรงเรียน<%= @kid[:school]%></h2>
   <%= link_to :back  do %>
-    <span class="btn-backer">
+    <span class="btn-backer kid-track">
       <i class="fa fa-chevron-left" aria-hidden="true"></i>
       ย้อนกลับ
     </span>
   <% end %>
   <br>
   <br>
-  <h2 class="_title_sub img_left">วิชาที่ลงเรียน</h2>
-  <br>
-  <br>
-  <br>
+  <h2 class="_title_sub img_left kid-track">วิชาที่ลงเรียน</h2>
+  <div class="desktop-show">
+    <br>
+    <br>
+    <br>
+  </div>
   <table>
     <thead>
       <tr>
