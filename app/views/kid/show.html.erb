@@ -52,8 +52,34 @@
   <div class="mobi-show">
     <% @result.each do |r| %>
       <% seat_detail = Seat.seat_detail(r)%>
-        <div class="">
-          <%= seat_detail.to_json %>
+        <div class="course-result-mobi">
+          <a href="<%= report_index_path %>/<%= r[:classroom] %>" ><%= r[:classroom] %></a><br>
+          <span class="sub-t"><%= Classroom.where(spec: r[:classroom]).first[:name] %></span>
+          <table>
+            <thead>
+              <tr>
+                <th>ครั้งที่</th>
+                <% 14.times do |t|%>
+                  <th><%= t+1 %></th>
+                <% end %>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>
+                  คะเเนน
+                </td>
+                <% 14.times do |t|%>
+                  <td><%= seat_detail[:score][:scoring][t] %></td>
+                <% end %>
+              </tr>
+            </tbody>
+          </table><br>
+          <canvas id="myChart<%= r[:classroom]%>" height="200"></canvas>
+          <script>
+            new Chart(document.getElementById("myChart<%= r[:classroom]%>"),{"type":"line","data":{"labels":[1,2,3,4,5,6,7,8,9,10,11,12,13,14],"datasets":[{"label":"คะเเนนสอบ","data":<%= seat_detail[:score][:scoring].to_json %>,"fill":false,"borderColor":"rgb(231, 131, 143)","lineTension":0.2}]},"options":{ legend: {display: false}, scales: { xAxes: [{ gridLines: { display:false }}], yAxes: [{ gridLines: { display:false}}] } }});
+          </script>
+
         </div>
     <% end %>
   </div>

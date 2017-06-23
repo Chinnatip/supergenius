@@ -17,4 +17,7 @@
 //= require vue-router
 //= require vue-resource
 //= require echarts
+//= require Chart.bundle
+//= require chartkick
+//= require Chart
 //= require_tree .
