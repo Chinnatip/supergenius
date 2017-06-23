@@ -20,7 +20,7 @@
     </thead>
 
     <tbody>
-      <% (@courses.sort_by { |s| s[:grade] }).each do |course| %>
+      <% (@courses.sort_by { |s| s[:grade]  }).each do |course| %>
         <% course_detail = Course.details(course)%>
         <tr>
           <td><%= course_detail[:id] %></td>
@@ -29,8 +29,8 @@
           <td><%= course_detail[:grade] %></td>
           <td><%= course_detail[:price] %></td>
           <td><%= course_detail[:seat] %></td>
-          <td><%= link_to 'รายละเอียด', edit_course_path(course) %></td>
-          <td><%= link_to 'ลบทิ้ง', course, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+          <td><%= link_to 'รายละเอียด', edit_course_path(course) , class: 'btn-redder' %></td>
+          <td><%= link_to 'ลบทิ้ง', course, method: :delete, data: { confirm: 'Are you sure?' }  , class: 'btn-grey' %></td>
         </tr>
       <% end %>
     </tbody>

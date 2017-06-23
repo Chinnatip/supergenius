@@ -33,8 +33,10 @@
           <td><%= teacher_detail[:tel] %></td>
           <td><%= teacher_detail[:line] %></td>
           <td><%= teacher_detail[:facebook] %></td>
-          <td><%= link_to 'Edit', edit_teacher_path(teacher) %></td>
-          <td><%= link_to 'Destroy', teacher, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+          <td>
+            <%= link_to 'รายละเอียด', edit_teacher_path(teacher) ,class: 'btn-redder' %>
+            <%= link_to 'ลบทิ้ง', teacher, method: :delete, data: { confirm: 'Are you sure?' } , class: 'btn-grey' %>
+          </td>
         </tr>
       <% end %>
     </tbody>

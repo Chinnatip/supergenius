@@ -12,19 +12,34 @@
   <% end %>
 
   <div class="field">
-    <%= f.label :name %>
-    <%= f.text_area :name %>
+    <label for="name">ชื่อ</label>
+    <%= f.text_field :name %>
   </div>
 
   <div class="field">
-    <%= f.label :surname %>
-    <%= f.text_area :surname %>
+    <label for="surname">นามสกุล</label>
+    <%= f.text_field :surname %>
+  </div>
+
+  <br>
+  <h3 class="hr-cer">ประวัติการศึกษา</h3>
+  <div class="field">
+    <label for="graduate">เรียนจบจาก</label>
+    <%= f.text_field :graduate %>
   </div>
 
   <div class="field">
-    <%= f.label :major %>
+    <label for="major">สาขา</label>
     <%= f.text_field :major %>
   </div>
+
+  <div class="field">
+    <label for="gpa">เกรดเฉลี่ย</label>
+    <%= f.text_field :gpa %>
+  </div>
+
+  <br>
+  <h3  class="hr-cer">ข้อมูลติดต่อ</h3>
 
   <div class="field">
     <%= f.label :email %>
@@ -32,18 +47,8 @@
   </div>
 
   <div class="field">
-    <%= f.label :tel %>
+    <label for="tel">เบอร์โทรศัพท์</label>
     <%= f.number_field :tel %>
-  </div>
-
-  <div class="field">
-    <%= f.label :graduate %>
-    <%= f.text_area :graduate %>
-  </div>
-
-  <div class="field">
-    <%= f.label :gpa %>
-    <%= f.text_field :gpa %>
   </div>
 
   <div class="field">

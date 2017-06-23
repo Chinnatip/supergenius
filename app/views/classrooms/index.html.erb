@@ -62,7 +62,7 @@
     </thead>
 
     <tbody>
-      <% @classrooms.each do |classroom| %>
+      <% (@classrooms.sort_by { |s| Course.find(s[:course])[:grade]  }).each do |classroom| %>
         <% classroom_detail = Classroom.details(classroom)%>
         <tr>
           <td><%= classroom.spec %></td>
@@ -79,12 +79,12 @@
             </a>
           </td>
           <td><%= classroom_detail[:schedule] %> ครั้ง</td>
-          <td><%= classroom_detail[:course_period] %></td>
-          <td><%= classroom_detail[:timetable] %></td>
+          <td><%= classroom_detail[:course_period_from] %> -<br><%= classroom_detail[:course_period_to] %></td>
+          <td><%= classroom_detail[:timetable_from] %> -<br><%= classroom_detail[:timetable_to] %></td>
           <td><%= classroom_detail[:status] %></td>
-          <td><a target="_blank" href="<%= home_class_detail_path %>?id=<%= classroom.spec %>" class="btn btn-default btn-redder">ผลคะเเนน</a></td>
-          <td><%= link_to 'Edit', edit_classroom_path(classroom) %></td>
-          <td><%= link_to 'Destroy', classroom, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+          <td><a target="_blank" href="<%= home_class_detail_path %>?id=<%= classroom.spec %>" class="btn-redder">ผลคะเเนน</a></td>
+          <td><%= link_to 'รายละเอียด', edit_classroom_path(classroom) , class: 'btn-grey'  %></td>
+          <td><%= link_to 'ลบทิ้ง', classroom, method: :delete, data: { confirm: 'Are you sure?' } , class: 'btn-grey' %></td>
         </tr>
       <% end %>
     </tbody>

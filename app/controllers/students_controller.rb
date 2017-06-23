@@ -25,14 +25,36 @@ class StudentsController < ApplicationController
   def edit
   end
 
+  def decode_student_year(grade)
+    inspector = Time.now.strftime('%Y')[2..3].to_i + 56
+    return ("%02d" % (inspector - grade.to_i)).to_s
+  end
+
+  def decode_student_runner(grade)
+    parser = []
+    all = Student.where(grade: grade)
+
+    all.each do |s|
+      parser << s[:student_code][3..4].to_i
+    end
+    return ("%03d" % (parser.max + 1)).to_s
+
+  end
+
+  def detatched_student_code(grade)
+    grader  = decode_student_year(grade)
+    counter = decode_student_runner(grade)
+    return "#{grader}#{counter}"
+  end
+
   # POST /students
   # POST /students.json
   def create
     @student = Student.new(student_params)
-
+    @student[:student_code] = detatched_student_code(params[:student][:grade])
     respond_to do |format|
       if @student.save
-        format.html { redirect_to @student, notice: 'Student was successfully created.' }
+        format.html { redirect_to students_url, notice: 'Student was successfully created.' }
         format.json { render :show, status: :created, location: @student }
       else
         format.html { render :new }
@@ -46,7 +68,7 @@ class StudentsController < ApplicationController
   def update
     respond_to do |format|
       if @student.update(student_params)
-        format.html { redirect_to @student, notice: 'Student was successfully updated.' }
+        format.html { redirect_to students_url, notice: 'Student was successfully updated.' }
         format.json { render :show, status: :ok, location: @student }
       else
         format.html { render :edit }
@@ -68,13 +90,13 @@ class StudentsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_student
-      # @student = Student.find(params[:id])
-      puts params[:id]
-      @student = Student.where(student_code: params[:id].to_s).first
+      @student = Student.find(params[:id])
+      # puts params[:id]
+      # @student = Student.where(student_code: params[:id].to_s).first
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def student_params
-      params.require(:student).permit(:name, :surname, :grade, :school, :parent, :email, :tel, :line, :facebook)
+      params.require(:student).permit(:name, :surname, :grade, :school, :parent, :email, :tel, :line, :facebook, :nickname)
     end
 end

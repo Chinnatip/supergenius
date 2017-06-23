@@ -6,7 +6,7 @@ class Classroom < ApplicationRecord
 
   def self.check_time(time)
     if time.present?
-      return time
+      return time.strftime("%H:%M")
     else
       return '..'
     end
@@ -14,7 +14,7 @@ class Classroom < ApplicationRecord
 
   def self.check_period(day)
     if day.present?
-      return day
+      return day.strftime('%d %b %Y')
     else
       return '..'
     end
@@ -30,7 +30,7 @@ class Classroom < ApplicationRecord
 
   def self.parse_teacher(ts)
     result = ''
-    teachers = ts.split(",").map{ |x| x.strip }
+    teachers = ts.split(",").map{ |x| x.strip } rescue [1]
     teachers.each do |t|
       parser = Teacher.find(t)[:name]
       if result.present?
@@ -48,11 +48,13 @@ class Classroom < ApplicationRecord
 
   def self.details(obj)
     return {
-      teacher:    parse_teacher(obj[:teacher]) ,
-      seat:       "#{parse_seat(obj[:spec])}" ,# /#{check_seat(obj[:seat])}" ,
-      course_period: "#{check_period(obj[:start])} - #{check_period(obj[:end])}",
-      timetable:  "#{check_time(obj[:start_time])} - #{check_time(obj[:end_time])}",
-      price:      if obj[:price].present? then "#{obj[:price]} บาท" else '-' end ,
+      teacher:            parse_teacher(obj[:teacher]) ,
+      seat:               "#{parse_seat(obj[:spec])}" ,# /#{check_seat(obj[:seat])}" ,
+      course_period_from: "#{check_period(obj[:start])}",
+      course_period_to:   "#{check_period(obj[:end])}",
+      timetable_from:     "#{check_time(obj[:start_time])}",
+      timetable_to:       "#{check_time(obj[:end_time])}",
+      price:      if obj[:price].present? then "#{obj[:price].floor} บาท" else '-' end ,
       status:     if obj[:status].present? then "#{obj[:status]}" else '-' end ,
       schedule:   if obj[:period].present? then "#{obj[:period]}" else '-' end ,
 

@@ -27,7 +27,7 @@
             </tr>
           </thead>
           <tbody class="pop-course">
-            <% Classroom.all.each do |c| %>
+            <% (Classroom.all.sort_by { |s| Course.find(s[:course])[:grade]  }).each do |c| %>
               <tr>
                 <td><input type="checkbox" name="[course]<%= c[:spec] %>" value="" course="<%= c[:spec] %>"> </td>
                 <td><%= c[:spec] %></td>
@@ -75,7 +75,7 @@
           <td><%= student_detail[:line] %></td>
           <td>
             <a
-              class="open-modal btn btn-default btn-redder"
+              class="open-modal btn-redder"
               href="#" student="<%= student[:student_code] %>"
               name="<%= student_detail[:name] %>"
               grade="<%= student_detail[:grade] %>"
@@ -83,8 +83,8 @@
               +เพิ่มวิชา
             </a>
           </td>
-          <td><%= link_to 'Edit', edit_student_path(student) %></td>
-          <td><%= link_to 'Destroy', student, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+          <td><%= link_to 'รายละเอียด', edit_student_path(student) , class: 'btn-grey' %></td>
+          <td><%= link_to 'ลบทิ้ง', student, method: :delete, data: { confirm: 'Are you sure?' } , class: 'btn-grey' %></td>
         </tr>
       <% end %>
     </tbody>

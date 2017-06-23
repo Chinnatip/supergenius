@@ -12,21 +12,19 @@
   <% end %>
 
   <div class="field">
-    <%= f.label :name %>
-    <%= f.text_area :name %>
-  </div>
-
-  <div class="field">
-    <%= f.label :student %>
-    <%= f.number_field :student %>
-  </div>
-
-  <div class="field">
-    <%= f.label :graduated %>
-    <%= f.number_field :graduated %>
+    <label for="name">School name</label>
+    <%= f.text_field :name ,placeholder: 'ชื่อโรงเรียน'%>
   </div>
 
   <div class="actions">
-    <%= f.submit %>
+    <%= link_to 'Back', schools_path , class: 'btn btn-grey' %>
+    <span class="mar-10"></span>
+    <% if controller.action_name == 'edit' %>
+      <%= link_to 'Show', @school ,class: 'btn-grey'%>
+      <span class="mar-10"></span>
+    <% end %>
+
+
+    <input type="submit" value="Submit" class="btn btn-redder">
   </div>
 <% end %>

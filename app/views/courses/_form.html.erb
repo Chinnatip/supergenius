@@ -12,31 +12,72 @@
   <% end %>
 
   <div class="field">
-    <%= f.label :name %>
-    <%= f.text_area :name %>
+    <label for="name">กรอกชื่อคอร์ส</label>
+    <%= f.text_field :name ,placeholder: 'ชื่อคอร์ส' %>
   </div>
 
   <div class="field">
-    <%= f.label :major %>
-    <%= f.text_field :major %>
+    <label for="major">เลือกวิชาที่สอน</label>
+    <select id="major" name="course[major]">
+      <option value="MAT">คณิตศาสตร์</option>
+      <option value="SOC">สังคม</option>
+      <option value="SKI">ทักษะฯ</option>
+      <option value="THA">ภาษาไทย</option>
+      <option value="ENG">ภาษาอังกฤษ</option>
+      <option value="SCI">วิทยาศาสตร์</option>
+      <option value="PHY">พิสิกส์</option>
+      <option value="CHE">เคมี</option>
+      <option value="BIO">ชีววิทยา</option>
+    </select>
   </div>
 
   <div class="field">
-    <%= f.label :price %>
-    <%= f.text_field :price %>
+    <label for="grade">ชั้นปี</label>
+    <select id="grader" name="course[grade]">
+      <option value="1">ป.1</option>
+      <option value="2">ป.2</option>
+      <option value="3">ป.3</option>
+      <option value="4">ป.4</option>
+      <option value="5">ป.5</option>
+      <option value="6">ป.6</option>
+      <option value="7">ม.1</option>
+      <option value="8">ม.2</option>
+      <option value="9">ม.3</option>
+      <option value="10">ม.4</option>
+      <option value="11">ม.5</option>
+      <option value="12">ม.6</option>
+    </select>
   </div>
 
-  <div class="field">
-    <%= f.label :grade %>
-    <%= f.number_field :grade %>
-  </div>
-
-  <div class="field">
-    <%= f.label :seat %>
-    <%= f.number_field :seat %>
-  </div>
-
+  <br>
   <div class="actions">
-    <%= f.submit %>
+    <%= link_to 'Back', courses_path , class: 'btn btn-grey' %>
+    <span class="mar-10"></span>
+
+    <% if controller.action_name == 'edit' %>
+      <%= link_to 'Show', @course ,class: 'btn-grey'%>
+      <span class="mar-10"></span>
+    <% end %>
+
+    <input type="submit" value="Submit" class="btn btn-redder">
   </div>
 <% end %>
+
+<script type="text/javascript">
+  $(document).ready(function(){
+    courseGrade = "<%= course[:grade] || 7 %>"
+    courseMajor = "<%= course[:major] || 'blank' %>"
+
+    $("#grader > option").each(function() {
+      if (this.value == courseGrade) {
+        this.setAttribute('selected','selected');
+      }
+    });
+
+    $("#major > option").each(function() {
+      if (this.value == courseMajor) {
+        this.setAttribute('selected','selected');
+      }
+    });
+  });
+</script>

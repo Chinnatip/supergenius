@@ -12,81 +12,84 @@
   <% end %>
 
   <div class="field">
-    <%= f.label :name %>
-    <%= f.text_area :name %>
+    <label for="name">กรอกชื่อชั้นเรียน</label>
+    <%= f.text_field :name , value: classroom[:name] , placeholder: 'ตย. คณิตศาสตร์ ป.2 วันเสาร์' %>
+    <% if controller.action_name == 'edit' %>/ รหัสห้องเรียน <%= classroom[:spec] %><% end %>
   </div>
 
-  <div class="field">
-    <%= f.label :spec %>
-    <%= f.number_field :spec %>
-  </div>
-
-  <div class="field">
-    <%= f.label :course %>
-    <%= f.number_field :course %>
-  </div>
+  <% if controller.action_name == 'new'%>
+    <div class="field">
+      <%= f.label :course %>
+      <select class="" name="classroom[course]">
+        <% (Course.all.sort_by { |s| s[:grade]  })  .each do |c|%>
+          <option
+            value="<%= c[:id] %>"
+            <% if classroom[:course] == c[:id] %>selected<% end %>
+            >
+            <%= c[:name] %>
+          </option>
+        <% end %>
+      </select>
+    </div>
+  <% end %>
 
   <div class="field">
     <%= f.label :teacher %>
-    <%= f.number_field :teacher %>
+    <% Teacher.all.each do |t| %>
+      <input
+        type="radio"
+        name="classroom[teacher]"
+        value="<%= t[:id] %>"
+        <% if t[:id] == classroom[:teacher].to_i %>checked<% end %>
+        >
+        ครู<%= t[:name] %>
+      <br>
+    <% end %>
   </div>
 
-  <div class="field">
-    <%= f.label :seat %>
-    <%= f.number_field :seat %>
+  <div class="field minify-selector">
+    <label for="seat">นักเรียนที่รับได้</label>
+    <%= f.number_field :seat ,value:  classroom[:seat] || '50' , placeholder: '50' %> ที่นั่ง
   </div>
 
-  <div class="field">
-    <%= f.label :booked %>
-    <%= f.number_field :booked %>
+  <div class="field minify-selector">
+    <label for="price">ค่าลงทะเบียน</label>
+    <%= f.number_field :price ,value: classroom[:price] || '2500' , placeholder: '2500' %> บาท
   </div>
 
-  <div class="field">
-    <%= f.label :pass %>
-    <%= f.number_field :pass %>
+  <div class="field date-selector">
+    <label for="start">วันที่เริ่มคอร์ส</label>
+    <%= f.date_select :start %>
+
   </div>
 
-  <div class="field">
-    <%= f.label :status %>
-    <%= f.text_field :status %>
+  <div class="field date-selector">
+    <label for="end">วันที่จบคอร์ส</label>
+    <%= f.date_select :end %>
   </div>
 
-  <div class="field">
-    <%= f.label :schedule %>
-    <%= f.number_field :schedule %>
+  <div class="field time-selector">
+    <label for="start_time">เริ่มเรียนเวลา</label>
+    <%= f.time_select :start_time %> น.
   </div>
 
-  <div class="field">
-    <%= f.label :start %>
-    <%= f.datetime_select :start %>
+  <div class="field time-selector">
+    <label for="end_time">เลิกเรียนเวลา</label>
+    <%= f.time_select :end_time %> น.
   </div>
 
-  <div class="field">
-    <%= f.label :end %>
-    <%= f.datetime_select :end %>
-  </div>
-
-  <div class="field">
-    <%= f.label :price %>
-    <%= f.text_field :price %>
-  </div>
-
-  <div class="field">
-    <%= f.label :start_time %>
-    <%= f.time_select :start_time %>
-  </div>
-
-  <div class="field">
-    <%= f.label :end_time %>
-    <%= f.time_select :end_time %>
-  </div>
-
-  <div class="field">
-    <%= f.label :duration %>
-    <%= f.number_field :duration %>
+  <div class="field minify-selector">
+    <label for="period">จำนวนครั้งที่สอน</label>
+    <%= f.number_field :period , value: classroom[:period] || '13' %> ครั้ง
   </div>
 
   <div class="actions">
-    <%= f.submit %>
+    <%= link_to 'Back', classrooms_path , class: 'btn btn-grey' %>
+    <span class="mar-10"></span>
+    <% if controller.action_name == 'edit' %>
+      <%= link_to 'Show', @classroom ,class: 'btn-grey'%>
+      <span class="mar-10"></span>
+    <% end %>
+    <input type="submit" value="Submit" class="btn btn-redder">
   </div>
 <% end %>
