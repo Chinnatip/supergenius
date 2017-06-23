@@ -49,9 +49,16 @@
       <% end %>
     </select>
   </div>
+
+  <br>
+  <h3 class="hr-cer">รหัสผ่าน</h3>
+  <div class="field">
+    <label for="username">รหัสผ่าน</label>
+    <%= f.text_field :username ,placeholder: 'กรอก username' %> <%= f.text_field :password ,placeholder: 'กรอก password' %>
+  </div>
+
   <br>
   <h3 class="hr-cer">ช่องทางติดต่อ</h3>
-
   <div class="field">
     <%= f.label :email %>
     <%= f.text_field :email ,placeholder: 'ตย. winnie@supergenius.com'%>

@@ -52,6 +52,7 @@ class StudentsController < ApplicationController
   def create
     @student = Student.new(student_params)
     @student[:student_code] = detatched_student_code(params[:student][:grade])
+    @student[:secret_id] = Random.new.rand(100_000..1_000_000).to_s
     respond_to do |format|
       if @student.save
         format.html { redirect_to students_url, notice: 'Student was successfully created.' }
@@ -97,6 +98,6 @@ class StudentsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def student_params
-      params.require(:student).permit(:name, :surname, :grade, :school, :parent, :email, :tel, :line, :facebook, :nickname)
+      params.require(:student).permit(:name, :surname, :grade, :school, :parent, :email, :tel, :line, :facebook, :nickname, :username ,:password ,:secret_id)
     end
 end

@@ -1,6 +1,6 @@
 class KidController < ApplicationController
-
   layout "report"
+  before_action :authenticate_user!, only: [:show]
 
   def show
     result = []

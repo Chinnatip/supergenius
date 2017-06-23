@@ -52,6 +52,8 @@
         <th>ชั้นปี</th>
         <th>คอร์สที่ลง</th>
         <th>โรงเรียน</th>
+        <th>Password</th>
+        <th>Secret</th>
         <th>ผู้ปกครอง</th>
         <th>Email</th>
         <th>เบอร์โทร</th>
@@ -69,6 +71,8 @@
           <td><%= student_detail[:grade] %></td>
           <td><%= student_detail[:seat][:c] %> วิชา</td>
           <td><%= student_detail[:school] %></td>
+          <td><%  if student[:username].present? %> ✅ <% else %> ⬜️ <% end %></td>
+          <td><%  if student[:secret_id].present? %> ✅ <% else %> ⬜️ <% end %></td>
           <td><%= student_detail[:parent] %></td>
           <td><%= student_detail[:email] %></td>
           <td><%= student_detail[:tel] %></td>

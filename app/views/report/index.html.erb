@@ -20,7 +20,11 @@
             <a href="<%= report_index_path %>/<%= gc[:spec] %>" class="class-grid">
               <div class="_name"><%= gc[:name] %></div>
               <div class="_spec"><%= gc[:spec] %></div>
-              <div>ครู<%= gc[:teacher] %> | นร.<%= gc[:student] %>คน | <%= gc[:period] %>ครั้ง</div>
+              <% if current_user.present? %>
+                <% if current_user[:role] == 'admin' %>
+                  <div>ครู<%= gc[:teacher] %> | นร.<%= gc[:student] %>คน | <%= gc[:period] %>ครั้ง</div>
+                <% end %>
+              <% end %>
             </a>
           <% end %>
         </div>

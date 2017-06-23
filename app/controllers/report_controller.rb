@@ -1,5 +1,4 @@
 class ReportController < ApplicationController
-
   layout "report"
 
   def show
@@ -18,7 +17,6 @@ class ReportController < ApplicationController
       }
     end
     @result = result
-
   end
 
   def index

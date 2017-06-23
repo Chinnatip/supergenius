@@ -50,7 +50,12 @@
     </table>
   </div>
   <div class="mobi-show">
-    hello world
+    <% @result.each do |r| %>
+      <% seat_detail = Seat.seat_detail(r)%>
+        <div class="">
+          <%= seat_detail.to_json %>
+        </div>
+    <% end %>
   </div>
 
 </div>
