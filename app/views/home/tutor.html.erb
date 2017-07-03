@@ -1,0 +1,33 @@
+<div class="nav-top-blanket"></div>
+<div id="app">
+  <header class="nav _nav_affix _add_color" id="nav-affix">
+      <div class="columns  super-columns" style="">
+        <span class="column" v-for="l in iLinks" v-bind:class="['active']">
+          <span>
+            <a :href="l.url">{{l.title}}</a>
+          </span>
+        </span>
+      </div>
+  </header>
+  <br><br>
+  <div class="container __body">
+    <h1>ครูผู้สอน</h1>
+  </div>
+  <div class="container _spiltter _center">
+    <img src="<%= image_path 'tutor.jpg' %>" alt="" class="image_brand">
+    <br><br>
+  </div>
+</div>
+<script type="text/javascript">
+var comp = new Vue({
+  el: '#app',
+  data: {
+    iLinks:[
+      { title: 'สถาบันกวดวิชา'   ,action:'' , url: '<%= home_about_path %>' },
+      { title: 'Student Gallery'  ,action:'' , url: '<%= home_student_path %>' },
+      { title: 'Tutors'        ,action:'' , url: '<%= home_tutor_path %>' },
+      { title: 'Top Students'  ,action:'' , url: '<%= home_top_student_path %>' },
+    ],
+  }
+});
+</script>

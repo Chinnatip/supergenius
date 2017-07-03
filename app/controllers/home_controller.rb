@@ -11,12 +11,16 @@ class HomeController < ApplicationController
   end
 
   def index
+    unless session[:visited] == true
+      redirect_to home_introduce_path
+    end
     @active = 'index'
-    @quote  = 'PSH'
-    @stock_data = parse_set(@quote)[0]
+    # @quote  = 'PSH'
+    # @stock_data = parse_set(@quote)[0]
   end
 
   def introduce
+    session[:visited] = true
   end
 
   def course
@@ -36,6 +40,18 @@ class HomeController < ApplicationController
     end
     @detail.save
 
+  end
+
+  def about
+  end
+
+  def student
+  end
+
+  def tutor
+  end
+
+  def top_student
   end
 
   def contact

@@ -5,7 +5,7 @@
       <div class="columns  super-columns" style="">
         <span class="column" v-for="l in iLinks" v-bind:class="['active']">
           <span>
-            <a>{{l.title}}</a>
+            <a :href="l.url">{{l.title}}</a>
           </span>
         </span>
       </div>
@@ -61,10 +61,10 @@
       ],
       choice: 'tab1',
       iLinks:[
-        { title: 'สถาบันกวดวิชา'   ,action:'' , url: 'index' },
-        { title: 'Student Gallery'  ,action:'' , url: 'index' },
-        { title: 'Tutors'        ,action:'' , url: 'index' },
-        { title: 'Top Students'  ,action:'' , url: 'index' },
+        { title: 'สถาบันกวดวิชา'   ,action:'' , url: '<%= home_about_path %>' },
+        { title: 'Student Gallery'  ,action:'' , url: '<%= home_student_path %>' },
+        { title: 'Tutors'        ,action:'' , url: '<%= home_tutor_path %>' },
+        { title: 'Top Students'  ,action:'' , url: '<%= home_top_student_path %>' },
       ],
       contents: [
         {icon: 'fa-frown-o' ,title: 'ถ้าน้องๆเรียนที่โรงเรียนไม่รู้เรื่อง', text: 'ถ้าหากเรียนที่โรงเรียนไม่รู้เรื่อง หรือไม่เข้าใจเท่าที่ควร ที่นี่ตอบโจทย์ เพราะเราสอนด้วยความเข้าใจ อธิบายซ้ำและถามได้ตลอดเวลา สอนให้น้องๆทำโจทย์ด้วยความเข้าใจพร้อมกับเทคนิคลัดมากมาย'},

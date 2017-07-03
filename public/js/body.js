@@ -2,7 +2,7 @@ Vue.component('navBar',{
   // sample
   // <nav-bar   :nav="nav" :body="body" ></nav-bar>
   template: `
-  <div class="hero-head" id="navbar" >
+  <div :class="'hero-head' + [dashboard ? 'dashboard' : ''] " id="navbar" >
     <header class="nav">
       <div class="container">
         <div class="nav-left">
@@ -52,7 +52,7 @@ Vue.component('navBar',{
   data: function(){
     return{}
   },
-  props: ['nav','body','active','login','role','controller','user','ustack'],
+  props: ['nav','body','active','login','role','controller','user','ustack','dashboard'],
   methods: {
     isActive: function( a,b ) {
       if (a == b) {
