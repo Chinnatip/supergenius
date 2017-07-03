@@ -14,7 +14,7 @@ Vue.component('heroSlider',{
         </span>
       </div>
       <span v-for="s in slider">
-        <div class="hero-body _body_split" v-show="isActive( s.tab )">
+        <div class="hero-body _body_split" v-show="isActive( s.tab )" :style="{background: 'url(' + s.image + ') no-repeat center center fixed' , backgroundSize: 'cover'}">
           <div class="container">
             <div class="split _dark-round">
               <h1 class="title">{{s.title}}</h1>

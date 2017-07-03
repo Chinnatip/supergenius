@@ -1,0 +1,24 @@
+<div class="hero is-fullheight _home_bg">
+  <div class="_center">
+    <img class="main" src="../img_ref/sup_01.png" alt="">
+    <h1>
+      เพราะการเล่นทำให้เด็กฉลาด เราจึงเป็นโรงเรียนสอนพิเศษที่ให้ มากกว่าเเค่ความรู้ สถานที่ที่น้องๆจะได้สาระพร้อมทั้งความสนุก ผู้ปกครองสบายใจ เด็กได้เกรดดี มีสังคมของเพื่อนๆต่างโรงเรียน
+      <br>
+      <% unless current_user %>
+        <a href="<%= user_facebook_omniauth_authorize_path %>" class="signin-button">
+          <i class="fa fa-facebook-official" ></i>
+          ลงทะเบียนด้วย Facebook
+        </a>
+      <% else %>
+      <a href="<%= destroy_user_session_path %>" class="signin-button" data-method="delete">
+        <i class="fa fa-sign-out" ></i>
+        ออกจากระบบ
+      </a>
+      <% end %> <br>
+    </h1>
+    <a id="scrollTo" href="<%= root_path %>">
+      <img src="/img_ref/logo_down.png" alt="">
+      เข้าสู่เวปไซท์ Super Genius
+    </a>
+  </div>
+</div>

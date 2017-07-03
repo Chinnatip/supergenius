@@ -3,7 +3,7 @@ Vue.component('contentSimple',{
     <div class="_simple_container">
       <div class="container">
         <div v-for="t in content">
-          <p v-if="t.ex == 'text'">{{t.text}}</p>
+          <p v-if="t.ex == 'text'" style="max-width:540px;">{{t.text}}</p>
           <ul v-if="t.ex == 'list'">
             <li v-for="l in t.set">{{l}}</li>
           </ul>

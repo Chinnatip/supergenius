@@ -39,11 +39,11 @@ Vue.component('footer-site-corp',{
             <iframe src="https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2Fsupergeniusschool%2F&tabs=timeline&width=320&height=150px&small_header=true&adapt_container_width=false&hide_cover=false&show_facepile=true&appId=155981588273147" width="340" height="150px" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowTransparency="true"></iframe>
           </div>
           <div class="column">
-            <p class="head-up ">Recent Posts</p>
+            <p class="head-up ">Recent News</p>
             <div v-for="(f,index) in feed">
-              <a target="_blank" class="news-footer news" :href="f.url" v-if="index < 3">{{f.title}}</a>
+              <a target="_blank" class="news-footer news" :href=" '/home/news_detail?id=' + f.id" v-if="index < 3">{{f.title}}</a>
             </div>
-            <a target="_blank" class="news-footer" href="/page/news">อ่านโพสต์ทั้งหมด </a>
+            <a target="_blank" class="news-footer" href="/home/news">อ่านข่าวทั้งหมด </a>
           </div>
           <div class="column">
             <p class="head-up content-right">Contact Info</p>

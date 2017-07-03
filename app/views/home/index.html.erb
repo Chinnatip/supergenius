@@ -1,27 +1,36 @@
+<div class="nav-top-blanket"></div>
 <div id="app">
-  <!-- hero-level title="Follow our newest contents" button="GO NOW!" url="#"></hero-level -->
-  <!-- hero-grid :grid="grid"></hero-grid -->
-  <!-- section class="hero is-dark is-medium">
-    <hero-body :text="testimo"></hero-body>
-  </section -->
-  <!-- mapping :map="maps"></mapping -->
-  <div class="container _main_cupboard">
-    <div class="_side">
-      <h1>ข่าวล่าสุด</h1>
-      <div class="_list" v-for="(n,index) in newsfeeds" v-if="index <= 3">
-        <span class="new">{{n.title}}</span>
-        <span class="date">{{n.created_at}}</span>
+  <hero-slider :slider="sliders" :choice="choice"></hero-slider>
+  <header class="nav _nav_affix _add_color" id="nav-affix">
+      <div class="columns  super-columns" style="">
+        <span class="column" v-for="l in iLinks" v-bind:class="['active']">
+          <span>
+            <a>{{l.title}}</a>
+          </span>
+        </span>
       </div>
-      <a class="_right_link" href="<%= page_news_path %>">อ่านข่าวทั้งหมด >></a>
-    </div>
-    <div class="_main">
-      <blog-quote-main :stock="stock"></blog-quote-main>
-      <hr>
-      <div class="_split_jumbo">
-        <blog-jumbo :data="report"></blog-jumbo>
-        <blog-jumbo :data="email"></blog-jumbo>
+  </header>
+  <br><br>
+  <div class="container _spiltter _center">
+    <img src="<%= image_path 'asset_program_01.jpg' %>" alt="" class="image_brand">
+    <br><br>
+    <a class="btn btn-redder _big-red" href="<%= home_course_path %>">ตารางเรียนเปิดเทอม เทอม 1 ปี 60</a>
+  </div>
+  <div class="container _spiltter _center">
+    <div class="grid-container">
+      <div class="col-4 _left" v-for="c in contents">
+        <div class="top_tile">
+          <i :class=" 'fa ' + c.icon "></i>
+          <span>{{c.title}}</span>
+        </div>
+        <div class="text_tile">{{c.text}}</div>
       </div>
     </div>
+  </div>
+  <div class="container _spiltter _center">
+    <img src="<%= image_path 'asset_program_02.jpg' %>" alt="" class="image_brand">
+    <br><br>
+    <a class="btn btn-redder _big-red" href="<%= home_course_path %>">ตารางเรียนเปิดเทอม เทอม 1 ปี 60</a>
   </div>
 </div>
 
@@ -29,6 +38,7 @@
 <script src="/js/map.js"></script>
 <script src="/js/body.js"></script>
 <script src="/js/stockir.js"></script>
+<script src="/js/slider.js"></script>
 <script src="/js/footer_site.js"></script>
 <script src="/js/investor.js"></script>
 <script src="/js/masonry.js"></script>
@@ -39,59 +49,36 @@
   var comp = new Vue({
     el: '#app',
     data: {
-      newsfeeds: [],
-      stock: {
-        quote:"<%= @quote %>",
-        price: "<%= @stock_data[0] %>",
-        change:"<%= @stock_data[1] %>",
-        cpercent:"<%= @stock_data[2] %>",
-        date:"<%= @stock_data[3] %>",
-        range: '<%= @stock_data[4] %>',
-        yearRange: '<%= @stock_data[5] %>',
-        volumn: "<%= @stock_data[6] %>",
-        link:"#"
-      },
-      report: {
-        title: "รายงานประจำปี" ,
-        desc: "รายชื่อผู้ถือหุ้นบริษัท จำกัด มหาชน ณ วันที่ 1 มกราคม 2560" ,
-        hasLink: true, link: "ดูเพิ่มเติม", href: "<%= investor_share_path %>", linkclass: "" ,
-      },
-      email: {
-        title: "อีเมล์รับข่าวสาร" ,
-        desc: "ท่านสามารถลงทะเบียนเพื่อรับข่าวสารอิเล็กทรอนิกส์ เราจะส่งข่าวสารให้ท่านทาง อีเมล์ เมื่อมีข่าวสารที่เกี่ยวกับบริษัท (ประกาศ, ปรับปรุงเว็บไซต์) ที่ประกาศผ่านเว็บไซต์นี้" ,
-        hasLink: true, link: "รับข่าวสาร", href: "<%= investor_share_path %>", linkclass: "" ,
-      },
-      grid: {
-        title: 'Show me some text',
-        desc: 'see our reason that why we difference.',
-        lists: [
-          {head: 'Sample#1',detail: 'see more details',image: "/img_ref/web_ref.png"},
-          {head: 'Sample#2',detail: 'see more details',image: "/img_ref/web_ref.png"},
-          {head: 'Sample#3',detail: 'see more details',image: "/img_ref/web_ref.png"},
-        ]
-      },
-      testimo: {
-        title: 'Are you OK with this ?',
-        sub:   'just answer me at this time | then I will share your story'
-      },
-      maps: [
-        { head: 'address'  , icon: 'fa-map-marker', url: '#', content: '114/13 Phra-a-thit rd, Chanasongkram, Phranakorn, Bangkok 10200'},
-        { head: 'facebook' , icon: 'fa-facebook-official', url: 'http://www.facebook.com/zinatip', content: 'www.facebook.com/zinatip'},
-        { head: 'email'    , icon: 'fa-envelope'         , url: 'mailto:chinnatip@me.com' , content: 'chinnatip@me.com'},
-        { head: 'telephone', icon: 'fa-phone-square'     , url: 'tel:+66909847814' ,content: '090.984.7814'}
+      sliders: [
+        { image: '<%= image_path "pic/DSCF2297.jpg" %>' , title: 'SUPER GENIUS school',tab: 'tab1',url: '#nav-affix', link: 'ดูคอร์สเรียนของเรา >>', subtitle: 'เพราะการเล่นทำให้เด็กฉลาด เราจึงเป็นโรงเรียนสอนพิเศษที่ให้ มากกว่าเเค่ความรู้ สถานที่ที่น้องๆจะได้สาระพร้อมทั้งความสนุก ผู้ปกครองสบายใจ เด็กได้เกรดดี มีสังคมของเพื่อนๆต่างโรงเรียน'},
+        { image: '<%= image_path "pic/DSC_6848.jpg" %>' , title: 'เรียนอย่าง เข้าใจ ไม่ใช่ท่องจำ',tab: 'tab2',url: '#nav-affix', link: 'บรรยากาศห้องเรียน >>', subtitle: '---'},
+        { image: '<%= image_path "pic/DSCF2816.jpg" %>' , title: 'บรรยากาศเป็นกันเอง ถาม ตอบ ได้ตลอดเวลา',tab: 'tab3',url: '#nav-affix', link: 'บรรยากาศห้องเรียน >>', subtitle: '---'},
+        { image: '<%= image_path "pic/IMG_7111.jpg" %>' , title: 'พิสูจน์เเล้วกว่า 500คน 100โรงเรียน เกรดขึ้น สอบติดเเน่นอน',tab: 'tab4',url: '#nav-affix', link: 'รุ่นพี่ Super Genius >>', subtitle: '---'},
+        { image: '<%= image_path "pic/IMG_7747.jpg" %>' , title: 'ประเมินผลรายบุคคลอย่างละเอียด ให้ข้อมูลสถาบันเเละหลักสูตรที่น่าสนใจ รวมถึงดูความเป็นไปได้ในการสอบ เพื่อศึกษาต่อในที่ต่างๆ',tab: 'tab5',url: '#nav-affix', link: 'เช็คผลการเรียน >>', subtitle: '---'},
+        { image: '<%= image_path "pic/DSC_6806.jpg" %>' , title: 'ห้องเรียนกว้างขวาง สถานที่สวยงาม ปลอดภัย',tab: 'tab6',url: '#nav-affix', link: 'บรรยากาศห้องเรียน >>', subtitle: '---'},
+        { image: '<%= image_path "pic/IMG_8181.jpg" %>' , title: 'เรียนสนุก มีความสุข ความรู้ครบถ้วน',tab: 'tab7',url: '#nav-affix', link: 'ดูคอร์สเรียนของเรา >>', subtitle: '---'},
+        { image: '<%= image_path "pic/IMG_7059.jpg" %>' , title: 'สื่อการสอนครบครัน ทันสมัย',tab: 'tab8',url: '#nav-affix', link: 'ดูคอร์สเรียนของเรา >>', subtitle: '---'},
       ],
+      choice: 'tab1',
+      iLinks:[
+        { title: 'สถาบันกวดวิชา'   ,action:'' , url: 'index' },
+        { title: 'Student Gallery'  ,action:'' , url: 'index' },
+        { title: 'Tutors'        ,action:'' , url: 'index' },
+        { title: 'Top Students'  ,action:'' , url: 'index' },
+      ],
+      contents: [
+        {icon: 'fa-frown-o' ,title: 'ถ้าน้องๆเรียนที่โรงเรียนไม่รู้เรื่อง', text: 'ถ้าหากเรียนที่โรงเรียนไม่รู้เรื่อง หรือไม่เข้าใจเท่าที่ควร ที่นี่ตอบโจทย์ เพราะเราสอนด้วยความเข้าใจ อธิบายซ้ำและถามได้ตลอดเวลา สอนให้น้องๆทำโจทย์ด้วยความเข้าใจพร้อมกับเทคนิคลัดมากมาย'},
+        {icon: 'fa-user-md' ,title: 'ถ้าอยากเพิ่มเกรด อยากสอบติดที่ดีๆ', text: 'ทางเราจะหาข้อสอบใหม่ๆมาอัพเดทอยู่ตลอด เพื่อให้หนังสือของเราทันสมัยและตรงจุดอยู่เสมอ ไม่ว่าจะสอบที่โรงเรียน หรือสอบเข้าที่ต่างๆ เราสอนเด็กทำได้จนเด็กมาพูดให้ฟังว่า “ข้อสอบออกเหมือนที่พี่ๆสอนทั้งนั้นเลย”'},
+        {icon: 'fa-child' ,title: 'ถ้าเรียนพิเศษที่ไหนก็เครียดตลอด', text: 'ที่นั่นคงไม่ใช่ที่นี่ เพราะเราจะสอนอย่างมีความสุข ให้เด็กสนุก มีส่วนร่วม และได้ความรู้ไปพร้อมๆกัน เราเป็นกันเอง ดูแลเอาใจใส่ ไม่ต่างจากครอบครัว'},
+        {icon: 'fa-tachometer' ,title: 'ถ้าตอนเรียนทำได้ แต่ตอนสอบ ตกตลอด', text: 'นั่นก็เพราะที่เรียนที่อื่นไม่มีการประเมินจุดอ่อนจุดแข็งและหลักการคิดให้น้องๆ ที่นี่เราจะดูแลอย่างใกล้ชิดทุกๆคน โดยเราจะมีการสอบวัดผลเป็นระยะ (บางห้องจะมีเทสก่อนกลับบ้านทุกๆวัน) เพื่อให้น้องได้เติบโตและพัฒนาอย่างต่อเนื่อง'},
+
+        {icon: 'fa-home dark' ,title: 'เดินทางสะดวก ปลอดภัย สวยงาม', text: 'เดินทางสะดวก ไม่ว่าจะรถเมล์ แท๊กซี่ มอเตอร์ไซค์ หรือด้วยรถส่วนตัว ที่จอดรถกว่า 10 คัน และสถานที่เรียนทันสมัย ทำใหม่หมดทั้งโรงเรียน สะอาด ปลอดภัย'},
+        {icon: 'fa-slideshare dark' ,title: 'ผู้ปกครองดูตอนน้องเรียนได้', text: 'ทางเราจะมีการติดกล้องวงจรปิดไว้ที่ห้องเรียนทุกห้อง เพื่อผู้ปกครองสามารถสังเกตการเรียนของลูกหลานได้อย่างใกล้ชิด สามารถมานั่งดูที่ห้องพัก หรือจะดูผ่านมือถือได้ทุกๆแห่ง'},
+        {icon: 'fa-video-camera dark' ,title: 'ชดเชยไม่อั้น', text: 'หากมีบางครั้งที่จำเป็นต้องทำธุระ ไม่มีคนมาส่ง หรืออาจจะต้องพาน้องๆไปด้วย เพื่อความต่อเนื่องในการเรียน เราจะมีวีดีโออัดไว้ให้ทุกครั้ง สามารถมาดูชดเชยที่ขาดไป หรือทบทวนได้ไม่จำกัดเวลา และไม่มีเสียค่าใช้จ่าย'},
+        {icon: 'fa-users dark' ,title: 'คุยกับผู้ปกครองเป็นระยะๆ', text: 'ลูกหลานท่าน ก็ไม่ต่างจากลูกหลานเรา ผู้ปกครองอยากรู้อะไร อยากถามอะไรคุณครู เรามีสายตรงให้คุยกับคุณครูได้ตลอดเวลา รวมถึงตัวคุณครูจะเอาใจใส่บุตรหลานท่านและมีการรายงานเป็นระยะ ว่าน้องตั้งใจไหม เรียนแล้วเป็นยังไง ได้หรือไม่ได้ตรงไหนบ้าง'},
+      ]
     },
     mounted: function() {
-      this.$nextTick(function () {
-        var that;
-        that = this;
-        $.ajax({
-          url: '/newsfeeds.json',
-          success: function(res) {
-            that.newsfeeds = res;
-          }
-        });
-      });
     }
   });
 </script>

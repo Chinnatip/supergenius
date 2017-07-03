@@ -1,0 +1,53 @@
+<div class="nav-top-blanket"></div>
+<div id="app">
+  <br><br>
+  <div class="container __body">
+    <h1><%= @detail[:title] %></h1>
+  </div>
+  <div class="container _spiltter">
+    <div class="grid-container news-content">
+      <div class="col-7">
+        <img src="<%= if @detail[:image].present? then @detail[:image] else '../img_ref/new_blank.jpg' end%>" alt="">
+        <br><br>
+        <h3><%= @detail[:desc]%></h3>
+      </div>
+      <div class="col-3">
+        <h4><span class="head">ผู้เขียน</span> <%= @detail[:writer] %></h4>
+        <h4><span class="head">ประเภท</span> <%= @detail[:newstype] %></h4>
+        <h4><span class="head">เขียนวันที่</span> <%= @detail[:created_at].strftime("%d %b %Y") %></h4>
+        <h4><span class="head">อ่านเเล้ว</span> <%= @detail[:viewer] || 0%> ครั้ง</h4>
+        <hr>
+        <h4>แชร์บทความนี้</h4>
+        <br>
+        <div
+          class="fb-share-button"
+          data-href="https://supergeniusco.herokuapp.com/home/news_detail?id=<%= params[:id] %>"
+          data-layout="button_count"
+          data-size="large"
+          data-mobile-iframe="true">
+            <a
+              class="fb-xfbml-parse-ignore"
+              target="_blank"
+              href="https://www.facebook.com/sharer/sharer.php?u=<%= URI.encode("https://supergeniusco.herokuapp.com/home/news_detail?id=" + params[:id]) %>;src=sdkpreparse">
+              Share
+            </a>
+          </div>
+        <hr>
+        <a class="btn btn-redder" href="<%= home_news_path %>"><< ย้อนไปหน้ารวมบทความ</a>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- Include JAVASCRIPT here ><-->
+<script src="/js/investor.js"></script>
+<script type="text/javascript">
+  var comp = new Vue({
+    el: '#app',
+    data: {
+    },
+    mounted: function() {
+    }
+  });
+</script>

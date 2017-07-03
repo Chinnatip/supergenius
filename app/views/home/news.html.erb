@@ -1,0 +1,32 @@
+<div class="nav-top-blanket"></div>
+<div id="app">
+  <br><br>
+  <div class="container __body">
+    <h1>ข่าวสารของโรงเรียน</h1>
+  </div>
+  <div class="container _spiltter">
+    <div class="grid-container">
+      <% @news.each do |n| %>
+        <a href="<%= home_news_detail_path%>?id=<%= n[:id]%> " class="col-4 _left news-column">
+          <div class="_img-container" style="background: url(<%= if n[:image].present? then n[:image].to_s else '../img_ref/new_blank.jpg' end %>) no-repeat center center; background-size:cover"></div>
+          <div class="_content">
+            <div class="title"><%= n[:title] %></div>
+            <div class="text"><%= n[:desc] %></div>
+          </div>
+        </a>
+      <% end %>
+    </div>
+  </div>
+</div>
+
+<!-- Include JAVASCRIPT here ><-->
+<script src="/js/investor.js"></script>
+<script type="text/javascript">
+  var comp = new Vue({
+    el: '#app',
+    data: {
+    },
+    mounted: function() {
+    }
+  });
+</script>

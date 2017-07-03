@@ -1,55 +1,46 @@
 <div id="app">
   <div :style="{height: '40px'}"></div>
-  <div class="container _main_cupboard">
-    <div class="_side __320px">
-      <h1>COMPANY TIMELINE</h1>
-      <ul class="_timeline">
-        <li v-for="t in timelines">
-          <span class="_img_comp"><img :src="t.img" alt=""></span>
-          <span class="_content">
-            <p class="__year">{{t.year}}</p>
-            <p class="__title">{{t.title}}</p>
-          </span>
-        </li>
-      </ul>
-
-    </div>
-    <div class="_main">
-      <blog-jumbo :data="history"></blog-jumbo>
-      <br>
-      <div
-        class="_testimo_player"
-        :style="{ background: 'url(' + player.bg + ') no-repeat center center' , backgroundSize: 'cover' }"
-      >
-        <h1 class="">{{player.title}}</h1>
-        <a :href="player.url">
-          <img :src="player.icon">
-          {{player.text}}
-        </a>
+  <div class="container _spiltter _center">
+    <img src="<%= image_path 'asset_program_01.jpg' %>" alt="" class="image_brand">
+    <br><br>
+    <a class="btn btn-redder _big-red" href="#">ตารางเรียนเปิดเทอม เทอม 1 ปี 60</a>
+  </div>
+  <div class="container _spiltter _center">
+    <div class="grid-container">
+      <div class="col-4 _left" v-for="c in contents">
+        <div class="top_tile">
+          <i :class=" 'fa ' + c.icon "></i>
+          <span>{{c.title}}</span>
+        </div>
+        <div class="text_tile">{{c.text}}</div>
       </div>
-
-      <br>
-      <div :style="{height: '40px'}"></div>
-
-      <ul class="_invoker">
-        <li v-for="i in invokes">
-          <img :src="i.img" alt="">
-          <span>
-            <p class="title">{{i.title}}</p>
-            <p class="text">{{i.text}}</p>
-          </span>
-        </li>
-      </ul>
     </div>
+  </div>
+  <div class="container _spiltter _center">
+    <img src="<%= image_path 'asset_program_02.jpg' %>" alt="" class="image_brand">
+    <br><br>
+    <a class="btn btn-redder _big-red" href="#">ตารางเรียนเปิดเทอม เทอม 1 ปี 60</a>
   </div>
 </div>
 
 <!-- Include JAVASCRIPT here ><-->
 <script src="/js/investor.js"></script>
 <script type="text/javascript">
+
   var app = new Vue({
     el: '#app',
     data: {
+      contents: [
+        {icon: 'fa-frown-o' ,title: 'ถ้าน้องๆเรียนที่โรงเรียนไม่รู้เรื่อง', text: 'ถ้าหากเรียนที่โรงเรียนไม่รู้เรื่อง หรือไม่เข้าใจเท่าที่ควร ที่นี่ตอบโจทย์ เพราะเราสอนด้วยความเข้าใจ อธิบายซ้ำและถามได้ตลอดเวลา สอนให้น้องๆทำโจทย์ด้วยความเข้าใจพร้อมกับเทคนิคลัดมากมาย'},
+        {icon: 'fa-user-md' ,title: 'ถ้าอยากเพิ่มเกรด อยากสอบติดที่ดีๆ', text: 'ทางเราจะหาข้อสอบใหม่ๆมาอัพเดทอยู่ตลอด เพื่อให้หนังสือของเราทันสมัยและตรงจุดอยู่เสมอ ไม่ว่าจะสอบที่โรงเรียน หรือสอบเข้าที่ต่างๆ เราสอนเด็กทำได้จนเด็กมาพูดให้ฟังว่า “ข้อสอบออกเหมือนที่พี่ๆสอนทั้งนั้นเลย”'},
+        {icon: 'fa-child' ,title: 'ถ้าเรียนพิเศษที่ไหนก็เครียดตลอด', text: 'ที่นั่นคงไม่ใช่ที่นี่ เพราะเราจะสอนอย่างมีความสุข ให้เด็กสนุก มีส่วนร่วม และได้ความรู้ไปพร้อมๆกัน เราเป็นกันเอง ดูแลเอาใจใส่ ไม่ต่างจากครอบครัว'},
+        {icon: 'fa-tachometer' ,title: 'ถ้าตอนเรียนทำได้ แต่ตอนสอบ ตกตลอด', text: 'นั่นก็เพราะที่เรียนที่อื่นไม่มีการประเมินจุดอ่อนจุดแข็งและหลักการคิดให้น้องๆ ที่นี่เราจะดูแลอย่างใกล้ชิดทุกๆคน โดยเราจะมีการสอบวัดผลเป็นระยะ (บางห้องจะมีเทสก่อนกลับบ้านทุกๆวัน) เพื่อให้น้องได้เติบโตและพัฒนาอย่างต่อเนื่อง'},
+
+        {icon: 'fa-home dark' ,title: 'เดินทางสะดวก ปลอดภัย สวยงาม', text: 'เดินทางสะดวก ไม่ว่าจะรถเมล์ แท๊กซี่ มอเตอร์ไซค์ หรือด้วยรถส่วนตัว ที่จอดรถกว่า 10 คัน และสถานที่เรียนทันสมัย ทำใหม่หมดทั้งโรงเรียน สะอาด ปลอดภัย'},
+        {icon: 'fa-slideshare dark' ,title: 'ผู้ปกครองดูตอนน้องเรียนได้', text: 'ทางเราจะมีการติดกล้องวงจรปิดไว้ที่ห้องเรียนทุกห้อง เพื่อผู้ปกครองสามารถสังเกตการเรียนของลูกหลานได้อย่างใกล้ชิด สามารถมานั่งดูที่ห้องพัก หรือจะดูผ่านมือถือได้ทุกๆแห่ง'},
+        {icon: 'fa-video-camera dark' ,title: 'ชดเชยไม่อั้น', text: 'หากมีบางครั้งที่จำเป็นต้องทำธุระ ไม่มีคนมาส่ง หรืออาจจะต้องพาน้องๆไปด้วย เพื่อความต่อเนื่องในการเรียน เราจะมีวีดีโออัดไว้ให้ทุกครั้ง สามารถมาดูชดเชยที่ขาดไป หรือทบทวนได้ไม่จำกัดเวลา และไม่มีเสียค่าใช้จ่าย'},
+        {icon: 'fa-users dark' ,title: 'คุยกับผู้ปกครองเป็นระยะๆ', text: 'ลูกหลานท่าน ก็ไม่ต่างจากลูกหลานเรา ผู้ปกครองอยากรู้อะไร อยากถามอะไรคุณครู เรามีสายตรงให้คุยกับคุณครูได้ตลอดเวลา รวมถึงตัวคุณครูจะเอาใจใส่บุตรหลานท่านและมีการรายงานเป็นระยะ ว่าน้องตั้งใจไหม เรียนแล้วเป็นยังไง ได้หรือไม่ได้ตรงไหนบ้าง'},
+      ],
       invokes: [
         { img: '/img_ref/ic_01.png', title: 'ความไว้วางใจ', text: 'ด้วยมาตราฐานที่เราใช้ทำธุรกิจ คุณมั่นใจได้ว่าบริษัทของเราสามารถผลิตโครงการอสังหาริมทรัพย์ที่มีคุณภาพ ไม่มีปัญหาในภายหลัง' },
         { img: '/img_ref/ic_02.png', title: 'เทคโนโลยีสากล', text: 'เราใช้เทคโนโลยีในการพัฒนาองค์กรของเรา ทั้งในส่วนการจัดการภายในและตัวผลิตภัณฑ์' },

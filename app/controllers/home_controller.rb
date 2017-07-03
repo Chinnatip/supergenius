@@ -3,6 +3,7 @@ class HomeController < ApplicationController
   require 'json'
   require 'open-uri'
   require 'nokogiri'
+  require 'uri'
   require_relative 'scrap'
 
   def celebrity
@@ -15,20 +16,33 @@ class HomeController < ApplicationController
     @stock_data = parse_set(@quote)[0]
   end
 
-  def test
+  def introduce
+  end
+
+  def course
+  end
+
+  def news
+    # @news = Newsfeed.all
+    @news = Newsfeed.where(status: 'publish')
+  end
+
+  def news_detail
+    @detail = Newsfeed.find(params[:id])
+    if @detail[:viewer].present?
+      @detail[:viewer] += 1
+    else
+      @detail[:viewer] = 0
+    end
+    @detail.save
+
+  end
+
+  def contact
   end
 
   def portfolio
     @filter = params[:filtered]
-  end
-
-  def playground
-  end
-
-  def comp
-  end
-
-  def single
   end
 
   def class_detail

@@ -34,7 +34,6 @@ class NewsfeedsController < ApplicationController
   # POST /newsfeeds.json
   def create
     @newsfeed = Newsfeed.new(newsfeed_params)
-
     respond_to do |format|
       if @newsfeed.save
         format.html { redirect_to @newsfeed, notice: 'Newsfeed was successfully created.' }

@@ -19,7 +19,7 @@
       <% @newsfeeds.each do |newsfeed| %>
         <tr>
           <td><%= newsfeed.title %></td>
-          <td><%= newsfeed.desc %></td>
+          <td><span style="height: 60px;display: block;text-overflow: ellipsis;"><%= newsfeed.desc %></span></td>
           <td><%= newsfeed.newstype %></td>
           <td><%= newsfeed.writer %></td>
           <td><%= newsfeed.status %></td>

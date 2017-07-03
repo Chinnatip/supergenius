@@ -4,7 +4,8 @@
   &._fixed_top
     .hero-head
       position: fixed
-      top: 0
+      // top: 0
+      top: 36px
       width: 100%
       z-index: 20
       &._mainH_wait_nav
@@ -52,8 +53,9 @@
   position: relative
   min-width: 120px
   padding: 0 20px
-  border-bottom: 3px solid rgba(0,0,0,0)
+  border-bottom: 3px solid #ffffff
   color: #aa3537 !important
+  transition: 0.6s
   &.active
     @media screen and (max-width: 768px)
       border-bottom: 0 !important
@@ -64,6 +66,7 @@
     color: #aa3537 !important
     border-bottom: 3px solid white
     font-weight: bolder !important
+    border-bottom: 3px solid #aa3537
     @media screen and (max-width: 768px)
       border-bottom: 0 !important
   &.user-name
@@ -103,7 +106,7 @@
 .nav
   &._fixed
     position: fixed
-    top: 60px
+    top: 96px
     width: 100%
     //background: $is-info !important
   &._nav_affix

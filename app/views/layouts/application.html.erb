@@ -1,103 +1,234 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Super Genius</title>
+    <title>กวดวิชา Super Genius</title>
     <%= csrf_meta_tags %>
-    <%= stylesheet_link_tag    'application', media: 'all'%>
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application' %>
+
+  	<meta charset="utf-8">
+  	<meta property="og:image" content="http://i.imgur.com/LbQa0iH.jpg">
+  	<meta property="fb:app_id" content="222852828233310" >
+  	<meta property="og:title" content="กวดวิชา Super Genius">
+  	<meta name="description" property="og:description" content="สถาบันกวดวิชาอันดับ1 ในย่านรังสิตกับความภูมิใจ สอบติดโรงเรียนชั้นนำ 100% 5ปีซ้อน">
+    <meta name="keywords" content="กวดวิชา,ประถม,รังสิต,สอบเข้า,ติวเลข">
+  	<meta name="author" content="Chinnatip Taemkaeo | chin@kohlife.com">
+  	<meta name="viewport" content="width=device-width, initial-scale=1">
+  	<meta name="theme-color" content="#990003">
+  	<link rel="manifest" href="manifest.json" />
+  	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+  	<meta property="og:url" content="https://supergeniusco.herokuapp.com/">
+  	<link rel="canonical"   href="https://supergeniusco.herokuapp.com/" />
     <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
   </head>
-  <body class="admin-body">
-    <!-- header ><-->
+  <body class="">
+    <!-- integrate facebook sdk -->
+    <div id="fb-root"></div>
+    <script>(function(d, s, id) {
+      var js, fjs = d.getElementsByTagName(s)[0];
+      if (d.getElementById(id)) return;
+      js = d.createElement(s); js.id = id;
+      js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.9&appId=222852828233310";
+      fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));</script>
+
+    <!-- content-header -->
     <div id="cHeader">
-      <section class="hero _fixed_top" :class="[body.theme,body.size]" :style="{ background: 'url(' + body.background + ') no-repeat center center' , backgroundSize: 'cover' }">
+      <div class="banner-top">
+         Tel. 0897606279 (พี่วิน) , 085-334-8815 (พี่ป๊อป)|windz_bs@hotmail.com
+         <div
+           class="fb-share-button"
+           data-href="https://supergeniusco.herokuapp.com"
+           data-layout="button_count"
+           data-size="large"
+           data-mobile-iframe="true">
+             <a
+               class="fb-xfbml-parse-ignore"
+               target="_blank"
+               href="https://www.facebook.com/sharer/sharer.php?u=<%= URI.encode("https://supergeniusco.herokuapp.com") %>;src=sdkpreparse">
+               Share
+             </a>
+           </div>
+       </div>
+      <section class="hero _fixed_top" >
         <nav-bar
           :nav="nav"
           :body="body"
           :login="login"
           :role="checkRole"
+          :active="url_action"
           user="<%= current_user[:name] rescue '' %>"
-          ></nav-bar>
+          v-if="mainEnable"
+          >
+        </nav-bar>
       </section>
     </div>
 
-    <section class="is-fullheight _dashboard">
-      <div class="__sidebar" id="sidebar">
-        <ul v-for=" ul in lists">
-          <li v-for="li in ul">
-            <a v-if="li.head == 'head'" class="_head" >{{li.text}}</a>
-            <a v-else :href="li.link" :class=" isActive(li.active) " >{{li.text}}</a>
-          </li>
-        </ul>
-      </div>
-      <div class="__content">
-        <div class="__content_padding">
-          <%= yield %>
-        </div>
-      </div>
-      <div class="__content_footer"> Copyright, Super Genius school.co.ltd @2017</div>
+    <!-- content-body -->
+    <%= yield %>
 
-    </section>
+    <!-- footer ><-->
+    <div id="cFooter">
+      <black-ribbon></black-ribbon>
+      <footer-site-corp :footer="footer"></footer-site-corp>
+    </div>
 
     <!-- Include JAVASCRIPT here ><-->
     <script src="/js/body.js"></script>
     <script src="/js/ribbon.js"></script>
-    <script src="/js/slider.js"></script>
-    <script src="/js/footer.js"></script>
+    <script src="/js/footer_site.js"></script>
     <script type="text/javascript">
-    $( document ).ready(function() {
-    });
+      //controll navbar
+      $( document ).ready(function() {
+        //nav controller
+        var mainH = $('#main_side').outerHeight();
+        var navH = $('#navbar').outerHeight();
+        var bodyH = $('#body_content').outerHeight();
+        if (mainH > 0) {
+          $('#navbar').addClass('_mainH_wait_nav');
+        }
+
+        $(window).scroll(function (event) {
+          var scroll = $(window).scrollTop();
+          if (scroll > mainH) {
+            // $('#navbar').removeClass('_mainH_wait_nav');
+            //header.scrollCheck = false;
+          }else{
+            // $('#navbar').addClass('_mainH_wait_nav');
+          }
+
+          if (scroll >= ( mainH + bodyH )) {
+            $('._nav_affix').addClass('_fixed');
+            $('#float').addClass('_fixed_margin');
+            $('#gap-baker').addClass('top-60');
+            // $('.banner-top').addClass('_fixed_bottom');
+          }else{
+            $('._nav_affix').removeClass('_fixed');
+            $('#float').removeClass('_fixed_margin');
+            $('#gap-baker').removeClass('top-60');
+            // $('.banner-top').removeClass('_fixed_bottom');
+          }
+        });
+      });
+
+      //Smooth scroll
+      $(document).on('click', 'a[href^="#"]', function(e) {
+          var id = $(this).attr('href');
+          var $id = $(id);
+          if ($id.length === 0) {
+              return;
+          }
+          e.preventDefault();
+          var pos = $(id).offset().top;
+          $('body, html').animate({scrollTop: pos},1000);
+      });
 
       //component of header
       var header = new Vue({
         el: '#cHeader',
-        computed:{
+        computed: {
           checkRole: function(){
             if (this.login) {
               return '<%= current_user.role rescue '' %>' ;
             }
-          }
+          },
+          desktopCheck: function(){
+            console.log(this.screenW);
+            if (this.screenW > 560) { return true } else { return false }
+          },
+          aboutCheck: function(){
+            if (this.url_action == 'about') { return true } else { return false }
+          },
+          mainEnable: function(){
+            // if (this.aboutCheck  && this.desktopCheck && this.scrollCheck) {
+            if (this.url_action == 'introduce') {
+              return false
+            } else {
+              return true
+            }
+          },
+          selectContent: function(){
+            console.log('hello');
+            for (var i = 0; i < this.content.length; i++) {
+              var select ;
+              if (this.content[i].key == this.url_action) {
+                select = i ;
+              }
+            }
+            console.log( this.content[select]);
+            return this.content[select]
+          },
         },
         data: {
           url_action: '<%= controller.action_name %>' ,
           url_controller: '<%= controller.controller_name %>' ,
+          scrollCheck: true,
+          screenW: $(window).width() ,
           login: <%= user_signed_in? %>,
           body: {
             theme: 'is-info',
-            background: '/img_ref/bg_blue.jpg',
+            background: '/img_ref/bg_top.jpg',
+            mainbg: '/super/DSC_6848.jpg',
             size:  'is-medium',
-            title: 'นักลงทุนสัมพันธ์',
-            sub:   'Public Company Limited มุ่งมั่นที่จะเป็นบริษัทอสังหาริมทรัพย์ชั้นนำของประเทศไทย ที่มีธุรกิจและบริการที่หลากหลายเพื่อตอบสนองรูปแบบการดำเนินชีวิตสมัยใหม่ และสามารถตอบโจทย์ความต้องการของลูกค้าได้อย่างครบถ้วน',
-            link: 'นักลงทุนสัมพันธ์',
-            url:  ''
           },
-          sliders: [
-            {
-              title: 'บริษัท พฤกษา โฮลดิ้ง จำกัด (มหาชน)',
-              subtitle: 'PCL มุ่งมั่นที่จะเป็นบริษัทอสังหาริมทรัพย์ชั้นนำของประเทศไทย ที่มีธุรกิจและบริการที่หลากหลายเพื่อตอบสนองรูปแบบการดำเนินชีวิตสมัยใหม่ และสามารถตอบโจทย์ทุกความต้องการของลูกค้าได้อย่างครบถ้วน',
-              tab: 'tab1'
-            },
-            {
-              title: 'Hey this is SECOND TAB',
-              subtitle: 'are you ok with this ?',
-              tab: 'tab2'
-            },
-            {
-              title: 'I beleive I can fly',
-              subtitle: 'Osmosis ',
-              tab: 'tab3'
-            },
+          iLinks:[
+            { title: 'สถาบันกวดวิชา'   ,action:'' , url: 'index' },
+            { title: 'Student Gallery'  ,action:'' , url: 'index' },
+            { title: 'Tutors'        ,action:'' , url: 'index' },
+            { title: 'Top Students'  ,action:'' , url: 'index' },
           ],
-          slider: false ,
+          content: [
+            { key: 'about'   , title: 'เกี่ยวกับเรา'   ,url: '#nav-affix', link: 'เกี่ยวกับเรา' , sub: 'ที่มาของโรงเรียนเเละความภูมิใจของเรา',},
+            { key: 'news'    , title: 'ข่าวและกิจกรรม',url: '', link: 'ข่าวเเละกิจกรรม' , sub: 'รวบรวมข่าวคราวล่าสุดจากโรงเรียน Super Genius',},
+            { key: 'contact' , title: 'ติดต่อเรา'     ,url: '', link: 'ติดต่อเรา' , sub: 'แผนที่สถานที่ตั้งโรงเรียน เเละช่องทางติดต่อ',},
+          ],
+          sliders: [
+            { title: 'SUPER GENIUS school',tab: 'tab1',url: '#nav-affix', link: 'ดูคอร์สเรียนของเรา >>', subtitle: 'เพราะการเล่นทำให้เด็กฉลาด เราจึงเป็นโรงเรียนสอนพิเศษที่ให้ มากกว่าเเค่ความรู้ สถานที่ที่น้องๆจะได้สาระพร้อมทั้งความสนุก ผู้ปกครองสบายใจ เด็กได้เกรดดี มีสังคมของเพื่อนๆต่างโรงเรียน'},
+            { title: 'เรียนอย่าง เข้าใจ ไม่ใช่ท่องจำ',tab: 'tab2',url: '#nav-affix', link: 'บรรยากาศห้องเรียน >>', subtitle: '---'},
+            { title: 'บรรยากาศเป็นกันเอง ถาม ตอบ ได้ตลอดเวลา',tab: 'tab3',url: '#nav-affix', link: 'บรรยากาศห้องเรียน >>', subtitle: '---'},
+            { title: 'พิสูจน์เเล้วกว่า 500คน 100โรงเรียน เกรดขึ้น สอบติดเเน่นอน',tab: 'tab4',url: '#nav-affix', link: 'รุ่นพี่ Super Genius >>', subtitle: '---'},
+            { title: 'ประเมินผลรายบุคคลอย่างละเอียด ให้ข้อมูลสถาบันเเละหลักสูตรที่น่าสนใจ รวมถึงดูความเป็นไปได้ในการสอบ เพื่อศึกษาต่อในที่ต่างๆ',tab: 'tab5',url: '#nav-affix', link: 'เช็คผลการเรียน >>', subtitle: '---'},
+            { title: 'ห้องเรียนกว้างขวาง สถานที่สวยงาม ปลอดภัย',tab: 'tab6',url: '#nav-affix', link: 'บรรยากาศห้องเรียน >>', subtitle: '---'},
+            { title: 'เรียนสนุก มีความสุข ความรู้ครบถ้วน',tab: 'tab7',url: '#nav-affix', link: 'ดูคอร์สเรียนของเรา >>', subtitle: '---'},
+            { title: 'สื่อการสอนครบครัน ทันสมัย',tab: 'tab8',url: '#nav-affix', link: 'ดูคอร์สเรียนของเรา >>', subtitle: '---'},
+          ],
+          slider: true ,
           choice: 'tab1',
           nav: {
             brand: '/img_ref/sup_01.png',
-            brandLink: "<%= page_about_path %>#navbar",
-            links: [],
+            brandLink: "<%= root_path %>",
+            links: [
+              {
+                title: 'หน้าหลัก',
+                controller: 'index',
+                link: '<%= root_path %>',
+                target: ''
+              },{
+                title: 'คอร์สเรียน',
+                controller: 'course',
+                link: "<%= home_course_path %>",
+                target: ''
+              },{
+                title: 'เช็คผลการเรียน',
+                controller: 'report',
+                link: "<%= report_index_path %>",
+                target: ''
+              },{
+                title: 'ข่าวเเละกิจกรรม',
+                controller: 'news',
+                link: "<%= home_news_path %>",
+                target: ''
+              },{
+                title: 'ติดต่อเรา',
+                controller: 'contact',
+                link: "<%= home_contact_path %>",
+                target: ''
+              }
+            ],
             backLink: {
               title: 'Dashboard',
-              icon: 'fa-commenting-o',
+              icon: 'fa-id-card-o',
               link: '<%= dashboard_index_path %>'
             },
             login: {
@@ -105,34 +236,6 @@
             },
             logout: {
               icon: 'fa-sign-out'
-            }
-          }
-        }
-      });
-
-      var side = new Vue({
-        el: '#sidebar',
-        data: {
-          url_control: '<%= controller.controller_name %>' ,
-          url_action: '<%= controller.action_name %>' ,
-          url_active: '<%= @active %>',
-          lists: [
-            [
-              { text: <% if current_user %> 'Admin page' <% else %> 'ผลการเรียน' <% end %> , link: '' , head: 'head' },
-              { text: 'หน้าหลัก'     , link: '<%= dashboard_index_path %>'  , active: 'dashboard', },
-              { text: 'คอร์สเรียน' , link: '<%= courses_path %>'  , active: 'courses', },
-              { text: 'ชั้นเรียน' , link: '<%= classrooms_path %>'  , active: 'classrooms', },
-              { text: 'รายชื่อนักเรียน' , link: '<%= students_path %>'  , active: 'students', },
-              { text: 'รายชื่อโรงเรียน' , link: '<%= schools_path %>'  , active: 'schools', },
-              { text: 'รายชื่อครู' , link: '<%= teachers_path %>'  , active: 'teachers', },
-              { text: 'ข่าวสารโรงเรียน', link: '<%= newsfeeds_path %>'        , active: 'newsfeeds', },
-            ]
-          ],
-        },
-        methods: {
-          isActive: function( val ){
-            if (val == this.url_control) {
-              return 'active'
             }
           }
         }
@@ -179,6 +282,15 @@
           }
         }
       });
+    </script>
+
+    <!--Start of Zendesk Chat Script-->
+    <script type="text/javascript">
+      window.$zopim||(function(d,s){var z=$zopim=function(c){z._.push(c)},$=z.s=
+      d.createElement(s),e=d.getElementsByTagName(s)[0];z.set=function(o){z.set.
+      _.push(o)};z._=[];z.set._=[];$.async=!0;$.setAttribute("charset","utf-8");
+      $.src="https://v2.zopim.com/?4vePsNGaW0In7NMavgbB8VVghQe2J3SQ";z.t=+new Date;$.
+      type="text/javascript";e.parentNode.insertBefore($,e)})(document,"script");
     </script>
   </body>
 </html>
