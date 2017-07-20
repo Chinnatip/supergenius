@@ -41,6 +41,7 @@ class ReportController < ApplicationController
           g[:classroom] << {
             spec: r[:spec],
             name: r[:name] ,
+            old_link: r[:old_link] ,
             student: Classroom.parse_seat(r[:spec]) ,
             teacher: Classroom.parse_teacher(r[:teacher]) ,
             period: r[:period]

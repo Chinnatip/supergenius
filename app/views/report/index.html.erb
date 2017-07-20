@@ -17,7 +17,8 @@
         <br>
         <div style="margin-left: -1%">
           <% ci[:classroom].each do |gc| %>
-            <a href="<%= report_index_path %>/<%= gc[:spec] %>" class="class-grid">
+            <!-- <a href="<%= report_index_path %>/<%= gc[:spec] %>" class="class-grid"> -->
+            <a target="_blank" href="<%= gc[:old_link] %>" class="class-grid">
               <div class="_name"><%= gc[:name] %></div>
               <div class="_spec"><%= gc[:spec] %></div>
               <% if current_user.present? %>
