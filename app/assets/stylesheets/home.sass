@@ -491,7 +491,21 @@ h1
 .course_path
   margin-top: 96px
   padding-top: 36px
-  background: #d8a9aa
+  background: url('../img_ref/report.jpg')
+  background-size: contain
+  .class-grid-container
+    position: relative
+    max-width: 960px
+    margin: auto
+    background: rgba(218, 199, 199, 0.77)
+    padding: 8vh 3vw 2vh
+    border-radius: 7px
+    // border: 1px solid rgba(255, 255, 255, 0.7)
+    .btn-backer
+      top: 8vh
+      right: 3vw
+      background: #e42a2e
+      border: 0px
 
 .class-grid-container
   position: relative
@@ -508,7 +522,11 @@ h1
     font-size: 20px
     margin-bottom: 9px
     &.spread
-      box-shadow: 0 0 30px #ca7a7c
+      font-size: 14px
+      background: #e42a2e
+      color: #ffffff
+      border-radius: 30px
+      padding: 7px 15px
     &.kid-track
       @media screen and (max-width: 640px)
         margin-left: 0
