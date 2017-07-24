@@ -34,6 +34,9 @@ gem 'omniauth-facebook'
 # mailer with sendgrid
 gem 'sendgrid-ruby'
 
+# qr code
+gem 'rqrcode', '~> 0.10.1'
+
 # Use Puma as the app server
 gem 'puma', '~> 3.0'
 # Use SCSS for stylesheets

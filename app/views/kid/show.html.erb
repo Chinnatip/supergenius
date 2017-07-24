@@ -113,6 +113,53 @@
   </form>
 </div>
 
+<div class="container center" style="text-align:center">
+  <br>
+  <div class="student-card front">
+    <div class="top_bar">
+      <img class="logo_brand" src="../img_ref/sg_logo.png" alt=""/>
+      <h3>Super Genius School</h3>
+      <p>www.supergeniusschool.com</p>
+    </div>
+    <div class="title_bar">บัตรนักเรียนโรงเรียนกวดวิชา</div>
+    <div class="content_bar">
+      <img class="profile" src="../img_ref/kids.png" alt=""/>
+      <div class="contents">
+        <p>
+          <span>ชื่อ : </span>
+          <span class="_text" >น้อง<%=  @kid[:name] %></span>
+        </p>
+        <p>
+          <span>โรงเรียน : </span>
+          <span class="_text" ><%=  @kid[:school] %></span>
+        </p>
+        <p>
+          <span>รหัสนักเรียน : </span>
+          <span class="_text" ><%= @kid[:id] %></span>
+        </p>
+        <p>
+          <span>เช็คผลการเรียน : </span>
+          <span class="_text _little">www.supergeniusschool.com/kid/<%= @kid[:id] %></span>
+        </p>
+      </div>
+    </div>
+    <div class="bottom_bar">
+      <!-- <p>โรงเรียนกวดวิชา Super Genius</p> -->
+      <p>ที่ตั้ง: รังสิต-ปทุมธานี 14 ซอย 9 ต.ประชาธิปัตย์ อ.ธัญบุรี จ.ปทุมธานี 12130 | โทร: 089-760-6279</p>
+    </div>
+  </div>
+  <div style="margin-top:30px"></div>
+  <div class="student-card back">
+    <div class="qr_gen">
+      <%= raw @qr.as_html %>
+    </div>
+    <h3>แสกน QR เพื่อเช็คผลการเรียน</h3>
+    <p>หรือเข้าเวปไซท์ www.supergeniusschool.com/kid/<%= @kid[:id] %></p>
+  </div>
+</div>
+<br><br>
+
+
 <script type="text/javascript">
   $( document ).ready(function() {
     $('.open-modal').on('click',function(){

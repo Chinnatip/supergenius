@@ -2,6 +2,10 @@ class KidController < ApplicationController
   layout "report"
   before_action :authenticate_user!, only: [:show]
 
+  # inject qrcode generator
+  require 'rqrcode'
+  require 'chunky_png'
+
   def show
     result = []
     kid   = Student.where(student_code: params[:id]).first
@@ -20,6 +24,8 @@ class KidController < ApplicationController
     }
     end
     @result = result
+    # get QR code
+    @qr = RQRCode::QRCode.new( 'https://github.com/whomwah/rqrcode', :size => 4, :level => :h )
   end
 
   def index
