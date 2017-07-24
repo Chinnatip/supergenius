@@ -20,6 +20,7 @@
           <thead>
             <tr>
               <th>เลือก</th>
+              <th>ภาพถ่าย</th>
               <th>ชื่อนักเรียน</th>
               <th>โรงเรียน</th>
               <th>รหัสนักเรียน</th>
@@ -30,7 +31,11 @@
              <% school = School.find(s[:school]) %>
               <tr>
                 <td><input type="checkbox" name="[student]<%= s[:student_code] %>" value="" code="<%= s[:student_code] %>"> </td>
-                <td><%= s[:nickname] %></td>
+                <td><img src="../img_ref/kids.png" alt="" style="width:30px"/></td>
+                <td>
+                  <%= s[:nickname] %><br>
+                  <a target="_blank" href="/students/<%= s[:id] %>/edit" style="color:#3F51B5">ดูข้อมูลเด็ก >></a>
+                </td>
                 <td><%= school[:name] %></td>
                 <td><%= s[:student_code] %></td>
               </tr>
