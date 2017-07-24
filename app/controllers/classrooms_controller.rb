@@ -1,18 +1,14 @@
 class ClassroomsController < ApplicationController
-
   layout 'dashboard'
-
-  before_action :set_classroom, only: [:show, :edit, :update, :destroy]
+  before_action :set_classroom, only: [:show, :edit, :update, :destroy] , except: [:class_detail]
   before_action :authenticate_user!
 
   def detacthed_course_spec(cs)
     course = Course.find(cs)
     grader = ['P1','P2','P3','P4','P5','P6','M1','M2','M3','M4','M5','M6']
-
     major   = course[:major].to_s
     grade   = grader[course[:grade].to_i - 1]
     current_year = (Time.now.strftime('%Y')[2..3].to_i + 43).to_s
-
     runner = Classroom.where(course: course[:id])
     if runner.count > 0
       parser = []
@@ -45,6 +41,11 @@ class ClassroomsController < ApplicationController
 
   # GET /classrooms/1/edit
   def edit
+  end
+
+  def class_detail
+    @seats   = Seat.where(classroom: params[:id])
+    @periods = Classroom.where(spec: params[:id]).first[:period] + 1
   end
 
   # POST /classrooms
@@ -90,7 +91,7 @@ class ClassroomsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_classroom
-      @classroom = Classroom.find(params[:id])
+      @classroom = Classroom.find(params[:id])  rescue ''
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

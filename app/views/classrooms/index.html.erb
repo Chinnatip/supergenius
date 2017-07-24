@@ -82,7 +82,7 @@
           <td><%= classroom_detail[:course_period_from] %> -<br><%= classroom_detail[:course_period_to] %></td>
           <td><%= classroom_detail[:timetable_from] %> -<br><%= classroom_detail[:timetable_to] %></td>
           <td><%= classroom_detail[:status] %></td>
-          <td><a target="_blank" href="<%= home_class_detail_path %>?id=<%= classroom.spec %>" class="btn-redder">ผลคะเเนน</a></td>
+          <td><a target="_blank" href="<%= classrooms_class_detail_path %>?id=<%= classroom.spec %>" class="btn-redder">ผลคะเเนน</a></td>
           <td><%= link_to 'รายละเอียด', edit_classroom_path(classroom) , class: 'btn-grey'  %></td>
           <td><%= link_to 'ลบทิ้ง', classroom, method: :delete, data: { confirm: 'Are you sure?' } , class: 'btn-grey' %></td>
         </tr>

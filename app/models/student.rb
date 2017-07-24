@@ -23,6 +23,21 @@ class Student < ApplicationRecord
     }
   end
 
+  def self.score_rate(score)
+    case score
+    when 0
+      return {img: '⚪' ,ment: '-'}
+    when 1..3
+      return  {img: '👽' ,ment: 'Bad'}
+    when 4..6
+      return  {img: '☹️' ,ment: 'Not really'}
+    when 7..8
+      return  {img: '😀' ,ment: 'Good'}
+    when 9..10
+      return  {img: '😍' ,ment: 'Great'}
+    end
+  end
+
   def self.parse_school(key)
     school = School.find(key)[:name]
     return school

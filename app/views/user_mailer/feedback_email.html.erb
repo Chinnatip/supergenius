@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+    <h1>ฟีดแบคจากผู้ปกครองของน้อง <%= @feedback[:name] %> รหัสนักเรียน <%= @feedback[:code] %></h1>
+    <hr>
+    <h3>Profile feedback</h3>
+    <h5><%= @feedback[:profile] %></h5>
+    <hr>
+    <h3>Scoring feedback</h3>
+    <h5><%= @feedback[:scoring] %></h5>
+    <hr>
+    <h3>Mental feedback</h3>
+    <h5><%= @feedback[:mental] %></h5>
+    <hr>
+    <h3>School feedback</h3>
+    <h5><%= @feedback[:school_feedback] %></h5>
+    <hr>
+    <p> เข้าสู่เวปไซท์เพื่อแก้ไขข้อมูลน้อง<%= @feedback[:name]%> <a href="http://www.supergeniusschool.com/students/<%= @feedback[:id] %>/edit">คลิ๊กที่นี่</a> </p>
+    <!-- <p>Thanks for joining and have a great day!</p> -->
+  </body>
+</html>

@@ -61,11 +61,6 @@ class HomeController < ApplicationController
     @filter = params[:filtered]
   end
 
-  def class_detail
-    @seats   = Seat.where(classroom: params[:id])
-    @periods = Classroom.where(spec: params[:id]).first[:period] + 1
-  end
-
   def update_class
     # puts 'get params >>>>>>>>>>'
     # puts params[:student]

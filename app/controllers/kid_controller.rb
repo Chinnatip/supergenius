@@ -35,4 +35,25 @@ class KidController < ApplicationController
     end
     @kid = result
   end
+
+  def feedback
+    student = Student.where( student_code: params[:student_id] ).first
+    @feedback = {
+      id:      student[:id],
+      name:    student[:nickname],
+      code:    student[:student_code],
+      profile: params[:profile],
+      scoring: params[:scoring],
+      mental:  params[:mental] ,
+      school_feedback: params[:school_feedback]
+    }
+    puts @feedback
+
+    # sending feedback email to admin
+    mailto = 'chin@kohlife.com'
+    UserMailer.feedback_email(@feedback , mailto).deliver_now
+
+    # redirect to student page
+    redirect_to :back
+  end
 end

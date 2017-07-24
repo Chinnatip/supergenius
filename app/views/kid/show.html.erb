@@ -1,5 +1,5 @@
 <div class="class-grid-container">
-  <img class="img_set" src="../img_ref/bell.png" alt=""/>
+  <img class="img_set" src="../img_ref/kids.png" alt=""/>
   <h2 class="title img_left"><%= @kid[:name]%> | รหัสนักเรียน <%= @kid[:id]%></h2><br>
   <h2 class="_title_sub img_left"><%= @kid[:grade]%> โรงเรียน<%= @kid[:school]%></h2>
   <%= link_to :back  do %>
@@ -14,42 +14,8 @@
   <div class="desktop-show">
     <br>
     <br>
-    <br>
   </div>
-  <div class="desktop-show">
-    <table>
-      <thead>
-        <tr>
-          <th>คอร์สเรียน</th>
-          <th>คอมเม้นท์</th>
-          <th>คะเเนนรวม</th>
-          <% 14.times do |i| %>
-            <th><%= i + 1 %></th>
-          <% end %>
-        </tr>
-      </thead>
-      <tbody>
-        <% @result.each do |r| %>
-          <% seat_detail = Seat.seat_detail(r)%>
-          <tr>
-            <td><a href="<%= report_index_path %>/<%= r[:classroom] %>"><%= r[:classroom] %></a></td>
-            <td><%= r[:comment] %></td>
-            <td>
-              <div class="sc-tb">สอบ (<%= seat_detail[:total] %>)</div>
-              <div class="ma-tb">ตั้งใจ (<%= seat_detail[:total_mental] %>)</div>
-            </td>
-            <% seat_detail[:score][:scoring].each_with_index do |score,idx|%>
-              <td style="max-width:22px">
-                <span><%= seat_detail[:score][:scoring][idx] %></span><br>
-                <span><%= seat_detail[:score][:mental][idx +1] %></span>
-              </td>
-            <% end %>
-          </tr>
-        <% end %>
-      </tbody>
-    </table>
-  </div>
-  <div class="mobi-show">
+  <div class="">
     <% @result.each do |r| %>
       <% seat_detail = Seat.seat_detail(r)%>
         <div class="course-result-mobi">
@@ -59,7 +25,7 @@
             <thead>
               <tr>
                 <th>ครั้งที่</th>
-                <% 14.times do |t|%>
+                <% seat_detail[:score][:scoring].count.times do |t|%>
                   <th><%= t+1 %></th>
                 <% end %>
               </tr>
@@ -69,19 +35,93 @@
                 <td>
                   คะเเนน
                 </td>
-                <% 14.times do |t|%>
+                <% seat_detail[:score][:scoring].count.times do |t|%>
                   <td><%= seat_detail[:score][:scoring][t] %></td>
+                <% end %>
+              </tr>
+              <tr>
+                <td>จิตพิสัย</td>
+                <% (seat_detail[:score][:mental].count - 1).times do |t|%>
+                  <td class="mental_emoji"><%= Student.score_rate(seat_detail[:score][:mental][t + 1])[:img] %></td>
                 <% end %>
               </tr>
             </tbody>
           </table><br>
-          <canvas id="myChart<%= r[:classroom]%>" height="200"></canvas>
+          <canvas id="myChart<%= r[:classroom]%>" height="90"></canvas>
           <script>
-            new Chart(document.getElementById("myChart<%= r[:classroom]%>"),{"type":"line","data":{"labels":[1,2,3,4,5,6,7,8,9,10,11,12,13,14],"datasets":[{"label":"คะเเนนสอบ","data":<%= seat_detail[:score][:scoring].to_json %>,"fill":false,"borderColor":"rgb(231, 131, 143)","lineTension":0.2}]},"options":{ legend: {display: false}, scales: { xAxes: [{ gridLines: { display:false }}], yAxes: [{ gridLines: { display:false}}] } }});
+            new Chart(document.getElementById("myChart<%= r[:classroom]%>"),{
+              "type":"line",
+              "data":{
+                // "labels":[1,2,3,4,5,6,7,8,9,10,11,12,13,14],
+                "labels": [<% seat_detail[:score][:scoring].count.times do |t|%><%= t + 1 %>,<%end%>] ,
+                "datasets":[
+                  {
+                    "label":"คะเเนนสอบ","data":<%= seat_detail[:score][:scoring].to_json %>,
+                    "fill":false,
+                    "borderColor":"rgb(231, 131, 143)","lineTension":0.2
+                  }
+                ]
+              },
+              "options":{
+                legend: {display: false},
+                scales: { xAxes: [{ gridLines: { display:false }}],
+                yAxes: [{ gridLines: { display:false}}]
+              }
+            }
+            });
           </script>
-
         </div>
     <% end %>
   </div>
-
+  <a class="feedback_button open-modal" href="#">
+    <i class="fa fa-pencil" aria-hidden="true"></i>
+  </a>
 </div>
+
+<div class="modal">
+  <div class="modal-background"></div>
+  <form class="modal-card" action="<%= kid_feedback_path %>" method="get">
+    <input class="cl-id" type="hidden" name="student_id" value="<%= @kid[:id]%>">
+    <header class="modal-card-head">
+      <p class="modal-card-title">เขียนคอมเม้นท์</p>
+    </header>
+    <section class="modal-card-body comment-body">
+      <!-- Content ... -->
+      <label class="topper" for="">ผู้ปกครองกรุณาพิมพ์ข้อความตามหัวข้อที่ต้องการพูดคุยกับโรงเรียนครับ</label>
+      <div   class="st-course" style="margin-bottom: 16px;"></div>
+      <label class="label-topper" for="profile" >
+        แก้ไขข้อมูลส่วนตัวของนักเรียน
+      </label>
+      <textarea name="profile" rows="6" cols="80" placeholder="กรุณาพิมพ์ในช่องว่าง"></textarea>
+      <label class="label-topper" for="scoring" >
+        ทักท้วงเรื่องการให้คะเเนนในบางรายวิชา
+      </label>
+      <textarea name="scoring" rows="6" cols="80" placeholder="กรุณาพิมพ์ในช่องว่าง"></textarea>
+      <label class="label-topper" for="mental" >
+        พูดคุยเกี่ยวเรื่อง พัฒนาการของเด็ก
+      </label>
+      <textarea name="mental" rows="6" cols="80" placeholder="กรุณาพิมพ์ในช่องว่าง"></textarea>
+      <label class="label-topper" for="school_feedback" >
+        เเนะนำติชม การเรียนการสอน
+      </label>
+      <textarea name="school_feedback" rows="6" cols="80" placeholder="กรุณาพิมพ์ในช่องว่าง"></textarea>
+    </section>
+    <footer class="modal-card-foot">
+      <input type="submit" class="button is-success" value="ส่งข้อมูล">
+      <a class="button closer">ยกเลิก</a>
+    </footer>
+  </form>
+</div>
+
+<script type="text/javascript">
+  $( document ).ready(function() {
+    $('.open-modal').on('click',function(){
+      $('.modal').addClass('is-active');
+      spec = $(this).attr("spec");
+    });
+
+    $('.closer').on('click',function(){
+      $('.modal').removeClass('is-active');
+    });
+  });
+</script>

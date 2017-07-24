@@ -10,7 +10,7 @@
         <th>นักเรียน</th>
         <th>ชั้นปี</th>
         <th>โรงเรียน</th>
-        <th>คอมเม้นท์</th>
+        <!-- <th>คอมเม้นท์</th> -->
         <th>คะเเนนรวม</th>
         <% @periods.times do |i| %>
           <th><%= i + 1%></th>
@@ -30,17 +30,39 @@
             <td><%= seat_detail[:name] %></td>
             <td><%= seat_detail[:grade] %></td>
             <td><%= seat_detail[:school] %></td>
-            <td style="max-width:90px; padding-right: 8px;">
+            <!-- <td style="max-width:90px; padding-right: 8px;">
               <input type="text" name="comment" value="<%= seat_detail[:comment] %>" style="width:100%">
-            </td>
+            </td> -->
             <td>
               <div class="sc-tb">สอบ (<%= seat_detail[:total] %>)</div>
               <div class="ma-tb">ตั้งใจ (<%= seat_detail[:total_mental] %>)</div>
             </td>
             <% seat_detail[:score][:scoring].each_with_index do |score,idx|%>
               <td style="max-width:22px">
-                <input type="text" name="score[<%= idx.to_i %>]"  value="<%= seat_detail[:score][:scoring][idx] %>" style="width:100%"> <br>
-                <input type="text" name="mental[<%= idx.to_i %>]" value="<%= seat_detail[:score][:mental][idx + 1]%>"  style="width:100%">
+                <!-- <input type="text" name="score[<%= idx.to_i %>]"  value="<%= seat_detail[:score][:scoring][idx] %>" style="width:100%"> <br> -->
+                <!-- <input type="text" name="mental[<%= idx.to_i %>]" value="<%= seat_detail[:score][:mental][idx + 1]%>"  style="width:100%"> -->
+                <select class="select-boxing" name="">
+                  <% 11.times do |t| %>
+                    <option
+                      value="<%= t %>"
+                      name="score[<%= idx.to_i %>]"
+                      <% if t == seat_detail[:score][:scoring][idx].floor.to_i %> selected <% end %>
+                      >
+                      <%= t %>
+                    </option>
+                  <% end %>
+                </select> <br>
+                <select class="select-boxing" name="">
+                  <% 11.times do |t| %>
+                    <option
+                      value="<%= t %>"
+                      name="mental[<%= idx.to_i %>]"
+                      <% if t == seat_detail[:score][:mental][idx + 1].floor.to_i %> selected <% end %>
+                      >
+                      <%= t %>
+                    </option>
+                  <% end %>
+                </select>
               </td>
             <% end %>
             <td><input type="submit" name="" value="อัพเดท"></td>

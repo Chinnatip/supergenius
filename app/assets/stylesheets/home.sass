@@ -440,9 +440,11 @@ h1
     width: 124px
     height: 124px
     position: absolute
-    left: 0
-    top: 0
+    left: 43px
+    top:  52px
     margin-top: -8px
+    @media screen and(max-width: 640px)
+      left: 14px
   .img_left
     margin-left: 140px
   table
@@ -452,7 +454,8 @@ h1
     thead
       border-bottom: 1px solid #e67590
       tr
-        background: #f386a0
+        // background: #f386a0
+        background: #e84c71
         line-height: 44px
         th
           color: #ffffff
@@ -493,6 +496,8 @@ h1
   padding-top: 36px
   background: url('../img_ref/report.jpg')
   background-size: contain
+  @media screen and (max-width: 640px)
+    margin-top: 57px
   .class-grid-container
     position: relative
     max-width: 960px
@@ -500,7 +505,8 @@ h1
     background: rgba(218, 199, 199, 0.77)
     padding: 8vh 3vw 2vh
     border-radius: 7px
-    // border: 1px solid rgba(255, 255, 255, 0.7)
+    @media screen and (max-width: 640px)
+      border-radius: 0px
     .btn-backer
       top: 8vh
       right: 3vw
@@ -512,7 +518,8 @@ h1
   max-width: 960px
   margin: auto
   @media screen and (max-width: 640px)
-    margin-top: 24px
+    margin-top: 3px !important
+    padding-top: 6vh !important
   ._title
     font-size: 24px
   .title
@@ -550,6 +557,8 @@ h1
       margin-top: 20px
       font-size: 14px
       padding: 6px 16px
+      top: 0% !important
+      right: 0 !important
       &.kid-track
         margin-left: 140px
     i
@@ -568,7 +577,7 @@ h1
     padding: 20px
     border-radius: 8px
     position: relative
-    margin-bottom: 20px
+    margin-bottom: 30px
     margin-top: 15px
     a
       font-size: 22px
@@ -584,6 +593,9 @@ h1
           line-height: 26px
           th:first-child ,th:nth-child(4)
             min-width: inherit
+      td.mental_emoji
+        @media screen and (min-width: 640px)
+          font-size: 18px
 
 .class-grid
   color: #2d2d2d
@@ -773,3 +785,35 @@ h1
   padding-top: 5px
   border-radius: 13px
   margin-right: 4px
+.feedback_button
+  position: fixed
+  bottom: 5vh
+  right: 7vw
+  width: 60px
+  height: 60px
+  line-height: 60px
+  background: #e42a2e
+  color: white !important
+  border-radius: 54px
+  text-align: center
+  font-size: 27px
+  box-shadow: 0 3px 20px #8d6363
+  &:hover,&:focus
+    background: darken(#e42a2e, 8%)
+  i
+    vertical-align: text-top
+
+section.modal-card-body.comment-body
+  label.topper
+    margin: -6px auto 25px
+    color: grey
+  label.label-topper
+    font-size: 16px
+    margin-bottom: 6px
+  textarea
+    border-radius: 4px
+    margin-bottom: 12px
+    border: 1px solid #bfbfbf
+    padding: 10px 10px
+    font-size: 13px
+    max-width: 480px
