@@ -90,3 +90,10 @@ Exam.all.each do |ex|
   end
 end
 puts "ended"
+
+
+puts 'set current class of every classroom to 3th'
+Classroom.all.each do |cs|
+  cs[:current] = 3
+  cs.save
+end

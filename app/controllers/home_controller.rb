@@ -39,7 +39,15 @@ class HomeController < ApplicationController
       @detail[:viewer] = 0
     end
     @detail.save
+  end
 
+  def edit_current
+    # puts params[:current]
+    # puts params[:spec]
+    cs = Classroom.where(spec: params[:spec]).first
+    cs[:current] = params[:current]
+    cs.save
+    redirect_to "/class_detail?id=#{params[:spec]}"
   end
 
   def about

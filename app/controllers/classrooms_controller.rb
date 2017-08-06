@@ -50,6 +50,7 @@ class ClassroomsController < ApplicationController
   def class_detail
     @seats   = Seat.where(classroom: params[:id])
     @periods = Classroom.where(spec: params[:id]).first[:period] + 1
+    @current_period = Classroom.where(spec: params[:id]).first[:current]
   end
 
   # POST /classrooms

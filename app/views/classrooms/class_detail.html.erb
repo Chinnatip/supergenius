@@ -2,6 +2,20 @@
   <h1>
     ห้องเรียน - <%= params[:id] %>
     <%= link_to 'เพิ่มนักเรียนใหม่', new_student_path , class: 'btn-ner'%>
+    <span class="class-period">
+      ปัจุบันเรียนครั้งที่
+      <select class="" name="" id="current-class">
+        <% @periods.times do |p| %>
+          <option
+            value="<%= p + 1 %>"
+            <% if (p+1) == @current_period  %>selected<% end %>
+            >
+            <%= p + 1 %>
+          </option>
+        <% end %>
+
+      </select>
+    </span>
   </h1>
 
   <table>
@@ -11,11 +25,15 @@
         <th>ชั้นปี</th>
         <th>โรงเรียน</th>
         <!-- <th>คอมเม้นท์</th> -->
-        <th>คะเเนนรวม</th>
+        <th class="center-div" >คะเเนนรวม</th>
         <% @periods.times do |i| %>
-          <th><%= i + 1%></th>
+          <th
+            class=" center-div <% if (i+1) == @current_period %>yellow-gadget<% end %>"
+            >
+            <%= i + 1%>
+          </th>
         <% end %>
-        <th colspan="2">คำสั่ง</th>
+        <th class="center-div" colspan="2">คำสั่ง</th>
       </tr>
     </thead>
 
@@ -38,10 +56,12 @@
               <div class="ma-tb">ตั้งใจ (<%= seat_detail[:total_mental] %>)</div>
             </td>
             <% seat_detail[:score][:scoring].each_with_index do |score,idx|%>
-              <td style="max-width:22px">
-                <!-- <input type="text" name="score[<%= idx.to_i %>]"  value="<%= seat_detail[:score][:scoring][idx] %>" style="width:100%"> <br> -->
-                <!-- <input type="text" name="mental[<%= idx.to_i %>]" value="<%= seat_detail[:score][:mental][idx + 1]%>"  style="width:100%"> -->
-                <select class="select-boxing" name="">
+              <td
+                class="scoring <% if (idx+1) == @current_period %>yellow-gadget<% end %>"
+                >
+                <input class="first" type="text" name="score[<%= idx.to_i %>]"  value="<%= seat_detail[:score][:scoring][idx] %>" style="width:100%"> <br>
+                <input type="text" name="mental[<%= idx.to_i %>]" value="<%= seat_detail[:score][:mental][idx + 1]%>"  style="width:100%">
+                <!-- <select class="select-boxing" name="">
                   <% 11.times do |t| %>
                     <option
                       value="<%= t %>"
@@ -51,8 +71,8 @@
                       <%= t %>
                     </option>
                   <% end %>
-                </select> <br>
-                <select class="select-boxing" name="">
+                </select> <br> -->
+                <!-- <select class="select-boxing" name="">
                   <% 11.times do |t| %>
                     <option
                       value="<%= t %>"
@@ -62,7 +82,7 @@
                       <%= t %>
                     </option>
                   <% end %>
-                </select>
+                </select> -->
               </td>
             <% end %>
             <td><input type="submit" name="" value="อัพเดท"></td>
@@ -76,3 +96,15 @@
   <p id="notice"><%= notice %></p>
 
 </div>
+
+<!-- toggle change class -->
+<script type="text/javascript">
+  $( document ).ready(function() {
+    // alert('ready');
+    $('#current-class').on('change',function(){
+      var current = $('#current-class').val();
+      // alert(current);
+      window.location.href = '/home/edit_current?spec=<%= params[:id] %>&current=' + current
+    });
+  });
+</script>

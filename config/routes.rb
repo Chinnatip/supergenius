@@ -41,6 +41,7 @@ Rails.application.routes.draw do
   get 'home/update_score'
   get 'home/update_course'
   get 'home/update_class'
+  get 'home/edit_current'
 
   #init json controllers
   get 'init/get_subscription'
