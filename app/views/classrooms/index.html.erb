@@ -6,6 +6,15 @@
     <%= link_to 'New Classroom', new_classroom_path , class: 'btn-ner'%>
   </h1>
 
+  <form class="searchable" action="" method="get">
+    <select class="selector" name="type">
+      <option value="spec" <% if params[:type] == 'spec'%>selected<% end %>>รหัสห้องเรียน</option>
+      <option value="teacher" <% if params[:type] == 'teacher'%>selected<% end %>>ครูผู้สอน</option>
+    </select>
+    <input class="inputs" type="text" name="keyword" value="<%= params[:keyword] %>" placeholder="search something">
+    <input class="submit" type="submit" value="search">
+  </form>
+
   <div class="modal">
     <div class="modal-background"></div>
     <form class="modal-card" action="<%= home_update_class_path %>" method="get">

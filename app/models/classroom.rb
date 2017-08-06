@@ -20,6 +20,21 @@ class Classroom < ApplicationRecord
     end
   end
 
+  def self.search(search,type)
+    if search
+      if type == 'spec'
+        return self.where("spec LIKE ?", "%#{search.upcase}%").all
+      elsif type == 'teacher'
+        teacher_dic = Teacher.where(name: search).first[:id]
+        return self.where(teacher: teacher_dic)
+      else
+        return self.all
+      end
+    else
+      return self.all
+    end
+  end
+
   def self.check_seat(seat)
     if seat.present?
       return seat

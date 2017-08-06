@@ -8,7 +8,10 @@ class StudentsController < ApplicationController
   # GET /students
   # GET /students.json
   def index
-    @students = Student.all
+    # @students = Student.all
+    search = params[:keyword] || ''
+    type   = params[:type] || 'student_code'
+    @students = Student.search(search,type) # .sort_by { |s| Course.find(s[:course])[:grade]  }
   end
 
   # GET /students/1

@@ -1,10 +1,19 @@
 <div class="admin-block">
-
-
   <h1>
     Students - <%= Student.count_all %> คน
     <%= link_to 'New Student', new_student_path , class: 'btn-ner'%>
   </h1>
+
+  <form class="searchable" action="" method="get">
+    <select class="selector" name="type">
+      <option value="student_code" <% if params[:type] == 'student_code'%>selected<% end %>>รหัสนักเรียน</option>
+      <option value="grade" <% if params[:type] == 'grade'%>selected<% end %>>ชั้นเรียน</option>
+      <option value="school" <% if params[:type] == 'school'%>selected<% end %>>โรงเรียน</option>
+      <option value="nickname" <% if params[:type] == 'nickname'%>selected<% end %>>ชื่อนักเรียน</option>
+    </select>
+    <input class="inputs" type="text" name="keyword" value="<%= params[:keyword] %>" placeholder="search something">
+    <input class="submit" type="submit" value="search">
+  </form>
 
   <div class="modal">
     <div class="modal-background"></div>

@@ -61,6 +61,7 @@ gem 'jbuilder', '~> 2.5'
 
 gem 'chart-js-rails'
 gem 'chartkick'
+gem 'sunspot_rails', '~> 2.2', '>= 2.2.7'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development

@@ -38,9 +38,45 @@ class Student < ApplicationRecord
     end
   end
 
+  def self.search(search,type)
+    if search
+      # return self.where(spec: search)
+      if type == 'grade'
+        grade_dic = Student.reverse_grade(search)
+        return self.where(grade: grade_dic)
+      elsif type == 'school'
+        school_dic = School.where(name: search).first[:id]
+        return self.where(school: school_dic)
+      else
+        return self.where("#{type} LIKE ?", "%#{search}%").all
+      end
+    else
+      return self.all
+    end
+  end
+
   def self.parse_school(key)
     school = School.find(key)[:name]
     return school
+  end
+
+  def self.reverse_grade(grade)
+    case grade
+    when "ป.1" then return 1
+    when "ป.2" then return 2
+    when "ป.3" then return 3
+    when "ป.4" then return 4
+    when "ป.5" then return 5
+    when "ป.6" then return 6
+    when "ม.1" then return 7
+    when "ม.2" then return 8
+    when "ม.3" then return 9
+    when "ม.4" then return 10
+    when "ม.5" then return 11
+    when "ม.6" then return 12
+    else
+      return 5
+    end
   end
 
   def self.parse_grade(key)

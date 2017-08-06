@@ -26,7 +26,11 @@ class ClassroomsController < ApplicationController
   # GET /classrooms
   # GET /classrooms.json
   def index
-    @classrooms = Classroom.all
+    # @classrooms = Classroom.all
+
+    search = params[:keyword] || ''
+    type   = params[:type] || 'spec'
+    @classrooms = Classroom.search(search,type) # .sort_by { |s| Course.find(s[:course])[:grade]  }
   end
 
   # GET /classrooms/1
