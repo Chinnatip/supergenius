@@ -25,7 +25,9 @@ class Classroom < ApplicationRecord
       if type == 'spec'
         return self.where("spec LIKE ?", "%#{search.upcase}%").all
       elsif type == 'teacher'
-        teacher_dic = Teacher.where(name: search).first[:id]
+
+        teacher_dic = Teacher.where("name LIKE ?", "%#{search}%").first[:id]
+        # teacher_dic = Teacher.where(name: search).first[:id]
         return self.where(teacher: teacher_dic)
       else
         return self.all

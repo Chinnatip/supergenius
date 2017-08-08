@@ -26,6 +26,9 @@ class HomeController < ApplicationController
   def course
   end
 
+  def help
+  end
+
   def news
     # @news = Newsfeed.all
     @news = Newsfeed.where(status: 'publish')

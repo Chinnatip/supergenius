@@ -12,7 +12,7 @@ class Seat < ApplicationRecord
     scoring = Exam.parse_score_with_period(get_score , period , 'scoring')
     mental  = Exam.parse_score_with_period(get_mental , period , 'mental')
     # packing together
-    return {
+    result = {
       name:    student[:nickname] ,
       grade:   Student.parse_grade(student[:grade]) ,
       school:  Student.parse_school(student[:school]) ,
@@ -24,6 +24,9 @@ class Seat < ApplicationRecord
         mental: mental
       }
     }
+    puts 'get result >>>'
+    puts result.to_json
+    return result
   end
 
 
