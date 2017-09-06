@@ -4,7 +4,6 @@ class Course < ApplicationRecord
     return self.all.count
   end
 
-
   def self.parse_grade(key)
     case key
     when 1 then return "ป.1"
@@ -27,6 +26,7 @@ class Course < ApplicationRecord
     when "ENG" then return "ภาษาอังกฤษ"
     when "THA" then return "ภาษาไทย"
     when "SCI" then return "วิทย์"
+    when "SCIGIFT" then return "วิทย์ GIFTED"
     when "SOC" then return "สังคม"
     when "SKI" then return "ทักษะ"
     when "MAT" then return "เลข"
