@@ -1,7 +1,9 @@
 <div class="admin-block">
   <h1>
     ห้องเรียน - <%= params[:id] %>
-    <%= link_to 'เพิ่มนักเรียนใหม่', new_student_path , class: 'btn-ner'%>
+    <%= link_to 'กลับ', classrooms_path , class: 'btn-bfr'%>
+    <a id="update-stage" class="btn-ner"><%= @inspect_class_button %></a>
+    <!-- <%= link_to 'เพิ่มนักเรียนใหม่', new_student_path , class: 'btn-ner'%> -->
     <span class="class-period">
       ปัจุบันเรียนครั้งที่
       <select class="" name="" id="current-class">
@@ -58,30 +60,30 @@
               <td
                 class="scoring <% if (idx+1) == @current_period %>yellow-gadget<% end %>"
                 >
-                <input class="first" type="text" name="score[<%= idx.to_i %>]"  value="<%= seat_detail[:score][:scoring][idx] %>" style="width:100%"> <br>
-                <input type="text" name="mental[<%= idx.to_i %>]" value="<%= seat_detail[:score][:mental][idx + 1]%>"  style="width:100%">
-                <!-- <select class="select-boxing" name="">
+                <!-- <input class="first" type="text" name="score[<%= idx.to_i %>]"  value="<%= seat_detail[:score][:scoring][idx] %>" style="width:100%"> <br>
+                <input type="text" name="mental[<%= idx.to_i %>]" value="<%= seat_detail[:score][:mental][idx + 1]%>"  style="width:100%"> -->
+                <select class="select-boxing" name="score[<%= idx.to_i %>]">
+                  <option value="-"> - </option>
                   <% 11.times do |t| %>
                     <option
                       value="<%= t %>"
-                      name="score[<%= idx.to_i %>]"
-                      <% if t == seat_detail[:score][:scoring][idx].floor.to_i %> selected <% end %>
+                      <% if t == (seat_detail[:score][:scoring][idx].floor.to_i rescue '-') %> selected <% end %>
                       >
                       <%= t %>
                     </option>
                   <% end %>
-                </select> <br> -->
-                <!-- <select class="select-boxing" name="">
+                </select> <br>
+                <select class="select-boxing" name="mental[<%= idx.to_i %>]">
+                  <option value="-"> - </option>
                   <% 11.times do |t| %>
                     <option
                       value="<%= t %>"
-                      name="mental[<%= idx.to_i %>]"
-                      <% if t == seat_detail[:score][:mental][idx + 1].floor.to_i %> selected <% end %>
+                      <% if t == (seat_detail[:score][:mental][idx + 1].floor.to_i rescue '-') %> selected <% end %>
                       >
                       <%= t %>
                     </option>
                   <% end %>
-                </select> -->
+                </select>
               </td>
             <% end %>
             <td><input type="submit" name="" value="อัพเดท"></td>
@@ -105,5 +107,11 @@
       // alert(current);
       window.location.href = '/home/edit_current?spec=<%= params[:id] %>&current=' + current
     });
+
+    $( "#update-stage" ).on( "click", function() {
+      alert("update score ครั้งที่ <%= @current_period %>");
+      collection = 
+    });
+
   });
 </script>

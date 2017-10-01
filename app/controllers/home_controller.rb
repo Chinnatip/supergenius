@@ -11,9 +11,11 @@ class HomeController < ApplicationController
   end
 
   def index
-    unless session[:visited] == true
-      redirect_to home_introduce_path
-    end
+    # first time rendering
+    # unless session[:visited] == true
+    #   redirect_to home_introduce_path
+    # end
+
     @active = 'index'
     # @quote  = 'PSH'
     # @stock_data = parse_set(@quote)[0]
@@ -117,24 +119,24 @@ class HomeController < ApplicationController
     score = Exam.where(classroom: params[:classroom],student: params[:student], exam_type: 'scoring').first
     mental = Exam.where(classroom: params[:classroom],student: params[:student], exam_type: 'mental').first
     stock_score = ''
-    params[:score].each do |key,array|
-      unless stock_score.present?
-        stock_score += "#{array.to_s}"
-      else
-        stock_score += ",#{array.to_s}"
-      end
-    end
-
     stock_mental = ''
+    #
+    params[:score].each do |key,array|
+      stock_score += "#{if stock_score.present? then ',' end}#{array.to_s}"
+    end
+    #
     params[:mental].each do |key,array|
       stock_mental += ",#{array.to_s}"
     end
-
+    #
     score[:score]  = stock_score
     mental[:score] = stock_mental
 
+
     score.save
     mental.save
+    puts score.to_json
+    puts mental.to_json
 
     redirect_to :back
   end

@@ -18,21 +18,22 @@ class Exam < ApplicationRecord
   # TODO: collect 'string' of score in here | but | add value for '0' if not integer when calculation
   def self.parse_score_with_period(text,period,type)
     result = []
-    puts 'get score text >>>'
-    puts text
+    # puts 'get score text >>>'
+    # puts text.to_json
     score = text.split(",").map{ |x| x.strip } rescue []
-    puts 'get score splitter >>>'
-    puts score
-    puts score.to_json
+    # puts 'get score splitter >>>'
+    # puts score.to_json
     p_spec = if type == 'mental' then period + 1 else period end
     p_spec.times do |i|
       if score[i].present?
-        result << score[i].to_i rescue '-'
+        getter = Integer(score[i]) rescue "-"
+        result << getter
       else
         result << 0
       end
     end
-    return result # score.to_json
+    # puts result.to_json
+    return result
   end
 
   def self.total_score(score_array)

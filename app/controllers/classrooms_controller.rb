@@ -51,6 +51,7 @@ class ClassroomsController < ApplicationController
     @seats   = Seat.where(classroom: params[:id])
     @periods = Classroom.where(spec: params[:id]).first[:period] + 1
     @current_period = Classroom.where(spec: params[:id]).first[:current]
+    @inspect_class_button = "อัพเดทคะเเนนครั้งที่ #{@current_period}"
   end
 
   # POST /classrooms
