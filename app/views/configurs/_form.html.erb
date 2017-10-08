@@ -1,0 +1,46 @@
+<%= form_for(configur) do |f| %>
+  <% if configur.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(configur.errors.count, "error") %> prohibited this configur from being saved:</h2>
+
+      <ul>
+      <% configur.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :company_name %>
+    <%= f.text_field :company_name %>
+  </div>
+
+  <div class="field">
+    <%= f.label :top_contact %>
+    <%= f.text_area :top_contact, class: 'textarea-for-sub-content' %>
+  </div>
+
+  <div class="field">
+    <%= f.label :contact_info %>
+    <%= f.text_area :contact_info, class: 'textarea-for-sub-content' %>
+  </div>
+
+  <div class="field">
+    <%= f.label :home_slider %>
+    <%= f.text_area :home_slider, class: 'textarea-for-cms' %>
+  </div>
+
+
+  <br><br>
+
+  <div class="actions">
+    <%= link_to 'Back', configurs_path , class: 'btn btn-grey' %>
+    <span class="mar-10"></span>
+    <% if controller.action_name == 'edit' %>
+      <%= link_to 'Show', @configur ,class: 'btn-grey'%>
+      <span class="mar-10"></span>
+    <% end %>
+    <input type="submit" value="Submit" class="btn btn-redder">
+  </div>
+<% end %>

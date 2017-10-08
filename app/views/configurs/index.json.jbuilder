@@ -1,0 +1,1 @@
+json.array! @configurs, partial: 'configurs/configur', as: :configur
