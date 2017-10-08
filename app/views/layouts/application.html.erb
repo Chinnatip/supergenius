@@ -36,7 +36,7 @@
     <!-- content-header -->
     <div id="cHeader">
       <div class="banner-top">
-         Tel. 0897606279 (พี่วิน) , 085-334-8815 (พี่ป๊อป)|windz_bs@hotmail.com
+         <%= Configur.first[:top_contact]%>
          <div
            class="fb-share-button"
            data-href="https://supergeniusco.herokuapp.com"
@@ -71,7 +71,42 @@
     <!-- footer ><-->
     <div id="cFooter">
       <black-ribbon></black-ribbon>
-      <footer-site-corp :footer="footer"></footer-site-corp>
+      <footer class="footer hero is-dark _footer-site-corp">
+        <div class="container">
+          <div class="columns ">
+            <div class="column">
+              <p class="head-up ">Find Us on Facebook</p>
+              <iframe src="https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2Fsupergeniusschool%2F&tabs=timeline&width=320&height=150px&small_header=true&adapt_container_width=false&hide_cover=false&show_facepile=true&appId=155981588273147" width="340" height="150px" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowTransparency="true"></iframe>
+            </div>
+            <div class="column">
+              <p class="head-up ">Recent News</p>
+              <div class="">
+                <% Newsfeed.all.each_with_index do |feed,idx|%>
+                  <% if idx <= 3 %>
+                    <a target="_blank" class="news-footer news" :href=" '/home/news_detail?id=' + <%= feed["id"] %> ">
+                      <%= feed["title"]%>
+                    </a><br>
+                  <% end %>
+                <% end %>
+              </div>
+              <a target="_blank" class="news-footer" href="/home/news">อ่านข่าวทั้งหมด </a>
+            </div>
+            <div class="column">
+              <p class="head-up content-right">Contact Info</p>
+              <%= Configur.first[:contact_info].html_safe  %>
+            </div>
+          </div>
+          <div class="columns ">
+            <div class="column">
+              <p>ขอสงวนลิขสิทธิ์ © <%= Configur.first[:company_name] %></p>
+            </div>
+            <div class="column">
+              <a class="_bread" href="">ข้อกำหนดและเงื่อนไข</a>
+              <a href="">นโยบายความเป็นส่วนตัว</a>
+            </div>
+          </div>
+        </div>
+      </footer>
     </div>
 
     <!-- Include JAVASCRIPT here ><-->

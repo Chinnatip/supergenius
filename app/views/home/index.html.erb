@@ -24,21 +24,12 @@
 <script src="/js/masonry.js"></script>
 <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCdUSDSheJVPKt2eCrJE1sZEx3cAud_aT0&callback=initMap"> </script>
 <script src="/js/app-data.js"></script>
-
 <script type="text/javascript">
+
   var comp = new Vue({
     el: '#app',
     data: {
-      sliders: [
-        { image: '<%= image_path "pic/DSCF2297.jpg" %>' , title: 'SUPER GENIUS school',tab: 'tab1',url: '#nav-affix', link: 'ดูคอร์สเรียนของเรา >>', subtitle: 'เพราะการเล่นทำให้เด็กฉลาด เราจึงเป็นโรงเรียนสอนพิเศษที่ให้ มากกว่าเเค่ความรู้ สถานที่ที่น้องๆจะได้สาระพร้อมทั้งความสนุก ผู้ปกครองสบายใจ เด็กได้เกรดดี มีสังคมของเพื่อนๆต่างโรงเรียน'},
-        { image: '<%= image_path "pic/DSC_6848.jpg" %>' , title: 'เรียนอย่าง เข้าใจ ไม่ใช่ท่องจำ',tab: 'tab2',url: '#nav-affix', link: 'บรรยากาศห้องเรียน >>', subtitle: '---'},
-        { image: '<%= image_path "pic/DSCF2816.jpg" %>' , title: 'บรรยากาศเป็นกันเอง ถาม ตอบ ได้ตลอดเวลา',tab: 'tab3',url: '#nav-affix', link: 'บรรยากาศห้องเรียน >>', subtitle: '---'},
-        { image: '<%= image_path "pic/IMG_7111.jpg" %>' , title: 'พิสูจน์เเล้วกว่า 500คน 100โรงเรียน เกรดขึ้น สอบติดเเน่นอน',tab: 'tab4',url: '#nav-affix', link: 'รุ่นพี่ Super Genius >>', subtitle: '---'},
-        { image: '<%= image_path "pic/IMG_7747.jpg" %>' , title: 'ประเมินผลรายบุคคลอย่างละเอียด ให้ข้อมูลสถาบันเเละหลักสูตรที่น่าสนใจ รวมถึงดูความเป็นไปได้ในการสอบ เพื่อศึกษาต่อในที่ต่างๆ',tab: 'tab5',url: '#nav-affix', link: 'เช็คผลการเรียน >>', subtitle: '---'},
-        { image: '<%= image_path "pic/DSC_6806.jpg" %>' , title: 'ห้องเรียนกว้างขวาง สถานที่สวยงาม ปลอดภัย',tab: 'tab6',url: '#nav-affix', link: 'บรรยากาศห้องเรียน >>', subtitle: '---'},
-        { image: '<%= image_path "pic/IMG_8181.jpg" %>' , title: 'เรียนสนุก มีความสุข ความรู้ครบถ้วน',tab: 'tab7',url: '#nav-affix', link: 'ดูคอร์สเรียนของเรา >>', subtitle: '---'},
-        { image: '<%= image_path "pic/IMG_7059.jpg" %>' , title: 'สื่อการสอนครบครัน ทันสมัย',tab: 'tab8',url: '#nav-affix', link: 'ดูคอร์สเรียนของเรา >>', subtitle: '---'},
-      ],
+      sliders: <%= eval( Configur.first[:home_slider] ).to_json.html_safe %> ,
       choice: 'tab1',
       iLinks:[
         { title: 'สถาบันกวดวิชา'   ,action:'' , url: '<%= home_about_path %>' },
