@@ -11,28 +11,7 @@
       </div>
   </header>
   <br><br>
-
-  <div class="container _spiltter _center">
-    <img src="<%= image_path 'asset_program_01.jpg' %>" alt="" class="image_brand">
-    <br><br>
-    <a class="btn btn-redder _big-red" href="<%= home_course_path %>">ตารางเรียนเปิดเทอม เทอม 1 ปี 60</a>
-  </div>
-  <div class="container _spiltter _center">
-    <div class="grid-container">
-      <div class="col-4 _left" v-for="c in contents">
-        <div class="top_tile">
-          <i :class=" 'fa ' + c.icon "></i>
-          <span>{{c.title}}</span>
-        </div>
-        <div class="text_tile">{{c.text}}</div>
-      </div>
-    </div>
-  </div>
-  <div class="container _spiltter _center">
-    <img src="<%= image_path 'asset_program_02.jpg' %>" alt="" class="image_brand">
-    <br><br>
-    <a class="btn btn-redder _big-red" href="<%= home_course_path %>">ตารางเรียนเปิดเทอม เทอม 1 ปี 60</a>
-  </div>
+  <%= @content[:content].html_safe %>
 </div>
 
 <!-- Include JAVASCRIPT here ><-->
