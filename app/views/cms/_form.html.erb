@@ -1,0 +1,63 @@
+<%= form_for(cm) do |f| %>
+  <% if cm.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(cm.errors.count, "error") %> prohibited this cm from being saved:</h2>
+
+      <ul>
+      <% cm.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :title %>
+    <%= f.text_field :title %>
+  </div>
+
+  <div class="field">
+    <%= f.label :tagid %>
+    <%= f.text_field :tagid %>
+  </div>
+
+  <div class="field">
+    <%= f.label :seo_title %>
+    <%= f.text_field :seo_title %>
+  </div>
+
+  <div class="field">
+    <%= f.label :seo_description %>
+    <%= f.text_area :seo_description , class: 'textarea-for-sub-content'  %>
+  </div>
+
+  <% if params[:id] == "7" %>
+    <div class="field">
+      <%= f.label :map %>
+      <%= f.text_field :map %>
+    </div>
+
+    <div class="field">
+      <%= f.label :word_pool %>
+      <%= f.text_area :word_pool , class: 'textarea-for-sub-content'  %>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :content %>
+    <%= f.text_area :content , class: 'textarea-for-cms' %>
+  </div>
+
+  <br><br>
+
+  <div class="actions">
+    <%= link_to 'Back', cms_path , class: 'btn btn-grey' %>
+    <span class="mar-10"></span>
+    <% if controller.action_name == 'edit' %>
+      <%= link_to 'Show', @cm ,class: 'btn-grey'%>
+      <span class="mar-10"></span>
+    <% end %>
+    <input type="submit" value="Submit" class="btn btn-redder">
+  </div>
+
+<% end %>

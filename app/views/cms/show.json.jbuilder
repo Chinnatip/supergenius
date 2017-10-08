@@ -1,0 +1,1 @@
+json.partial! "cms/cm", cm: @cm

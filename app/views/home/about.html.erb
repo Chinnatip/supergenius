@@ -10,43 +10,13 @@
       </div>
   </header>
   <br><br>
-  <div class="container __body">
-    <div class="grid-container">
-      <div class="col-6">
-        <img src="<%= image_path 'poster.jpg' %>" alt="">
-      </div>
-      <div class="col-6" style="padding: 0 30px;">
-        <h1>เกี่ยวกับเรา</h1>
-        <div class="">
-          โรงเรียนของเราก้าวเข้าสู่ปีที่ 6 กับสถิติสอบติด 100% เป็นเวลา 5 ปีซ้อน เราดูแลเอาใจใส่นักเรียนทุกคนเสมือนครอบครัวของเรา <br>
-          เราสอนด้วยความสนุก ให้ความสุขและความรู้ อย่างไม่จำกัด รวมถึงเรายังแนะแนวทางในการใช้ชีวิตให้น้องๆทุกวัย การปรับตัวเข้ากับเพื่อนๆในโรงเรียน การทำตัวเป็นเด็กดีของพ่อแม่ การใช้ชีวิตเผชิญกับสังคม รวมทั้งแนะแนวในการศึกษาต่อแบบละเอียด <br>
-          เหมือนดั่งนโยบายของเรา “ให้คุณ มากกว่าความรู้”
-        </div>
-        <hr>
-        <div class="">
-          <div class="" v-for="t in testimo">
-            <span class="mini-icon" style="">
-              <i :class="'fa ' + t.icon"></i>
-            </span>
-            {{t.text}}
-          </div>
-        </div>
-
-      </div>
-    </div>
-  </div>
+  <%= @content[:content].html_safe %>
+  <br><br>
 </div>
 <script type="text/javascript">
 var comp = new Vue({
   el: '#app',
   data: {
-    testimo: [
-      {icon: 'fa-signal' , text: 'เรียนเข้าใจมากขึ้น เกรดขึ้นแน่นอน'},
-      {icon: 'fa-thumbs-o-up' , text: 'สอบติด 100% มาแล้ว 3 ปีซ้อน'},
-      {icon: 'fa-heart' , text: 'เราสอนด้วยความรัก เอาใจใส่ และรายงานผู้ปกครองตลอดๆ'},
-      {icon: 'fa-smile-o' , text: 'เรียนแบบมีความสุข สนุก และได้ความรู้ไปพร้อมๆกัน ได้เพื่อนใหม่ดีๆเพียบ'},
-      {icon: 'fa-video-camera' , text: 'มีวีดีโออัดไว้ให้ทุกครั้ง และมาชดเชยฟรีไม่จำกัด เผื่อติดธุระ'}
-    ],
     iLinks:[
       { title: 'สถาบันกวดวิชา'   ,action:'' , url: '<%= home_about_path %>' },
       { title: 'Student Gallery'  ,action:'' , url: '<%= home_student_path %>' },

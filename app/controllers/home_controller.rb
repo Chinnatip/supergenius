@@ -15,10 +15,8 @@ class HomeController < ApplicationController
     # unless session[:visited] == true
     #   redirect_to home_introduce_path
     # end
-
     @active = 'index'
-    # @quote  = 'PSH'
-    # @stock_data = parse_set(@quote)[0]
+    @content = Cm.where(tagid: "home").first
   end
 
   def introduce
@@ -26,6 +24,7 @@ class HomeController < ApplicationController
   end
 
   def course
+    @content = Cm.where(tagid: "course").first
   end
 
   def help
@@ -56,18 +55,23 @@ class HomeController < ApplicationController
   end
 
   def about
+    @content = Cm.where(tagid: "about").first
   end
 
   def student
+    @content = Cm.where(tagid: "student").first
   end
 
   def tutor
+    @content = Cm.where(tagid: "tutor").first
   end
 
   def top_student
+    @content = Cm.where(tagid: "top_student").first
   end
 
   def contact
+    @content = Cm.where(tagid: "contact").first
   end
 
   def portfolio

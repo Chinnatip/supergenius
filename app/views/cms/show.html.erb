@@ -1,0 +1,68 @@
+<p id="notice"><%= notice %></p>
+
+
+<div class="" style="
+  background: white;
+  padding: 0 30px;
+">
+  <!--  -->
+  <div class="container __body">
+    <h1 style="margin: 40px 0 20px 10px;">
+      <%= @cm.title %>
+    </h1>
+  </div>
+  <!--  -->
+  <%= @cm.content.html_safe %>
+
+  <!-- customizer -->
+  <% if params[:id] == 'contact'%>
+    <section class="_hero_map hero is-light is-light" style="height:600px">
+      <div class="content">
+        <div id="map" class="_fullscreen" ></div>
+      </div>
+    </section>
+    <br><br>
+    <div class="container __body">
+      <h6><%= @cm.word_pool%></h6>
+    </div>
+    <br><br>
+    <!--  -->
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCdUSDSheJVPKt2eCrJE1sZEx3cAud_aT0&callback=initMap"> </script>
+    <script type="text/javascript">
+    function initMap(lat,lng) {
+      var marker = {lat: <%= @cm.map.split(",")[0] %> , lng: <%= @cm.map.split(",")[1] %> };
+      var map = new google.maps.Map(document.getElementById('map'), {
+        zoom: 14,
+        center: marker,
+        scrollwheel: false
+      });
+      var marker = new google.maps.Marker({
+        position: marker,
+        map: map
+      });
+    }
+    </script>
+  <% end %>
+</div>
+<br><br>
+<div class="" style="text-align:center">
+  <a href="<%= edit_cm_path(@cm) %>" style="
+    background: #f14141;
+    padding: 11px 12px;
+    color: white;
+    line-height: 40px;
+    border-radius: 5px;
+  ">
+    แก้ไขหน้านี้
+  </a>
+  <a href="<%= cms_path %>" style="
+    background: #bfbaba;
+    padding: 11px 12px;
+    color: #464646;
+    line-height: 40px;
+    border-radius: 5px;
+    margin-left: 10px;
+  ">
+    ตกลง
+  </a>
+</div>

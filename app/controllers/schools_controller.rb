@@ -1,7 +1,7 @@
 class SchoolsController < ApplicationController
 
   layout 'dashboard'
-  
+
   before_action :set_school, only: [:show, :edit, :update, :destroy]
   before_action :authenticate_user!
 

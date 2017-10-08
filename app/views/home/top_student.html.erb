@@ -11,12 +11,9 @@
   </header>
   <br><br>
   <div class="container __body">
-    <h1>นักเรียนดีเด่น</h1>
+    <h1><%= @content[:title] %></h1>
   </div>
-  <div class="container _spiltter _center">
-    <img src="<%= image_path 'asset_program_01.jpg' %>" alt="" class="image_brand">
-    <br><br>
-  </div>
+  <%= @content[:content].html_safe %>
 </div>
 <script type="text/javascript">
 var comp = new Vue({
