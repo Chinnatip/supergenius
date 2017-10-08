@@ -10,14 +10,6 @@ user_data = [
     is_super_admin: true ,
   },
   {
-    email: 'chin@kohlife.com',
-    name:  'Zinny',
-    role:  'admin',
-    password: 'Cupurion23',
-    password_confirmation: 'Cupurion23',
-    is_super_admin: true ,
-  },
-  {
     email: 'supergeniusschool@gmail.com',
     name:  'supergenius',
     role:  'admin',
