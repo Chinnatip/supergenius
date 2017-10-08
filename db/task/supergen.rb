@@ -20,8 +20,9 @@ user_data = [
 ]
 
 user_data.each do |us|
-  user_find = User.where(email: us[:email]).first
-  unless user_find
+  if User.where(email: us[:email]).count > 0
+    user_find = User.where(email: us[:email]).first
+  else
     user_find = User.create(email: us[:email])
   end
   user_find.role = us[:role]
