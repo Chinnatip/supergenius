@@ -9,28 +9,37 @@
   <table>
     <thead>
       <tr>
-        <th>ID</th>
-        <th>ชื่อคอร์ส</th>
+        <th>ระดับชั้น</th>
         <th>วิชา</th>
-        <th>ชั้นปี</th>
-        <th>ค่าลงทะเบียน</th>
+        <th>วัน</th>
+        <th>วันที่เรียน</th>
+        <th>เวลา</th>
+        <th>จำนวนครั้งที่เรียน</th>
+        <th>นัดแก้</th>
+        <th>นัดเพิ่ม</th>
+        <th>ค่าเรียน</th>
         <th>นักเรียน</th>
+        <th>ครู</th>
         <th colspan="2"></th>
       </tr>
     </thead>
-
     <tbody>
       <% (@courses.sort_by { |s| s[:grade]  }).each do |course| %>
         <% course_detail = Course.details(course)%>
         <tr>
-          <td><%= course_detail[:id] %></td>
-          <td><%= course_detail[:name] %></td>
-          <td><%= course_detail[:major] %></td>
           <td><%= course_detail[:grade] %></td>
+          <td><%= course_detail[:name] %></td>
+          <td><%= course_detail[:range] %></td>
+          <td><%= course_detail[:time_table] %></td>
+          <td><%= course_detail[:time] %></td>
+          <td><%= course_detail[:period] %></td>
+          <td></td>
+          <td></td>
           <td><%= course_detail[:price] %></td>
           <td><%= course_detail[:seat] %></td>
-          <td><%= link_to 'รายละเอียด', edit_course_path(course) , class: 'btn-redder' %></td>
-          <td><%= link_to 'ลบทิ้ง', course, method: :delete, data: { confirm: 'Are you sure?' }  , class: 'btn-grey' %></td>
+          <td></td>
+          <td><%= link_to 'แก้ไข', edit_course_path(course) , class: 'btn-redder' %></td>
+          <td><%= link_to 'ลบ', course, method: :delete, data: { confirm: 'ถ้ากดลบคอร์สนี้เเละข้อมูลที่เกี่ยวข้องทั้งหมดจะหายไป เเน่ใจนะ?' }  , class: 'btn-grey' %></td>
         </tr>
       <% end %>
     </tbody>

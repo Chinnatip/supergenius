@@ -19,6 +19,15 @@ class CoursesController < ApplicationController
   # GET /courses/new
   def new
     @course = Course.new
+    @date_range_set = [
+      {d: "จันทร์", v: "1"},
+      {d: "อังคาร", v: "2"},
+      {d: "พุธ", v: "3"},
+      {d: "พฤหัส", v: "4"},
+      {d: "ศุกร์", v: "5"},
+      {d: "เสาร์", v: "6"},
+      {d: "อาทิตย์", v: "7"},
+    ]
   end
 
   # GET /courses/1/edit
@@ -29,7 +38,8 @@ class CoursesController < ApplicationController
   # POST /courses.json
   def create
     @course = Course.new(course_params)
-
+    puts 'inspecter >>>'
+    puts params.inspect
     respond_to do |format|
       if @course.save
         # format.html { redirect_to @course, notice: 'Course was successfully created.' }
@@ -71,10 +81,33 @@ class CoursesController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_course
       @course = Course.find(params[:id])
+      @date_range_set = [
+        {d: "จันทร์", v: "1"},
+        {d: "อังคาร", v: "2"},
+        {d: "พุธ", v: "3"},
+        {d: "พฤหัส", v: "4"},
+        {d: "ศุกร์", v: "5"},
+        {d: "เสาร์", v: "6"},
+        {d: "อาทิตย์", v: "7"},
+      ]
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def course_params
-      params.require(:course).permit(:name, :major, :price, :grade, :seat)
+      params.require(:course).permit(
+        :name,
+        :major,
+        :price,
+        :grade,
+        :seat,
+        :semester ,
+        :session_id,
+        :start ,
+        :end,
+        :start_time,
+        :end_time,
+        :period,
+        time_table:[]
+      )
     end
 end

@@ -1,0 +1,10 @@
+# create major in system
+Major.create!( major_code: "MAT" , name: "คณิตศาสตร์" )
+Major.create!( major_code: "SOC" , name: "สังคม" )
+Major.create!( major_code: "SKI" , name: "ทักษะการเรียนรู้" )
+Major.create!( major_code: "THA" , name: "ภาษาไทย" )
+Major.create!( major_code: "ENG" , name: "ภาษาอังกฤษ" )
+Major.create!( major_code: "SCI" , name: "วิทยาศาสตร์" )
+Major.create!( major_code: "PHY" , name: "พิสิกส์" )
+Major.create!( major_code: "CHE" , name: "เคมี" )
+Major.create!( major_code: "BIO" , name: "ชีววิทยา" )

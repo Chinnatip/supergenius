@@ -17,17 +17,29 @@
   </div>
 
   <div class="field">
+    <label for="semester">ปีการศึกษา</label>
+    <select class="" name="course[semester]">
+      <% Semester.all.each do |s|%>
+        <option value="<%= s[:sem_code] %>"
+          <% if course[:semester] == s[:sem_code] %>selected<% end %>
+          >
+          <%= s[:name] %>
+        </option>
+      <% end %>
+    </select>
+  </div>
+
+  <div class="field">
     <label for="major">เลือกวิชาที่สอน</label>
     <select id="major" name="course[major]">
-      <option value="MAT">คณิตศาสตร์</option>
-      <option value="SOC">สังคม</option>
-      <option value="SKI">ทักษะฯ</option>
-      <option value="THA">ภาษาไทย</option>
-      <option value="ENG">ภาษาอังกฤษ</option>
-      <option value="SCI">วิทยาศาสตร์</option>
-      <option value="PHY">พิสิกส์</option>
-      <option value="CHE">เคมี</option>
-      <option value="BIO">ชีววิทยา</option>
+      <% Major.all.each do |m| %>
+        <option
+          value="<%= m[:major_code] %>"
+          <% if course[:major] == m[:major_code] %> selected <% end %>
+          >
+          <%= m[:name] %>
+        </option>
+      <% end %>
     </select>
   </div>
 
@@ -48,8 +60,63 @@
       <option value="12">ม.6</option>
     </select>
   </div>
+  <hr>
 
-  <br>
+  <div class="field minify-selector">
+    <label for="price">ค่าลงทะเบียน</label>
+    <%= f.number_field :price ,value: course[:price] || '2500' , placeholder: '2500' %> บาท
+  </div>
+
+  <div class="field minify-selector">
+    <% ttb = course[:period] || 13 %>
+    <label for="period">จำนวนครั้งที่สอน</label>
+    <select id="periodr" name="course[period]">
+      <% 1..21.times do |t| %>
+        <% if t > 0 %>
+          <option
+            value="<%= t %>"
+            <% if t == ttb %>selected<% end %>
+            >
+            <%= t %>
+          </option>
+        <% end %>
+      <% end %>
+    </select>
+  </div>
+  <hr>
+
+  <div class="field date-selector">
+    <label for="start">เริ่มคอร์ส</label>
+    <%= f.date_select :start %>
+    <span style="margin: 0 15px; font-size: 15px;"> ถีงวันที่ </span>
+    <%= f.date_select :end %>
+  </div>
+
+  <div class="field time-selector">
+    <label for="start_time">เริ่มเรียนเวลา</label>
+    <%= f.time_select :start_time , :default => {:hour => '9', :minute => '00'} %> น.
+  </div>
+
+  <div class="field time-selector">
+    <label for="end_time">เลิกเรียนเวลา</label>
+    <%= f.time_select :end_time  , :default => {:hour => '16', :minute => '00'} %> น.
+  </div>
+
+  <div class="field time-selector">
+    <label for="end_time">วันที่เรียน</label>
+    <% @date_range_set.each do |ds| %>
+      <% if course[:time_table].present? && course[:time_table].index(ds[:v]) != nil
+          parser =  { :multiple => true, :checked  => true }
+        else
+          parser =  { :multiple => true }
+        end
+      %>
+      <%= check_box( "course", "time_table", parser, ds[:v], nil) %>
+      <span style="margin-right: 13px"> <%= ds[:d] %> </span>
+    <% end %>
+  </div>
+  <hr>
+
   <div class="actions">
     <%= link_to 'Back', courses_path , class: 'btn btn-grey' %>
     <span class="mar-10"></span>
@@ -65,7 +132,7 @@
 
 <script type="text/javascript">
   $(document).ready(function(){
-    courseGrade = "<%= course[:grade] || 7 %>"
+    courseGrade = "<%= course[:grade] || 5 %>"
     courseMajor = "<%= course[:major] || 'blank' %>"
 
     $("#grader > option").each(function() {

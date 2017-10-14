@@ -1,0 +1,32 @@
+<div class="admin-block">
+<p id="notice"><%= notice %></p>
+
+<h1>
+  วิชาที่เปิดสอน
+  <%= link_to 'เพิ่มวิชา', new_major_path ,class: 'btn-ner' %>
+</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>ลำดับ</th>
+      <th>ชื่อวิชา</th>
+      <th>รหัสตัวย่อวิชา</th>
+      <th colspan="2"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @majors.each do |major| %>
+      <tr>
+        <td><%= major.id %></td>
+        <td><%= major.name %></td>
+        <td><%= major.major_code %></td>
+        <!-- <td><%= link_to 'Show', major %></td> -->
+        <td><%= link_to 'แก้ไข', edit_major_path(major) , class: 'btn-redder' %></td>
+        <td><%= link_to 'ลบ', major, method: :delete, data: { confirm: 'Are you sure?' } , class: 'btn-grey' %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+</div>

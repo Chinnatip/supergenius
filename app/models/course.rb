@@ -1,5 +1,10 @@
 class Course < ApplicationRecord
 
+  # Course has_many time_table
+  before_save do
+    self.time_table.gsub!(/[\[\]\"]/, "") if attribute_present?("time_table")
+  end
+
   def self.count_all
     return self.all.count
   end
@@ -47,14 +52,43 @@ class Course < ApplicationRecord
     return result
   end
 
+  def self.time_table_abbrev(dates)
+    result = ""
+    date_set = [
+      {d: 'จ', v: 1},
+      {d: 'อ', v: 2},
+      {d: 'พ', v: 3},
+      {d: 'พฤ', v: 4},
+      {d: 'ศ', v: 5},
+      {d: 'ส', v: 6},
+      {d: 'อา', v: 7}
+    ]
+    if dates.present?
+      range = dates.split(",")
+      range.each_with_index do |d,idx|
+        get    = date_set.select { |hash| hash[:v] == d.to_i }
+        prefix = if idx > 0 then "," end
+        result += "#{prefix}#{get[0][:d]}"
+      end
+    else
+      result = '-'
+    end
+    return result
+  end
+
   def self.details(obj)
     return {
-      id:    "C#{"%04d" % obj[:id]}" ,
-      name:  obj[:name] ,
-      major: parse_major(obj[:major]) ,
-      grade: parse_grade(obj[:grade]) ,
-      price: if obj[:price].present? then "#{obj[:price]} บาท" else '-' end ,
-      seat:  "#{collect_student(obj[:id])} คน"
+      id:         "#{"%04d" % obj[:id]}" ,
+      name:       obj[:name] ,
+      semester:   Semester.where(sem_code: obj[:semester]).first[:name] ,
+      major:      parse_major(obj[:major]) ,
+      grade:      parse_grade(obj[:grade]) ,
+      price:      if obj[:price].present? then "#{obj[:price].floor} บาท" else '-' end ,
+      seat:       "#{collect_student(obj[:id])} คน",
+      range:      "#{obj[:start].strftime('%d %b')} - #{obj[:end].strftime('%d %b %y')}",
+      time:       "#{obj[:start_time].strftime('%H:%M')}-#{obj[:end_time].strftime('%H:%M')}",
+      period:     "#{obj[:period]} ครั้ง" ,
+      time_table: time_table_abbrev(obj[:time_table])
     }
   end
 end
