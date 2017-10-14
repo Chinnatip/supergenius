@@ -36,7 +36,7 @@
     <!-- content-header -->
     <div id="cHeader">
       <div class="banner-top">
-         <%= Configur.first[:top_contact]%>
+         <%= Configur.first[:top_contact] rescue '' %>
          <div
            class="fb-share-button"
            data-href="https://supergeniusco.herokuapp.com"
@@ -93,12 +93,12 @@
             </div>
             <div class="column">
               <p class="head-up content-right">Contact Info</p>
-              <%= Configur.first[:contact_info].html_safe  %>
+              <%= Configur.first[:contact_info].html_safe rescue '' %>
             </div>
           </div>
           <div class="columns ">
             <div class="column">
-              <p>ขอสงวนลิขสิทธิ์ © <%= Configur.first[:company_name] %></p>
+              <p>ขอสงวนลิขสิทธิ์ © <%= Configur.first[:company_name] rescue '' %></p>
             </div>
             <div class="column">
               <a class="_bread" href="">ข้อกำหนดและเงื่อนไข</a>

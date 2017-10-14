@@ -1,37 +1,38 @@
-<p id="notice"><%= notice %></p>
+<div class="admin-block">
+  <p id="notice"><%= notice %></p>
 
-<h1>Cms</h1>
+  <h1>
+    Cms
+    <%= link_to 'New Cm', new_cm_path , class: 'btn-ner' %>
+  </h1>
 
-<table>
-  <thead>
-    <tr>
-      <th>Title</th>
-      <th>Tagid</th>
-      <th>Content</th>
-      <th>Viewer</th>
-      <th>Seo title</th>
-      <th>Seo description</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @cms.each do |cm| %>
+  <table>
+    <thead>
       <tr>
-        <td><%= cm.title %></td>
-        <td><%= cm.tagid %></td>
-        <td><%= cm.content %></td>
-        <td><%= cm.viewer %></td>
-        <td><%= cm.seo_title %></td>
-        <td><%= cm.seo_description %></td>
-        <td><%= link_to 'Show', cm %></td>
-        <td><%= link_to 'Edit', edit_cm_path(cm) %></td>
-        <td><%= link_to 'Destroy', cm, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <th>Title</th>
+        <th>Tagid</th>
+        <th>Content</th>
+        <th>Viewer</th>
+        <th>Seo title</th>
+        <th>Seo description</th>
+        <th colspan="3"></th>
       </tr>
-    <% end %>
-  </tbody>
-</table>
+    </thead>
 
-<br>
-
-<%= link_to 'New Cm', new_cm_path %>
+    <tbody>
+      <% @cms.each do |cm| %>
+        <tr>
+          <td><%= cm.title %></td>
+          <td><%= cm.tagid %></td>
+          <td><%= cm.content %></td>
+          <td><%= cm.viewer %></td>
+          <td><%= cm.seo_title %></td>
+          <td><%= cm.seo_description %></td>
+          <td><%= link_to 'Show', cm %></td>
+          <td><%= link_to 'Edit', edit_cm_path(cm) %></td>
+          <td><%= link_to 'Destroy', cm, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

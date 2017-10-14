@@ -1,0 +1,33 @@
+<div class="admin-block">
+  <p id="notice"><%= notice %></p>
+
+  <h1>
+    คอร์สเรียน
+    <span style="float: right;font-size: 20px;">
+      <%= link_to 'Edit', edit_semester_path(@semester) , class: 'btn-redder'%>
+      <%= link_to 'Back', semesters_path , class: 'btn-grey'%>
+    </span>
+  </h1>
+
+  <div class="show-container">
+    <p>
+      <strong>ภาคการศึกษา:</strong>
+      <%= @semester.name %>
+    </p>
+
+    <p>
+      <strong>รหัสภาคเรียน:</strong>
+      <%= @semester.sem_code %>
+    </p>
+
+    <p>
+      <strong>ปีการศึกษา:</strong>
+      <%= @semester.sem_index %>/<%= @semester.year %>
+    </p>
+
+    <p>
+      <strong>รายละเอียด:</strong>
+      <%= @semester.description %>
+    </p>
+  </div>
+</div>

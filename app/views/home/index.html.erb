@@ -11,7 +11,7 @@
       </div>
   </header>
   <br><br>
-  <%= @content[:content].html_safe %>
+  <%= @content[:content].html_safe rescue '' %>
 </div>
 
 <!-- Include JAVASCRIPT here ><-->
@@ -29,7 +29,7 @@
   var comp = new Vue({
     el: '#app',
     data: {
-      sliders: <%= eval( Configur.first[:home_slider] ).to_json.html_safe %> ,
+      sliders: <%= eval( Configur.first[:home_slider] ).to_json.html_safe rescue '' %> ,
       choice: 'tab1',
       iLinks:[
         { title: 'สถาบันกวดวิชา'   ,action:'' , url: '<%= home_about_path %>' },

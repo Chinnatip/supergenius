@@ -1,33 +1,35 @@
-<p id="notice"><%= notice %></p>
+<div class="admin-block">
+  <p id="notice"><%= notice %></p>
 
-<h1>Configurs</h1>
+  <h1>
+    Configurs
+    <%= link_to 'New Configur', new_configur_path , class: 'btn-ner' %>
+  </h1>
 
-<table>
-  <thead>
-    <tr>
-      <th>Top contact</th>
-      <th>Company name</th>
-      <th>Contact info</th>
-      <th>Home slider</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @configurs.each do |configur| %>
+  <table>
+    <thead>
       <tr>
-        <td><%= configur.top_contact %></td>
-        <td><%= configur.company_name %></td>
-        <td><%= configur.contact_info %></td>
-        <td><%= configur.home_slider %></td>
-        <td><%= link_to 'Show', configur %></td>
-        <td><%= link_to 'Edit', edit_configur_path(configur) %></td>
-        <td><%= link_to 'Destroy', configur, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <th>Top contact</th>
+        <th>Company name</th>
+        <th>Contact info</th>
+        <th>Home slider</th>
+        <th colspan="3"></th>
       </tr>
-    <% end %>
-  </tbody>
-</table>
+    </thead>
 
-<br>
+    <tbody>
+      <% @configurs.each do |configur| %>
+        <tr>
+          <td><%= configur.top_contact %></td>
+          <td><%= configur.company_name %></td>
+          <td><%= configur.contact_info %></td>
+          <td><%= configur.home_slider %></td>
+          <td><%= link_to 'Show', configur %></td>
+          <td><%= link_to 'Edit', edit_configur_path(configur) %></td>
+          <td><%= link_to 'Destroy', configur, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
 
-<%= link_to 'New Configur', new_configur_path %>
+</div>

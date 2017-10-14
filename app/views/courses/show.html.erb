@@ -1,29 +1,38 @@
-<p id="notice"><%= notice %></p>
+<div class="admin-block">
+  <p id="notice"><%= notice %></p>
 
-<p>
-  <strong>Name:</strong>
-  <%= @course.name %>
-</p>
+  <h1>
+    คอร์สเรียน
+    <span style="float: right;font-size: 20px;">
+      <%= link_to 'Edit', edit_course_path(@course) , class: 'btn-ner'%>
+      <%= link_to 'Back', courses_path , class: 'btn-ner'%>
+    </span>
+  </h1>
 
-<p>
-  <strong>Major:</strong>
-  <%= @course.major %>
-</p>
+  <div class="show-container">
+    <p>
+      <strong>Name:</strong>
+      <%= @course.name %>
+    </p>
 
-<p>
-  <strong>Price:</strong>
-  <%= @course.price %>
-</p>
+    <p>
+      <strong>Major:</strong>
+      <%= @course.major %>
+    </p>
 
-<p>
-  <strong>Grade:</strong>
-  <%= @course.grade %>
-</p>
+    <p>
+      <strong>Price:</strong>
+      <%= @course.price %>
+    </p>
 
-<p>
-  <strong>Seat:</strong>
-  <%= @course.seat %>
-</p>
+    <p>
+      <strong>Grade:</strong>
+      <%= @course.grade %>
+    </p>
 
-<%= link_to 'Edit', edit_course_path(@course) %> |
-<%= link_to 'Back', courses_path %>
+    <p>
+      <strong>Seat:</strong>
+      <%= @course.seat %>
+    </p>
+  </div>
+</div>

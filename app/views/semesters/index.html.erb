@@ -1,0 +1,46 @@
+<div class="admin-block">
+  <p id="notice"><%= notice %></p>
+
+  <h1>
+    ภาคเรียน
+    <%= link_to 'สร้างเทอมใหม่', new_semester_path ,class: 'btn-ner'%>
+  </h1>
+
+  <table>
+    <thead>
+      <tr>
+        <th>ลำดับ</th>
+        <th>ภาคเรียน</th>
+        <th>ปีการศึกษา</th>
+        <th>เทอมที่</th>
+        <!-- <th>รายละเอียด</th> -->
+        <th>จำนวนคอร์ส</th>
+        <th>นักเรียน</th>
+        <th></th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% @semesters.each_with_index do |semester,idx| %>
+        <tr>
+          <td><%= idx + 1 %></td>
+          <td>
+            รหัส <%= semester.sem_code %> <br>
+            <%= semester.name %>
+          </td>
+          <td><%= semester.year %></td>
+          <td><%= semester.sem_index %></td>
+          <!-- <td><%= semester.description %></td> -->
+          <td><%= '0' %></td>
+          <td><%= '0' %></td>
+          <td>
+            <%= link_to 'Show', semester , class: 'btn-redder' %>
+            <%= link_to 'Edit', edit_semester_path(semester) , class: 'btn-redder' %>
+            <%= link_to 'Destroy', semester, method: :delete, data: { confirm: 'Are you sure?' } , class: 'btn-grey' %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+<br>
