@@ -30,15 +30,6 @@ class CoursesController < ApplicationController
     ]
   end
 
-  def get_session_id(course)
-    semester_id     = course[:semester]
-    grade_get       = course[:grade]
-    grade_id        = ("%02d" % grade_get)
-    session_running = ("%02d" % (Course.where(semester: semester_id, grade: grade_get ).count + 1))
-    session_id      = semester_id + grade_id + session_running
-    return session_id
-  end
-
   # GET /courses/1/edit
   def edit
   end
@@ -84,6 +75,16 @@ class CoursesController < ApplicationController
       format.html { redirect_to courses_url, notice: 'Course was successfully destroyed.' }
       format.json { head :no_content }
     end
+  end
+
+  def get_session_id(course)
+    semester_id     = course[:semester]
+    grade_get       = course[:grade]
+    grade_id        = ("%02d" % grade_get)
+    max_session     = Course.where(semester: semester_id, grade: grade_get).maximum("session_id")[8..9].to_i rescue 0
+    session_running = ("%02d" % (max_session + 1))
+    session_id      = semester_id + grade_id + session_running
+    return session_id
   end
 
   private
