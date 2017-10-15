@@ -30,6 +30,15 @@ class CoursesController < ApplicationController
     ]
   end
 
+  def get_session_id(course)
+    semester_id     = course[:semester]
+    grade_get       = course[:grade]
+    grade_id        = ("%02d" % grade_get)
+    session_running = ("%02d" % (Course.where(semester: semester_id, grade: grade_get ).count + 1))
+    session_id      = semester_id + grade_id + session_running
+    return session_id
+  end
+
   # GET /courses/1/edit
   def edit
   end
@@ -38,15 +47,7 @@ class CoursesController < ApplicationController
   # POST /courses.json
   def create
     @course = Course.new(course_params)
-    # puts 'inspecter >>>'
-    # puts params.inspect
-    semester_id     = params[:course][:semester]
-    # major_id        = params[:course][:major]
-    grade_get       = params[:course][:grade]
-    grade_id        = ("%02d" % grade_get)
-    session_running = ("%02d" % (Course.where(semester: semester_id, grade: grade_get ).count + 1))
-    session_id      = semester_id + grade_id + session_running
-    @course[:session_id] = session_id
+    @course[:session_id] = get_session_id(params[:course])
     respond_to do |format|
       if @course.save
         # format.html { redirect_to @course, notice: 'Course was successfully created.' }
@@ -62,6 +63,7 @@ class CoursesController < ApplicationController
   # PATCH/PUT /courses/1
   # PATCH/PUT /courses/1.json
   def update
+    @course[:session_id] = get_session_id(params[:course])
     respond_to do |format|
       if @course.update(course_params)
         # format.html { redirect_to @course, notice: 'Course was successfully updated.' }
