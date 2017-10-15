@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
 
+  resources :addcourses
   resources :majors
   resources :semesters
   resources :configurs
@@ -43,6 +44,7 @@ Rails.application.routes.draw do
   get 'home/celebrity'
   get 'home/class_detail'
   get 'home/update_score'
+  get 'home/update_addcourse'
   get 'home/update_course'
   get 'home/update_class'
   get 'home/edit_current'
@@ -51,6 +53,7 @@ Rails.application.routes.draw do
   #init json controllers
   get 'init/get_subscription'
   get 'init/get_class_advisee'
+  get 'init/get_addcourse_note'
 
   #pages
   # get 'page/about'

@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  type: 
+  course: MyString
+  desc: MyText
+
+two:
+  type: 
+  course: MyString
+  desc: MyText

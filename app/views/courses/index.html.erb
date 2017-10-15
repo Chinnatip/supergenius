@@ -1,3 +1,71 @@
+<!-- ADD EXTRA COURSE MODAL -->
+<div class="modal modal-addcourse">
+  <div class="modal-background"></div>
+  <div class="modal-card">
+    <input class="cl-id" type="hidden" name="classroom" value="">
+    <header class="modal-card-head" style="flex-direction: column;">
+      <p class="modal-card-title">การนัดเรียนเสริม</p> <br>
+      <span  class="place-holder" style="
+        display: block;
+        font-size: 17px;
+        margin-top: -8px;
+      "></span>
+    </header>
+    <section class="modal-card-body">
+      <div class="inner"></div>
+    </section>
+    <footer class="modal-card-foot">
+      <a class="edit-inject button is-success" href="#">แก้ไขข้อมูล</a>
+      <a class="button closer">ยกเลิก</a>
+    </footer>
+  </div>
+</div>
+
+<!-- ADD STUDENT MODAL -->
+<div class="modal modal-student">
+  <div class="modal-background"></div>
+  <form class="modal-card" action="<%= home_update_class_path %>" method="get">
+    <input class="cl-id" type="hidden" name="classroom" value="">
+    <header class="modal-card-head">
+      <p class="modal-card-title">เพิ่มนักเรียนเข้าสู้ห้องเรียน</p>
+    </header>
+    <section class="modal-card-body">
+      <!-- Content ... -->
+      <div class="st-course" style="margin-bottom: 16px;"></div>
+      <table>
+        <thead>
+          <tr>
+            <th>เลือก</th>
+            <th>ภาพถ่าย</th>
+            <th>ชื่อนักเรียน</th>
+            <th>โรงเรียน</th>
+            <th>รหัสนักเรียน</th>
+          </tr>
+        </thead>
+        <tbody class="pop-course">
+          <% Student.all.each do |s| %>
+           <% school = School.find(s[:school]) %>
+            <tr>
+              <td><input type="checkbox" name="[student]<%= s[:student_code] %>" value="" code="<%= s[:student_code] %>"> </td>
+              <td><img src="../img_ref/kids.png" alt="" style="width:30px"/></td>
+              <td>
+                <%= s[:nickname] %><br>
+                <a target="_blank" href="/students/<%= s[:id] %>/edit" style="color:#3F51B5">ดูข้อมูลเด็ก >></a>
+              </td>
+              <td><%= school[:name] %></td>
+              <td><%= s[:student_code] %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </section>
+    <footer class="modal-card-foot">
+      <input type="submit" class="button is-success" value="อัพเดทข้อมูล">
+      <a class="button closer">ยกเลิก</a>
+    </footer>
+  </form>
+</div>
+
 <div class="admin-block">
   <p id="notice"><%= notice %></p>
 
@@ -6,7 +74,7 @@
     <%= link_to 'New Course', new_course_path , class: 'btn-ner' %>
   </h1>
 
-  <table>
+  <table class="">
     <thead>
       <tr>
         <th>ระดับชั้น</th>
@@ -14,7 +82,7 @@
         <th>วัน</th>
         <th>วันที่เรียน</th>
         <th>เวลา</th>
-        <th>จำนวนครั้งที่เรียน</th>
+        <th>เรียนทั้งหมด</th>
         <th>นัดแก้</th>
         <th>นัดเพิ่ม</th>
         <th>ค่าเรียน</th>
@@ -28,21 +96,114 @@
         <% course_detail = Course.details(course)%>
         <tr>
           <td><%= course_detail[:grade] %></td>
-          <td><%= course_detail[:name] %></td>
+          <td>
+            <%= course_detail[:name] %><br>
+            <span style="color: grey;font-size:11px;">
+              <%= course[:session_id]%>
+            </span>
+          </td>
           <td><%= course_detail[:range] %></td>
           <td><%= course_detail[:time_table] %></td>
           <td><%= course_detail[:time] %></td>
           <td><%= course_detail[:period] %></td>
-          <td></td>
-          <td></td>
+          <td
+            class="clickable toggle-fixed"
+            course="<%= course[:session_id] %>"
+            status="<%= course_detail[:fixed_class][:status] %>"
+            >
+            <%= course_detail[:fixed_class][:res] %>
+          </td>
+          <td
+            class="clickable toggle-extra"
+            course="<%= course[:session_id] %>"
+            status="<%= course_detail[:extra_class][:status] %>"
+            >
+            <%= course_detail[:extra_class][:res] %>
+          </td>
           <td><%= course_detail[:price] %></td>
-          <td><%= course_detail[:seat] %></td>
-          <td></td>
+          <td>
+            <%= course_detail[:seat] %>
+            <a
+              class="open-modal btn-red-mini" href="#"
+              spec="<%= course.session_id %>"
+              >
+              +Add
+            </a>
+          </td>
+          <td><%= course_detail[:teacher] %></td>
           <td><%= link_to 'แก้ไข', edit_course_path(course) , class: 'btn-redder' %></td>
           <td><%= link_to 'ลบ', course, method: :delete, data: { confirm: 'ถ้ากดลบคอร์สนี้เเละข้อมูลที่เกี่ยวข้องทั้งหมดจะหายไป เเน่ใจนะ?' }  , class: 'btn-grey' %></td>
         </tr>
       <% end %>
     </tbody>
   </table>
-
 </div>
+
+<script type="text/javascript">
+  $( document ).ready(function() {
+    $('.open-modal').on('click',function(){
+      $('.modal-student').addClass('is-active');
+      spec = $(this).attr("spec");
+      $('.cl-id').val(spec);
+      $.ajax({
+				url: '<%= init_get_class_advisee_path %>',
+        data: {
+          classroom: spec
+        },
+				success: function(response){
+          //alert(JSON.stringify(response.collect));
+          $('.st-course').text(response.get);
+          $("tbody.pop-course").find("tr").each(function() {
+            //find course then checked
+            var students     = $(this).find('input');
+            //clear all value
+            students.prop('checked', false);
+            var find_course = response.collect.indexOf(students.attr('code'));
+            if (find_course >= 0) {
+              //alert(find_course);
+              students.prop('checked', true);
+            }
+          });
+				}
+			});
+    });
+
+    $('.closer').on('click',function(){
+      $('.modal').removeClass('is-active');
+    });
+
+    $('.toggle-fixed').on('click',function(){
+      course = $(this).attr("course");
+      status = $(this).attr("status");
+      // alert("นัดแก้" + course + " " + status);
+      if (status == "true"){
+        $('.modal-addcourse').addClass('is-active');
+        $.get("/init/get_addcourse_note?type=fixed&course="+ course , function(data, status){
+          $( "a.edit-inject" ).attr("href", data.edit_inject);
+          $( "span.place-holder").text(data.course);
+          $( "div.inner" ).html('');
+          $( "div.inner" ).html(data.note);
+        });
+      } else {
+        window.location.href = "/addcourses/new?course="+ course +"&type=fixed";
+      }
+    });
+
+    $('.toggle-extra').on('click',function(){
+      course = $(this).attr("course");
+      status = $(this).attr("status");
+      // alert("นัดเพิ่ม" + course + " " + status);
+      if (status == "true"){
+        $('.modal-addcourse').addClass('is-active');
+        $.get("/init/get_addcourse_note?type=extra&course="+ course , function(data, status){
+          $( "a.edit-inject" ).attr("href", data.edit_inject);
+          $( "span.place-holder").text(data.course);
+          $( "div.inner" ).html('');
+          $( "div.inner" ).html(data.note);
+        });
+      } else {
+        window.location.href = "/addcourses/new?course="+ course +"&type=extra";
+      }
+    });
+  });
+</script>

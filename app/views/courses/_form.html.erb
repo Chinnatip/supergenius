@@ -29,7 +29,7 @@
     </select>
   </div>
 
-  <div class="field">
+  <!-- <div class="field">
     <label for="major">เลือกวิชาที่สอน</label>
     <select id="major" name="course[major]">
       <% Major.all.each do |m| %>
@@ -41,7 +41,7 @@
         </option>
       <% end %>
     </select>
-  </div>
+  </div> -->
 
   <div class="field">
     <label for="grade">ชั้นปี</label>
@@ -60,12 +60,37 @@
       <option value="12">ม.6</option>
     </select>
   </div>
-  <hr>
 
   <div class="field minify-selector">
     <label for="price">ค่าลงทะเบียน</label>
     <%= f.number_field :price ,value: course[:price] || '2500' , placeholder: '2500' %> บาท
   </div>
+  <hr>
+
+  <!-- <div class="field">
+    <label for="teacher">ครูผู้สอน</label>
+    <% Teacher.all.each do |t| %>
+      <%
+        finder = false
+        if course[:teacher].present?
+          course[:teacher].split(",").each do |teach|
+            if teach == t[:id].to_s
+              finder = true
+            end
+          end
+        end
+      %>
+      <% if course[:teacher].present? && finder
+          parser =  { :multiple => true, :checked  => true }
+        else
+          parser =  { :multiple => true }
+        end
+      %>
+      <%= check_box( "course", "teacher", parser, t[:id], nil) %>
+      <span style="margin-right: 20px"> พี่<%= t[:name] %></span>
+    <% end %>
+  </div>
+  <hr> -->
 
   <div class="field minify-selector">
     <% ttb = course[:period] || 13 %>
@@ -83,24 +108,6 @@
       <% end %>
     </select>
   </div>
-  <hr>
-
-  <div class="field date-selector">
-    <label for="start">เริ่มคอร์ส</label>
-    <%= f.date_select :start %>
-    <span style="margin: 0 15px; font-size: 15px;"> ถีงวันที่ </span>
-    <%= f.date_select :end %>
-  </div>
-
-  <div class="field time-selector">
-    <label for="start_time">เริ่มเรียนเวลา</label>
-    <%= f.time_select :start_time , :default => {:hour => '9', :minute => '00'} %> น.
-  </div>
-
-  <div class="field time-selector">
-    <label for="end_time">เลิกเรียนเวลา</label>
-    <%= f.time_select :end_time  , :default => {:hour => '16', :minute => '00'} %> น.
-  </div>
 
   <div class="field time-selector">
     <label for="end_time">วันที่เรียน</label>
@@ -114,6 +121,39 @@
       <%= check_box( "course", "time_table", parser, ds[:v], nil) %>
       <span style="margin-right: 13px"> <%= ds[:d] %> </span>
     <% end %>
+  </div>
+
+  <div class="field date-selector">
+    <% default_start_course = Date.today + 1.month %>
+    <% default_end_course   = Date.today + 4.month %>
+    <label for="start">เริ่มคอร์ส</label>
+    <%= f.date_select :start ,
+        :default => {
+          :year  =>  default_start_course.strftime('%Y').to_s ,
+          :month =>  default_start_course.strftime('%m').to_s,
+          :day   =>  default_start_course.beginning_of_month.strftime('%d').to_s,
+        },
+        :order => [ :day, :month, :year ]
+    %>
+    <span style="margin: 0 15px; font-size: 15px;"> ถีงวันที่ </span>
+    <%= f.date_select :end ,
+        :default => {
+          :year  =>  default_end_course.strftime('%Y').to_s ,
+          :month =>  default_end_course.strftime('%m').to_s,
+          :day   =>  default_end_course.end_of_month.strftime('%d').to_s
+        },
+        :order => [ :day, :month, :year ]
+     %>
+  </div>
+
+  <div class="field time-selector">
+    <label for="start_time">เริ่มเรียนเวลา</label>
+    <%= f.time_select :start_time , :default => {:hour => '8', :minute => '00'} %> น.
+  </div>
+
+  <div class="field time-selector">
+    <label for="end_time">เลิกเรียนเวลา</label>
+    <%= f.time_select :end_time  , :default => {:hour => '16', :minute => '00'} %> น.
   </div>
   <hr>
 

@@ -38,8 +38,15 @@ class CoursesController < ApplicationController
   # POST /courses.json
   def create
     @course = Course.new(course_params)
-    puts 'inspecter >>>'
-    puts params.inspect
+    # puts 'inspecter >>>'
+    # puts params.inspect
+    semester_id     = params[:course][:semester]
+    # major_id        = params[:course][:major]
+    grade_get       = params[:course][:grade]
+    grade_id        = ("%02d" % grade_get)
+    session_running = ("%02d" % (Course.where(semester: semester_id, grade: grade_get ).count + 1))
+    session_id      = semester_id + grade_id + session_running
+    @course[:session_id] = session_id
     respond_to do |format|
       if @course.save
         # format.html { redirect_to @course, notice: 'Course was successfully created.' }
@@ -107,7 +114,8 @@ class CoursesController < ApplicationController
         :start_time,
         :end_time,
         :period,
-        time_table:[]
+        time_table:[],
+        teacher:[]
       )
     end
 end

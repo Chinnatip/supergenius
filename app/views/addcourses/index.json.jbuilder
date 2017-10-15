@@ -1,0 +1,1 @@
+json.array! @addcourses, partial: 'addcourses/addcourse', as: :addcourse

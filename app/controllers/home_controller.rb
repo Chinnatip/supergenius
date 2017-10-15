@@ -96,6 +96,9 @@ class HomeController < ApplicationController
     redirect_to :back
   end
 
+  def update_addcourse
+  end
+
   def update_course
     # puts 'get params >>>>>>>>>>'
     # puts params[:student]

@@ -5,6 +5,11 @@ class Course < ApplicationRecord
     self.time_table.gsub!(/[\[\]\"]/, "") if attribute_present?("time_table")
   end
 
+  # COurse has_many teacher
+  before_save do
+    self.teacher.gsub!(/[\[\]\"]/, "") if attribute_present?("teacher")
+  end
+
   def self.count_all
     return self.all.count
   end
@@ -76,19 +81,51 @@ class Course < ApplicationRecord
     return result
   end
 
+  def self.parse_teacher(lists)
+    result = ""
+    if lists.present?
+      teachers = lists.split(",")
+      teachers.each_with_index do |t,idx|
+        prefix = if idx > 0 then "," end
+        result += "#{prefix}พี่#{Teacher.find(t)[:name]}"
+      end
+    else
+      result = '-'
+    end
+    return result
+  end
+
+  def self.parse_add_class(course,type)
+    finder = Addcourse.where(course: course, add_type: type)
+    if finder.present?
+      return {
+        res:    '✅',
+        status: true
+      }
+    else
+      return {
+        res:    '⬜️',
+        status: false
+      }
+    end
+  end
+
   def self.details(obj)
     return {
-      id:         "#{"%04d" % obj[:id]}" ,
-      name:       obj[:name] ,
-      semester:   Semester.where(sem_code: obj[:semester]).first[:name] ,
-      major:      parse_major(obj[:major]) ,
-      grade:      parse_grade(obj[:grade]) ,
-      price:      if obj[:price].present? then "#{obj[:price].floor} บาท" else '-' end ,
-      seat:       "#{collect_student(obj[:id])} คน",
-      range:      "#{obj[:start].strftime('%d %b')} - #{obj[:end].strftime('%d %b %y')}",
-      time:       "#{obj[:start_time].strftime('%H:%M')}-#{obj[:end_time].strftime('%H:%M')}",
-      period:     "#{obj[:period]} ครั้ง" ,
-      time_table: time_table_abbrev(obj[:time_table])
+      id:          "#{"%04d" % obj[:id]}" ,
+      name:        obj[:name] ,
+      semester:    Semester.where(sem_code: obj[:semester]).first[:name] ,
+      major:       parse_major(obj[:major]) ,
+      grade:       parse_grade(obj[:grade]) ,
+      price:       if obj[:price].present? then "#{obj[:price].floor} บาท" else '-' end ,
+      seat:        "#{collect_student(obj[:id])}",
+      range:       "#{obj[:start].strftime('%e%b')} - #{obj[:end].strftime('%e%b%y')}",
+      time:        "#{obj[:start_time].strftime('%H:%M')}-#{obj[:end_time].strftime('%H:%M')}",
+      period:      "#{obj[:period]} ครั้ง" ,
+      time_table:  time_table_abbrev(obj[:time_table]),
+      teacher:     parse_teacher(obj[:teacher]) ,
+      extra_class: parse_add_class(obj[:session_id],"extra"),
+      fixed_class: parse_add_class(obj[:session_id],"fixed")
     }
   end
 end

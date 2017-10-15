@@ -57,6 +57,9 @@ body.admin-body
     padding: 4px 6px
     color: #6f6f6f
     border-radius: 3px
+  .red-text
+    color:  #e85355
+    font-weight: bold
   .btn-redder
     background: #e85355
     padding: 4px 6px
@@ -98,10 +101,17 @@ body.admin-body
     p
       font-size:   16px
       line-height: 34px
+      &.inline-block
+        display: inline-block
       strong
         min-width: 160px
         display:   inline-block
         font-weight: 500
+      .inline-text-htmler
+        display: inline-block
+        max-width: 720px
+        vertical-align: top
+        font-size: 15px
   .textarea-for-cms
     width: 100%
     min-height: 540px
@@ -146,6 +156,10 @@ body.admin-body
       text-align: center
     th.yellow-gadget
       background: #FFC107
+    td
+      vertical-align: middle
+    td.clickable
+      cursor: pointer
     td.yellow-gadget
       background: #e6e6e6
       padding: 9px 3px

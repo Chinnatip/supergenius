@@ -29,18 +29,17 @@ class StudentsController < ApplicationController
   end
 
   def decode_student_year(grade)
-    inspector = Time.now.strftime('%Y')[2..3].to_i + 56
-    return ("%02d" % (inspector - grade.to_i)).to_s
+    buddhist_era_factor = 43
+    total_collage_year  = 13
+    current_year_in_ad  = Time.now.strftime('%Y')[2..3].to_i
+    decode_year         = current_year_in_ad + buddhist_era_factor + total_collage_year
+    return ("%02d" % (decode_year - grade.to_i)).to_s
   end
 
   def decode_student_runner(grade)
     parser = []
-    all = Student.where(grade: grade)
-
-    all.each do |s|
-      parser << s[:student_code][3..4].to_i
-    end
-    return ("%03d" % (parser.max + 1)).to_s
+    grade_count = Student.where(grade: grade).maximum("student_code")[3..4].to_i rescue 0
+    return ("%03d" % (grade_count + 1)).to_s # rescue "001"
 
   end
 

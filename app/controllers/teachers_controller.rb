@@ -29,7 +29,14 @@ class TeachersController < ApplicationController
   # POST /teachers.json
   def create
     @teacher = Teacher.new(teacher_params)
-
+    # puts "getter >>>"
+    # puts params.inspect
+    # user_find = User.create(email: us[:email])
+    # user_find.role = "teacher"
+    # user_find.name = "#{params[:name]}"
+    # user_find.password = us[:password]
+    # user_find.password_confirmation = us[:password_confirmation]
+    # user_find.save
     respond_to do |format|
       if @teacher.save
         format.html { redirect_to @teacher, notice: 'Teacher was successfully created.' }

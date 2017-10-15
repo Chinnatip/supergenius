@@ -1,0 +1,39 @@
+<div class="admin-block">
+  <p id="notice"><%= notice %></p>
+
+  <h1>
+    นัดเรียนเสริม
+    <%= link_to 'เพิ่มการนัดเรียนเสริม', new_addcourse_path ,class: 'btn-ner' %>
+  </h1>
+
+  <table>
+    <thead>
+      <tr>
+        <th>คอร์สเรียน</th>
+        <th>ประเภทนัด</th>
+        <th>โน้ตรายละเอียด</th>
+        <th></th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% @addcourses.each do |addcourse| %>
+        <% course_detail = Addcourse.details(addcourse) %>
+        <tr>
+          <td><%= course_detail[:name] %></td>
+          <td><%= course_detail[:type] %></td>
+          <td>
+            <%= course_detail[:desc_abbrev] %>...
+            <%= link_to 'อ่านต่อ', addcourse , class: 'red-text'%>
+          </td>
+          <td>
+            <%= link_to 'แก้ไข', edit_addcourse_path(addcourse)  , class: 'btn-redder'%>
+            <%= link_to 'ลบ', addcourse, method: :delete, data: { confirm: 'Are you sure?' }  , class: 'btn-grey'%>
+          </td>
+
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+
+</div>
