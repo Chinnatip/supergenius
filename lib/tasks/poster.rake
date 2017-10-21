@@ -1,5 +1,8 @@
 require 'rake'
 
+School.where(name: 'โรงเรียนบีคอนเฮาส์แย้มสอาดรังสิต').first[:id]
+
+
 task :post_new_student => :environment do
   puts "create student template >>>"
   students = [
@@ -244,7 +247,7 @@ task :post_new_student => :environment do
     # end
 
     school_id = School.where(name: pupil[:school]).first[:id]
-    
+
     # find or created
     if  Student.where(nickname: pupil[:nickname], name: pupil[:name], surname: pupil[:surname],school: school_id,grade: pupil[:grade].to_i ).count == 0
       detatched_code = detatched_student_code(pupil[:grade].to_i)
