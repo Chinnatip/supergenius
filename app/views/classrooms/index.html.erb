@@ -20,7 +20,7 @@
     <form class="modal-card" action="<%= home_update_class_path %>" method="get">
       <input class="cl-id" type="hidden" name="classroom" value="">
       <header class="modal-card-head">
-        <p class="modal-card-title">เพิ่มนักเรียนเข้าสู้ห้องเรียน</p>
+        <p class="modal-card-title">เพิ่มนักเรียนเข้าสู่ห้องเรียน</p>
       </header>
       <section class="modal-card-body">
         <!-- Content ... -->
@@ -36,7 +36,7 @@
             </tr>
           </thead>
           <tbody class="pop-course">
-            <% Student.all.each do |s| %>
+            <%  Student.all.each do |s| %>
              <% school = School.find(s[:school]) %>
               <tr>
                 <td><input type="checkbox" name="[student]<%= s[:student_code] %>" value="" code="<%= s[:student_code] %>"> </td>
@@ -65,12 +65,13 @@
         <th>รหัสห้องเรียน</th>
         <th>ชื่อห้องเรียน</th>
         <th>ผู้สอน</th>
-        <th>ค่าลงทะเบียน</th>
+        <!-- <th>ค่าลงทะเบียน</th> -->
         <th>จำนวนนักเรียน</th>
-        <th>จำนวนครั้ง</th>
+        <th>รายละเอียดคอร์ส</th>
+        <!-- <th>จำนวนครั้ง</th>
         <th>ซีซั่น</th>
-        <th>เวลาเรียน</th>
-        <th>สถานะ</th>
+        <th>เวลาเรียน</th> -->
+        <!-- <th>สถานะ</th> -->
         <th colspan="3"></th>
       </tr>
     </thead>
@@ -80,23 +81,24 @@
         <% classroom_detail = Classroom.details(classroom)%>
         <tr>
           <td><%= classroom.spec %></td>
-          <td><%= classroom.name %></td>
+          <td>
+            <%= classroom.name %> <br>
+            <a href="/courses/<%= classroom.course %>" style="font-size:11px;color:grey"><%= Course.find(classroom.course)[:name] %></a>
+          </td>
           <td><%= classroom_detail[:teacher] %></td>
-          <td><%= classroom_detail[:price] %></td>
+          <!-- <td><%= classroom_detail[:price] %></td> -->
           <td>
             <%= classroom_detail[:seat] %>คน
-            <a
-              class="open-modal btn-red-mini" href="#"
-              spec="<%= classroom.spec %>"
-              >
-              +Add
-            </a>
+            <a class="btn-red-mini" href="<%= task_add_seat_path %>?classroom=<%= classroom.id %>">+Add</a>
           </td>
-          <td><%= classroom_detail[:schedule] %> ครั้ง</td>
+          <td>
+            <%= classroom.desc.html_safe %>
+          </td>
+          <!-- <td><%= classroom_detail[:schedule] %> ครั้ง</td>
           <td><%= classroom_detail[:course_period_from] %> -<br><%= classroom_detail[:course_period_to] %></td>
           <td><%= classroom_detail[:timetable_from] %> -<br><%= classroom_detail[:timetable_to] %></td>
-          <td><%= classroom_detail[:status] %></td>
-          <td><a target="_blank" href="<%= classrooms_class_detail_path %>?id=<%= classroom.spec %>" class="btn-redder">ผลคะเเนน</a></td>
+          <td><%= classroom_detail[:status] %></td> -->
+          <td><a target="_blank" href="<%= classrooms_class_detail_path %>?id=<%= classroom.id %>" class="btn-redder">ผลคะเเนน</a></td>
           <td><%= link_to 'รายละเอียด', edit_classroom_path(classroom) , class: 'btn-grey'  %></td>
           <td><%= link_to 'ลบทิ้ง', classroom, method: :delete, data: { confirm: 'Are you sure?' } , class: 'btn-grey' %></td>
         </tr>

@@ -47,12 +47,17 @@
     <% end %>
   </div>
 
-  <div class="field minify-selector">
-    <label for="seat">นักเรียนที่รับได้</label>
-    <%= f.number_field :seat ,value:  classroom[:seat] || '50' , placeholder: '50' %> ที่นั่ง
+  <div class="field">
+    <label for="description">รายละเอียดของห้องเรียน</label>
+    <%= f.text_area :desc , class: 'textarea-for-sub-content'  %>
   </div>
 
-  <div class="field minify-selector">
+  <!-- <div class="field minify-selector">
+    <label for="seat">นักเรียนที่รับได้</label>
+    <%= f.number_field :seat ,value:  classroom[:seat] || '50' , placeholder: '50' %> ที่นั่ง
+  </div> -->
+
+  <!-- <div class="field minify-selector">
     <label for="price">ค่าลงทะเบียน</label>
     <%= f.number_field :price ,value: classroom[:price] || '2500' , placeholder: '2500' %> บาท
   </div>
@@ -66,9 +71,9 @@
   <div class="field date-selector">
     <label for="end">วันที่จบคอร์ส</label>
     <%= f.date_select :end %>
-  </div>
+  </div> -->
 
-  <div class="field time-selector">
+  <!-- <div class="field time-selector">
     <label for="start_time">เริ่มเรียนเวลา</label>
     <%= f.time_select :start_time %> น.
   </div>
@@ -76,12 +81,12 @@
   <div class="field time-selector">
     <label for="end_time">เลิกเรียนเวลา</label>
     <%= f.time_select :end_time %> น.
-  </div>
+  </div> -->
 
-  <div class="field minify-selector">
+  <!-- <div class="field minify-selector">
     <label for="period">จำนวนครั้งที่สอน</label>
     <%= f.number_field :period , value: classroom[:period] || '13' %> ครั้ง
-  </div>
+  </div> -->
 
   <div class="actions">
     <%= link_to 'Back', classrooms_path , class: 'btn btn-grey' %>

@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
 
+  resources :registers
   resources :addcourses
   resources :majors
   resources :semesters
@@ -55,6 +56,9 @@ Rails.application.routes.draw do
   get 'init/get_class_advisee'
   get 'init/get_addcourse_note'
 
+  #
+  get 'video/index'
+
   #pages
   # get 'page/about'
   get 'page/news'
@@ -65,6 +69,12 @@ Rails.application.routes.draw do
   get 'dashboard/new'
   get 'dashboard/product'
   get 'dashboard/board'
+
+  # tasker
+  get 'task/add_student'
+  get 'task/add_student_trigger'
+  get 'task/add_seat'
+  get 'task/add_seat_trigger'
 
   root 'home#index'
 end

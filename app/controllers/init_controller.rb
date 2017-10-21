@@ -43,4 +43,5 @@ class InitController < ApplicationController
     }
     render json: result
   end
+
 end

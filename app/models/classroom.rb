@@ -59,14 +59,10 @@ class Classroom < ApplicationRecord
     return result
   end
 
-  def self.parse_seat(class_code)
-    return Seat.find_student(class_code)
-  end
-
   def self.details(obj)
     return {
       teacher:            parse_teacher(obj[:teacher]) ,
-      seat:               "#{parse_seat(obj[:spec])}" ,# /#{check_seat(obj[:seat])}" ,
+      seat:               Seat.where(classroom: obj[:id]).count ,
       course_period_from: "#{check_period(obj[:start])}",
       course_period_to:   "#{check_period(obj[:end])}",
       timetable_from:     "#{check_time(obj[:start_time])}",

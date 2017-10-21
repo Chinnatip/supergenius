@@ -48,15 +48,6 @@ class Course < ApplicationRecord
     end
   end
 
-  def self.collect_student(key)
-    result = 0
-    class_list = Classroom.where(course: key)
-    class_list.each do |c|
-      result += Seat.find_student(c[:spec])
-    end
-    return result
-  end
-
   def self.time_table_abbrev(dates)
     result = ""
     date_set = [
@@ -118,7 +109,7 @@ class Course < ApplicationRecord
       major:       parse_major(obj[:major]) ,
       grade:       parse_grade(obj[:grade]) ,
       price:       if obj[:price].present? then "#{obj[:price].floor} บาท" else '-' end ,
-      seat:        "#{collect_student(obj[:id])}",
+      seat:        Register.where(course: obj[:id]).count ,
       range:       "#{obj[:start].strftime('%e%b')} - #{obj[:end].strftime('%e%b%y')}",
       time:        "#{obj[:start_time].strftime('%H:%M')}-#{obj[:end_time].strftime('%H:%M')}",
       period:      "#{obj[:period]} ครั้ง" ,

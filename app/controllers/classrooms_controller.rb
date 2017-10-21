@@ -49,8 +49,8 @@ class ClassroomsController < ApplicationController
 
   def class_detail
     @seats   = Seat.where(classroom: params[:id])
-    @periods = Classroom.where(spec: params[:id]).first[:period] + 1
-    @current_period = Classroom.where(spec: params[:id]).first[:current]
+    @periods = Classroom.find(params[:id])[:period] + 1
+    @current_period = Classroom.find(params[:id])[:current]
     @inspect_class_button = "อัพเดทคะเเนนครั้งที่ #{@current_period}"
   end
 
@@ -102,6 +102,6 @@ class ClassroomsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def classroom_params
-      params.require(:classroom).permit(:name, :spec, :course, :teacher, :seat, :booked, :pass, :status, :schedule, :start, :end, :price, :start_time, :end_time, :duration,:period)
+      params.require(:classroom).permit(:name, :spec, :course, :teacher, :seat, :booked, :pass, :status, :schedule, :start, :end, :price, :start_time, :end_time, :duration, :period, :desc)
     end
 end

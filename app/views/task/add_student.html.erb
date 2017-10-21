@@ -1,0 +1,110 @@
+<div class="admin-block"  style="padding: 36px 30px;">
+  <h1 style="font-size: 23px;">
+    เพิ่มนักเรียน | <span><%= @course[:name] %></span>
+  </h1>
+  <div class="left-consoler"
+    style="
+    vertical-align: top;
+    width: 58%;
+    display: inline-block;"
+    >
+    <form class="searchable" action="" method="get" style="
+      background: #f1f1f1;
+      display: flex;
+      padding: 10px 18px;
+      margin-bottom: 12px;
+      ">
+      <input type="hidden" name="course" value="<%= @course[:id] %>">
+      <select class="selector" name="type">
+        <option value="student_code" <% if params[:type] == 'student_code'%>selected<% end %>>รหัสนักเรียน</option>
+        <!-- <option value="grade" <% if params[:type] == 'grade'%>selected<% end %>>ชั้นเรียน</option> -->
+        <option value="school" <% if params[:type] == 'school'%>selected<% end %>>โรงเรียน</option>
+        <option value="nickname" <% if params[:type] == 'nickname'%>selected<% end %>>ชื่อนักเรียน</option>
+      </select>
+      <input class="inputs" type="text" name="keyword" value="<%= params[:keyword] %>" placeholder="search something" style="flex-grow: 1;">
+      <input class="submit" type="submit" value="search">
+    </form>
+    <form action="<%= task_add_student_trigger_path %>" method="get" style="" id="add-student-to-school">
+      <input type="hidden" name="course" value="<%= @course[:id] %>">
+      <table class="" style="border: 1px solid #f1f1f1;">
+        <thead>
+          <tr>
+            <tr>
+              <th>เลือก</th>
+              <th>ภาพถ่าย</th>
+              <th>ชื่อนักเรียน</th>
+              <th>โรงเรียน</th>
+              <th>รหัสนักเรียน</th>
+            </tr>
+          </tr>
+        </thead>
+        <tbody>
+          <% @student.all.each do |s| %>
+            <% school = School.find(s[:school]) %>
+            <tr>
+              <td>
+                <input
+                  class="student-register"
+                  type="checkbox"
+                  name="[student]<%= s[:student_code] %>"
+                  value=""
+                  code="<%= s[:student_code] %>"
+                  style="font-size: 16px;margin-left: 11px;"
+                  <% if @registers.include? s[:student_code] %> checked <% end %>
+                  >
+              </td>
+              <td><img src="../img_ref/kids.png" alt="" style="width:30px"/></td>
+              <td>
+                <%= s[:nickname] %><br>
+                <a target="_blank" href="/students/<%= s[:id] %>/edit" style="color:#3F51B5">ดูข้อมูลเด็ก >></a>
+              </td>
+              <td><%= school[:name] %></td>
+              <td><%= s[:student_code] %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </form>
+  </div>
+  <div class="" style="
+    display: inline-block;
+    width: 40%;
+    border: 1px solid #efefef;
+    padding: 24px;
+    margin-left: 1%;
+    ">
+    <h2>เพิ่มนักเรียน</h2>
+    <input type="submit" id="form-submit" class="button is-success" value="อัพเดท">
+    <a class="button closer" href="/courses">ย้อนกลับ</a>
+    <hr>
+    <h2>รายละเอียด</h2>
+    <h2 style="
+      font-size: 20px;
+      margin-top: 4px;
+      ">
+      นักเรียนทั้งหมด <%= @registers.count %> คน
+    </h2>
+    <% @register_lists.each do |rs| %>
+      <p style="font-size: 12px" >
+        น้อง<%= rs[:nickname] %> |
+        <!-- <%= rs[:name] %> <%= rs[:surname] %> | -->
+        <%= School.find(rs[:school])[:name] %> |
+        <%= rs[:student_code] %>
+      </p>
+    <% end %>
+  </div>
+</div>
+<script type="text/javascript">
+  $(document).ready(function(){
+    $('#form-submit').click(function(){
+      // alert('click click');
+      var student_submit = $('[class="student-register"]:checked').length ;
+      var before_submit  = <%= @registers.count %> ;
+      if (before_submit > student_submit){
+        alert("ตอนนี้ยังไม่สามารถถอนนักเรียนออกจากคอร์สได้!");
+      }else{
+        $('#add-student-to-school').submit();
+      }
+    })
+  });
+</script>

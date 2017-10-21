@@ -27,9 +27,9 @@
   <form class="modal-card" action="<%= home_update_class_path %>" method="get">
     <input class="cl-id" type="hidden" name="classroom" value="">
     <header class="modal-card-head">
-      <p class="modal-card-title">เพิ่มนักเรียนเข้าสู้ห้องเรียน</p>
+      <p class="modal-card-title">เพิ่มนักเรียนเข้าสู่ห้องเรียน</p>
     </header>
-    <section class="modal-card-body">
+    <section class="modal-card-bod">
       <!-- Content ... -->
       <div class="st-course" style="margin-bottom: 16px;"></div>
       <table>
@@ -122,13 +122,14 @@
           </td>
           <td><%= course_detail[:price] %></td>
           <td>
-            <%= course_detail[:seat] %>
-            <a
+            <%= course_detail[:seat] %>คน 
+            <a class="btn-red-mini" href="<%= task_add_student_path %>?course=<%= course[:id] %>">+Add</a>
+            <!-- <a
               class="open-modal btn-red-mini" href="#"
               spec="<%= course.session_id %>"
               >
               +Add
-            </a>
+            </a> -->
           </td>
           <td><%= course_detail[:teacher] %></td>
           <td><%= link_to 'แก้ไข', edit_course_path(course) , class: 'btn-redder' %></td>
