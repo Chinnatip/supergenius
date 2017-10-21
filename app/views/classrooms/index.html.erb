@@ -15,7 +15,7 @@
     <input class="submit" type="submit" value="search">
   </form>
 
-  <div class="modal">
+  <!-- <div class="modal">
     <div class="modal-background"></div>
     <form class="modal-card" action="<%= home_update_class_path %>" method="get">
       <input class="cl-id" type="hidden" name="classroom" value="">
@@ -23,7 +23,6 @@
         <p class="modal-card-title">เพิ่มนักเรียนเข้าสู่ห้องเรียน</p>
       </header>
       <section class="modal-card-body">
-        <!-- Content ... -->
         <div class="st-course" style="margin-bottom: 16px;"></div>
         <table>
           <thead>
@@ -37,7 +36,7 @@
           </thead>
           <tbody class="pop-course">
             <%  Student.all.each do |s| %>
-             <% school = School.find(s[:school]) %>
+             <% school = School.find(s[:school]) rescue '-' %>
               <tr>
                 <td><input type="checkbox" name="[student]<%= s[:student_code] %>" value="" code="<%= s[:student_code] %>"> </td>
                 <td><img src="../img_ref/kids.png" alt="" style="width:30px"/></td>
@@ -45,7 +44,7 @@
                   <%= s[:nickname] %><br>
                   <a target="_blank" href="/students/<%= s[:id] %>/edit" style="color:#3F51B5">ดูข้อมูลเด็ก >></a>
                 </td>
-                <td><%= school[:name] %></td>
+                <td><%= school[:name] rescue '-' %></td>
                 <td><%= s[:student_code] %></td>
               </tr>
             <% end %>
@@ -57,7 +56,7 @@
         <a class="button closer">ยกเลิก</a>
       </footer>
     </form>
-  </div>
+  </div> -->
 
   <table>
     <thead>
