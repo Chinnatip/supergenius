@@ -6,14 +6,15 @@ class TaskController < ApplicationController
   def add_student
     search = params[:keyword] || ''
     type   = params[:type] || 'student_code'
-    @student = Student.search(search,type) # .sort_by { |s| Course.find(s[:course])[:grade]  }
+     # .sort_by { |s| Course.find(s[:course])[:grade]  }
     @course  = Course.find(params[:course])
     @registers = Register.where(course: @course[:id]).pluck(:student)
+    @student = Student.search(search,type).where.not(student_code: @registers)
     @register_lists = Student.where(student_code: @registers)
   end
 
   def add_student_trigger
-    # puts 'get params >>>>>>>>>>'
+    puts 'get params >>>>>>>>>>'
     if params[:student].present?
       selected_student = params[:student].keys
       selected_student.each do |sc|
@@ -35,8 +36,8 @@ class TaskController < ApplicationController
     @classroom  = Classroom.find(params[:classroom])
     @course     = Course.find(@classroom[:course])
     registered  = Register.where(course: @course[:id]).pluck(:student)
-    @students_in_course = Student.where(student_code: registered).search(search,type)
     @seats      = Seat.where(classroom: @classroom[:id]).pluck(:student)
+    @students_in_course = Student.where(student_code: registered).search(search,type).where.not(student_code: @seats)
     @seat_lists = Student.where(student_code: @seats)
   end
 

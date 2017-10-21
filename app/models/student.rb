@@ -1,3 +1,4 @@
+require 'date'
 class Student < ApplicationRecord
 
   def self.count_all
@@ -45,7 +46,7 @@ class Student < ApplicationRecord
         grade_dic = Student.reverse_grade(search)
         return self.where(grade: grade_dic)
       elsif type == 'school'
-        school_dic = School.where(name: search).first[:id] rescue ''
+        school_dic = School.where("name like ?", "%#{search}%").pluck(:id) rescue ''
         return self.where(school: school_dic)
       else
         return self.where("#{type} LIKE ?", "%#{search}%").all
@@ -56,7 +57,7 @@ class Student < ApplicationRecord
   end
 
   def self.parse_school(key)
-    school = School.find(key)[:name]
+    school = School.find(key)[:name] rescue "ไม่ทราบโรงเรียน"
     return school
   end
 
@@ -108,6 +109,25 @@ class Student < ApplicationRecord
     }
   end
 
+  def self.parser_gender(gender)
+    if gender == "m"
+      return "👦"
+    elsif gender == "f"
+      return "👧"
+    else
+      return "-"
+    end
+  end
+
+  def self.parser_birthday(date)
+    if date.present?
+      dates = date.to_s.split("-")
+      return Date.new(dates[2].to_i,dates[1].to_i,dates[0].to_i).strftime("%e %b %Y") rescue dates
+    else
+      return '-'
+    end
+  end
+
 
   def self.details(obj)
     return {
@@ -119,6 +139,8 @@ class Student < ApplicationRecord
       email:	  if obj[:email].present? then obj[:email] else '-' end ,
       tel:	    if obj[:tel].present? then obj[:tel] else '-' end ,
       line:	    if obj[:line].present? then obj[:line] else '-' end ,
+      gender:   parser_gender(obj[:gender]),
+      birthday: parser_birthday(obj[:birthday])
     }
   end
 

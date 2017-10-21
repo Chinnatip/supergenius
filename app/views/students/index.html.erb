@@ -60,13 +60,15 @@
         <th>รายชื่อ</th>
         <th>ชั้นปี</th>
         <th>คอร์สที่ลง</th>
-        <th>โรงเรียน</th>
+        <th>เพศ</th>
+        <!-- <th>โรงเรียน</th> -->
         <th>Password</th>
         <th>Secret</th>
-        <th>ผู้ปกครอง</th>
-        <th>Email</th>
+        <!-- <th>ผู้ปกครอง</th>
+        <th>Email</th> -->
         <th>เบอร์โทร</th>
-        <th>Line</th>
+        <th>วันเกิด</th>
+        <!-- <th>Line</th> -->
         <th colspan="3"></th>
       </tr>
     </thead>
@@ -76,16 +78,23 @@
         <% student_detail = Student.details(student) %>
         <tr>
           <td><%= student[:student_code] %></td>
-          <td><%= student_detail[:name] %></td>
+          <td>
+            น้อง<%= student_detail[:name] %> <br>
+            <%= student_detail[:school] %>
+          </td>
           <td><%= student_detail[:grade] %></td>
           <td><%= student_detail[:seat][:c] %> วิชา</td>
-          <td><%= student_detail[:school] %></td>
+          <td><%= student_detail[:gender] %></td>
           <td><%  if student[:username].present? %> ✅ <% else %> ⬜️ <% end %></td>
           <td><%  if student[:secret_id].present? %> ✅ <% else %> ⬜️ <% end %></td>
-          <td><%= student_detail[:parent] %></td>
-          <td><%= student_detail[:email] %></td>
-          <td><%= student_detail[:tel] %></td>
-          <td><%= student_detail[:line] %></td>
+          <!-- <td><%= student_detail[:parent] %></td>
+          <td><%= student_detail[:email] %></td> -->
+          <td style="font-size: 12px">
+            <%= student[:tel_parent] %> <br>
+            <%= student[:tel] %>
+          </td>
+          <td style="font-size: 12px"><%= student_detail[:birthday] %></td>
+          <!-- <td><%= student_detail[:line] %></td> -->
           <td>
             <a
               class="open-modal btn-redder"

@@ -1,6 +1,6 @@
 <div class="admin-block"  style="padding: 36px 30px;">
   <h1 style="font-size: 23px;">
-    เพิ่มนักเรียน | <span><%= @course[:name] %></span>
+    เพิ่มนักเรียน | คอร์ส<span><%= @course[:name] %></span>
   </h1>
   <div class="left-consoler"
     style="
@@ -33,6 +33,7 @@
               <th>เลือก</th>
               <th>ภาพถ่าย</th>
               <th>ชื่อนักเรียน</th>
+              <th>ชั้นปี</th>
               <th>โรงเรียน</th>
               <th>รหัสนักเรียน</th>
             </tr>
@@ -58,6 +59,7 @@
                 <%= s[:nickname] %><br>
                 <a target="_blank" href="/students/<%= s[:id] %>/edit" style="color:#3F51B5">ดูข้อมูลเด็ก >></a>
               </td>
+              <td><%= Student.parse_grade(s.grade) %></td>
               <td><%= school[:name] %></td>
               <td><%= s[:student_code] %></td>
             </tr>
@@ -97,14 +99,14 @@
 <script type="text/javascript">
   $(document).ready(function(){
     $('#form-submit').click(function(){
-      // alert('click click');
-      var student_submit = $('[class="student-register"]:checked').length ;
-      var before_submit  = <%= @registers.count %> ;
-      if (before_submit > student_submit){
-        alert("ตอนนี้ยังไม่สามารถถอนนักเรียนออกจากคอร์สได้!");
-      }else{
-        $('#add-student-to-school').submit();
-      }
+      $('#add-student-to-school').submit();
+      // var student_submit = $('[class="student-register"]:checked').length ;
+      // var before_submit  = <%= @registers.count %> ;
+      // if (before_submit > student_submit){
+      //   alert("ตอนนี้ยังไม่สามารถถอนนักเรียนออกจากคอร์สได้!");
+      // }else{
+      //   $('#add-student-to-school').submit();
+      // }
     })
   });
 </script>
