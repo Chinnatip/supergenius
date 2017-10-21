@@ -70,7 +70,6 @@ class Classroom < ApplicationRecord
       price:      if obj[:price].present? then "#{obj[:price].floor} บาท" else '-' end ,
       status:     if obj[:status].present? then "#{obj[:status]}" else '-' end ,
       schedule:   if obj[:period].present? then "#{obj[:period]}" else '-' end ,
-
     }
   end
 

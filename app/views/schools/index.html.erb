@@ -9,6 +9,7 @@
   <table>
     <thead>
       <tr>
+        <th>รหัส</th>
         <th>โรงเรียน</th>
         <th class="t-center">ทั้งหมด</th>
         <th class="t-center">ป.1</th>
@@ -29,6 +30,7 @@
 
     <tbody>
       <tr>
+        <td>000</td>
         <td>ทั้งหมด</td>
         <td class="t-center"><%= Student.count_all %></td>
         <td class="t-center t-blur">0</td>
@@ -48,6 +50,7 @@
       <% @schools.each do |school| %>
         <% query = Student.query_by_school(school.id)%>
         <tr>
+          <td><%= school.id %></td>
           <td><%= school.name %></td>
           <td class="t-center"><%= query[:total] %></td>
           <td class="t-center <% if query[:p1] == 0 %>t-blur<% end%>"><%= query[:p1] %></td>
