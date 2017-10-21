@@ -233,19 +233,35 @@ task :post_new_student => :environment do
 
   # Generate student
   students.each do |pupil|
-    school_id = unless pupil[:school] == '-' then School.where(name: pupil[:school]).first[:id] else '-1' end
-    @student = Student.create!(
-      nickname:   pupil[:nickname],
-      name:       pupil[:name],
-      surname:    pupil[:surname],
-      tel:        pupil[:tel_student],
-      tel_parent: pupil[:tel_parent],
-      school:     school_id,
-      grade:      pupil[:grade].to_i ,
-      gender:     pupil[:gender] ,
-      birthday:   pupil[:birth] ,
-      secret_id:  Random.new.rand(100_000..1_000_000).to_s ,
-      student_code: detatched_student_code(pupil[:grade].to_i)
-    )
+    # track school_id
+    # unless pupil[:school] == '-'
+    #   if School.where(name: pupil[:school]).count == 0
+    #     School.create!(name: pupil[:school])
+    #   end
+    #   school_id = School.where(name: pupil[:school]).first[:id]
+    # else
+    #   school_id = '-1'
+    # end
+    # find or created
+    if  Student.where(nickname: pupil[:nickname], name: pupil[:name], surname: pupil[:surname],school: school_id,grade: pupil[:grade].to_i ).count == 0
+      detatched_code = detatched_student_code(pupil[:grade].to_i)
+      @student = Student.create!(
+        nickname:   pupil[:nickname],
+        name:       pupil[:name],
+        surname:    pupil[:surname],
+        tel:        pupil[:tel_student],
+        tel_parent: pupil[:tel_parent],
+        school:     school_id,
+        grade:      pupil[:grade].to_i ,
+        gender:     pupil[:gender] ,
+        birthday:   pupil[:birth] ,
+        secret_id:  Random.new.rand(100_000..1_000_000).to_s ,
+        student_code: detatched_code
+      )
+      puts "created new student code #{detatched_code} >>>"
+    else
+      puts "founded this student >>>"
+    end
+
   end
 end
