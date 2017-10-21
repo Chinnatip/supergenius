@@ -242,6 +242,9 @@ task :post_new_student => :environment do
     # else
     #   school_id = '-1'
     # end
+
+    school_id = School.where(name: pupil[:school]).first[:id]
+    
     # find or created
     if  Student.where(nickname: pupil[:nickname], name: pupil[:name], surname: pupil[:surname],school: school_id,grade: pupil[:grade].to_i ).count == 0
       detatched_code = detatched_student_code(pupil[:grade].to_i)
