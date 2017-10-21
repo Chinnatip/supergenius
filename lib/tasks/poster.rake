@@ -234,16 +234,11 @@ task :post_new_student => :environment do
   # Generate student
   students.each do |pupil|
     # track school_id
-    # unless pupil[:school] == '-'
-    #   if School.where(name: pupil[:school]).count == 0
-    #     School.create!(name: pupil[:school])
-    #   end
-    #   school_id = School.where(name: pupil[:school]).first[:id]
-    # else
-    #   school_id = '-1'
-    # end
-
-    school_id = School.where(name: pupil[:school]).first[:id]
+    unless pupil[:school] == '-'
+      school_id = School.where(name: pupil[:school]).first[:id]
+    else
+      school_id = '-1'
+    end
 
     # find or created
     if  Student.where(nickname: pupil[:nickname], name: pupil[:name], surname: pupil[:surname],school: school_id,grade: pupil[:grade].to_i ).count == 0
