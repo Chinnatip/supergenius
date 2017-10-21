@@ -1,8 +1,5 @@
 require 'rake'
 
-School.where(name: 'โรงเรียนบีคอนเฮาส์แย้มสอาดรังสิต').first[:id]
-
-
 task :post_new_student => :environment do
   puts "create student template >>>"
   students = [
