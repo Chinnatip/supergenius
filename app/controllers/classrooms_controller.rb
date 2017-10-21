@@ -48,10 +48,10 @@ class ClassroomsController < ApplicationController
   end
 
   def class_detail
+    @classroom = Classroom.find(params[:id])
     @seats   = Seat.where(classroom: params[:id])
-    @periods = Classroom.find(params[:id])[:period] + 1
-    @current_period = Classroom.find(params[:id])[:current]
-    @inspect_class_button = "อัพเดทคะเเนนครั้งที่ #{@current_period}"
+    @periods = Course.find(@classroom[:course])[:period]
+    # @current_period = Classroom.find(params[:id])[:current]
   end
 
   # POST /classrooms

@@ -101,6 +101,11 @@ class Course < ApplicationRecord
     end
   end
 
+  def self.parse_course_kit(c)
+    sem = Semester.where(sem_code: c[:semester]).first
+    return "#{sem[:year]} | #{sem[:name]} | #{Student.parse_grade(c[:grade])} | #{c[:name]}"
+  end
+
   def self.details(obj)
     return {
       id:          "#{"%04d" % obj[:id]}" ,

@@ -118,32 +118,60 @@ class HomeController < ApplicationController
   end
 
   def update_score
+    puts "get 1 >>>"
+    # puts params.inspect
+    puts params[:score].keys
+
+    student_seats = params[:score].keys
+    student_seats.each do |student|
+      score_param = {classroom: params[:classroom], student: student ,exam_type: 'scoring'}
+      #
+      if Exam.where(score_param).count == 0
+        score_init = Exam.create!(score_param)
+      else
+        score_init = Exam.where(score_param).first
+      end
+      score_init[:score] = params[:score]["#{student}"].to_json
+      score_init.save
+      # 
+      mental_param = {classroom: params[:classroom], student: student ,exam_type: 'mental'}
+      if Exam.where(mental_param).count == 0
+        mental_init = Exam.create!(mental_param)
+      else
+        mental_init = Exam.where(mental_param).first
+      end
+      mental_init[:score] = params[:mental]["#{student}"].to_json
+      mental_init.save
+    end
+
+
     # puts "updated data >>>"
-    seat = Seat.find(params[:seat_id])
-    seat[:comment] = params[:comment]
-    seat.save
 
-    score = Exam.where(classroom: params[:classroom],student: params[:student], exam_type: 'scoring').first
-    mental = Exam.where(classroom: params[:classroom],student: params[:student], exam_type: 'mental').first
-    stock_score = ''
-    stock_mental = ''
+    # seat = Seat.find(params[:seat_id])
+    # seat[:comment] = params[:comment]
+    # seat.save
     #
-    params[:score].each do |key,array|
-      stock_score += "#{if stock_score.present? then ',' end}#{array.to_s}"
-    end
+    # score = Exam.where(classroom: params[:classroom],student: params[:student], exam_type: 'scoring').first
+    # mental = Exam.where(classroom: params[:classroom],student: params[:student], exam_type: 'mental').first
+    # stock_score = ''
+    # stock_mental = ''
+    # #
+    # params[:score].each do |key,array|
+    #   stock_score += "#{if stock_score.present? then ',' end}#{array.to_s}"
+    # end
+    # #
+    # params[:mental].each do |key,array|
+    #   stock_mental += ",#{array.to_s}"
+    # end
+    # #
+    # score[:score]  = stock_score
+    # mental[:score] = stock_mental
     #
-    params[:mental].each do |key,array|
-      stock_mental += ",#{array.to_s}"
-    end
     #
-    score[:score]  = stock_score
-    mental[:score] = stock_mental
-
-
-    score.save
-    mental.save
-    puts score.to_json
-    puts mental.to_json
+    # score.save
+    # mental.save
+    # puts score.to_json
+    # puts mental.to_json
 
     redirect_to :back
   end

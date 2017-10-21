@@ -128,12 +128,17 @@ class Student < ApplicationRecord
     end
   end
 
+  def self.code(code)
+    return Student.where(student_code: code).first
+  end
+
 
   def self.details(obj)
     return {
       name:	    obj[:nickname],
+      code:     obj[:student_code],
       grade:    parse_grade(obj[:grade]),
-      seat:   parse_seat(obj[:student_code]),
+      seat:     parse_seat(obj[:student_code]),
       school:   parse_school(obj[:school]),
     	parent:	  if obj[:parent].present? then obj[:parent] else '-' end ,
       email:	  if obj[:email].present? then obj[:email] else '-' end ,

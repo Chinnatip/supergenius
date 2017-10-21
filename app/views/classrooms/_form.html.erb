@@ -26,7 +26,7 @@
             value="<%= c[:id] %>"
             <% if classroom[:course] == c[:id] %>selected<% end %>
             >
-            <%= c[:name] %>
+            <%= Course.parse_course_kit(c) %>
           </option>
         <% end %>
       </select>
