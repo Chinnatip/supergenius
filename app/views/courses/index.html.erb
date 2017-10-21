@@ -1,71 +1,3 @@
-<!-- ADD EXTRA COURSE MODAL -->
-<div class="modal modal-addcourse">
-  <div class="modal-background"></div>
-  <div class="modal-card">
-    <input class="cl-id" type="hidden" name="classroom" value="">
-    <header class="modal-card-head" style="flex-direction: column;">
-      <p class="modal-card-title">การนัดเรียนเสริม</p> <br>
-      <span  class="place-holder" style="
-        display: block;
-        font-size: 17px;
-        margin-top: -8px;
-      "></span>
-    </header>
-    <section class="modal-card-body">
-      <div class="inner"></div>
-    </section>
-    <footer class="modal-card-foot">
-      <a class="edit-inject button is-success" href="#">แก้ไขข้อมูล</a>
-      <a class="button closer">ยกเลิก</a>
-    </footer>
-  </div>
-</div>
-
-<!-- ADD STUDENT MODAL -->
-<div class="modal modal-student">
-  <div class="modal-background"></div>
-  <form class="modal-card" action="<%= home_update_class_path %>" method="get">
-    <input class="cl-id" type="hidden" name="classroom" value="">
-    <header class="modal-card-head">
-      <p class="modal-card-title">เพิ่มนักเรียนเข้าสู่ห้องเรียน</p>
-    </header>
-    <section class="modal-card-bod">
-      <!-- Content ... -->
-      <div class="st-course" style="margin-bottom: 16px;"></div>
-      <table>
-        <thead>
-          <tr>
-            <th>เลือก</th>
-            <th>ภาพถ่าย</th>
-            <th>ชื่อนักเรียน</th>
-            <th>โรงเรียน</th>
-            <th>รหัสนักเรียน</th>
-          </tr>
-        </thead>
-        <tbody class="pop-course">
-          <% Student.all.each do |s| %>
-           <% school = School.find(s[:school]) %>
-            <tr>
-              <td><input type="checkbox" name="[student]<%= s[:student_code] %>" value="" code="<%= s[:student_code] %>"> </td>
-              <td><img src="../img_ref/kids.png" alt="" style="width:30px"/></td>
-              <td>
-                <%= s[:nickname] %><br>
-                <a target="_blank" href="/students/<%= s[:id] %>/edit" style="color:#3F51B5">ดูข้อมูลเด็ก >></a>
-              </td>
-              <td><%= school[:name] %></td>
-              <td><%= s[:student_code] %></td>
-            </tr>
-          <% end %>
-        </tbody>
-      </table>
-    </section>
-    <footer class="modal-card-foot">
-      <input type="submit" class="button is-success" value="อัพเดทข้อมูล">
-      <a class="button closer">ยกเลิก</a>
-    </footer>
-  </form>
-</div>
-
 <div class="admin-block">
   <p id="notice"><%= notice %></p>
 
@@ -122,7 +54,7 @@
           </td>
           <td><%= course_detail[:price] %></td>
           <td>
-            <%= course_detail[:seat] %>คน 
+            <%= course_detail[:seat] %>คน
             <a class="btn-red-mini" href="<%= task_add_student_path %>?course=<%= course[:id] %>">+Add</a>
             <!-- <a
               class="open-modal btn-red-mini" href="#"

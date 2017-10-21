@@ -41,7 +41,7 @@
         </thead>
         <tbody>
           <% @student.all.each do |s| %>
-            <% school = School.find(s[:school]) %>
+            <% school = School.find(s[:school]) rescue '-1' %>
             <tr>
               <td>
                 <input
@@ -60,7 +60,7 @@
                 <a target="_blank" href="/students/<%= s[:id] %>/edit" style="color:#3F51B5">ดูข้อมูลเด็ก >></a>
               </td>
               <td><%= Student.parse_grade(s.grade) %></td>
-              <td><%= school[:name] %></td>
+              <td><%= school[:name] rescue 'ไม่ทรายโรงเรียน' %></td>
               <td><%= s[:student_code] %></td>
             </tr>
           <% end %>
