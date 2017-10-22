@@ -129,17 +129,17 @@
           if (e.keyCode == 13) {
             var $this = $(this),
             index = $this.closest('td').index();
-
             $this.closest('tr').next().find('td').eq(index).find('input').focus();
             e.preventDefault();
           }
         });
       <% else %>
         // disable [enter] to submit form
-        $(window).keydown(function(event){
-          if(event.keyCode == 13) {
-            event.preventDefault();
+        $(window).keydown(function(e){
+          if(!$(e.target).hasClass('text-area') ){
+            if(e.keyCode == 13) { e.preventDefault() }
           }
+
         });
       <% end %>
     });
