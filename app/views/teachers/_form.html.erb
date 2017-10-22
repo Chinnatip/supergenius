@@ -12,6 +12,11 @@
   <% end %>
 
   <div class="field">
+    <label for="nickname">ชื่อเล่น</label>
+    <%= f.text_field :nickname %>
+  </div>
+
+  <div class="field">
     <label for="name">ชื่อ</label>
     <%= f.text_field :name %>
   </div>
@@ -48,7 +53,7 @@
 
   <div class="field">
     <label for="tel">เบอร์โทรศัพท์</label>
-    <%= f.number_field :tel %>
+    <%= f.text_field :tel %>
   </div>
 
   <div class="field">
@@ -61,7 +66,17 @@
     <%= f.text_field :facebook %>
   </div>
 
+  <br>
+  <h3  class="hr-cer">โน้ตบันทึก</h3>
+  <div class="field">
+    <%= f.label :note %>
+    <%= f.text_area :note , class: 'textarea-for-cms' %>
+  </div>
+
+
   <div class="actions">
-    <%= f.submit %>
+    <%= link_to 'Back', teachers_path , class: 'btn btn-grey' %>
+    <span class="mar-10"></span>
+    <input type="submit" value="Submit" class="btn btn-redder">
   </div>
 <% end %>

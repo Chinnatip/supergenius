@@ -13,8 +13,7 @@
         <th>วิชาที่สอน</th>
         <th>Email</th>
         <th>Tel</th>
-        <th>Line</th>
-        <th>Facebook</th>
+        <th>Note</th>
         <th colspan="2"></th>
       </tr>
     </thead>
@@ -23,16 +22,18 @@
       <% @teachers.each do |teacher| %>
         <% teacher_detail = Teacher.details(teacher) %>
         <tr>
-          <td><%= teacher.name %> (<%= teacher_detail[:classroom].count %> วิชา)</td>
+          <td>พี่<%= teacher.nickname %> - <%= teacher.name %> </td>
           <td>
+            <div class="t-course">
             <% teacher_detail[:classroom].each do |classs| %>
-              <div class="t-course"><%= classs %><br></div>
+              <%= classs %><br>
             <% end %>
+            (<%= teacher_detail[:classroom].count %> วิชา)
+            </div>
           </td>
           <td><%= teacher_detail[:email] %></td>
           <td><%= teacher_detail[:tel] %></td>
-          <td><%= teacher_detail[:line] %></td>
-          <td><%= teacher_detail[:facebook] %></td>
+          <td style="max-width: 140px"><%= teacher.note.html_safe rescue '-' %></td>
           <td>
             <%= link_to 'รายละเอียด', edit_teacher_path(teacher) ,class: 'btn-redder' %>
             <%= link_to 'ลบทิ้ง', teacher, method: :delete, data: { confirm: 'Are you sure?' } , class: 'btn-grey' %>
