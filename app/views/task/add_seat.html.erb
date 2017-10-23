@@ -96,13 +96,13 @@
 <script type="text/javascript">
   $(document).ready(function(){
     $('#form-submit').click(function(){
-      var student_submit = $('[class="student-seat"]:checked').length ;
-      var before_submit  = <%= @seats.count %> ;
-      if (before_submit > student_submit){
-        alert("ตอนนี้ยังไม่สามารถถอนนักเรียนออกจากคอร์สได้!");
-      }else{
-        $('#add-student-to-school').submit();
-      }
+      // var student_submit = $('[class="student-seat"]:checked').length ;
+      // var before_submit  = <%= @seats.count %> ;
+      // if (before_submit > student_submit){
+      //   alert("ตอนนี้ยังไม่สามารถถอนนักเรียนออกจากคอร์สได้!");
+      // }else{
+      $('#add-student-to-school').submit();
+      // }
     })
   });
 </script>

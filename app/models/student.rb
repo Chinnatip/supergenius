@@ -135,6 +135,7 @@ class Student < ApplicationRecord
 
   def self.details(obj)
     return {
+      id:       obj[:id],
       name:	    obj[:nickname],
       code:     obj[:student_code],
       grade:    parse_grade(obj[:grade]),

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171022002707) do
+ActiveRecord::Schema.define(version: 20171023021225) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -63,6 +63,7 @@ ActiveRecord::Schema.define(version: 20171022002707) do
     t.string   "old_link"
     t.integer  "current"
     t.text     "desc"
+    t.string   "max_score"
   end
 
   create_table "cms", force: :cascade do |t|

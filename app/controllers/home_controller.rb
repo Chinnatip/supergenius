@@ -46,12 +46,10 @@ class HomeController < ApplicationController
   end
 
   def edit_current
-    # puts params[:current]
-    # puts params[:spec]
-    cs = Classroom.where(spec: params[:spec]).first
+    cs = Classroom.find(params[:class])
     cs[:current] = params[:current]
     cs.save
-    redirect_to "/class_detail?id=#{params[:spec]}"
+    redirect_to "/class_detail?id=#{params[:class]}"
   end
 
   def about
@@ -120,59 +118,39 @@ class HomeController < ApplicationController
   def update_score
     puts "get 1 >>>"
     # puts params.inspect
-    puts params[:score].keys
-
-    student_seats = params[:score].keys
+    puts params[:s].keys
+    #
+    classroom = Classroom.find(params[:cl])
+    classroom[:max_score] = params[:max].to_json
+    classroom.save
+    #
+    student_seats = params[:s].keys
     student_seats.each do |student|
-      score_param = {classroom: params[:classroom], student: student ,exam_type: 'scoring'}
+      student_code = Student.find(student)[:student_code]
+      score_param = {classroom: params[:cl], student: student_code ,exam_type: 'scoring'}
       #
       if Exam.where(score_param).count == 0
+        puts "created news grade score for #{student_code}>>>"
         score_init = Exam.create!(score_param)
       else
+        puts "founded grade score for #{student_code} >>>"
         score_init = Exam.where(score_param).first
       end
-      score_init[:score] = params[:score]["#{student}"].to_json
+      score_init[:score] = params[:s]["#{student}"].to_json
       score_init.save
-      # 
-      mental_param = {classroom: params[:classroom], student: student ,exam_type: 'mental'}
+      #
+      mental_param = {classroom: params[:cl], student: student_code ,exam_type: 'mental'}
       if Exam.where(mental_param).count == 0
+        puts "created news mental score for #{student_code}>>>"
         mental_init = Exam.create!(mental_param)
       else
+        puts "founded mental score for #{student_code} >>>"
         mental_init = Exam.where(mental_param).first
       end
-      mental_init[:score] = params[:mental]["#{student}"].to_json
+      mental_init[:score] = params[:m]["#{student}"].to_json
       mental_init.save
     end
-
-
-    # puts "updated data >>>"
-
-    # seat = Seat.find(params[:seat_id])
-    # seat[:comment] = params[:comment]
-    # seat.save
     #
-    # score = Exam.where(classroom: params[:classroom],student: params[:student], exam_type: 'scoring').first
-    # mental = Exam.where(classroom: params[:classroom],student: params[:student], exam_type: 'mental').first
-    # stock_score = ''
-    # stock_mental = ''
-    # #
-    # params[:score].each do |key,array|
-    #   stock_score += "#{if stock_score.present? then ',' end}#{array.to_s}"
-    # end
-    # #
-    # params[:mental].each do |key,array|
-    #   stock_mental += ",#{array.to_s}"
-    # end
-    # #
-    # score[:score]  = stock_score
-    # mental[:score] = stock_mental
-    #
-    #
-    # score.save
-    # mental.save
-    # puts score.to_json
-    # puts mental.to_json
-
     redirect_to :back
   end
 

@@ -196,7 +196,7 @@ body.admin-body
     th.yellow-gadget
       background: #FFC107
     td
-      vertical-align: middle
+      vertical-align: top
     td.clickable
       cursor: pointer
     td.yellow-gadget
@@ -228,6 +228,8 @@ body.admin-body
         border-bottom: 1px solid #c1c1c1
         border-right: 1px solid #c1c1c1
         padding: 6px 0
+      &.current-row
+        background: rgb(243, 243, 243)
       &:first-child
         padding-left: 12px
       &.t-center
@@ -295,3 +297,15 @@ body.admin-body
     font-size: 18px
     letter-spacing: 1px
     color: #929292
+
+select.mental-point
+  &.comment
+    color: red
+
+a.ment
+  font-size: 11px
+  display: none
+  &.shower
+    font-size: 11px
+    display: block
+    color: red

@@ -49,9 +49,13 @@ class ClassroomsController < ApplicationController
 
   def class_detail
     @classroom = Classroom.find(params[:id])
-    @seats   = Seat.where(classroom: params[:id])
-    @periods = Course.find(@classroom[:course])[:period]
-    # @current_period = Classroom.find(params[:id])[:current]
+    @seats     = Seat.where(classroom: params[:id])
+    @select_options = ["","-","0","1","2","3","4","5","6","7","8","9","10"]
+    course_period   = Course.find(@classroom[:course])[:period]
+    # @periods        = JSON.parse(Exam.where(classroom: @classroom.course, exam_type: 'scoring').first['score']).keys.count rescue course_period
+    @periods        = JSON.parse(@classroom[:max_score]).keys.count rescue course_period
+    @max_score      = JSON.parse(@classroom[:max_score])
+    @current_period = Classroom.find(params[:id])[:current] || 0
   end
 
   # POST /classrooms
@@ -102,6 +106,6 @@ class ClassroomsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def classroom_params
-      params.require(:classroom).permit(:name, :spec, :course, :teacher, :seat, :booked, :pass, :status, :schedule, :start, :end, :price, :start_time, :end_time, :duration, :period, :desc)
+      params.require(:classroom).permit(:name, :spec, :course, :teacher, :seat, :booked, :pass, :status, :schedule, :start, :end, :price, :start_time, :end_time, :duration, :period, :desc, :max_score)
     end
 end

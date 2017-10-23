@@ -4,22 +4,22 @@
     <%= link_to 'กลับ', classrooms_path , class: 'btn-ner', style: 'margin-left:8px'%>
     <a id="update-stage" class="btn-bfr">อัพเดทคะเเนน</a>
     <!-- <%= link_to 'เพิ่มนักเรียนใหม่', new_student_path , class: 'btn-ner'%> -->
-    <!-- <span class="class-period">
+    <span class="class-period">
       ปัจุบันเรียนครั้งที่
       <select class="" name="" id="current-class">
         <% @periods.times do |p| %>
           <option
             value="<%= p + 1 %>"
-            <% if (p+1) == @current_period  %>selected<% end %>
+            <% if (p+1) == @current_period %>selected<% end %>
             >
             <%= p + 1 %>
           </option>
         <% end %>
       </select>
-    </span> -->
+    </span>
   </h1>
   <form id="from-score" action="<%= home_update_score_path %>" method="get">
-    <input type="hidden" name="classroom" value="<%= @classroom.course %>">
+    <input type="hidden" name="cl" value="<%= @classroom.id %>">
     <table>
       <thead style="border: 1px solid #dadada;">
         <tr>
@@ -29,34 +29,59 @@
           <!-- <th>คอมเม้นท์</th> -->
           <!-- <th class="center-div" >คะเเนนรวม</th> -->
           <% @periods.times do |i| %>
-            <th colspan="2" class="center-div row-rep"><%= i + 1 %></th>
+            <th colspan="2"
+              class="
+                center-div
+                row-rep
+                <% if (i + 1) == @current_period %> current-row <% end %>
+                "
+              ><%= i + 1 %></th>
           <% end %>
           <th class="row-up row-left" rowspan="3" class="center-div" colspan="1">คำสั่ง</th>
         </tr>
         <tr class="row-head-score">
           <% @periods.times do |i| %>
-            <th style="">
+            <th class="<% if (i + 1) == @current_period %> current-row <% end %>">
               <a href="#" class="click-to-gen-mental click-able" period="<%= i %>">10</a>
             </th>
-            <th style="" class="top-input">
-              <input type="text" name="score_max[<%= i %>]" value="10">
+            <th style="" class="top-input <% if (i + 1) == @current_period %> current-row <% end %>">
+              <input
+                type="text"
+                name="max[<%= i %>]"
+                value="<%= @max_score[i.to_s] rescue 10 %>"
+              >
             </th>
           <% end %>
         </tr>
         <tr class="row-head-score">
           <% @periods.times do |i| %>
-            <th style="">ขยัน</th>
-            <th style="">สอบ</th>
+            <th class="<% if (i + 1) == @current_period %> current-row <% end %>">ขยัน</th>
+            <th class="<% if (i + 1) == @current_period %> current-row <% end %>">สอบ</th>
           <% end %>
         </tr>
       </thead>
 
       <tbody>
         <% @seats.each do |seat| %>
-          <% student = Student.details(Student.code(seat[:student])) %>
+          <!-- get student data -->
+          <% student  = Student.details(Student.code(seat[:student])) %>
+          <!-- get score and mental point -->
+          <% score_param = {classroom: @classroom.id, student: seat[:student] ,exam_type: 'scoring'}%>
+          <% mental_param = {classroom: @classroom.id, student: seat[:student] ,exam_type: 'mental'}%>
+          <% if Exam.where(score_param).count > 0 %>
+            <% puts "score get>>>"%>
+            <% puts Exam.where(score_param) %>
+            <% score_ex = JSON.parse(Exam.where(score_param).first['score']) %>
+          <% else %>
+            <% score_ex = '' %>
+          <% end %>
+          <% if Exam.where(mental_param).count > 0 %>
+            <% mental_ex = JSON.parse(Exam.where(mental_param).first['score']) %>
+          <% else %>
+            <% mental_ex = '' %>
+          <% end %>
+          <!-- show result score -->
           <% seat_detail = Seat.seat_detail(seat)%>
-            <!-- <input type="hidden" name="student" value="<%= seat[:student] %>"> -->
-            <!-- <input type="hidden" name="seat_id" value="<%= seat[:id] %>"> -->
             <tr>
               <td class="row-right row-left"><%= seat[:student] %></td>
               <td class="row-right">
@@ -64,51 +89,50 @@
                 <%= student[:school] %>
               </td>
               <% @periods.times do |i| %>
-                <td class="row-right row-center row-score">
-                  <input type="text" name="mental[<%= seat[:student] %>][<%= i %>]" class="mental-point" period="<%= i %>" value="">
+                <td class="row-right row-center row-score row-for-ment <% if (i + 1) == @current_period %> current-row <% end %>">
+                  <% if (i + 1) == @current_period %>
+                  <select
+                    style="padding: 0 3px;-webkit-appearance: none;border-radius: 4px;width: 22px;line-height: 17px;border: 1px solid gainsboro;background: white;"
+                    class="mental-point" period="<%= i %>"
+                    name="m[<%= student[:id] %>][<%= i %>]"
+                    value="<%= mental_ex[i.to_s] %>"
+                    >
+                    <% @select_options.each do |sc|%>
+                      <option
+                        value="<%= sc %>"
+                        <% if mental_ex[i.to_s] == sc %> selected <% end %>
+                        ><%= sc %></option>
+                    <% end %>
+                  </select>
+                  <a class="ment" href="#" style="
+                    line-height: 7px;
+                    font-size: 8px;
+                    margin-top: 3px;
+                  ">
+                    com <br>
+                    ment
+                  </a>
+                  <!-- <input
+                    type="text" period="<%= i %>"
+                    name="m[<%= student[:id] %>][<%= i %>]"
+                    class="mental-point"
+                    value="<%= mental_ex[i.to_s] %>"> -->
+                  <% else %>
+                    <%= mental_ex[i.to_s] %>
+                  <% end %>
                 </td>
-                <td class="row-right row-center row-score">
-                  <input type="text" name="score[<%= seat[:student] %>][<%= i %>]" class="score-point" period="<%= i %>" value="">
+                <td class="row-right row-center row-score <% if (i + 1) == @current_period %> current-row <% end %>">
+                  <% if (i + 1) == @current_period %>
+                    <input
+                      type="text" period="<%= i %>"
+                      name="s[<%= student[:id] %>][<%= i %>]"
+                      class="score-point"
+                      value="<%= score_ex[i.to_s] %>">
+                  <% else %>
+                    <%= score_ex[i.to_s] %>
+                  <% end %>
                 </td>
               <% end %>
-
-              <!-- <td style="max-width:90px; padding-right: 8px;">
-                <input type="text" name="comment" value="<%= seat_detail[:comment] %>" style="width:100%">
-              </td> -->
-              <!-- <td>
-                <div class="sc-tb">สอบ (<%= seat_detail[:total] %>)</div>
-                <div class="ma-tb">ตั้งใจ (<%= seat_detail[:total_mental] %>)</div>
-              </td> -->
-              <!-- <% seat_detail[:score][:scoring].each_with_index do |score,idx|%>
-                <td
-                  class="scoring <% if (idx+1) == @current_period %>yellow-gadget<% end %>"
-                  >
-                  <input class="first" type="text" name="score[<%= idx.to_i %>]"  value="<%= seat_detail[:score][:scoring][idx] %>" style="width:100%"> <br>
-                  <input type="text" name="mental[<%= idx.to_i %>]" value="<%= seat_detail[:score][:mental][idx + 1]%>"  style="width:100%"> -->
-                  <!-- <select class="select-boxing" name="score[<%= idx.to_i %>]">
-                    <option value="-"> - </option>
-                    <% 11.times do |t| %>
-                      <option
-                        value="<%= t %>"
-                        <% if t == (seat_detail[:score][:scoring][idx].floor.to_i rescue '-') %> selected <% end %>
-                        >
-                        <%= t %>
-                      </option>
-                    <% end %>
-                  </select> <br>
-                  <select class="select-boxing" name="mental[<%= idx.to_i %>]">
-                    <option value="-"> - </option>
-                    <% 11.times do |t| %>
-                      <option
-                        value="<%= t %>"
-                        <% if t == (seat_detail[:score][:mental][idx + 1].floor.to_i rescue '-') %> selected <% end %>
-                        >
-                        <%= t %>
-                      </option>
-                    <% end %>
-                  </select> -->
-                <!-- </td>
-              <% end %> -->
               <td class="row-right row-center">
                 <%= link_to 'ลบ', seat, method: :delete, data: { confirm: 'ถ้าลบนักเรียน ข้อมูลคะเเนนสอบของเด็กคนนี้จะหายไปหมด มั่นใจนะ?' } ,class: 'btn-min' %>
                 <!-- <input type="submit" name="" value="อัพเดท"> -->
@@ -126,21 +150,32 @@
 <!-- toggle change class -->
 <script type="text/javascript">
   $( document ).ready(function() {
-    // $('#current-class').on('change',function(){
-    //   var current = $('#current-class').val();
-    //   // alert(current);
-    //   window.location.href = '/home/edit_current?spec=<%= params[:id] %>&current=' + current
-    // });
+    //
+    $('#current-class').on('change',function(){
+      var current = $('#current-class').val();
+      window.location.href = '/home/edit_current?class=<%= params[:id] %>&current=' + current
+    });
 
     // enter to move down in table cell
     $( "#update-stage" ).on( "click", function() {
       $('#from-score').submit();
     });
 
+    //
     $('.click-to-gen-mental').on('click',function(){
       var period = $(this).attr('period');
       alert('สร้างคะเเนนจิตพิสัยของการเรียนครั้งที่ ' + (parseInt(period) + 1) );
-      $("input.mental-point[period=" + period + "]").val(10);
+      $("select.mental-point[period=" + period + "]").val(10);
+    });
+
+    //
+    $('.row-for-ment').each(function(){
+      // if($(this).val() < 10){
+      var selecting = $(this).find('select.mental-point');
+      if( selecting.val() < 10 && selecting.val()){
+        selecting.addClass('comment');
+        $(this).find('a.ment').addClass('shower');
+      }
     });
 
   });
