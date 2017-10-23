@@ -37,7 +37,7 @@
                 "
               ><%= i + 1 %></th>
           <% end %>
-          <th class="row-up row-left" rowspan="3" class="center-div" colspan="1">คำสั่ง</th>
+          <!-- <th class="row-up row-left" rowspan="3" class="center-div" colspan="1">คำสั่ง</th> -->
         </tr>
         <tr class="row-head-score">
           <% @periods.times do |i| %>
@@ -63,14 +63,13 @@
 
       <tbody>
         <% @seats.each do |seat| %>
+
           <!-- get student data -->
           <% student  = Student.details(Student.code(seat[:student])) %>
           <!-- get score and mental point -->
           <% score_param = {classroom: @classroom.id, student: seat[:student] ,exam_type: 'scoring'}%>
           <% mental_param = {classroom: @classroom.id, student: seat[:student] ,exam_type: 'mental'}%>
           <% if Exam.where(score_param).count > 0 %>
-            <% puts "score get>>>"%>
-            <% puts Exam.where(score_param) %>
             <% score_ex = JSON.parse(Exam.where(score_param).first['score']) %>
           <% else %>
             <% score_ex = '' %>
@@ -133,10 +132,9 @@
                   <% end %>
                 </td>
               <% end %>
-              <td class="row-right row-center">
+              <!-- <td class="row-right row-center">
                 <%= link_to 'ลบ', seat, method: :delete, data: { confirm: 'ถ้าลบนักเรียน ข้อมูลคะเเนนสอบของเด็กคนนี้จะหายไปหมด มั่นใจนะ?' } ,class: 'btn-min' %>
-                <!-- <input type="submit" name="" value="อัพเดท"> -->
-              </td>
+              </td> -->
             </tr>
         <% end %>
       </tbody>

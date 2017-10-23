@@ -50,8 +50,6 @@ class TaskController < ApplicationController
         unless check_student_in_class
           puts "[NOT FOUNDED]Created new seat for #{sc} in class [#{classname}].."
           seats = Seat.create(classroom: classname ,student: sc, status: "added")
-          get_score  = Exam.create(classroom: classname ,student: sc, exam_type: 'scoring')
-          get_mental = Exam.create(classroom: classname ,student: sc, exam_type: 'mental')
         else
           puts "[FOUNDED]In Classroom #{sc} .. student was registered"
         end

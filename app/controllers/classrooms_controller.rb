@@ -54,8 +54,8 @@ class ClassroomsController < ApplicationController
     course_period   = Course.find(@classroom[:course])[:period]
     # @periods        = JSON.parse(Exam.where(classroom: @classroom.course, exam_type: 'scoring').first['score']).keys.count rescue course_period
     @periods        = JSON.parse(@classroom[:max_score]).keys.count rescue course_period
-    @max_score      = JSON.parse(@classroom[:max_score])
-    @current_period = Classroom.find(params[:id])[:current] || 0
+    @max_score      = JSON.parse(@classroom[:max_score]) rescue Array.new( course_period , 10)
+    @current_period = Classroom.find(params[:id])[:current] || 1
   end
 
   # POST /classrooms

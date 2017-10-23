@@ -116,9 +116,9 @@ class HomeController < ApplicationController
   end
 
   def update_score
-    puts "get 1 >>>"
+    puts "get update score >>>"
     # puts params.inspect
-    puts params[:s].keys
+    # puts params[:s].keys
     #
     classroom = Classroom.find(params[:cl])
     classroom[:max_score] = params[:max].to_json
@@ -127,28 +127,47 @@ class HomeController < ApplicationController
     student_seats = params[:s].keys
     student_seats.each do |student|
       student_code = Student.find(student)[:student_code]
-      score_param = {classroom: params[:cl], student: student_code ,exam_type: 'scoring'}
-      #
+      score_param  = {classroom: params[:cl], student: student_code ,exam_type: 'scoring'}
+      mental_param  = {classroom: params[:cl], student: student_code ,exam_type: 'mental'}
+      # update score point
       if Exam.where(score_param).count == 0
         puts "created news grade score for #{student_code}>>>"
         score_init = Exam.create!(score_param)
+        score_init[:score] = params[:s]["#{student}"].to_json
+        score_init.save
       else
-        puts "founded grade score for #{student_code} >>>"
-        score_init = Exam.where(score_param).first
+        puts "found grade for #{student_code}>>>"
+        #
+        current    = params[:s][student].keys[0]
+        current_score = params[:s][student][current]
+        #
+        score_init  = Exam.where(score_param).first
+        clone_score = JSON.parse(score_init[:score])
+        clone_score[current]  = current_score
+        score_init[:score] = clone_score.to_json
+        #
+        score_init.save
       end
-      score_init[:score] = params[:s]["#{student}"].to_json
-      score_init.save
-      #
-      mental_param = {classroom: params[:cl], student: student_code ,exam_type: 'mental'}
+
+      # update mental point
       if Exam.where(mental_param).count == 0
-        puts "created news mental score for #{student_code}>>>"
+        puts "created news grade mental for #{student_code}>>>"
         mental_init = Exam.create!(mental_param)
+        mental_init[:score] = params[:m]["#{student}"].to_json
+        mental_init.save
       else
-        puts "founded mental score for #{student_code} >>>"
-        mental_init = Exam.where(mental_param).first
+        puts "found grade mental for #{student_code}>>>"
+        #
+        current        = params[:m][student].keys[0]
+        current_mental = params[:m][student][current]
+        #
+        mental_init  = Exam.where(mental_param).first
+        clone_mental = JSON.parse(mental_init[:score])
+        clone_mental[current]  = current_mental
+        mental_init[:score] = clone_mental.to_json
+        #
+        mental_init.save
       end
-      mental_init[:score] = params[:m]["#{student}"].to_json
-      mental_init.save
     end
     #
     redirect_to :back
