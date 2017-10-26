@@ -45,9 +45,22 @@ class HomeController < ApplicationController
     @detail.save
   end
 
+  def remove_period
+    puts "period >>>"
+    cs    = Classroom.find(params[:class])
+    puts cs.to_json
+    puts cs[:max_score]
+    score = JSON.parse(cs[:max_score])
+
+    # puts score.without(params[:period].to_s)
+    cs[:max_score] = score.without(params[:period].to_s).to_json
+    cs.save
+    redirect_to :back
+  end
+
   def edit_current
     cs = Classroom.find(params[:class])
-    cs[:current] = params[:current]
+    cs[:current] = params[:current].to_s
     cs.save
     redirect_to "/class_detail?id=#{params[:class]}"
   end
@@ -170,6 +183,18 @@ class HomeController < ApplicationController
       end
     end
     #
+    redirect_to :back
+  end
+
+  def add_table
+    puts "addedd >>"
+    classroom     = Classroom.find(params[:id])
+    old_max_score = JSON.parse(classroom[:max_score])
+    old_max_score[params[:added].to_s] = "10"
+    classroom[:max_score] = old_max_score.to_json
+    puts classroom[:max_score]
+    classroom.save
+
     redirect_to :back
   end
 

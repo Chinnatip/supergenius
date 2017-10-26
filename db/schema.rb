@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171023021225) do
+ActiveRecord::Schema.define(version: 20171026072738) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -61,7 +61,7 @@ ActiveRecord::Schema.define(version: 20171023021225) do
     t.datetime "updated_at", null: false
     t.integer  "period"
     t.string   "old_link"
-    t.integer  "current"
+    t.string   "current"
     t.text     "desc"
     t.string   "max_score"
   end
