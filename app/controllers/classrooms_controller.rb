@@ -52,7 +52,8 @@ class ClassroomsController < ApplicationController
     @seats     = Seat.where(classroom: params[:id])
     @select_options = ["","-","0","1","2","3","4","5","6","7","8","9","10"]
     course_period   = Course.find(@classroom[:course])[:period]
-    @max_score      = (JSON.parse(@classroom[:max_score]).sort_by { |k,v| k.to_f }).to_h rescue  sampling_score(Array.new( course_period , 10))
+    @toggle_max_score = JSON.parse(@classroom[:max_score]) rescue nil
+    @max_score      = (@toggle_max_score.sort_by { |k,v| k.to_f }).to_h rescue  sampling_score(Array.new( course_period , 10))
     @current_period = Classroom.find(params[:id])[:current] || "1"
   end
 
