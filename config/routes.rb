@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
 
+  resources :comments
   resources :registers
   resources :addcourses
   resources :majors
@@ -51,12 +52,14 @@ Rails.application.routes.draw do
   get 'home/edit_current'
   get 'home/remove_period'
   get 'home/add_table'
+  get 'home/add_comment'
   get 'help' => 'home#help' , as: :home_help
 
   #init json controllers
   get 'init/get_subscription'
   get 'init/get_class_advisee'
   get 'init/get_addcourse_note'
+  get 'init/get_comment_req'
 
   #
   get 'video/index'

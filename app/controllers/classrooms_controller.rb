@@ -3,24 +3,32 @@ class ClassroomsController < ApplicationController
   before_action :set_classroom, only: [:show, :edit, :update, :destroy] , except: [:class_detail]
   before_action :authenticate_user!
 
-  def detacthed_course_spec(cs)
-    course = Course.find(cs)
-    grader = ['P1','P2','P3','P4','P5','P6','M1','M2','M3','M4','M5','M6']
-    major   = course[:major].to_s
-    grade   = grader[course[:grade].to_i - 1]
-    current_year = (Time.now.strftime('%Y')[2..3].to_i + 43).to_s
-    runner = Classroom.where(course: course[:id])
-    if runner.count > 0
-      parser = []
-      runner.each do |r|
-        parser << r[:spec][8..9].to_i
-      end
-      running = ("%02d" % (parser.max + 1))
-    else
-      running = '01'
-    end
+  def parse_maximum_code(course)
+    max_session  = Classroom.where(course: course).maximum("spec")[10..11].to_i rescue 0
+    return "#{'%02d' % ( max_session + 1)}"
+  end
 
-    return "#{major}#{current_year}#{grade}#{running}"
+  def detacthed_course_spec(cs)
+    course_id = Course.find(cs)[:session_id]
+    return "#{course_id}#{parse_maximum_code(cs)}"
+
+    # course = Course.find(cs)
+    # grader = ['P1','P2','P3','P4','P5','P6','M1','M2','M3','M4','M5','M6']
+    # major   = course[:major].to_s
+    # grade   = grader[course[:grade].to_i - 1]
+    # current_year = (Time.now.strftime('%Y')[2..3].to_i + 43).to_s
+    # runner = Classroom.where(course: course[:id])
+    # if runner.count > 0
+    #   parser = []
+    #   runner.each do |r|
+    #     parser << r[:spec][8..9].to_i
+    #   end
+    #   running = ("%02d" % (parser.max + 1))
+    # else
+    #   running = '01'
+    # end
+    #
+    # return "#{major}#{current_year}#{grade}#{running}"
   end
 
   # GET /classrooms
@@ -74,6 +82,8 @@ class ClassroomsController < ApplicationController
   def create
     @classroom = Classroom.new(classroom_params)
     @classroom[:spec] = detacthed_course_spec(params[:classroom][:course])
+    @classroom[:teacher] = params[:classroom][:teacher].join(",")
+    puts params[:inspect]
     respond_to do |format|
       if @classroom.save
         format.html { redirect_to classrooms_url, notice: 'Classroom was successfully created.' }
@@ -88,6 +98,8 @@ class ClassroomsController < ApplicationController
   # PATCH/PUT /classrooms/1
   # PATCH/PUT /classrooms/1.json
   def update
+    puts params[:inspect]
+    @classroom[:teacher] = params[:classroom][:teacher].join(",")
     respond_to do |format|
       if @classroom.update(classroom_params)
         format.html { redirect_to classrooms_url, notice: 'Classroom was successfully updated.' }

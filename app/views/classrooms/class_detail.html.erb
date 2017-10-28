@@ -1,10 +1,11 @@
-<div class="modal">
+<!-- Score modal -->
+<div class="modal score-modal">
   <div class="modal-background"></div>
   <form class="modal-card" action="<%= home_add_table_path %>" method="get">
     <input class="st-id" type="hidden" name="id" value="<%= @classroom.id %>">
     <header class="modal-card-head">
       <p class="modal-card-title">เพิ่มตารางคะเเนนสอบ</p>
-      <button class="delete closer"></button>
+      <button class="delete score-closer"></button>
     </header>
     <section class="modal-card-body">
       <!-- Content ... -->
@@ -15,7 +16,7 @@
           display: inline-block;"
         >เรียนเสริมครั้งที่</label>
         <input
-          type="text" name="added"
+          type="text" name="comment"
           value="" placeholder="ระบุเลขครั้งที่เรียนเสริมเช่น 3.1, 5.2 ..."
           style="
             line-height: 32px;
@@ -29,7 +30,37 @@
     </section>
     <footer class="modal-card-foot">
       <input type="submit" class="button is-success" value="อัพเดทข้อมูล">
-      <a class="button closer">ยกเลิก</a>
+      <a class="button score-closer">ยกเลิก</a>
+    </footer>
+  </form>
+</div>
+
+<!-- Comment modal -->
+<div class="modal comment-modal">
+  <div class="modal-background"></div>
+  <form class="modal-card" action="<%= home_add_comment_path %>" method="get">
+    <input class="st-id" type="hidden" name="id" value="<%= @classroom.id %>">
+    <header class="modal-card-head">
+      <p class="modal-card-title">คอมเม้นท์นักเรียน</p>
+      <button class="delete comment-closer"></button>
+    </header>
+    <section class="modal-card-body">
+      <input type="hidden" name="classroom" value="">
+      <input type="hidden" name="period" value="">
+      <input type="hidden" name="student" value="">
+      <!-- Content ... -->
+      <div class="st-name"></div>
+      <div class="st-course" style="">
+        <label for="comment" style=" font-size: 14px; display: inline-block;" >ความคิดเห็น</label>
+        <input
+          type="text" name="comment"
+          value="" placeholder="ระบุสาเหตุที่หักคะเเนนจิตพิสัย"
+          style="line-height: 32px; min-width: 240px; border-radius: 4px; border: 1px solid gainsboro;padding: 0 9px; margin-left: 8px;">
+      </div>
+    </section>
+    <footer class="modal-card-foot">
+      <input type="submit" class="button is-success" value="อัพเดทข้อมูล">
+      <a class="button comment-closer">ยกเลิก</a>
     </footer>
   </form>
 </div>
@@ -148,8 +179,11 @@
                   <a class="ment" href="#" style="
                     line-height: 7px;
                     font-size: 8px;
-                    margin-top: 3px;
-                  ">
+                    margin-top: 3px;"
+                    classroom="<%= @classroom.id %>"
+                    period="<%= mx[0] %>"
+                    student="<%= student[:id] %>"
+                    >
                     com <br>
                     ment
                   </a>
@@ -159,9 +193,15 @@
                     class="mental-point"
                     value="<%= mental_ex[i.to_s] %>"> -->
                   <% else %>
-                    <span style="
-                      <% if mental_ex[mx[0]].to_i < 10 %> color: red <% end %>
-                      ">
+                    <span
+                      <% if mental_ex[mx[0]].to_i < 10 %>
+                        style="color: red; cursor: pointer"
+                        class="ment"
+                        classroom="<%= @classroom.id %>"
+                        period="<%= mx[0] %>"
+                        student="<%= student[:id] %>"
+                      <% end %>
+                      >
                       <%= mental_ex[mx[0]] %>
                     </span>
                   <% end %>
@@ -224,6 +264,47 @@
       }
     });
 
+    // add comment
+    $('.ment').on('click', function(){
+      var period = $(this).attr('period');
+      var classroom = $(this).attr('classroom');
+      var student = $(this).attr('student');
+      // alert( classroom + "/" + period + "/" + student);
+      $("input[name='classroom']").val(classroom);
+      $("input[name='period']").val(period);
+      $("input[name='student']").val(student);
+      $("input[name='comment']").val("");
+      $('.comment-modal').addClass('is-active');
+      // get comment detail
+      $.ajax({
+				url: '<%= init_get_comment_req_path %>',
+        data: {
+          classroom: classroom,
+          student: student,
+          period: period
+        },
+				success: function(response){
+          // alert(JSON.stringify(response));
+          $("input[name='comment']").val(response.comment);
+				}
+			});
+    });
+
+    $('.comment-closer').on('click',function(){
+      $('.comment-modal').removeClass('is-active');
+    });
+
+    // add table
+    $('#add-table').on('click',function(){
+      $('.score-modal').addClass('is-active');
+    });
+
+    $('.score-closer').on('click',function(){
+      $('.score-modal').removeClass('is-active');
+    });
+
+
+
     // add static row to table
     // $('#add-table').on('click', function(){
     //   var content = $("#main-tab thead tr:first th").length;
@@ -243,14 +324,5 @@
     //   }
     //   // alert(row);
     // });
-
-    $('#add-table').on('click',function(){
-      $('.modal').addClass('is-active');
-    });
-
-    $('.closer').on('click',function(){
-      $('.modal').removeClass('is-active');
-    });
-
   });
 </script>

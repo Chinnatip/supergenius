@@ -1,0 +1,24 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Classroom:</strong>
+  <%= @comment.classroom %>
+</p>
+
+<p>
+  <strong>Period:</strong>
+  <%= @comment.period %>
+</p>
+
+<p>
+  <strong>Student:</strong>
+  <%= @comment.student %>
+</p>
+
+<p>
+  <strong>Comment:</strong>
+  <%= @comment.comment %>
+</p>
+
+<%= link_to 'Edit', edit_comment_path(@comment) %> |
+<%= link_to 'Back', comments_path %>

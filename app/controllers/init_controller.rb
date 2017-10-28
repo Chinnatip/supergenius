@@ -44,4 +44,14 @@ class InitController < ApplicationController
     render json: result
   end
 
+  def get_comment_req
+    res = Comment.where(
+      classroom: params[:classroom],
+      period: params[:period],
+      student: params[:student]).first
+    puts "res >>>"
+    puts res[:comment]
+    render json: res
+  end
+
 end

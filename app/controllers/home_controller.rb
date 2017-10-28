@@ -186,6 +186,22 @@ class HomeController < ApplicationController
     redirect_to :back
   end
 
+  def add_comment
+    comment_param = {
+      classroom: params[:classroom],
+      period: params[:period],
+      student: params[:student]
+    }
+    unless Comment.where(comment_param).count > 0
+      log = Comment.create!(comment_param)
+    else
+      log = Comment.where(comment_param).first
+    end
+    log[:comment] = params[:comment]
+    log.save
+    redirect_to :back
+  end
+
   def add_table
     puts "addedd >>"
     classroom     = Classroom.find(params[:id])

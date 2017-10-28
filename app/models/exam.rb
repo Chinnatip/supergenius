@@ -12,17 +12,13 @@ class Exam < ApplicationRecord
         result << 0
       end
     end
-    return result # score.to_json
+    return result
   end
 
   # TODO: collect 'string' of score in here | but | add value for '0' if not integer when calculation
   def self.parse_score_with_period(text,period,type)
     result = []
-    # puts 'get score text >>>'
-    # puts text.to_json
     score = text.split(",").map{ |x| x.strip } rescue []
-    # puts 'get score splitter >>>'
-    # puts score.to_json
     p_spec = if type == 'mental' then period + 1 else period end
     p_spec.times do |i|
       if score[i].present?
@@ -32,7 +28,6 @@ class Exam < ApplicationRecord
         result << 0
       end
     end
-    # puts result.to_json
     return result
   end
 
@@ -44,6 +39,4 @@ class Exam < ApplicationRecord
     end
     return result
   end
-
-
 end

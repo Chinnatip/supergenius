@@ -35,7 +35,7 @@
 
   <div class="field">
     <%= f.label :teacher %>
-    <% Teacher.all.each do |t| %>
+    <!-- <% Teacher.all.each do |t| %>
       <input
         type="radio"
         name="classroom[teacher]"
@@ -44,7 +44,20 @@
         >
         ครู<%= t[:name] %>
       <br>
-    <% end %>
+    <% end %> -->
+    <div class="">
+      <% Teacher.all.each do |t| %>
+        <% if classroom[:teacher].present? && classroom[:teacher].index(t[:id].to_s) != nil
+            parser =  { :multiple => true, :checked  => true }
+          else
+            parser =  { :multiple => true }
+          end
+        %>
+        <%= check_box( "classroom", "teacher", parser, t[:id], nil) %>
+        <span style="margin-right: 13px"> ครู<%= t[:name] %> </span>
+        <br>
+      <% end %>
+    </div>
   </div>
 
   <div class="field">
