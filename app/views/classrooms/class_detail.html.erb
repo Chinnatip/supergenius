@@ -65,6 +65,33 @@
   </form>
 </div>
 
+<!-- Seat Comment modal -->
+<div class="modal seat-comment-modal">
+  <div class="modal-background"></div>
+  <form class="modal-card" action="<%= home_add_seat_comment_path %>" method="get">
+    <header class="modal-card-head">
+      <p class="modal-card-title">โน้ตนักเรียน</p>
+      <button class="delete seat-comment-closer"></button>
+    </header>
+    <section class="modal-card-body">
+      <input type="hidden" name="seatid" value="">
+      <!-- Content ... -->
+      <div class="st-name"></div>
+      <div class="st-course" style="">
+        <label for="comment" style=" font-size: 14px; display: inline-block;" >ความคิดเห็น</label>
+        <input
+          type="text" name="comment"
+          value="" placeholder="ระบุสาเหตุที่หักคะเเนนจิตพิสัย"
+          style="line-height: 32px; min-width: 240px; border-radius: 4px; border: 1px solid gainsboro;padding: 0 9px; margin-left: 8px;">
+      </div>
+    </section>
+    <footer class="modal-card-foot">
+      <input type="submit" class="button is-success" value="อัพเดทข้อมูล">
+      <a class="button seat-comment-closer">ยกเลิก</a>
+    </footer>
+  </form>
+</div>
+
 <div class="admin-block">
   <h1>
     ห้องเรียน - <%= @classroom.name %> <br>
@@ -157,7 +184,14 @@
               <td class="row-right row-left"><%= seat[:student] %></td>
               <td class="row-right">
                 <%= "#{student[:name]} (#{student[:grade]})" %> <br>
-                <%= student[:school] %>
+                <%= student[:school] %> <br>
+                <a href="#" class="add-seat-comment" seat="<%= seat[:id] %>" style="
+                  <% unless seat[:comment].present? %> color: #e45151; <% end %>
+                  font-size: 11px; margin-top: 2px; display: inline-block;
+                  max-width: 100px; max-height: 37px; overflow: hidden;
+                ">
+                <%= seat[:comment].present? ? "โน้ต: #{seat[:comment]}" : "+เพิ่มโน้ต" %>
+              </a>
               </td>
               <% @max_score.each_with_index do |mx,i| %>
                 <!-- select mental score -->
@@ -263,6 +297,24 @@
         $(this).find('a.ment').addClass('shower');
       }
     });
+
+    // add seat comment
+    $('.add-seat-comment').on('click', function(){
+      var id = $(this).attr('seat');
+      $("input[name='seatid']").val(id);
+      $('.seat-comment-modal').addClass('is-active');
+      // get comment detail
+      $.ajax({
+				url:     '<%= init_get_seat_comment_req_path %>',
+        data:    { id: id },
+				success: function(response){ $("input[name='comment']").val(response.comment); }
+			});
+    });
+
+    $('.seat-comment-closer').on('click',function(){
+      $('.seat-comment-modal').removeClass('is-active');
+    });
+
 
     // add comment
     $('.ment').on('click', function(){

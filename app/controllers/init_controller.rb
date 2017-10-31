@@ -54,4 +54,9 @@ class InitController < ApplicationController
     render json: res
   end
 
+  def get_seat_comment_req
+    res = Seat.find(params[:id])
+    render json: res
+  end
+
 end

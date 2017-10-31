@@ -186,6 +186,15 @@ class HomeController < ApplicationController
     redirect_to :back
   end
 
+  def add_seat_comment
+    puts "putput >>>"
+    seat = Seat.find(params[:seatid])
+    puts seat.to_json
+    seat[:comment] = params[:comment]
+    seat.save
+    redirect_to :back
+  end
+
   def add_comment
     comment_param = {
       classroom: params[:classroom],

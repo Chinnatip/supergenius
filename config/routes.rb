@@ -53,6 +53,7 @@ Rails.application.routes.draw do
   get 'home/remove_period'
   get 'home/add_table'
   get 'home/add_comment'
+  get 'home/add_seat_comment'
   get 'help' => 'home#help' , as: :home_help
 
   #init json controllers
@@ -60,6 +61,7 @@ Rails.application.routes.draw do
   get 'init/get_class_advisee'
   get 'init/get_addcourse_note'
   get 'init/get_comment_req'
+  get 'init/get_seat_comment_req'
 
   #
   get 'video/index'
