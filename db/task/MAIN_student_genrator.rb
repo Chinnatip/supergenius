@@ -203,8 +203,10 @@ students = [
   {nickname: 'โซดา',school: 'โรงเรียนสตรีวรนาถบางเขน',tel_student:'095-575-7767',tel_parent:'092-838-6663',name:'กันต์กวี',surname:'สีสัน',gender: 'f',birth:'9-12-2001',grade: '9'},
   {nickname: 'โฟร์',school: 'โรงเรียนธรรมศาสตร์คลองหลวงวิทยาคม',tel_student:'090-949-5225',tel_parent:'092-252-9850',name:'ญาณิสา',surname:'มะหะหมัด',gender: 'f',birth:'16-11-2001',grade: '10'},
   {nickname: 'เบ่ง',school: 'โรงเรียนสารสาสน์วิเทศบางบัวทอง',tel_student:'064-229-4387',tel_parent:'080-220-0353',name:'เมธัส',surname:'คงด่าน',gender: 'm',birth:'6-9-2000',grade: '11'},
-  {nickname: 'ขนมจีน',school: 'โรงเรียนหอวัง ปทุมธานี',tel_student:'094-641-9899',tel_parent:'087-560-5299',name:'นิศาชล',surname:'นาคเมา',gender: 'f',birth:'23-1-2001',grade: '11'}
+  {nickname: 'ขนมจีน',school: 'โรงเรียนหอวัง ปทุมธานี',tel_student:'094-641-9899',tel_parent:'087-560-5299',name:'นิศาชล',surname:'นาคเมา',gender: 'f',birth:'23-1-2001',grade: '11'},
 ]
+
+
 
 def decode_student_year(grade)
   buddhist_era_factor = 43
