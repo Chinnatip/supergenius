@@ -57,4 +57,15 @@ class TaskController < ApplicationController
     end
     redirect_to :back
   end
+
+  def remove_student_from_course
+    student_code = Student.find(params[:student])[:student_code]
+    Register.where(course: params[:id],student: student_code).first.destroy
+    redirect_to :back
+  end
+
+  def remove_student_from_class
+    Seat.where(classroom: params[:id] , student: params[:student] ).first.destroy
+    redirect_to :back
+  end
 end

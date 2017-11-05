@@ -82,6 +82,8 @@ Rails.application.routes.draw do
   get 'task/add_student_trigger'
   get 'task/add_seat'
   get 'task/add_seat_trigger'
+  get 'task/remove_student_from_course'
+  get 'task/remove_student_from_class'
 
   root 'home#index'
 end

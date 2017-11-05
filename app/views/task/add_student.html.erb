@@ -86,13 +86,23 @@
       ">
       นักเรียนทั้งหมด <%= @registers.count %> คน
     </h2>
+    <%= @register_lists.count %> <br>
     <% @register_lists.each do |rs| %>
       <p style="font-size: 12px" >
         น้อง<%= rs[:nickname] %> |
         <!-- <%= rs[:name] %> <%= rs[:surname] %> | -->
         <%= School.find(rs[:school])[:name] %> |
-        <%= rs[:student_code] %>
+        <%= rs[:student_code] %> | 
+        <a style="
+          color: white;
+          background: #e41b1b;
+          padding: 1px 2px;
+          border-radius: 3px;"
+          href="<%= task_remove_student_from_course_path %>?id=<%= @course.id %>&student=<%= rs.id %>">
+          ลบ
+        </a>
       </p>
+      <hr style="margin: 5px 0;">
     <% end %>
   </div>
 </div>
