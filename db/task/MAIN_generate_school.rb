@@ -86,3 +86,4 @@ School.create!(name: 'โรงเรียนเทพศิรินทร์'
 School.create!(name: 'โรงเรียนสายปัญญา')
 School.create!(name: 'โรงเรียนสารสาสน์วิเทศสายไหม')
 School.create!(name: 'โรงเรียนเซนต์โยเซฟคอนแวนต์')
+School.create!(name: 'ไม่ทราบโรงเรียน')
