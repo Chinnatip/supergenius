@@ -38,7 +38,7 @@ class StudentsController < ApplicationController
 
   def decode_student_runner(grade)
     parser = []
-    grade_count = Student.where(grade: grade).maximum("student_code")[3..4].to_i rescue 0
+    grade_count = Student.where(grade: grade).maximum("student_code")[2..4].to_i rescue 0
     return ("%03d" % (grade_count + 1)).to_s # rescue "001"
 
   end
