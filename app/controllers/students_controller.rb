@@ -55,6 +55,12 @@ class StudentsController < ApplicationController
     @student = Student.new(student_params)
     @student[:student_code] = detatched_student_code(params[:student][:grade])
     @student[:secret_id] = Random.new.rand(100_000..1_000_000).to_s
+
+    puts "show detached code >>>"
+    puts detatched_student_code(params[:student][:grade])
+    puts params[:student][:nickname]
+    puts "finished"
+
     respond_to do |format|
       if @student.save
         format.html { redirect_to students_url, notice: 'Student was successfully created.' }
