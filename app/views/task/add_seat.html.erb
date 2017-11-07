@@ -38,7 +38,7 @@
           </tr>
         </thead>
         <tbody>
-          <% @students_in_course.all.each do |s| %>
+          <% (@students_in_course.all.sort_by { |s| s.student_code }).each do |s| %>
             <% school = School.find(s[:school]) %>
             <tr>
               <td>
@@ -84,7 +84,7 @@
       ">
       นักเรียนทั้งหมด <%= @seats.count %> คน
     </h2>
-    <% @seat_lists.each do |rs| %>
+    <% (@seat_lists.sort_by { |s| s.student_code }).each do |rs| %>
       <p style="font-size: 12px" >
         น้อง<%= rs[:nickname] %> |
         <%= School.find(rs[:school])[:name] %> |

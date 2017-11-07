@@ -76,7 +76,7 @@
     </thead>
 
     <tbody>
-      <% (@classrooms.sort_by { |s| Course.find(s[:course])[:grade]  }).each do |classroom| %>
+      <% (@classrooms.sort_by { |s| s.spec  }).each do |classroom| %>
         <% classroom_detail = Classroom.details(classroom)%>
         <tr>
           <td><%= classroom.spec %></td>

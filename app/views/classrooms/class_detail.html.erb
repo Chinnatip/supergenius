@@ -161,7 +161,7 @@
       </thead>
 
       <tbody>
-        <% @seats.each do |seat| %>
+        <% (@seats.sort_by { |s| s.student }).each do |seat| %>
 
           <!-- get student data -->
           <% student  = Student.details(Student.code(seat[:student])) %>

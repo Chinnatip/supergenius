@@ -74,7 +74,7 @@
     </thead>
 
     <tbody>
-      <% (@students.sort_by {|s| s[:grade]}).each do |student| %>
+      <% (@students.sort_by {|s| s[:student_code]}).each do |student| %>
         <% student_detail = Student.details(student) %>
         <tr>
           <td><%= student[:student_code] %></td>
