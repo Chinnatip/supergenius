@@ -8,6 +8,7 @@ class SemestersController < ApplicationController
   # GET /semesters.json
   def index
     @semesters = Semester.all
+    @year_lists = Semester.pluck(:year).uniq.sort { |x,y| y <=> x }
   end
 
   # GET /semesters/1
