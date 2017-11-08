@@ -107,6 +107,7 @@ class Course < ApplicationRecord
   end
 
   def self.details(obj)
+    registers = Register.where(course: obj[:id]).pluck(:student)
     return {
       id:          "#{"%04d" % obj[:id]}" ,
       name:        obj[:name] ,
@@ -114,7 +115,7 @@ class Course < ApplicationRecord
       major:       parse_major(obj[:major]) ,
       grade:       parse_grade(obj[:grade]) ,
       price:       if obj[:price].present? then "#{obj[:price].floor} บาท" else '-' end ,
-      seat:        Register.where(course: obj[:id]).count ,
+      seat:        Student.where(student_code: registers).count ,
       range:       "#{obj[:start].strftime('%e%b')} - #{obj[:end].strftime('%e%b%y')}",
       time:        "#{obj[:start_time].strftime('%H:%M')}-#{obj[:end_time].strftime('%H:%M')}",
       period:      "#{obj[:period]} ครั้ง" ,
