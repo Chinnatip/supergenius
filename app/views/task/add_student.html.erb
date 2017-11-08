@@ -84,9 +84,9 @@
       font-size: 20px;
       margin-top: 4px;
       ">
-      นักเรียนทั้งหมด <%= @registers.count %> คน
+      นักเรียนทั้งหมด <%= @register_lists.count %> คน
     </h2>
-    <%= @register_lists.count %> <br>
+    <!-- <%= @register_lists.count %> <br> -->
     <% (@register_lists.sort_by { |s| s.student_code }).each do |rs| %>
       <p style="font-size: 12px" >
         น้อง<%= rs[:nickname] %> |
