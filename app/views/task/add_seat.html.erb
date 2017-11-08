@@ -82,7 +82,7 @@
       font-size: 20px;
       margin-top: 4px;
       ">
-      นักเรียนทั้งหมด <%= @seats.count %> คน
+      นักเรียนทั้งหมด <%= @seat_lists.count %> คน
     </h2>
     <% (@seat_lists.sort_by { |s| s.student_code }).each do |rs| %>
       <p style="font-size: 12px" >

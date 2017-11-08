@@ -60,9 +60,10 @@ class Classroom < ApplicationRecord
   end
 
   def self.details(obj)
+    seat = Seat.where(classroom: @classroom[:id]).pluck(:student)
     return {
       teacher:            parse_teacher(obj[:teacher]) ,
-      seat:               Seat.where(classroom: obj[:id]).count ,
+      seat:               Student.where(student_code: seat).count ,
       course_period_from: "#{check_period(obj[:start])}",
       course_period_to:   "#{check_period(obj[:end])}",
       timetable_from:     "#{check_time(obj[:start_time])}",
