@@ -60,7 +60,7 @@ class Classroom < ApplicationRecord
   end
 
   def self.details(obj)
-    seat = Seat.where(classroom: @classroom[:id]).pluck(:student)
+    seat = Seat.where(classroom: @classroom[:id]).pluck(:student) rescue []
     return {
       teacher:            parse_teacher(obj[:teacher]) ,
       seat:               Student.where(student_code: seat).count ,
