@@ -2,74 +2,78 @@
   <p id="notice"><%= notice %></p>
 
   <h1>
-    Courses - <%= Course.count_all %> วิชา
+    คอร์สเรียนทั้งหมด - <%= Course.count_all %> วิชา
     <%= link_to 'New Course', new_course_path , class: 'btn-ner' %>
   </h1>
 
-  <table class="">
-    <thead>
-      <tr>
-        <th>ระดับชั้น</th>
-        <th>วิชา</th>
-        <th>วัน</th>
-        <th>วันที่เรียน</th>
-        <th>เวลา</th>
-        <th>เรียนทั้งหมด</th>
-        <th>นัดแก้</th>
-        <th>นัดเพิ่ม</th>
-        <th>ค่าเรียน</th>
-        <th>นักเรียน</th>
-        <th>ครู</th>
-        <th colspan="2"></th>
-      </tr>
-    </thead>
-    <tbody>
-      <% (@courses.sort_by { |s| s[:grade]  }).each do |course| %>
-        <% course_detail = Course.details(course)%>
+  <% @semester_lists.each do |sem| %>
+    <div class="label-banner">ภาคการศึกษา / <%= Semester.where(sem_code: sem).first[:name] %></div>
+    <table class="">
+      <thead>
         <tr>
-          <td><%= course_detail[:grade] %></td>
-          <td>
-            <%= course_detail[:name] %><br>
-            <span style="color: grey;font-size:11px;">
-              <%= course[:session_id]%>
-            </span>
-          </td>
-          <td><%= course_detail[:range] %></td>
-          <td><%= course_detail[:time_table] %></td>
-          <td><%= course_detail[:time] %></td>
-          <td><%= course_detail[:period] %></td>
-          <td
-            class="clickable toggle-fixed"
-            course="<%= course[:session_id] %>"
-            status="<%= course_detail[:fixed_class][:status] %>"
-            >
-            <%= course_detail[:fixed_class][:res] %>
-          </td>
-          <td
-            class="clickable toggle-extra"
-            course="<%= course[:session_id] %>"
-            status="<%= course_detail[:extra_class][:status] %>"
-            >
-            <%= course_detail[:extra_class][:res] %>
-          </td>
-          <td><%= course_detail[:price] %></td>
-          <td>
-            <%= course_detail[:seat] %>คน
-            <a class="btn-red-mini" href="<%= task_add_student_path %>?course=<%= course[:id] %>">+Add</a>
-            <!-- <a
-              class="open-modal btn-red-mini" href="#"
-              spec="<%= course.session_id %>"
-              >
-              +Add
-            </a> -->
-          </td>
-          <td><%= course_detail[:teacher] %></td>
-          <td><%= link_to 'แก้ไข', edit_course_path(course) , class: 'btn-redder' %></td>
-          <td><%= link_to 'ลบ', course, method: :delete, data: { confirm: 'ถ้ากดลบคอร์สนี้เเละข้อมูลที่เกี่ยวข้องทั้งหมดจะหายไป เเน่ใจนะ?' }  , class: 'btn-grey' %></td>
+          <th>ระดับชั้น</th>
+          <th>วิชา</th>
+          <th>วัน</th>
+          <th>วันที่เรียน</th>
+          <th>เวลา</th>
+          <th>เรียนทั้งหมด</th>
+          <th>นัดแก้</th>
+          <th>นัดเพิ่ม</th>
+          <th>ค่าเรียน</th>
+          <th>นักเรียน</th>
+          <th>ครู</th>
+          <th colspan="2"></th>
         </tr>
-      <% end %>
-    </tbody>
-  </table>
+      </thead>
+      <tbody>
+        <% (@courses.where(semester: sem).sort_by { |s| s[:grade]  }).each do |course| %>
+          <% course_detail = Course.details(course)%>
+          <tr>
+            <td><%= course_detail[:grade] %></td>
+            <td>
+              <%= course_detail[:name] %><br>
+              <span style="color: grey;font-size:11px;">
+                <%= course[:session_id]%>
+              </span>
+            </td>
+            <td><%= course_detail[:range] %></td>
+            <td><%= course_detail[:time_table] %></td>
+            <td><%= course_detail[:time] %></td>
+            <td><%= course_detail[:period] %></td>
+            <td
+              class="clickable toggle-fixed"
+              course="<%= course[:session_id] %>"
+              status="<%= course_detail[:fixed_class][:status] %>"
+              >
+              <%= course_detail[:fixed_class][:res] %>
+            </td>
+            <td
+              class="clickable toggle-extra"
+              course="<%= course[:session_id] %>"
+              status="<%= course_detail[:extra_class][:status] %>"
+              >
+              <%= course_detail[:extra_class][:res] %>
+            </td>
+            <td><%= course_detail[:price] %></td>
+            <td>
+              <%= course_detail[:seat] %>คน
+              <a class="btn-red-mini" href="<%= task_add_student_path %>?course=<%= course[:id] %>">+Add</a>
+              <!-- <a
+                class="open-modal btn-red-mini" href="#"
+                spec="<%= course.session_id %>"
+                >
+                +Add
+              </a> -->
+            </td>
+            <td><%= course_detail[:teacher] %></td>
+            <td><%= link_to 'แก้ไข', edit_course_path(course) , class: 'btn-redder' %></td>
+            <td><%= link_to 'ลบ', course, method: :delete, data: { confirm: 'ถ้ากดลบคอร์สนี้เเละข้อมูลที่เกี่ยวข้องทั้งหมดจะหายไป เเน่ใจนะ?' }  , class: 'btn-grey' %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+    <br>
+  <% end %>
 </div>
 
 <script type="text/javascript">

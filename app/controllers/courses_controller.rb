@@ -9,6 +9,7 @@ class CoursesController < ApplicationController
   # GET /courses.json
   def index
     @courses = Course.all
+    @semester_lists = Course.pluck(:semester).uniq.sort { |x,y| y <=> x }
   end
 
   # GET /courses/1

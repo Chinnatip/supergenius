@@ -58,52 +58,64 @@
     </form>
   </div> -->
 
-  <table>
-    <thead>
-      <tr>
-        <th>รหัสห้องเรียน</th>
-        <th>ชื่อห้องเรียน</th>
-        <th>ผู้สอน</th>
-        <!-- <th>ค่าลงทะเบียน</th> -->
-        <th>จำนวนนักเรียน</th>
-        <th>รายละเอียดคอร์ส</th>
-        <!-- <th>จำนวนครั้ง</th>
-        <th>ซีซั่น</th>
-        <th>เวลาเรียน</th> -->
-        <!-- <th>สถานะ</th> -->
-        <th colspan="3"></th>
-      </tr>
-    </thead>
+  <% @semester_lists.each do |sem| %>
+    <% semester = Semester.where(sem_code: sem).first %>
+    <% course_lists = Course.where(semester: sem).pluck(:id).uniq.sort { |x,y| x <=> y } %>
+    <div class="label-banner">ภาคการศึกษา / <%= semester[:name] %></div>
 
-    <tbody>
-      <% (@classrooms.sort_by { |s| s.spec  }).each do |classroom| %>
-        <% classroom_detail = Classroom.details(classroom)%>
+    <table>
+      <thead>
         <tr>
-          <td><%= classroom.spec %></td>
-          <td>
-            <%= classroom.name %> <br>
-            <a href="/courses/<%= classroom.course %>" style="font-size:11px;color:grey"><%= Course.find(classroom.course)[:name] %></a>
-          </td>
-          <td><%= classroom_detail[:teacher] %></td>
-          <!-- <td><%= classroom_detail[:price] %></td> -->
-          <td>
-            <%= classroom_detail[:seat] %>คน
-            <a class="btn-red-mini" href="<%= task_add_seat_path %>?classroom=<%= classroom.id %>">+Add</a>
-          </td>
-          <td>
-            <%= classroom.desc.html_safe %>
-          </td>
-          <!-- <td><%= classroom_detail[:schedule] %> ครั้ง</td>
-          <td><%= classroom_detail[:course_period_from] %> -<br><%= classroom_detail[:course_period_to] %></td>
-          <td><%= classroom_detail[:timetable_from] %> -<br><%= classroom_detail[:timetable_to] %></td>
-          <td><%= classroom_detail[:status] %></td> -->
-          <td><a target="_blank" href="<%= classrooms_class_detail_path %>?id=<%= classroom.id %>" class="btn-redder">ผลคะเเนน</a></td>
-          <td><%= link_to 'รายละเอียด', edit_classroom_path(classroom) , class: 'btn-grey'  %></td>
-          <td><%= link_to 'ลบทิ้ง', classroom, method: :delete, data: { confirm: 'Are you sure?' } , class: 'btn-grey' %></td>
+          <th>รหัสห้องเรียน</th>
+          <th>ชื่อห้องเรียน</th>
+          <th>ผู้สอน</th>
+          <!-- <th>ค่าลงทะเบียน</th> -->
+          <th>จำนวนนักเรียน</th>
+          <th>รายละเอียดคอร์ส</th>
+          <!-- <th>จำนวนครั้ง</th>
+          <th>ซีซั่น</th>
+          <th>เวลาเรียน</th> -->
+          <!-- <th>สถานะ</th> -->
+          <th colspan="3"></th>
         </tr>
-      <% end %>
-    </tbody>
-  </table>
+      </thead>
+
+      <tbody>
+        <% course_lists.each do |cs| %>
+          <tr style=" background: #e8e8e8; color: #101010;">
+            <td colspan="8"><%= Course.find(cs).name %></td>
+          </tr>
+          <% (@classrooms.where(course: cs).sort_by { |s| s.spec  }).each do |classroom| %>
+            <% classroom_detail = Classroom.details(classroom)%>
+            <tr>
+              <td><%= classroom.spec %></td>
+              <td>
+                <%= classroom.name %> <br>
+                <a href="/courses/<%= classroom.course %>" style="font-size:11px;color:grey"><%= Course.find(classroom.course)[:name] %></a>
+              </td>
+              <td><%= classroom_detail[:teacher] %></td>
+              <!-- <td><%= classroom_detail[:price] %></td> -->
+              <td>
+                <%= classroom_detail[:seat] %>คน
+                <a class="btn-red-mini" href="<%= task_add_seat_path %>?classroom=<%= classroom.id %>">+Add</a>
+              </td>
+              <td>
+                <%= classroom.desc.html_safe %>
+              </td>
+              <!-- <td><%= classroom_detail[:schedule] %> ครั้ง</td>
+              <td><%= classroom_detail[:course_period_from] %> -<br><%= classroom_detail[:course_period_to] %></td>
+              <td><%= classroom_detail[:timetable_from] %> -<br><%= classroom_detail[:timetable_to] %></td>
+              <td><%= classroom_detail[:status] %></td> -->
+              <td><a target="_blank" href="<%= classrooms_class_detail_path %>?id=<%= classroom.id %>" class="btn-redder">ผลคะเเนน</a></td>
+              <td><%= link_to 'รายละเอียด', edit_classroom_path(classroom) , class: 'btn-grey'  %></td>
+              <td><%= link_to 'ลบทิ้ง', classroom, method: :delete, data: { confirm: 'Are you sure?' } , class: 'btn-grey' %></td>
+            </tr>
+          <% end %>
+        <% end %>
+      </tbody>
+    </table>
+    <br>
+  <% end %>
 
 </div>
 

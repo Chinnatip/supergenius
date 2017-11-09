@@ -35,10 +35,11 @@ class ClassroomsController < ApplicationController
   # GET /classrooms.json
   def index
     # @classrooms = Classroom.all
-
     search = params[:keyword] || ''
     type   = params[:type] || 'spec'
     @classrooms = Classroom.search(search,type) # .sort_by { |s| Course.find(s[:course])[:grade]  }
+    @couse_of_class = @classrooms.pluck(:course)
+    @semester_lists = Course.find(@couse_of_class).pluck(:semester).uniq.sort { |x,y| y <=> x }
   end
 
   # GET /classrooms/1

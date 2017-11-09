@@ -12,6 +12,7 @@ class StudentsController < ApplicationController
     search = params[:keyword] || ''
     type   = params[:type] || 'student_code'
     @students = Student.search(search,type) # .sort_by { |s| Course.find(s[:course])[:grade]  }
+    @grade_lists = @students.pluck(:grade).uniq.sort { |x,y| x <=> y }
   end
 
   # GET /students/1
