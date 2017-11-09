@@ -37,18 +37,28 @@
           ></nav-bar>
       </section>
     </div>
-
-    <!-- body -->
-    <div class="course_path __content">
-      <div class="__content_padding _report_content">
-        <%= yield %>
+    <section class="is-fullheight _dashboard" style="margin-top: 96px;">
+      <div class="__sidebar" id="sidebar">
+        <ul>
+          <li><a href="" class="_head">เลือกปีการศึกษา</a></li>
+          <% @year_lists.each do |yrs|%>
+            <li>
+              <a
+                href="<%= report_index_path(:select_year => yrs) %>"
+                class="<%= yrs.to_s == @current_year.to_s ? 'active' : '' %>"
+                >พศ.<%= yrs %>
+              </a>
+            </li>
+          <% end %>
+        </ul>
       </div>
-    </div>
-
-    <!-- footer -->
-    <div id="cFooter">
-      <footer-site-corp :footer="footer"></footer-site-corp>
-    </div>
+      <div class="__content">
+        <div class="__content_padding">
+          <%= yield %>
+        </div>
+      </div>
+      <div class="__content_footer"> Copyright, Super Genius school.co.ltd @2017</div>
+    </section>
 
     <!-- Include JAVASCRIPT here ><-->
     <script src="/js/body.js"></script>
@@ -121,48 +131,6 @@
             logout: {
               icon: 'fa-sign-out'
             }
-          }
-        }
-      });
-
-      //component of footer
-      var comp = new Vue({
-        el: '#cFooter',
-        data: {
-          footer:{
-            contacts:[
-              {icon: 'fa-facebook-official' , url: '#'},
-              {icon: 'fa-envelope' , url: '#'},
-              {icon: 'fa-phone-square' , url: '#'}
-            ],
-            languages: [
-              {native: 'THAI' , url: '#'},
-              {native: 'ENGLISH' , url: '#'}
-            ],
-            sites: [
-              {
-                //first list
-                head : 'First list',
-                lists:[
-                  { content: 'click me', url: '#' },
-                  { content: 'click me', url: '#' },
-                  { content: 'click me', url: '#' }
-                ]
-              },{
-                //second list
-                head : 'Second list',
-                lists:[
-                  { content: 'click me', url: '#' },
-                  { content: 'click me', url: '#' },
-                ]
-              },{
-                //third list
-                head : 'Last list',
-                lists:[
-                  { content: 'click me', url: '#' },
-                ]
-              }
-            ]
           }
         }
       });

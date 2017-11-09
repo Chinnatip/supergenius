@@ -1,59 +1,158 @@
-<div class="class-grid-container">
-  <h2 class="title">
-    <%= @classroom[:name] %> |
-    รหัสวิชา <%= @classroom[:spec]%>
-  </h2><br>
-  <h2 class="_title_sub">
-    ครูผู้สอน <%= Classroom.parse_teacher(@classroom[:teacher]) %> |
-    จำนวนนักเรียน <%= Classroom.parse_seat(@classroom[:spec]) %> คน
-  </h2>
-  <%= link_to report_index_path  do %>
-    <span class="btn-backer">
-      <i class="fa fa-chevron-left" aria-hidden="true"></i>
-      ย้อนกลับ
-    </span>
-  <% end %>
-  <br>
-  <br>
-
-  <table>
-    <thead>
-      <tr>
-        <th>ชื่อนักเรียน</th>
-        <th>ชั้นปี</th>
-        <th>โรงเรียน</th>
-        <!-- th>คอมเม้นท์</th -->
-        <th>คะเเนนรวม</th>
-        <% (@classroom[:period] + 1).times do |i| %>
-          <th><%= i + 1 %></th>
-        <% end %>
-        <th>คำสั่ง</th>
-      </tr>
-    </thead>
-    <tbody>
-      <% @result.each do |r| %>
-        <% seat_detail = Seat.seat_detail(r)%>
-        <tr>
-          <td class="all_score"><%= r[:student_name] %></td>
-          <td class="all_score"><%= r[:grade] %></td>
-          <td class="all_score"><%= r[:school] %></td>
-          <!-- td>< % = r[:comment] % ></td -->
-          <td class="all_score">
-            <div class="sc-tb">สอบ (<%= seat_detail[:total] %>)</div>
-            <div class="ma-tb">ตั้งใจ (<%= seat_detail[:total_mental] %>)</div>
-          </td>
-          <% seat_detail[:score][:scoring].each_with_index do |score,idx|%>
-            <td style="" class="scoring">
-              <span><%= seat_detail[:score][:scoring][idx] %></span><br>
-              <span><%= seat_detail[:score][:mental][idx +1] %></span>
-            </td>
-          <% end %>
-          <td class="all_score"><a class="info-kid" href="/kid/<%= r[:student] %>">ดูข้อมูล</a></td>
-        </tr>
-      <% end %>
-      <tr>
-
-      </tr>
-    </tbody>
-  </table>
+<!-- Comment modal -->
+<div class="modal comment-modal">
+  <div class="modal-background"></div>
+  <form class="modal-card" action="<%= home_add_comment_path %>" method="get">
+    <input class="st-id" type="hidden" name="id" value="<%= @classroom.id %>">
+    <header class="modal-card-head">
+      <p class="modal-card-title">คอมเม้นท์นักเรียน</p>
+      <button class="delete comment-closer"></button>
+    </header>
+    <section class="modal-card-body">
+      <input type="hidden" name="classroom" value="">
+      <input type="hidden" name="period" value="">
+      <input type="hidden" name="student" value="">
+      <!-- Content ... -->
+      <div class="st-name"></div>
+      <div class="st-course" style="">
+        <label for="comment" style=" font-size: 14px; display: inline-block;" >ความคิดเห็น</label>
+        <input
+          type="text" name="comment"
+          value="" placeholder="ระบุสาเหตุที่หักคะเเนนจิตพิสัย"
+          style="line-height: 32px; min-width: 240px; border-radius: 4px; border: 1px solid gainsboro;padding: 0 9px; margin-left: 8px;">
+      </div>
+    </section>
+    <footer class="modal-card-foot">
+      <a class="button comment-closer">ปิด</a>
+    </footer>
+  </form>
 </div>
+
+<div class="admin-block">
+  <h1>
+    ห้องเรียน - <%= @classroom.name %> <br>
+    <%= link_to 'ย้อนกลับไปดูคอร์สอื่น', report_index_path , class: 'btn-ner', style: 'margin-left:8px'%>
+    <span class="class-period">
+      ปัจุบันเรียนครั้งที่ <b><%= @current_period %></b>
+    </span>
+  </h1>
+  <form id="from-score" action="<%= home_update_score_path %>" method="get">
+    <input type="hidden" name="cl" value="<%= @classroom.id %>">
+    <table id="main-tab" style="background:#ffffff">
+      <thead style="border: 1px solid #dadada;">
+        <tr>
+          <th class="row-up row-right" rowspan="3">รหัส</th>
+          <th class="row-up row-right" rowspan="3">นักเรียน</th>
+          <% @max_score.each do |mx| %>
+            <th colspan="2" class=" center-div row-rep " style="position: relative">
+              <%= mx[0] %>
+            </th>
+          <% end %>
+        </tr>
+        <tr class="row-head-score">
+          <% @max_score.each_with_index do |mx,i| %>
+            <th class="<% if mx[0] == @current_period %> current-row <% end %>">
+              <b class="score-mental">10</b>
+            </th>
+            <th style="" class="top-input <% if mx[0] == @current_period %> current-row <% end %>">
+              <b class="score-point"><%= mx[1] rescue 10 %></b>
+            </th>
+          <% end %>
+        </tr>
+        <tr class="row-head-score">
+          <% @max_score.each_with_index do |mx,i| %>
+            <th class="<% if mx[0] == @current_period %> current-row <% end %>">ขยัน</th>
+            <th class="<% if mx[0] == @current_period %> current-row <% end %>">สอบ</th>
+          <% end %>
+        </tr>
+      </thead>
+
+      <tbody>
+        <% (@seats.sort_by { |s| s.student }).each do |seat| %>
+
+          <!-- get student data -->
+          <% student  = Student.details(Student.code(seat[:student])) %>
+          <!-- get score and mental point -->
+          <% score_param = {classroom: @classroom.id, student: seat[:student] ,exam_type: 'scoring'}%>
+          <% mental_param = {classroom: @classroom.id, student: seat[:student] ,exam_type: 'mental'}%>
+          <% if Exam.where(score_param).count > 0 %>
+            <% score_ex = JSON.parse(Exam.where(score_param).first['score']) %>
+          <% else %>
+            <% score_ex = '' %>
+          <% end %>
+          <% if Exam.where(mental_param).count > 0 %>
+            <% mental_ex = JSON.parse(Exam.where(mental_param).first['score']) %>
+          <% else %>
+            <% mental_ex = '' %>
+          <% end %>
+          <!-- show result score -->
+          <% seat_detail = Seat.seat_detail(seat)%>
+            <tr>
+              <td class="row-right row-left"><%= seat[:student] %></td>
+              <td class="row-right">
+                <%= "#{student[:name]} (#{student[:grade]})" %> <br>
+                <%= student[:school] %>
+              </td>
+              <% @max_score.each_with_index do |mx,i| %>
+                <td class="row-right row-center row-score row-for-ment <% if mx[0] == @current_period %> current-row <% end %>">
+                  <span
+                    <% if mental_ex[mx[0]].to_i < 10 %>
+                      style="color: red; cursor: pointer"
+                      class="ment"
+                      classroom="<%= @classroom.id %>"
+                      period="<%= mx[0] %>"
+                      student="<%= student[:id] %>"
+                    <% end %>
+                    >
+                    <%= mental_ex[mx[0]] %>
+                  </span>
+                </td>
+                <!-- input score point -->
+                <td class="row-right row-center row-score <% if mx[0] == @current_period %> current-row <% end %>">
+                  <%= score_ex[mx[0]] %>
+                </td>
+              <% end %>
+            </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </form>
+
+  <p id="notice"><%= notice %></p>
+</div>
+
+<script type="text/javascript">
+  $(document).ready(function(){
+    // add comment
+    $('.ment').on('click', function(){
+      var period = $(this).attr('period');
+      var classroom = $(this).attr('classroom');
+      var student = $(this).attr('student');
+      // alert( classroom + "/" + period + "/" + student);
+      $("input[name='classroom']").val(classroom);
+      $("input[name='period']").val(period);
+      $("input[name='student']").val(student);
+      $("input[name='comment']").val("");
+      $('.comment-modal').addClass('is-active');
+      // get comment detail
+      $.ajax({
+				url: '<%= init_get_comment_req_path %>',
+        data: {
+          classroom: classroom,
+          student: student,
+          period: period
+        },
+				success: function(response){
+          // alert(JSON.stringify(response));
+          $("input[name='comment']").val(response.comment);
+				},
+        error: function (textStatus, errorThrown) {
+          $("input[name='comment']").val("ไม่ตั้งใจเรียน");
+        }
+			});
+    });
+
+    $('.comment-closer').on('click',function(){
+      $('.comment-modal').removeClass('is-active');
+    });
+  });
+</script>
