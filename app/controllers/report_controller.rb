@@ -6,10 +6,6 @@ class ReportController < ApplicationController
   def show
     result = []
     @classroom = Classroom.find(params[:id])
-
-    @classroom = Classroom.find(18)
-    course_period     = Course.where(@classroom.course).first[:period]
-
     @classroom_detail = Classroom.details(@classroom)
     @seats     = Seat.where(classroom: params[:id])
     @select_options = ["","-","0","1","2","3","4","5","6","7","8","9","10"]
