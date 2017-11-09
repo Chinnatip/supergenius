@@ -15,6 +15,18 @@ class ReportController < ApplicationController
     @current_period = Classroom.find(params[:id])[:current] || "1"
   end
 
+  def sampling_score(array)
+    result = {}
+    array.each_with_index do |val,i|
+      key = (i + 1).to_s
+      result[key] = val.to_s
+    end
+    puts "res >>>"
+    puts result
+    puts result.to_json
+    return result
+  end
+
   def index
     valid_semester  = Course.pluck(:semester)
     @semester_lists = Semester.where(year: @current_year.to_s , sem_code: valid_semester)
