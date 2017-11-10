@@ -88,7 +88,8 @@
           <tr style=" background: #e8e8e8; color: #101010;">
             <td colspan="8"><%= Course.find(cs).name %></td>
           </tr>
-          <% (@classrooms.where(course: cs,id: @teacher_class).sort_by { |s| s.spec  }).each do |classroom| %>
+          <% filter_param = @is_admin ? {course: cs} : {course: cs,id: @teacher_class } %>
+          <% (@classrooms.where(filter_param).sort_by { |s| s.spec  }).each do |classroom| %>
             <% classroom_detail = Classroom.details(classroom)%>
             <tr>
               <td><%= classroom.spec %></td>

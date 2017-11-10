@@ -38,9 +38,6 @@ class ClassroomsController < ApplicationController
     # @classrooms = Classroom.all
     search      = params[:keyword] || ''
     type        = params[:type] || 'spec'
-    puts 'sss >'
-    puts @admin_checker.to_json
-
     @teacher_class = @admin_checker[:role] == 'teacher' ? Classroom.find(teacher_parser(@admin_checker[:uid])).pluck(:id) : ''
     @classrooms = Classroom.search(search,type) # .sort_by { |s| Course.find(s[:course])[:grade]  }
     @couse_of_class = @classrooms.pluck(:course)
@@ -162,6 +159,6 @@ class ClassroomsController < ApplicationController
         role: admin ,
         uid:  teacher_id || ""
       }
-      @is_admin = current_user[:admin] ? true : false
+      @is_admin = current_user[:role] == "admin" ? true : false
     end
 end
