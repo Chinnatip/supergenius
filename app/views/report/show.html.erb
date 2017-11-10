@@ -5,7 +5,7 @@
     <input class="st-id" type="hidden" name="id" value="<%= @classroom.id %>">
     <header class="modal-card-head">
       <p class="modal-card-title">คอมเม้นท์นักเรียน</p>
-      <button class="delete comment-closer"></button>
+      <!-- <button class="delete comment-closer"></button> -->
     </header>
     <section class="modal-card-body">
       <input type="hidden" name="classroom" value="">
@@ -28,14 +28,14 @@
 </div>
 
 <div class="admin-block">
-  <h1>
+  <h1 class="_mobi-center">
     ห้องเรียน - <%= @classroom.name %> <br>
-    <%= link_to 'ย้อนกลับไปดูคอร์สอื่น', report_index_path , class: 'btn-ner', style: 'margin-left:8px'%>
+    <%= link_to 'ย้อนกลับไปดูคอร์สอื่น', report_index_path , class: 'btn-ner _desktop-able', style: 'margin-left:8px'%>
     <span class="class-period">
       ปัจุบันเรียนครั้งที่ <b><%= @current_period %></b>
     </span>
   </h1>
-  <form id="from-score" action="<%= home_update_score_path %>" method="get">
+  <form id="from-score" action="<%= home_update_score_path %>" method="get"  style="overflow: auto">
     <input type="hidden" name="cl" value="<%= @classroom.id %>">
     <table id="main-tab" style="background:#ffffff">
       <thead style="border: 1px solid #dadada;">

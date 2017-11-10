@@ -3,6 +3,80 @@
 ._dashboard
   display: flex
   min-height: 100vh
+  &.__valid_mobile
+    @media (max-width: 560px)
+      .__sidebar
+        display: none
+      .__content
+        .__content_padding
+          padding: 3% 3% 5%
+          .admin-block
+            padding: 18px 14px
+            h1
+              font-size: 21px !important
+              margin-bottom: 10px
+              &._mobi-center
+                text-align: center
+            .label-banner
+              line-height: 30px
+              border-radius: 4px
+          &._top-pad
+            padding-bottom: 0
+      ._mobi-top
+        align-items: flex-end
+        ._cont
+          flex-grow: 1
+          padding-right: 14px
+          select
+            -webkit-appearance: none
+            width: 100%
+            line-height: 33px
+            padding: 0px 11px
+            font-size: 16px
+        ._action
+        a.btn
+          border: 1px solid red
+          border-radius: 4px
+          height: 36px
+          line-height: 36px
+          padding: 0px 8px
+          font-size: 15px
+          color: red
+          display: inline-block
+      ._course-detail
+        ._course-name
+          background: #e8e8e8
+          color: #101010
+          padding: 0 20px
+          line-height: 34px
+          margin-bottom: 2px
+      ._content-detail
+        display: flex
+        align-items: center
+        border-bottom: 1px solid #e8e8e8
+        border-left: 1px solid #e8e8e8
+        border-right: 1px solid #e8e8e8
+        padding: 11px 0
+        ._cont
+          flex-grow: 1
+          padding-left: 16px
+          .__detailss
+            display: none
+            font-size: 10px
+            background: #fdfdfd
+        ._action
+          min-width: 84px
+          text-align: center
+          a.btn-grey
+            padding: 8px
+            background: #f55454
+            color: white
+      ._desktop-able
+        display: none
+      ._mobile-able
+        display: block
+  ._mobile-able
+    display: none
   .__sidebar
     width: 240px
     display: table-header-group

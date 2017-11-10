@@ -37,7 +37,7 @@
           ></nav-bar>
       </section>
     </div>
-    <section class="is-fullheight _dashboard" style="margin-top: 96px;">
+    <section class="is-fullheight _dashboard __valid_mobile" style="margin-top: 96px;">
       <div class="__sidebar" id="sidebar">
         <ul>
           <li><a href="" class="_head">เลือกปีการศึกษา</a></li>
@@ -53,6 +53,40 @@
         </ul>
       </div>
       <div class="__content">
+        <% if controller.action_name == "index" %>
+          <div class="__content_padding _mobile-able _top-pad">
+            <div class="admin-block flex _mobi-top">
+              <div class="_cont">
+                เลือกปีการศึกษา<br>
+                <select id="select_year" name="select_year">
+                  <% @year_lists.each do |yr| %>
+                    <option
+                      value="<%= yr %>"
+                      <% if @current_year.to_s == yr.to_s %>selected<% end %>
+                      >
+                      พศ.<%= yr %>
+                    </option>
+                  <% end %>
+                </select>
+              </div>
+              <div class="_action">
+                <a class="btn" href="/">กลับหน้าเเรก</a>
+              </div>
+            </div>
+          </div>
+        <% end %>
+        <% if controller.action_name == "show" %>
+          <div class="__content_padding _mobile-able _top-pad">
+            <div class="admin-block flex _mobi-top">
+              <div class="_cont">
+                <a style="width:100%; text-align:center" class="btn" href="/report">
+                  < ย้อนกลับไปดูคอร์สอื่น
+                </a>
+              </div>
+            </div>
+          </div>
+        <% end %>
+
         <div class="__content_padding">
           <%= yield %>
         </div>
@@ -67,8 +101,13 @@
     <script src="/js/footer_site.js"></script>
     <script type="text/javascript">
     $( document ).ready(function() {
+      $('#select_year').on('change',function(){
+        // alert('changed!');
+        // alert($(this).val());
+        var to = $(this).val();
+        window.location.href = "/report?select_year=" + to;
+      });
     });
-
       //component of header
       var header = new Vue({
         el: '#cHeader',

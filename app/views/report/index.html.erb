@@ -4,8 +4,27 @@
 
   <% @semester_lists.each do |sem| %>
     <div class="label-banner">ภาคการศึกษา / <%= sem.name %></div>
-
-    <table>
+    <div class="_mobile-able _course-detail">
+      <% @courses.where(semester: sem.sem_code).each do |cs| %>
+        <div class="_course-name"><%= cs.name %></div>
+        <% @classrooms.where(course: cs.id).each do |room| %>
+          <% classroom_detail = Classroom.details(room)%>
+          <div class="_content-detail">
+            <div class="_cont">
+              <div class="_title"><b><%= room.name %></b></div>
+              <div class="_teacher">ผู้สอน - <%= classroom_detail[:teacher] %></div>
+              <div class="_student">นักเรียน <%= classroom_detail[:seat] %>คน</div>
+              <!-- <%= room.spec %><br> -->
+              <div class="__detailss"><%= room.desc.html_safe %></div>
+            </div>
+            <div class="_action">
+              <a class="btn-grey" href="/report/<%= room.id %>">ดูคอร์ส</a>
+            </div>
+          </div>
+        <% end %>
+      <% end %>
+    </div>
+    <table class="_desktop-able">
       <thead>
         <tr>
           <th>รหัสห้องเรียน</th>
