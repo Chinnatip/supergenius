@@ -27,7 +27,7 @@ Vue.component('navBar',{
           <span class="inherit-nav" v-if="login">
             <a v-if="ustack == 'false'" class="nav-item ">สวัสดี {{user}}</a>
             <!-- a v-else class="nav-item user-name">สวัสดี {{user}}</a -->
-            <a v-if="role == 'admin'" href="/dashboard/index" class="nav-item">
+            <a v-if="role == 'teacher' || role == 'admin'" href="/dashboard/index" class="nav-item">
               <span class="icon"> <i class="fa" v-bind:class="[nav.backLink.icon]"></i> </span>
               <span>Dashboard</span>
             </a>

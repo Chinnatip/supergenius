@@ -4,8 +4,18 @@
   </div>
   <h4 class="d_text">DASHBOARD</h4>
   <div class="_center">
-    <a class="button" href="<%= courses_path %>">คอร์สเรียน</a>
-    <a class="button" href="<%= classrooms_path %>">ชั้นเรียน</a>
-    <a class="button" href="<%= newsfeeds_path %>">ข่าวสารโรงเรียน</a>
+    <% if current_user[:role] == 'admin' %>
+      <a class="button" href="<%= courses_path %>">คอร์สเรียน</a>
+      <a class="button" href="<%= classrooms_path %>">ชั้นเรียน</a>
+      <a class="button" href="<%= newsfeeds_path %>">ข่าวสารโรงเรียน</a>
+    <% elsif current_user[:role] == 'teacher' %>
+      <a class="button" href="<%= classrooms_path %>" style="
+        background: #fb2d2d;
+        color: white;
+        font-size: 24px;
+        padding: 30px 26px;
+        ">จัดการชั้นเรียน
+      </a>
+    <% end %>
   </div>
 </div>

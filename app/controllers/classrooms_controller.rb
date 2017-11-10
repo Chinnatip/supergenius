@@ -2,6 +2,7 @@ class ClassroomsController < ApplicationController
   layout 'dashboard'
   before_action :set_classroom, only: [:show, :edit, :update, :destroy] , except: [:class_detail]
   before_action :authenticate_user!
+  before_action :check_admin_role
 
   def parse_maximum_code(course)
     max_session  = Classroom.where(course: course).maximum("spec")[10..11].to_i rescue 0
@@ -35,8 +36,12 @@ class ClassroomsController < ApplicationController
   # GET /classrooms.json
   def index
     # @classrooms = Classroom.all
-    search = params[:keyword] || ''
-    type   = params[:type] || 'spec'
+    search      = params[:keyword] || ''
+    type        = params[:type] || 'spec'
+    puts 'sss >'
+    puts @admin_checker.to_json
+
+    @teacher_class = @admin_checker[:role] == 'teacher' ? Classroom.find(teacher_parser(@admin_checker[:uid])).pluck(:id) : ''
     @classrooms = Classroom.search(search,type) # .sort_by { |s| Course.find(s[:course])[:grade]  }
     @couse_of_class = @classrooms.pluck(:course)
     @semester_lists = Course.find(@couse_of_class).pluck(:semester).uniq.sort { |x,y| y <=> x }
@@ -54,6 +59,21 @@ class ClassroomsController < ApplicationController
 
   # GET /classrooms/1/edit
   def edit
+  end
+
+  # parse classroom that teacher was teached
+  def teacher_parser(id)
+    result = []
+    Classroom.all.each do |cs|
+      teacher = cs[:teacher].split(",")
+      puts teacher.to_json
+      puts
+      unless teacher.index(id.to_s).nil?
+        result << cs[:id]
+      end
+    end
+    puts result.to_json
+    return result
   end
 
   def class_detail
@@ -131,5 +151,17 @@ class ClassroomsController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def classroom_params
       params.require(:classroom).permit(:name, :spec, :course, :teacher, :seat, :booked, :pass, :status, :schedule, :start, :end, :price, :start_time, :end_time, :duration, :period, :desc, :max_score)
+    end
+
+    def check_admin_role
+      admin = current_user[:role]
+      if admin == "teacher"
+        teacher_id = current_user[:uid][1..2].to_i
+      end
+      @admin_checker = {
+        role: admin ,
+        uid:  teacher_id || ""
+      }
+      @is_admin = current_user[:admin] ? true : false
     end
 end

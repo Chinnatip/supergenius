@@ -59,7 +59,7 @@
           :role="checkRole"
           :active="url_action"
           user="<%= current_user[:name] rescue '' %>"
-          v-if="mainEnable"
+          v-if="enable"
           >
         </nav-bar>
       </section>
@@ -175,7 +175,7 @@
           aboutCheck: function(){
             if (this.url_action == 'about') { return true } else { return false }
           },
-          mainEnable: function(){
+          enable: function(){
             // if (this.aboutCheck  && this.desktopCheck && this.scrollCheck) {
             if (this.url_action == 'introduce') {
               return false

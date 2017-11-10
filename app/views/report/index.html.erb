@@ -19,7 +19,7 @@
       <tbody>
         <% @courses.where(semester: sem.sem_code).each do |cs| %>
           <tr style=" background: #e8e8e8; color: #101010;">
-            <td colspan="8">คอร์ส <%= cs.name %></td>
+            <td colspan="8"><%= cs.name %></td>
           </tr>
           <% @classrooms.where(course: cs.id).each do |room| %>
             <% classroom_detail = Classroom.details(room)%>

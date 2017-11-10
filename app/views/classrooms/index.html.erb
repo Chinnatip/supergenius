@@ -2,8 +2,11 @@
   <p id="notice"><%= notice %></p>
 
   <h1>
-    Classrooms - <%= Classroom.count_all %> ห้องเรียน
-    <%= link_to 'New Classroom', new_classroom_path , class: 'btn-ner'%>
+    Classrooms
+    <% if @is_admin %>
+       - <%= Classroom.count_all %> ห้องเรียน
+       <%= link_to 'New Classroom', new_classroom_path , class: 'btn-ner'%>
+    <% end %>
   </h1>
 
   <form class="searchable" action="" method="get">
@@ -85,7 +88,7 @@
           <tr style=" background: #e8e8e8; color: #101010;">
             <td colspan="8"><%= Course.find(cs).name %></td>
           </tr>
-          <% (@classrooms.where(course: cs).sort_by { |s| s.spec  }).each do |classroom| %>
+          <% (@classrooms.where(course: cs,id: @teacher_class).sort_by { |s| s.spec  }).each do |classroom| %>
             <% classroom_detail = Classroom.details(classroom)%>
             <tr>
               <td><%= classroom.spec %></td>
@@ -97,7 +100,9 @@
               <!-- <td><%= classroom_detail[:price] %></td> -->
               <td>
                 <%= classroom_detail[:seat] %>คน
-                <a class="btn-red-mini" href="<%= task_add_seat_path %>?classroom=<%= classroom.id %>">+Add</a>
+                <% if @is_admin %>
+                  <a class="btn-red-mini" href="<%= task_add_seat_path %>?classroom=<%= classroom.id %>">+Add</a>
+                <% end %>
               </td>
               <td>
                 <%= classroom.desc.html_safe %>
@@ -107,8 +112,10 @@
               <td><%= classroom_detail[:timetable_from] %> -<br><%= classroom_detail[:timetable_to] %></td>
               <td><%= classroom_detail[:status] %></td> -->
               <td><a target="_blank" href="<%= classrooms_class_detail_path %>?id=<%= classroom.id %>" class="btn-redder">ผลคะเเนน</a></td>
-              <td><%= link_to 'รายละเอียด', edit_classroom_path(classroom) , class: 'btn-grey'  %></td>
-              <td><%= link_to 'ลบทิ้ง', classroom, method: :delete, data: { confirm: 'Are you sure?' } , class: 'btn-grey' %></td>
+              <% if @is_admin %>
+                <td><%= link_to 'รายละเอียด', edit_classroom_path(classroom) , class: 'btn-grey'  %></td>
+                <td><%= link_to 'ลบทิ้ง', classroom, method: :delete, data: { confirm: 'Are you sure?' } , class: 'btn-grey' %></td>
+              <% end %>
             </tr>
           <% end %>
         <% end %>

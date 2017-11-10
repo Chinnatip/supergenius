@@ -96,7 +96,15 @@
   <h1>
     ห้องเรียน - <%= @classroom.name %> <br>
     <!-- <a id="add-table" href="<%= home_add_table_path %>?id=<%= @classroom.id %>&added=5.1" class="btn-bfr" style="margin-left:8px;">เพิ่มตาราง</a> -->
-    <a id="add-table" href="#" class="btn-bfr" style="margin-left:8px;">เพิ่มตาราง</a>
+    <% if @is_admin %>
+      <a
+        id="add-table"
+        href="#"
+        class="btn-bfr"
+        style="margin-left:8px;">
+        เพิ่มตาราง
+      </a>
+    <% end %>
     <%= link_to 'กลับ', classrooms_path , class: 'btn-ner', style: 'margin-left:8px'%>
     <a id="update-stage" class="btn-bfr">อัพเดทคะเเนน</a>
     <!-- <%= link_to 'เพิ่มนักเรียนใหม่', new_student_path , class: 'btn-ner'%> -->
