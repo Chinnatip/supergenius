@@ -26,8 +26,8 @@ class Seat < ApplicationRecord
       #   mental: mental
       # }
     }
-    puts 'get result >>>'
-    puts result.to_json
+    # puts 'get result >>>'
+    # puts result.to_json
     return result
   end
 

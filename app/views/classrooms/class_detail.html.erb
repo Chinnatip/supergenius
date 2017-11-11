@@ -171,114 +171,103 @@
       <tbody>
         <% puts 'check in feature >>'%>
         <% (@seats.sort_by { |s| s.student }).each do |seat| %>
-          <% puts '1.1 student >>'%>
-          <% puts seat[:student] %>
-
-          <!-- get student data -->
-          <% student  = Student.details(Student.code(seat[:student])) %>
-          <% puts '1.2 score prepare >>'%>
-          <% puts student.to_json %>
-          <!-- get score and mental point -->
-          <% score_param = {classroom: @classroom.id, student: seat[:student] ,exam_type: 'scoring'}%>
-          <% puts '1.3 mental prepare >>'%>
-          <% mental_param = {classroom: @classroom.id, student: seat[:student] ,exam_type: 'mental'}%>
-
-
-          <% if Exam.where(score_param).count > 0 %>
-            <% puts '1.4 parse score if exist>>'%>
-            <% score_ex = JSON.parse(Exam.where(score_param).first['score']) %>
-          <% else %>
-            <% puts '1.4 parse score from blank>>'%>
-            <% score_ex = '' %>
-          <% end %>
-          <% if Exam.where(mental_param).count > 0 %>
-            <% puts '1.5 parse mental from exist>>'%>
-            <% mental_ex = JSON.parse(Exam.where(mental_param).first['score']) %>
-          <% else %>
-            <% puts '1.5 parse mental from blank>>'%>
-            <% mental_ex = '' %>
-          <% end %>
-
-          <% puts '1.6 add detail to board>>'%>
-          <!-- show result score -->
-          <% seat_detail = Seat.seat_detail(seat)%>
-            <tr>
-              <td class="row-right row-left"><%= seat[:student] %></td>
-              <td class="row-right">
-                <%= "#{student[:name]} (#{student[:grade]})" %> <br>
-                <%= student[:school] %> <br>
-                <a href="#" class="add-seat-comment" seat="<%= seat[:id] %>" style="
-                  <% unless seat[:comment].present? %> color: #e45151; <% end %>
-                  font-size: 11px; margin-top: 2px; display: inline-block;
-                  max-width: 100px; max-height: 37px; overflow: hidden;
-                ">
-                <%= seat[:comment].present? ? "โน้ต: #{seat[:comment]}" : "+เพิ่มโน้ต" %>
-              </a>
-              </td>
-              <% @max_score.each_with_index do |mx,i| %>
-                <!-- select mental score -->
-                <td class="row-right row-center row-score row-for-ment <% if mx[0] == @current_period %> current-row <% end %>">
-                  <% if mx[0] == @current_period %>
-                  <select
-                    style="padding: 0 3px;-webkit-appearance: none;border-radius: 4px;width: 22px;line-height: 17px;border: 1px solid gainsboro;background: white;"
-                    class="mental-point" period="<%= i %>"
-                    name="m[<%= student[:id] %>][<%= mx[0] %>]"
-                    value="<%= mental_ex[mx[0]] %>"
-                    >
-                    <% @select_options.each do |sc|%>
-                      <option
-                        value="<%= sc %>"
-                        <% if mental_ex[mx[0]] == sc %> selected <% end %>
-                        ><%= sc %></option>
-                    <% end %>
-                  </select>
-                  <a class="ment" href="#" style="
-                    line-height: 7px;
-                    font-size: 8px;
-                    margin-top: 3px;"
-                    classroom="<%= @classroom.id %>"
-                    period="<%= mx[0] %>"
-                    student="<%= student[:id] %>"
-                    >
-                    com <br>
-                    ment
-                  </a>
-                  <!-- <input
-                    type="text" period="<%= i %>"
-                    name="m[<%= student[:id] %>][<%= i %>]"
-                    class="mental-point"
-                    value="<%= mental_ex[i.to_s] %>"> -->
-                  <% else %>
-                    <span
-                      <% if mental_ex[mx[0]].to_i < 10 %>
-                        style="color: red; cursor: pointer"
-                        class="ment"
-                        classroom="<%= @classroom.id %>"
-                        period="<%= mx[0] %>"
-                        student="<%= student[:id] %>"
-                      <% end %>
+          <% if Student.where(student_code: seat[:student]).count > 0 %>
+            <!-- get student data -->
+            <% student  = Student.details(Student.code(seat[:student])) %>
+            <!-- get score and mental point -->
+            <% score_param = {classroom: @classroom.id, student: seat[:student] ,exam_type: 'scoring'}%>
+            <% mental_param = {classroom: @classroom.id, student: seat[:student] ,exam_type: 'mental'}%>
+            <% if Exam.where(score_param).count > 0 %>
+              <% score_ex = JSON.parse(Exam.where(score_param).first['score']) %>
+            <% else %>
+              <% score_ex = '' %>
+            <% end %>
+            <% if Exam.where(mental_param).count > 0 %>
+              <% mental_ex = JSON.parse(Exam.where(mental_param).first['score']) %>
+            <% else %>
+              <% mental_ex = '' %>
+            <% end %>
+            <!-- show result score -->
+            <% seat_detail = Seat.seat_detail(seat)%>
+              <tr>
+                <td class="row-right row-left"><%= seat[:student] %></td>
+                <td class="row-right">
+                  <%= "#{student[:name]} (#{student[:grade]})" %> <br>
+                  <%= student[:school] %> <br>
+                  <a href="#" class="add-seat-comment" seat="<%= seat[:id] %>" style="
+                    <% unless seat[:comment].present? %> color: #e45151; <% end %>
+                    font-size: 11px; margin-top: 2px; display: inline-block;
+                    max-width: 100px; max-height: 37px; overflow: hidden;
+                  ">
+                  <%= seat[:comment].present? ? "โน้ต: #{seat[:comment]}" : "+เพิ่มโน้ต" %>
+                </a>
+                </td>
+                <% @max_score.each_with_index do |mx,i| %>
+                  <!-- select mental score -->
+                  <td class="row-right row-center row-score row-for-ment <% if mx[0] == @current_period %> current-row <% end %>">
+                    <% if mx[0] == @current_period %>
+                    <select
+                      style="padding: 0 3px;-webkit-appearance: none;border-radius: 4px;width: 22px;line-height: 17px;border: 1px solid gainsboro;background: white;"
+                      class="mental-point" period="<%= i %>"
+                      name="m[<%= student[:id] %>][<%= mx[0] %>]"
+                      value="<%= mental_ex[mx[0]] %>"
                       >
-                      <%= mental_ex[mx[0]] %>
-                    </span>
-                  <% end %>
-                </td>
-                <!-- input score point -->
-                <td class="row-right row-center row-score <% if mx[0] == @current_period %> current-row <% end %>">
-                  <% if mx[0] == @current_period %>
-                    <input
-                      type="text" period="<%= mx[0] %>"
-                      name="s[<%= student[:id] %>][<%= mx[0] %>]"
-                      class="score-point"
-                      value="<%= score_ex[mx[0]] %>">
-                  <% else %>
-                    <%= score_ex[mx[0]] %>
-                  <% end %>
-                </td>
-              <% end %>
-              <!-- <td class="row-right row-center">
-                <%= link_to 'ลบ', seat, method: :delete, data: { confirm: 'ถ้าลบนักเรียน ข้อมูลคะเเนนสอบของเด็กคนนี้จะหายไปหมด มั่นใจนะ?' } ,class: 'btn-min' %>
-              </td> -->
-            </tr>
+                      <% @select_options.each do |sc|%>
+                        <option
+                          value="<%= sc %>"
+                          <% if mental_ex[mx[0]] == sc %> selected <% end %>
+                          ><%= sc %></option>
+                      <% end %>
+                    </select>
+                    <a class="ment" href="#" style="
+                      line-height: 7px;
+                      font-size: 8px;
+                      margin-top: 3px;"
+                      classroom="<%= @classroom.id %>"
+                      period="<%= mx[0] %>"
+                      student="<%= student[:id] %>"
+                      >
+                      com <br>
+                      ment
+                    </a>
+                    <!-- <input
+                      type="text" period="<%= i %>"
+                      name="m[<%= student[:id] %>][<%= i %>]"
+                      class="mental-point"
+                      value="<%= mental_ex[i.to_s] %>"> -->
+                    <% else %>
+                      <span
+                        <% if mental_ex[mx[0]].to_i < 10 %>
+                          style="color: red; cursor: pointer"
+                          class="ment"
+                          classroom="<%= @classroom.id %>"
+                          period="<%= mx[0] %>"
+                          student="<%= student[:id] %>"
+                        <% end %>
+                        >
+                        <%= mental_ex[mx[0]] %>
+                      </span>
+                    <% end %>
+                  </td>
+                  <!-- input score point -->
+                  <td class="row-right row-center row-score <% if mx[0] == @current_period %> current-row <% end %>">
+                    <% if mx[0] == @current_period %>
+                      <input
+                        type="text" period="<%= mx[0] %>"
+                        name="s[<%= student[:id] %>][<%= mx[0] %>]"
+                        class="score-point"
+                        value="<%= score_ex[mx[0]] %>">
+                    <% else %>
+                      <%= score_ex[mx[0]] %>
+                    <% end %>
+                  </td>
+                <% end %>
+                <!-- <td class="row-right row-center">
+                  <%= link_to 'ลบ', seat, method: :delete, data: { confirm: 'ถ้าลบนักเรียน ข้อมูลคะเเนนสอบของเด็กคนนี้จะหายไปหมด มั่นใจนะ?' } ,class: 'btn-min' %>
+                </td> -->
+              </tr>
+          <% end %>
+
         <% end %>
       </tbody>
     </table>
