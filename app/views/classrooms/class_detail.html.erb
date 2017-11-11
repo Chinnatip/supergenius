@@ -169,13 +169,20 @@
       </thead>
 
       <tbody>
+        <% puts '1>>'%>
         <% (@seats.sort_by { |s| s.student }).each do |seat| %>
+          <% puts seat.to_json %>
+          <% puts '1.1 student >>'%>
 
           <!-- get student data -->
           <% student  = Student.details(Student.code(seat[:student])) %>
+          <% puts '1.2 score >>'%>
           <!-- get score and mental point -->
           <% score_param = {classroom: @classroom.id, student: seat[:student] ,exam_type: 'scoring'}%>
+          <% puts '1.3 mental >>'%>
           <% mental_param = {classroom: @classroom.id, student: seat[:student] ,exam_type: 'mental'}%>
+          <% puts '1.4 other>>'%>
+
           <% if Exam.where(score_param).count > 0 %>
             <% score_ex = JSON.parse(Exam.where(score_param).first['score']) %>
           <% else %>
