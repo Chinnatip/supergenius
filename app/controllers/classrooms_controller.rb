@@ -38,8 +38,10 @@ class ClassroomsController < ApplicationController
     # @classrooms = Classroom.all
     search      = params[:keyword] || ''
     type        = params[:type] || 'spec'
-    @teacher_class = @admin_checker[:role] == 'teacher' ? Classroom.find(teacher_parser(@admin_checker[:uid])).pluck(:id) : ''
-    @classrooms = Classroom.search(search,type) # .sort_by { |s| Course.find(s[:course])[:grade]  }
+    @teacher_collect = @admin_checker[:role] == 'teacher' ? Classroom.find(teacher_parser(@admin_checker[:uid])) : ''
+    @teacher_class  = @admin_checker[:role] == 'teacher' ? @teacher_collect.pluck(:id) : ''
+    @teacher_course = @admin_checker[:role] == 'teacher' ? @teacher_collect.pluck(:course).uniq : ''
+    @classrooms     = Classroom.search(search,type) # .sort_by { |s| Course.find(s[:course])[:grade]  }
     @couse_of_class = @classrooms.pluck(:course)
     @semester_lists = Course.find(@couse_of_class).pluck(:semester).uniq.sort { |x,y| y <=> x }
   end
