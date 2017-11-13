@@ -5,7 +5,7 @@
   <% @semester_lists.each do |sem| %>
     <div class="label-banner">ภาคการศึกษา / <%= sem.name %></div>
     <div class="_mobile-able _course-detail">
-      <% @courses.where(semester: sem.sem_code).each do |cs| %>
+      <% @courses.where(semester: sem.sem_code).sort_by { |cs| cs[:grade] }.each do |cs| %>
         <div class="_course-name"><%= cs.name %></div>
         <% @classrooms.where(course: cs.id).each do |room| %>
           <% classroom_detail = Classroom.details(room)%>
@@ -36,7 +36,7 @@
         </tr>
       </thead>
       <tbody>
-        <% @courses.where(semester: sem.sem_code).each do |cs| %>
+        <% @courses.where(semester: sem.sem_code).sort_by { |cs| cs[:grade] }.each do |cs| %>
           <tr style=" background: #e8e8e8; color: #101010;">
             <td colspan="8"><%= cs.name %></td>
           </tr>

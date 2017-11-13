@@ -95,7 +95,7 @@
               <% @max_score.each_with_index do |mx,i| %>
                 <td class="row-right row-center row-score row-for-ment <% if mx[0] == @current_period %> current-row <% end %>">
                   <span
-                    <% if mental_ex[mx[0]].to_i < 10 %>
+                    <% if mental_ex[mx[0]].to_i < 10 && mental_ex[mx[0]] != '-' %>
                       style="color: red; cursor: pointer"
                       class="ment"
                       classroom="<%= @classroom.id %>"
