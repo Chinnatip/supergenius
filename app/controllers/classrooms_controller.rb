@@ -91,7 +91,7 @@ class ClassroomsController < ApplicationController
     if sort_param == 'total_score'
       return seat.sort_by{ |s| find_score(@classroom.id, s[:student]).values.map { |m| m.to_i rescue 0 }.reduce(:+) }.reverse
     elsif sort_param == 'current_score'
-      return seat.sort_by{ |s| find_score(@classroom.id, s[:student])[@current_period] }.reverse
+      return seat.sort_by{ |s| find_score(@classroom.id, s[:student])[@current_period].to_i rescue 0 }.reverse
     else
       return seat.sort_by{ |s| s[:student] }.sort_by { |s| s[:comment].to_s }
     end
