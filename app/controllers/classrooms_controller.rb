@@ -99,7 +99,7 @@ class ClassroomsController < ApplicationController
 
   def find_score(classroom,student)
     exam  = Exam.where(classroom: classroom , student: student ,exam_type: 'scoring').first
-    score = exam['score']
+    score = exam['score'] rescue "{\"0\":\"0\"}" 
     return JSON.parse(score)
   end
 

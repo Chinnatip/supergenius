@@ -62,7 +62,7 @@ class HomeController < ApplicationController
     cs = Classroom.find(params[:class])
     cs[:current] = params[:current].to_s
     cs.save
-    redirect_to "/class_detail?id=#{params[:class]}&code=current_score"
+    redirect_to "/class_detail?id=#{params[:class]}&sort=current_score"
   end
 
   def about
