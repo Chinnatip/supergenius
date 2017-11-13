@@ -76,6 +76,7 @@ class ClassroomsController < ApplicationController
   def class_detail
     @classroom = Classroom.find(params[:id])
     @seats     = Seat.where(classroom: params[:id])
+    @seat_sort = @seats.sort_by{ |s| s[:student] }.sort_by { |s| s[:comment].to_s }
     @select_options = ["","-","0","1","2","3","4","5","6","7","8","9","10"]
     course_period   = Course.find(@classroom[:course])[:period]
     @toggle_max_score = JSON.parse(@classroom[:max_score]) rescue nil

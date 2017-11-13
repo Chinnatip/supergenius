@@ -169,8 +169,7 @@
       </thead>
 
       <tbody>
-        <% puts 'check in feature >>'%>
-        <% (@seats.sort_by { |s| s.student }).each do |seat| %>
+        <% @seat_sort.each do |seat| %>
           <% if Student.where(student_code: seat[:student]).count > 0 %>
             <!-- get student data -->
             <% student  = Student.details(Student.code(seat[:student])) %>
