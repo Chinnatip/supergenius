@@ -76,14 +76,31 @@ class ClassroomsController < ApplicationController
   end
 
   def class_detail
+    get_sort_offer
     @classroom = Classroom.find(params[:id])
     @seats     = Seat.where(classroom: params[:id])
-    @seat_sort = @seats.sort_by{ |s| s[:student] }.sort_by { |s| s[:comment].to_s }
     @select_options = ["","-","0","1","2","3","4","5","6","7","8","9","10"]
     course_period   = Course.find(@classroom[:course])[:period]
     @toggle_max_score = JSON.parse(@classroom[:max_score]) rescue nil
-    @max_score      = (@toggle_max_score.sort_by { |k,v| k.to_f }).to_h rescue  sampling_score(Array.new( course_period , 10))
+    @max_score      = (@toggle_max_score.sort_by { |k,v| k.to_f }).to_h rescue sampling_score(Array.new( course_period , 10))
     @current_period = Classroom.find(params[:id])[:current] || "1"
+    @seat_sort      = sortable_seat(@seats, params[:sort])
+  end
+
+  def sortable_seat(seat,sort_param)
+    if sort_param == 'total_score'
+      return seat.sort_by{ |s| find_score(@classroom.id, s[:student]).values.map { |m| m.to_i rescue 0 }.reduce(:+) }.reverse
+    elsif sort_param == 'current_score'
+      return seat.sort_by{ |s| find_score(@classroom.id, s[:student])[@current_period] }.reverse
+    else
+      return seat.sort_by{ |s| s[:student] }.sort_by { |s| s[:comment].to_s }
+    end
+  end
+
+  def find_score(classroom,student)
+    exam  = Exam.where(classroom: classroom , student: student ,exam_type: 'scoring').first
+    score = exam['score']
+    return JSON.parse(score)
   end
 
   def sampling_score(array)
@@ -163,5 +180,13 @@ class ClassroomsController < ApplicationController
         uid:  teacher_id || ""
       }
       @is_admin = current_user[:role] == "admin" ? true : false
+    end
+
+    def get_sort_offer
+      @sort_items = [
+        {t: 'รหัสนักเรียน',        v: 'code' },
+        {t: 'คะเเนนสอบรวม',     v: 'total_score' },
+        {t: 'คะเเนนสอบครั้งปัจุบัน', v: 'current_score' },
+      ]
     end
 end

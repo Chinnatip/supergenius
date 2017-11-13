@@ -120,6 +120,13 @@
           </option>
         <% end %>
       </select>
+      <span style="margin-left: 20px"></span>
+      เรียงคะเเนนตาม
+      <select class="" id="sort-offer">
+        <% @sort_items.each do |sit| %>
+          <option value="<%= sit[:v] %>" <% if params[:sort] == sit[:v] %>selected<% end %>><%= sit[:t] %></option>
+        <% end %>
+      </select>
     </span>
   </h1>
   <form id="from-score" action="<%= home_update_score_path %>" method="get">
@@ -363,6 +370,12 @@
 
     $('.score-closer').on('click',function(){
       $('.score-modal').removeClass('is-active');
+    });
+
+    $('#sort-offer').on('change',function(){
+      sortPick = $(this).val();
+      // alert(sortPick);
+      window.location = "/class_detail?id=<%= params[:id]%>&sort=" + sortPick;
     });
 
 
