@@ -212,13 +212,16 @@ class HomeController < ApplicationController
   end
 
   def add_table
-    puts "addedd >>"
+    puts "addedd table >>"
+    puts params.inspect
     classroom     = Classroom.find(params[:id])
     old_max_score = JSON.parse(classroom[:max_score])
+    puts classroom[:max_score]
     old_max_score[params[:added].to_s] = "10"
     classroom[:max_score] = old_max_score.to_json
     puts classroom[:max_score]
     classroom.save
+    puts "end >>>"
 
     redirect_to :back
   end

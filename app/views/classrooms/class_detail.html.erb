@@ -16,7 +16,7 @@
           display: inline-block;"
         >เรียนเสริมครั้งที่</label>
         <input
-          type="text" name="comment"
+          type="text" name="added"
           value="" placeholder="ระบุเลขครั้งที่เรียนเสริมเช่น 3.1, 5.2 ..."
           style="
             line-height: 32px;
@@ -136,6 +136,7 @@
         <tr>
           <th class="row-up row-right" rowspan="3">รหัส</th>
           <th class="row-up row-right" rowspan="3">นักเรียน</th>
+          <th class="center-div row-rep " colspan="1">รวม</th>
           <% @max_score.each do |mx| %>
             <th colspan="2" class=" center-div row-rep " style="position: relative">
               <%= mx[0] %>
@@ -154,6 +155,7 @@
           <!-- <th class="row-up row-left" rowspan="3" class="center-div" colspan="1">คำสั่ง</th> -->
         </tr>
         <tr class="row-head-score">
+          <th class="top-input">คะเเนน</th>
           <% @max_score.each_with_index do |mx,i| %>
             <th class="<% if mx[0] == @current_period %> current-row <% end %>">
               <a href="#" class="click-to-gen-mental click-able" period="<%= i %>" period-val="<%= mx[0] %>">10</a>
@@ -168,6 +170,7 @@
           <% end %>
         </tr>
         <tr class="row-head-score">
+          <th class="">สอบ</th>
           <% @max_score.each_with_index do |mx,i| %>
             <th class="<% if mx[0] == @current_period %> current-row <% end %>">ขยัน</th>
             <th class="<% if mx[0] == @current_period %> current-row <% end %>">สอบ</th>
@@ -207,6 +210,9 @@
                   ">
                   <%= seat[:comment].present? ? "โน้ต: #{seat[:comment]}" : "+เพิ่มโน้ต" %>
                 </a>
+                </td>
+                <td class="row-right row-center row-score row-for-ment" style="background: #f3f3f3;text-decoration: underline;">
+                  <%= find_score(params[:id],seat[:student]) %>
                 </td>
                 <% @max_score.each_with_index do |mx,i| %>
                   <!-- select mental score -->
