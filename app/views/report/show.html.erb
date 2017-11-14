@@ -68,50 +68,51 @@
 
       <tbody>
         <% (@seats.sort_by { |s| s.student }).each do |seat| %>
-
-          <!-- get student data -->
-          <% student  = Student.details(Student.code(seat[:student])) %>
-          <!-- get score and mental point -->
-          <% score_param = {classroom: @classroom.id, student: seat[:student] ,exam_type: 'scoring'}%>
-          <% mental_param = {classroom: @classroom.id, student: seat[:student] ,exam_type: 'mental'}%>
-          <% if Exam.where(score_param).count > 0 %>
-            <% score_ex = JSON.parse(Exam.where(score_param).first['score']) %>
-          <% else %>
-            <% score_ex = '' %>
-          <% end %>
-          <% if Exam.where(mental_param).count > 0 %>
-            <% mental_ex = JSON.parse(Exam.where(mental_param).first['score']) %>
-          <% else %>
-            <% mental_ex = '' %>
-          <% end %>
-          <!-- show result score -->
-          <% seat_detail = Seat.seat_detail(seat)%>
-            <tr>
-              <td class="row-right row-left"><%= seat[:student] %></td>
-              <td class="row-right">
-                <%= "#{student[:name]} (#{student[:grade]})" %> <br>
-                <%= student[:school] %>
-              </td>
-              <% @max_score.each_with_index do |mx,i| %>
-                <td class="row-right row-center row-score row-for-ment <% if mx[0] == @current_period %> current-row <% end %>">
-                  <span
-                    <% if mental_ex[mx[0]].to_i < 10 && mental_ex[mx[0]] != '-' %>
-                      style="color: red; cursor: pointer"
-                      class="ment"
-                      classroom="<%= @classroom.id %>"
-                      period="<%= mx[0] %>"
-                      student="<%= student[:id] %>"
-                    <% end %>
-                    >
-                    <%= mental_ex[mx[0]] %>
-                  </span>
+          <% if Student.where(student_code: seat[:student]).count > 0 %>
+            <!-- get student data -->
+            <% student  = Student.details(Student.code(seat[:student])) %>
+            <!-- get score and mental point -->
+            <% score_param = {classroom: @classroom.id, student: seat[:student] ,exam_type: 'scoring'}%>
+            <% mental_param = {classroom: @classroom.id, student: seat[:student] ,exam_type: 'mental'}%>
+            <% if Exam.where(score_param).count > 0 %>
+              <% score_ex = JSON.parse(Exam.where(score_param).first['score']) %>
+            <% else %>
+              <% score_ex = '' %>
+            <% end %>
+            <% if Exam.where(mental_param).count > 0 %>
+              <% mental_ex = JSON.parse(Exam.where(mental_param).first['score']) %>
+            <% else %>
+              <% mental_ex = '' %>
+            <% end %>
+            <!-- show result score -->
+            <% seat_detail = Seat.seat_detail(seat)%>
+              <tr>
+                <td class="row-right row-left"><%= seat[:student] %></td>
+                <td class="row-right">
+                  <%= "#{student[:name]} (#{student[:grade]})" %> <br>
+                  <%= student[:school] %>
                 </td>
-                <!-- input score point -->
-                <td class="row-right row-center row-score <% if mx[0] == @current_period %> current-row <% end %>">
-                  <%= score_ex[mx[0]] %>
-                </td>
-              <% end %>
-            </tr>
+                <% @max_score.each_with_index do |mx,i| %>
+                  <td class="row-right row-center row-score row-for-ment <% if mx[0] == @current_period %> current-row <% end %>">
+                    <span
+                      <% if mental_ex[mx[0]].to_i < 10 && mental_ex[mx[0]] != '-' %>
+                        style="color: red; cursor: pointer"
+                        class="ment"
+                        classroom="<%= @classroom.id %>"
+                        period="<%= mx[0] %>"
+                        student="<%= student[:id] %>"
+                      <% end %>
+                      >
+                      <%= mental_ex[mx[0]] %>
+                    </span>
+                  </td>
+                  <!-- input score point -->
+                  <td class="row-right row-center row-score <% if mx[0] == @current_period %> current-row <% end %>">
+                    <%= score_ex[mx[0]] %>
+                  </td>
+                <% end %>
+              </tr>
+          <% end %>
         <% end %>
       </tbody>
     </table>
