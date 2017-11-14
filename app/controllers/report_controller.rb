@@ -7,12 +7,29 @@ class ReportController < ApplicationController
     result = []
     @classroom = Classroom.find(params[:id])
     @classroom_detail = Classroom.details(@classroom)
-    @seats     = Seat.where(classroom: params[:id])
+    @seats          = Seat.where(classroom: params[:id])
+    @seat_sort      = sortable_seat(@seats, 'total_score')
     @select_options = ["","-","0","1","2","3","4","5","6","7","8","9","10"]
-    course_period     = Course.find(@classroom.course).period
+    course_period   = Course.find(@classroom.course).period
     @toggle_max_score = JSON.parse(@classroom[:max_score]) rescue nil
     @max_score      = (@toggle_max_score.sort_by { |k,v| k.to_f }).to_h rescue  sampling_score(Array.new( course_period , 10))
     @current_period = Classroom.find(params[:id])[:current] || "1"
+  end
+
+  def sortable_seat(seat,sort_param)
+    if sort_param == 'total_score'
+      return seat.sort_by{ |s| find_score(@classroom.id, s[:student]).values.map { |m| m.to_i rescue 0 }.reduce(:+) }.reverse
+    elsif sort_param == 'current_score'
+      return seat.sort_by{ |s| find_score(@classroom.id, s[:student])[@current_period].to_i rescue 0 }.reverse
+    else
+      return seat.sort_by{ |s| s[:student] }.sort_by { |s| s[:comment].to_s }
+    end
+  end
+
+  def find_score(classroom,student)
+    exam  = Exam.where(classroom: classroom , student: student ,exam_type: 'scoring').first
+    score = exam['score'] rescue "{\"0\":\"0\"}"
+    return JSON.parse(score)
   end
 
   def sampling_score(array)
