@@ -76,10 +76,11 @@ class StudentsController < ApplicationController
   # PATCH/PUT /students/1
   # PATCH/PUT /students/1.json
   def update
-     if @student.grade != params['student']['grade']
-       new_student_code = detatched_student_code(params['student']['grade'])
-       @student[:student_code] = new_student_code
-     end
+    # check student code when update
+    if @student.grade.to_s != params['student']['grade'].to_s
+      new_student_code = detatched_student_code(params['student']['grade'])
+      @student[:student_code] = new_student_code
+    end
     respond_to do |format|
       if @student.update(student_params)
         format.html { redirect_to students_url, notice: 'Student was successfully updated.' }
