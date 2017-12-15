@@ -166,6 +166,40 @@ body.admin-body
     border-radius: 5px
     font-size: 16px
   table
+    // config scrollable complex table cell
+    @media (max-width: 560px)
+      thead
+        display: block
+      tbody
+        margin-left: 1px
+        height:     60vh
+        width:      100%
+        overflow-y: auto
+        display:    block
+        &::-webkit-scrollbar
+          width: 3px
+        &::-webkit-scrollbar-track
+          -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3)
+        &::-webkit-scrollbar-thumb
+          background-color: darkgrey
+          outline: 1px solid slategrey
+      td,tr:first-child th
+        &:first-child
+          min-width: 60px
+        &:nth-child(2)
+          min-width: 114px
+          max-width: 114px
+        &:nth-child(3)
+          min-width: 42px
+          max-width: 42px
+      tr:nth-child(2) th ,tr:nth-child(3) th,
+        &:not(:first-child)
+          min-width: 31px
+          max-width: 31px
+      td
+        &:not(:first-child):not(:nth-child(2)):not(:nth-child(3))
+          min-width: 31px
+          max-width: 31px
     thead
       tr
         background: #f3f3f3
@@ -251,6 +285,8 @@ body.admin-body
         background: rgb(243, 243, 243)
       &:first-child
         padding-left: 12px
+      &:nth-child(2)
+        max-width: 200px
       &.t-center
         text-align: center
       &.t-blur

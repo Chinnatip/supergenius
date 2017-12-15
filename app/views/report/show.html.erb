@@ -28,6 +28,11 @@
 </div>
 
 <div class="admin-block">
+
+  <!-- <div class="">
+    <div id="curve_chart" style="width: 100%; height: 300px"></div>
+  </div> -->
+
   <h1 class="_mobi-center">
     ห้องเรียน - <%= @classroom.name %> <br>
     <%= link_to 'ย้อนกลับไปดูคอร์สอื่น', report_index_path , class: 'btn-ner _desktop-able', style: 'margin-left:8px'%>
@@ -69,12 +74,10 @@
         </tr>
       </thead>
 
-      <tbody>
+      <tbody style="">
         <% @seat_sort.each do |seat| %>
           <% if Student.where(student_code: seat[:student]).count > 0 %>
-            <!-- get student data -->
             <% student  = Student.details(Student.code(seat[:student])) %>
-            <!-- get score and mental point -->
             <% score_param = {classroom: @classroom.id, student: seat[:student] ,exam_type: 'scoring'}%>
             <% mental_param = {classroom: @classroom.id, student: seat[:student] ,exam_type: 'mental'}%>
             <% if Exam.where(score_param).count > 0 %>
@@ -87,7 +90,6 @@
             <% else %>
               <% mental_ex = '' %>
             <% end %>
-            <!-- show result score -->
             <% seat_detail = Seat.seat_detail(seat)%>
               <tr>
                 <td class="row-right row-left"><%= seat[:student] %></td>
@@ -162,4 +164,29 @@
       $('.comment-modal').removeClass('is-active');
     });
   });
+</script>
+
+<!--Load CHART GOOGLE-->
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<script type="text/javascript">
+  google.charts.load('current', {'packages':['corechart']});
+  google.charts.setOnLoadCallback(drawChart);
+
+  function drawChart() {
+    var data = google.visualization.arrayToDataTable([
+      ['Date', 'Sales'],
+      ["1", 1000],
+      ["2", 1000],
+      ["3", 1000],
+
+    ]);
+
+    var options = {
+      title: '',
+      legend: { position: 'bottom' }
+    };
+
+    var chart = new google.visualization.AreaChart(document.getElementById('curve_chart'));
+    chart.draw(data, options);
+  }
 </script>
