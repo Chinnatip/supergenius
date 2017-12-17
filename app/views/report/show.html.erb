@@ -74,7 +74,7 @@
         </tr>
       </thead>
 
-      <tbody style="">
+      <tbody class="table-body" style="">
         <% @seat_sort.each do |seat| %>
           <% if Student.where(student_code: seat[:student]).count > 0 %>
             <% student  = Student.details(Student.code(seat[:student])) %>
@@ -91,8 +91,13 @@
               <% mental_ex = '' %>
             <% end %>
             <% seat_detail = Seat.seat_detail(seat)%>
-              <tr>
-                <td class="row-right row-left"><%= seat[:student] %></td>
+              <tr class="first-left" style="">
+                <td class="row-right row-left">
+                  <%= seat[:student] %>
+                  <span class="fixed-column" style="">
+                  <%= seat[:student] %>
+                   </span>
+                </td>
                 <td class="row-right">
                   <%= "#{student[:name]} (#{student[:grade]})" %> <br>
                   <%= student[:school] %>
@@ -100,25 +105,29 @@
                 <td class="row-right row-center row-score row-for-ment" style="background: #f3f3f3;text-decoration: underline;">
                   <%= find_score(params[:id],seat[:student]) %>
                 </td>
-                <% @max_score.each_with_index do |mx,i| %>
-                  <td class="row-right row-center row-score row-for-ment <% if mx[0] == @current_period %> current-row <% end %>">
-                    <span
-                      <% if mental_ex[mx[0]].to_i < 10 && mental_ex[mx[0]] != '-' %>
-                        style="color: red; cursor: pointer"
-                        class="ment"
-                        classroom="<%= @classroom.id %>"
-                        period="<%= mx[0] %>"
-                        student="<%= student[:id] %>"
-                      <% end %>
-                      >
-                      <%= mental_ex[mx[0]] %>
-                    </span>
-                  </td>
-                  <!-- input score point -->
-                  <td class="row-right row-center row-score <% if mx[0] == @current_period %> current-row <% end %>">
-                    <%= score_ex[mx[0]] %>
-                  </td>
-                <% end %>
+                <div class="">
+                  <% @max_score.each_with_index do |mx,i| %>
+                    <td class="row-right row-center row-score row-for-ment <% if mx[0] == @current_period %> current-row <% end %>">
+                      <span
+                        <% if mental_ex[mx[0]].to_i < 10 && mental_ex[mx[0]] != '-' %>
+                          style="color: red; cursor: pointer"
+                          class="ment"
+                          classroom="<%= @classroom.id %>"
+                          period="<%= mx[0] %>"
+                          student="<%= student[:id] %>"
+                        <% end %>
+                        >
+                        <%= mental_ex[mx[0]] %>
+                      </span>
+                    </td>
+                    <!-- input score point -->
+                    <td class="row-right row-center row-score <% if mx[0] == @current_period %> current-row <% end %>">
+                      <%= score_ex[mx[0]] %>
+                    </td>
+                  <% end %>
+                </div>
+
+
               </tr>
           <% end %>
         <% end %>
@@ -131,6 +140,25 @@
 
 <script type="text/javascript">
   $(document).ready(function(){
+    // fixed column trigger
+    var fixed_awake = 100 ;
+
+    alert('hola');
+
+    $("#from-score").scroll(function(){
+      //
+      marginLeft = $(this).scrollLeft();
+      //
+      if (marginLeft > fixed_awake) {
+        $('.fixed-column').css("display","flex");
+        $('.fixed-column').css("margin-left", marginLeft - 3 );
+      }else{
+        $('.fixed-column').css("display","none");
+      }
+    });
+
+
+
     // add comment
     $('.ment').on('click', function(){
       var period = $(this).attr('period');
