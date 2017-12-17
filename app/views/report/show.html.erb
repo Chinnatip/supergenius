@@ -45,7 +45,9 @@
     <table id="main-tab" style="background:#ffffff">
       <thead style="border: 1px solid #dadada;">
         <tr>
-          <th class="row-up row-right" rowspan="3">รหัส</th>
+          <th class="row-up row-right" rowspan="3">
+            รหัส
+          </th>
           <th class="row-up row-right" rowspan="3">นักเรียน</th>
           <th class="center-div row-rep " colspan="1">รวม</th>
           <% @max_score.each do |mx| %>
@@ -95,8 +97,11 @@
                 <td class="row-right row-left">
                   <%= seat[:student] %>
                   <span class="fixed-column" style="">
-                  <%= seat[:student] %>
-                   </span>
+                    <%= seat[:student] %> <br>
+                    <span style="font-size: 10px">
+                      <%= "#{student[:name]}" %>
+                    </span>
+                  </span>
                 </td>
                 <td class="row-right">
                   <%= "#{student[:name]} (#{student[:grade]})" %> <br>
@@ -126,8 +131,6 @@
                     </td>
                   <% end %>
                 </div>
-
-
               </tr>
           <% end %>
         <% end %>
@@ -142,9 +145,6 @@
   $(document).ready(function(){
     // fixed column trigger
     var fixed_awake = 100 ;
-
-    alert('hola');
-
     $("#from-score").scroll(function(){
       //
       marginLeft = $(this).scrollLeft();
