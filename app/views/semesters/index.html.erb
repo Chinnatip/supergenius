@@ -5,6 +5,18 @@
     <%= link_to 'สร้างเทอมใหม่', new_semester_path ,class: 'btn-ner'%>
   </h1>
 
+  <!-- set current year -->
+  <div class="form-maker">
+    <form class="" action="<%= home_set_year_path %>" method="get">
+      <div class="field">
+        <label for="">ปีการศึกษาล่าสุด</label>
+        <input type="number" name="current_year" value="<%= @set_current_year %>">
+        <input type="submit" value="อัพเดท" class="btn btn-redder">
+      </div>
+    </form>
+  </div>
+
+  <br>
   <% @year_lists.each do |yr| %>
     <div class="label-banner">ปีการศึกษาพศ. <%= yr %></div>
     <table>

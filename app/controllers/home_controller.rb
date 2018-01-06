@@ -30,6 +30,15 @@ class HomeController < ApplicationController
   def help
   end
 
+  def set_year
+    if params[:current_year].present?
+      configs = Config.first
+      configs.current_year = params[:current_year]
+      configs.save
+    end
+    redirect_to :back
+  end
+
   def news
     # @news = Newsfeed.all
     @news = Newsfeed.where(status: 'publish')

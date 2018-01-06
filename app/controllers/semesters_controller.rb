@@ -3,6 +3,7 @@ class SemestersController < ApplicationController
 
   before_action :set_semester, only: [:show, :edit, :update, :destroy]
   before_action :authenticate_user!
+  before_action :set_current_year
 
   # GET /semesters
   # GET /semesters.json
@@ -76,6 +77,10 @@ class SemestersController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_semester
       @semester = Semester.find(params[:id])
+    end
+
+    def set_current_year
+      @set_current_year = Config.first.current_year
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

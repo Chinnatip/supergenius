@@ -55,6 +55,7 @@ Rails.application.routes.draw do
   get 'home/add_comment'
   get 'home/add_seat_comment'
   get 'help' => 'home#help' , as: :home_help
+  get 'set_year' => 'home#set_year' , as: :home_set_year
 
   #init json controllers
   get 'init/get_subscription'
