@@ -1,5 +1,6 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
+  before_action :set_current_year
 
   def layout_by_resource
     if devise_controller?
@@ -7,6 +8,10 @@ class ApplicationController < ActionController::Base
     else
       "application"
     end
+  end
+
+  def set_current_year
+    @set_current_year = Config.first.current_year
   end
 
   # Overwriting the sign_out redirect path method

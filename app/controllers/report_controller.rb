@@ -84,6 +84,6 @@ class ReportController < ApplicationController
   private
   def get_year_lists
     @year_lists = Semester.pluck(:year).uniq.sort { |x,y| y <=> x }
-    @current_year = params[:select_year] || 2560 #DateTime.now.strftime('%Y').to_i + 543
+    @current_year = params[:select_year] || @set_current_year #2560 #DateTime.now.strftime('%Y').to_i + 543
   end
 end
