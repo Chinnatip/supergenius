@@ -16,7 +16,7 @@
           display: inline-block;"
         >เรียนเสริมครั้งที่</label>
         <input
-          type="text" name="added"
+          type="text" name="added" id="class-table"
           value="" placeholder="ระบุเลขครั้งที่เรียนเสริมเช่น 3.1, 5.2 ..."
           style="
             line-height: 32px;
@@ -29,7 +29,7 @@
       </div>
     </section>
     <footer class="modal-card-foot">
-      <input type="submit" class="button is-success" value="อัพเดทข้อมูล">
+      <input id="submit-class-table" type="submit" class="button is-success" value="อัพเดทข้อมูล">
       <a class="button score-closer">ยกเลิก</a>
     </footer>
   </form>
@@ -291,6 +291,14 @@
 
 <!-- toggle change class -->
 <script type="text/javascript">
+  // form valid check
+  $(document).on('click', '#submit-class-table', function(e) {
+      var valid = $('#class-table').val();
+      if(valid == "") {
+        e.preventDefault(); //prevent the default action
+        alert('ยังไม่ได้กรอกครั้งที่เรียนเลยนะ !');
+      }
+  });
   $( document ).ready(function() {
     //
     $('#current-class').on('change',function(){
