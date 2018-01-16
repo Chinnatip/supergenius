@@ -16,6 +16,68 @@ class ReportController < ApplicationController
     @current_period = Classroom.find(params[:id])[:current] || "1"
   end
 
+  def parse_birthdate_string(txt)
+    parse = txt.split("-")
+    return "#{'%02d' % parse[0]}#{'%02d' % parse[1]}"
+  end
+
+  def check_student_trigger
+    puts params.inspect
+    if params[:student_code].present? && params[:birthval].present?
+      student = Student.where(student_code: params[:student_code])
+      if student.count > 0
+        @student = student.first
+        @birth   = @student.birthday.present? ? parse_birthdate_string(@student.birthday) : "0000"
+        if params[:birthval] == @birth
+          # redirect_to report_index_path(code: "OK_YOUR_CODE_WAS_CORRECT!")
+          redirect_to report_student_path(id: @student.id)
+        else
+          redirect_to report_index_path(valid: false)
+        end
+      else
+        redirect_to report_index_path(valid: false)
+      end
+    else
+      redirect_to report_index_path(valid: false)
+    end
+  end
+
+  def student
+    if params[:id].present?
+      student  = Student.find(params[:id])
+      @student = {
+        name:         "#{student[:name]} #{student[:surname]}",
+        nickname:     student[:nickname],
+        gender:       Student.parser_gender(student[:gender]),
+        parent_name:  (student[:parent] || '-'),
+        grade:        Student.parse_grade(student[:grade]),
+        school:       Student.parse_school(student[:school]),
+        phone:        "#{student[:tel]},#{student[:tel_parent]}",
+        secret:       student[:secret_id],
+        birthday:     student[:birthday]
+      }
+      @seat = []
+      student_code = student.student_code
+      seat  = Seat.where(student: student_code)
+      seat.each do |st|
+        classroom = Classroom.find(st[:classroom])
+        score_point = Exam.where(student: student_code, classroom: classroom.id,exam_type: "scoring").first.score rescue "{\"0\":\"0\"}"
+        mental_point = Exam.where(student: student_code, classroom: classroom.id,exam_type: "mental").first.score rescue "{\"0\":\"0\"}"
+        @seat << {
+          id:           st[:id],
+          classroom:    classroom.name,
+          session:      JSON.parse(classroom.max_score),
+          score_point:  JSON.parse(score_point),
+          mental_point: JSON.parse(mental_point)
+        }
+      end
+      # @classroom = Classroom.find(seat.pluck(:classroom))
+    else
+      redirect_to :back
+    end
+
+  end
+
   def sortable_seat(seat,sort_param)
     if sort_param == 'total_score'
       return seat.sort_by{ |s| find_score(@classroom.id, s[:student]).values.map { |m| m.to_i rescue 0 }.reduce(:+) }.reverse

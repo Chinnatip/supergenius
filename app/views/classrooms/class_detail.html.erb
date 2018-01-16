@@ -136,6 +136,8 @@
         <tr>
           <th class="row-up row-right" rowspan="3">รหัส</th>
           <th class="row-up row-right" rowspan="3">นักเรียน</th>
+          <th class="row-up row-right" rowspan="3">โรงเรียน</th>
+          <th class="row-up row-right" rowspan="3">โน้ต</th>
           <th class="center-div row-rep " colspan="1">รวม</th>
           <% @max_score.each do |mx| %>
             <th colspan="2" class=" center-div row-rep " style="position: relative">
@@ -199,17 +201,23 @@
             <!-- show result score -->
             <% seat_detail = Seat.seat_detail(seat)%>
               <tr>
-                <td class="row-right row-left"><%= seat[:student] %></td>
+                <td class="row-right row-left">
+                  <%= seat[:student] %>
+                </td>
                 <td class="row-right">
-                  <%= "#{student[:name]} (#{student[:grade]})" %> <br>
-                  <%= student[:school] %> <br>
+                  <%= "#{student[:name]} (#{student[:grade]})" %>
+                </td>
+                <td class="row-right">
+                  <%= student[:school] %>
+                </td>
+                <td class="row-right">
                   <a href="#" class="add-seat-comment" seat="<%= seat[:id] %>" style="
                     <% unless seat[:comment].present? %> color: #e45151; <% end %>
                     font-size: 11px; margin-top: 2px; display: inline-block;
                     max-width: 100px; max-height: 37px; overflow: hidden;
                   ">
-                  <%= seat[:comment].present? ? "โน้ต: #{seat[:comment]}" : "+เพิ่มโน้ต" %>
-                </a>
+                    <%= seat[:comment].present? ? "โน้ต: #{seat[:comment]}" : "+เพิ่มโน้ต" %>
+                  </a>
                 </td>
                 <td class="row-right row-center row-score row-for-ment" style="background: #f3f3f3;text-decoration: underline;">
                   <%= find_score(params[:id],seat[:student]) %>

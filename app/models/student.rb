@@ -111,9 +111,9 @@ class Student < ApplicationRecord
 
   def self.parser_gender(gender)
     if gender == "m"
-      return "👦"
+      return "ชาย"
     elsif gender == "f"
-      return "👧"
+      return "หญิง"
     else
       return "-"
     end

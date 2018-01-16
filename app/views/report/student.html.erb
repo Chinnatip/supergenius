@@ -1,0 +1,78 @@
+<style media="screen">
+  .form-maker.minifier .field{
+    line-height: 34px;
+    margin-bottom: 0;
+  }
+</style>
+
+<!-- Gchart -->
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+
+<div class="admin-block">
+  <h1> บัตรนักเรียน </h1>
+  <div class="form-maker minifier">
+    <form class="" action="index.html" method="post">
+      <div class="field">
+        <label for="">ชื่อ-นามสกุล: </label>
+        <span><%= @student[:name] %></span>
+      </div>
+      <div class="field">
+        <label for="">เพศ: </label>
+        <span><%= @student[:gender] %></span>
+      </div>
+      <div class="field">
+        <label for="">ชั้นปี: </label>
+        <span><%= @student[:grade] %></span>
+      </div>
+      <div class="field">
+        <label for="">โรงเรียน: </label>
+        <span><%= @student[:school] %></span>
+      </div>
+      <div class="field">
+        <label for="">ผู้ปกครอง: </label>
+        <span><%= @student[:parent_name] %></span>
+      </div>
+      <div class="field">
+        <label for="">เบอร์ติดต่อ: </label>
+        <span><%= @student[:phone] %></span>
+      </div>
+      <div class="field">
+        <label for="">วันเกิด: </label>
+        <span><%= @student[:birthday] %></span>
+      </div>
+    </form>
+  </div>
+</div>
+<br>
+<div class="admin-block">
+  <h1> วิชาที่ลงทะเบียนเรียน </h1>
+  <% @seat.each do |seat| %>
+    <!-- keys of session -->
+    <% key_sessions = seat[:session].keys %>
+    <!-- insert chart -->
+    <script type="text/javascript">
+      google.charts.load('current', {'packages':['corechart']});
+      google.charts.setOnLoadCallback(drawChart);
+      function drawChart() {
+        var data = google.visualization.arrayToDataTable([
+          ['เรียนครั้งที่', 'สอบ','เฉลี่ย'],
+          <% key_sessions.each do |key| %>
+            ['<%= key %>',  <%= seat[:score_point][key.to_s] || 0 %> , 5],
+          <% end %>
+        ]);
+        var options = {
+          title: 'วิชา <%= seat[:classroom] %>',
+          hAxis: {title: 'การเรียนครั้งที่',  titleTextStyle: {color: '#333'}},
+          vAxis: {minValue: 0},
+          curveType: 'function',
+          // legend: { position: 'bottom' }
+        };
+        var chart = new google.visualization.LineChart(document.getElementById('chart_div_<%= seat[:id] %>'));
+        chart.draw(data, options);
+      }
+    </script>
+    <!-- clasroom charts -->
+    <!-- <h2 class=""><%= seat[:classroom] %></h2> -->
+    <div id="chart_div_<%= seat[:id] %>" style="width: 100%; height: 280px"></div>
+  <% end %>
+</div>

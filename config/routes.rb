@@ -72,6 +72,10 @@ Rails.application.routes.draw do
   get 'page/news'
   get 'page/contact'
 
+  #
+  get 'student_report/:id' => 'report#student' , as: :report_student
+  get 'check_student_trigger' => 'report#check_student_trigger' , as: :report_check_student_trigger
+
   #dashboard page
   get 'dashboard/index'
   get 'dashboard/new'

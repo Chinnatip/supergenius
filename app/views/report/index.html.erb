@@ -1,7 +1,26 @@
-<div class="admin-block">
-  <p id="notice"><%= notice %></p>
-  <h1 style="font-size:24px">ปีการศึกษา<%= @current_year %></h1>
+<% if @prod_check %>
+  <div class="admin-block">
+    <p id="notice"><%= notice %></p>
+    <h1 style="font-size:24px">เช็คคะเเนนส่วนตัว</h1>
+    <div class="form-maker">
+      <form class="" action="<%= report_check_student_trigger_path %>" method="get">
+        <div class="field">
+          <label for="">รหัสนักเรียน</label>
+          <input style="width: 300px" type="number" name="student_code" value="" placeholder="ตัวอย่าง 6245XX ">
+        </div>
+        <div class="field">
+          <label for="">วัน/เดือนเกิด</label>
+          <input style="width: 300px" type="text" name="birthval" value="" placeholder="ตัวอย่าง 0711 > เกิดวันที่ 7 เดือนพย.">
+        </div>
+        <input type="submit" value="เช็คคะเเนน" class="btn btn-redder">
+      </form>
+    </div>
+  </div>
+  <br><br>
+<% end %>
 
+<div class="admin-block">
+  <h1 style="font-size:24px">เช็คคะเเนนตามคอร์ส ในปีการศึกษา<%= @current_year %></h1>
   <% @semester_lists.each do |sem| %>
     <div class="label-banner">ภาคการศึกษา / <%= sem.name %></div>
     <div class="_mobile-able _course-detail">
@@ -15,7 +34,9 @@
               <div class="_cont">
                 <div class="_title"><b><%= room.name %></b></div>
                 <div class="_teacher">ผู้สอน - <%= classroom_detail[:teacher] %></div>
-                <div class="_student">นักเรียน <%= classroom_detail[:seat] %>คน</div>
+                <% if current_user.present? && current_user[:role] == 'admin' %>
+                  <div class="_student">นักเรียน <%= classroom_detail[:seat] %>คน</div>
+                <% end %>
                 <!-- <%= room.spec %><br> -->
                 <div class="__detailss"><%= room.desc.html_safe %></div>
               </div>
@@ -33,7 +54,9 @@
           <th>รหัสห้องเรียน</th>
           <th>ชื่อห้องเรียน</th>
           <th>ผู้สอน</th>
-          <th>จำนวนนักเรียน</th>
+          <% if current_user.present? && current_user[:role] == 'admin' %>
+            <th>จำนวนนักเรียน</th>
+          <% end %>
           <th>รายละเอียดคอร์ส</th>
           <th></th>
         </tr>
@@ -51,7 +74,9 @@
                 <td><%= room.spec %></td>
                 <td><%= room.name %></td>
                 <td><%= classroom_detail[:teacher] %></td>
-                <td><%= classroom_detail[:seat] %>คน</td>
+                <% if current_user.present? && current_user[:role] == 'admin' %>
+                  <td><%= classroom_detail[:seat] %>คน</td>
+                <% end %>
                 <td><%= room.desc.html_safe %></td>
                 <td>
                   <a class="btn-grey" href="/report/<%= room.id %>">รายละเอียด</a>
@@ -66,3 +91,9 @@
   <% end %>
 
 </div>
+
+<script type="text/javascript">
+  <% if params[:valid].present? && params[:valid] == 'false'%>
+    alert("ขอโทษที ดูเหมือนรหัสนักเรียนกับวันเกิดจะไม่ตรงกับในฐานข้อมูล รบกวนกรอกข้อมูลใหม่นะครับ ^^");
+  <% end %>
+</script>

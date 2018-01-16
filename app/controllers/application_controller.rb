@@ -1,6 +1,7 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
   before_action :set_current_year
+  before_action :check_production
 
   def layout_by_resource
     if devise_controller?
@@ -27,6 +28,15 @@ class ApplicationController < ActionController::Base
     else
       # home_index_path
       Rails.application.config.app_domain + '#navbar'
+    end
+  end
+
+  # check production website
+  def check_production
+    if Rails.application.config.app_domain == 'http://localhost:3000/'
+      @prod_check = false
+    else
+      @prod_check = true
     end
   end
 end
