@@ -9,10 +9,15 @@ class StudentsController < ApplicationController
   # GET /students.json
   def index
     # @students = Student.all
-    search = params[:keyword] || ''
-    type   = params[:type] || 'student_code'
-    @students = Student.search(search,type) # .sort_by { |s| Course.find(s[:course])[:grade]  }
+    if params[:projected_school].present?
+      @students = Student.where(school: params[:projected_school] , grade: params[:projected_grade])
+    else
+      search = params[:keyword] || ''
+      type   = params[:type] || 'student_code'
+      @students = Student.search(search,type) # .sort_by { |s| Course.find(s[:course])[:grade]  }
+    end
     @grade_lists = @students.pluck(:grade).uniq.sort { |x,y| x <=> y }
+    @student_count = @students.count
   end
 
   # GET /students/1

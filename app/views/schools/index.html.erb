@@ -9,7 +9,6 @@
   <table>
     <thead>
       <tr>
-        <th>รหัส</th>
         <th>โรงเรียน</th>
         <th class="t-center">ทั้งหมด</th>
         <th class="t-center">ป.1</th>
@@ -30,7 +29,6 @@
 
     <tbody>
       <tr>
-        <td>000</td>
         <td>ทั้งหมด</td>
         <td class="t-center"><%= Student.count_all %></td>
         <td class="t-center t-blur">0</td>
@@ -47,24 +45,47 @@
         <td class="t-center t-blur">0</td>
         <td class="t-center t-blur">0</td>
       </tr>
-      <% @schools.each do |school| %>
+      <% @schools.order('name ASC').each do |school| %>
         <% query = Student.query_by_school(school.id)%>
         <tr>
-          <td><%= school.id %></td>
           <td><%= school.name %></td>
           <td class="t-center"><%= query[:total] %></td>
-          <td class="t-center <% if query[:p1] == 0 %>t-blur<% end%>"><%= query[:p1] %></td>
-          <td class="t-center <% if query[:p2] == 0 %>t-blur<% end%>"><%= query[:p2] %></td>
-          <td class="t-center <% if query[:p3] == 0 %>t-blur<% end%>"><%= query[:p3] %></td>
-          <td class="t-center <% if query[:p4] == 0 %>t-blur<% end%>"><%= query[:p4] %></td>
-          <td class="t-center <% if query[:p5] == 0 %>t-blur<% end%>"><%= query[:p5] %></td>
-          <td class="t-center <% if query[:p6] == 0 %>t-blur<% end%>"><%= query[:p6] %></td>
-          <td class="t-center <% if query[:m1] == 0 %>t-blur<% end%>"><%= query[:m1] %></td>
-          <td class="t-center <% if query[:m2] == 0 %>t-blur<% end%>"><%= query[:m2] %></td>
-          <td class="t-center <% if query[:m3] == 0 %>t-blur<% end%>"><%= query[:m3] %></td>
-          <td class="t-center <% if query[:m4] == 0 %>t-blur<% end%>"><%= query[:m4] %></td>
-          <td class="t-center <% if query[:m5] == 0 %>t-blur<% end%>"><%= query[:m5] %></td>
-          <td class="t-center <% if query[:m6] == 0 %>t-blur<% end%>"><%= query[:m6] %></td>
+          <% 6.times do |t| %>
+            <td class="t-center <% if query["p#{t+1}".to_sym] == 0 %>t-blur<% end%>">
+              <% if query["p#{t+1}".to_sym] > 0 %>
+                <a style="
+                    color: #d41e1e; border: 1px solid red;
+                    min-width: 18px; padding: 0 2px;
+                    display: inline-block;"
+                   target="_blank"
+                   href="/students?projected_school=<%= school.id %>&projected_grade=<%= t+1 %>"
+                   >
+                   <%= query["p#{t+1}".to_sym] %>
+                </a>
+              <% else %>
+                <span>0</span>
+              <% end %>
+            </td>
+          <% end %>
+          <% 6.times do |t| %>
+            <td class="t-center <% if query["m#{t+1}".to_sym] == 0 %>t-blur<% end%>">
+              <% if query["m#{t+1}".to_sym] > 0 %>
+                <a style="
+                    color: #d41e1e; border: 1px solid red;
+                    min-width: 18px; padding: 0 2px;
+                    display: inline-block;"
+                   target="_blank"
+                   href="/students?projected_school=<%= school.id %>&projected_grade=<%= t+1 %>"
+                   >
+                   <%= query["m#{t+1}".to_sym] %>
+                </a>
+              <% else %>
+                <span>0</span>
+              <% end %>
+            </td>
+          <% end %>
+
+
           <td><%= link_to 'รายละเอียด', school_path(school) ,class: 'btn-redder' %></td>
           <td><%= link_to 'ลบทิ้ง', school, method: :delete, data: { confirm: 'Are you sure?' } ,class: 'btn-grey'%></td>
         </tr>
