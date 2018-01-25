@@ -38,7 +38,8 @@
 
   <div class="field">
     <label for="school">โรงเรียน</label>
-    <select class="" name="student[school]">
+    <select id="select-beast" class="demo-default" name="student[school]" placeholder="เลือกโรงเรียน หรือพิมพ์ข้อความ ... ">
+      <option value="">ไม่มีโรงเรียน</option>
       <% School.all.each_with_index do |sc,index| %>
         <option
           value="<%= sc[:id] %>"
@@ -48,6 +49,27 @@
         </option>
       <% end %>
     </select>
+    <script>
+    $('#select-beast').selectize({
+      create: true,
+      sortField: {
+        field: 'text',
+        direction: 'asc'
+      },
+      dropdownParent: 'body'
+    });
+    </script>
+
+    <!-- <select class="" name="student[school]">
+      <% School.all.each_with_index do |sc,index| %>
+        <option
+          value="<%= sc[:id] %>"
+          <% if student[:school] == sc[:id].to_s %>selected<% end %>
+          >
+          <%= sc[:name]%>
+        </option>
+      <% end %>
+    </select> -->
   </div>
 
   <div class="field">

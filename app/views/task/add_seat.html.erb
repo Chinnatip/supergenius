@@ -29,7 +29,17 @@
         <thead>
           <tr>
             <tr>
-              <th>เลือก</th>
+              <th>
+                เลือก
+                <a id="select-all-student" href="#" style="
+                  display: content;
+                  background: #f51e1e;
+                  color: white;
+                  border-radius: 6px;
+                  font-size: 11px;
+                  padding: 2px 3px;
+                ">ทั้งหมด</a>
+              </th>
               <th>ภาพถ่าย</th>
               <th>ชื่อนักเรียน</th>
               <th>โรงเรียน</th>
@@ -39,7 +49,7 @@
         </thead>
         <tbody>
           <% (@students_in_course.all.sort_by { |s| s.student_code }).each do |s| %>
-            <% school = School.find(s[:school]) %>
+            <% school = School.find(s[:school]) rescue [] %>
             <tr>
               <td>
                 <input
@@ -57,7 +67,7 @@
                 <%= s[:nickname] %><br>
                 <a target="_blank" href="/students/<%= s[:id] %>/edit" style="color:#3F51B5">ดูข้อมูลเด็ก >></a>
               </td>
-              <td><%= school[:name] %></td>
+              <td><%= school[:name] rescue "-" %></td>
               <td><%= s[:student_code] %></td>
             </tr>
           <% end %>
@@ -111,6 +121,11 @@
       // }else{
       $('#add-student-to-school').submit();
       // }
-    })
+    });
+
+    $('#select-all-student').click(function(){
+      alert('เลือกรายชื่อเด็กทั้งหมดเลยนะ !');
+      $('input.student-seat').prop('checked', true);
+    });
   });
 </script>

@@ -34,6 +34,9 @@ gem 'omniauth-facebook'
 # mailer with sendgrid
 gem 'sendgrid-ruby'
 
+# selectize
+gem 'selectize-rails', '~> 0.12.4.1'
+
 # qr code
 gem 'rqrcode', '~> 0.10.1'
 

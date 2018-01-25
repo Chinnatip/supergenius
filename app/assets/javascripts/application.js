@@ -20,4 +20,5 @@
 //= require Chart.bundle
 //= require chartkick
 //= require Chart
+//= require selectize
 //= require_tree .
