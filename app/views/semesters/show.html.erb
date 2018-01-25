@@ -54,7 +54,7 @@
           </a>
         <% end %>
       </div>
-      <% register = Register.where(course: course.pluck(:id)).pluck(:student) %>
+      <% register = Register.where(course: course.pluck(:id)).pluck(:student).uniq %>
       <% classic = Student.seperate_class(register) %>
       <% schoolX = Student.seperate_school(register) %>
       <% get_school_key = schoolX.keys %>
