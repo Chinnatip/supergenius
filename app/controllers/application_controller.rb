@@ -1,6 +1,7 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
   before_action :set_current_year
+  before_action :set_current_semester
   before_action :check_production
 
   def layout_by_resource
@@ -13,6 +14,10 @@ class ApplicationController < ActionController::Base
 
   def set_current_year
     @set_current_year = Config.first.current_year
+  end
+
+  def set_current_semester
+    @set_current_semester = Config.first.current_semester
   end
 
   # Overwriting the sign_out redirect path method

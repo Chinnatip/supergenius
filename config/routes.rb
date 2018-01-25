@@ -56,6 +56,7 @@ Rails.application.routes.draw do
   get 'home/add_seat_comment'
   get 'help' => 'home#help' , as: :home_help
   get 'set_year' => 'home#set_year' , as: :home_set_year
+  get 'set_semester' => 'home#set_semester' , as: :home_set_semester
 
   #init json controllers
   get 'init/get_subscription'
@@ -81,6 +82,7 @@ Rails.application.routes.draw do
   get 'dashboard/new'
   get 'dashboard/product'
   get 'dashboard/board'
+  get 'dashboard/current_course'
 
   # tasker
   get 'task/add_student'

@@ -2,7 +2,7 @@
   <p id="notice"><%= notice %></p>
 
   <h1>
-    คอร์สเรียน
+    ข้อมูลนักเรียนเทอมในนี้
     <span style="float: right;font-size: 20px;">
       <%= link_to 'Edit', edit_semester_path(@semester) , class: 'btn-redder'%>
       <%= link_to 'Back', semesters_path , class: 'btn-grey'%>
@@ -13,21 +13,92 @@
     <p>
       <strong>ภาคการศึกษา:</strong>
       <%= @semester.name %>
-    </p>
-
-    <p>
-      <strong>รหัสภาคเรียน:</strong>
-      <%= @semester.sem_code %>
+      <% if @semester.id == @set_current_semester.to_i %>
+       <span style="
+        background: #ca3d3d;
+        color: white;
+        padding: 6px 17px;
+        border-radius: 4px;
+        margin-left: 12px;
+       ">
+         << เทอมล่าสุด
+       </span>
+      <% end %>
     </p>
 
     <p>
       <strong>ปีการศึกษา:</strong>
       <%= @semester.sem_index %>/<%= @semester.year %>
     </p>
-
-    <p>
-      <strong>รายละเอียด:</strong>
-      <%= @semester.description %>
-    </p>
   </div>
+  <hr>
+  <div class="show-container">
+    <div class="row">
+      <div style="
+        width: 50%;
+        display: inline-block;
+        vertical-align: top;">
+        <% course = Course.where(semester: @semester.sem_code) %>
+        <div style="font-size: 18px;"> คอร์สทั้งหมด <%= course.count %>วิชา </div>
+        <% course.each do |cs| %>
+          <a target="_blank" href="/task/add_student?course=<%= cs.id %>" style="
+            border: 1px solid #d23434;
+            display: inline-block;
+            padding: 13px;
+            color: #d23434;
+            border-radius: 8px;
+          ">
+            <%= cs.name %> <br>
+            <%= Student.parse_grade(cs.grade) %>
+          </a>
+        <% end %>
+      </div>
+      <% register = Register.where(course: course.pluck(:id)).pluck(:student).uniq %>
+      <% classic = Student.seperate_class(register) %>
+      <% schoolX = Student.seperate_school(register) %>
+      <% get_school_key = schoolX.keys %>
+      <% get_class_key = classic.keys %>
+      <div style="
+        width: 48%;
+        font-size: 18px;
+        display: inline-block;
+        vertical-align: top;">
+        <div class=""> นักเรียนทั้งหมด <%= classic.inject(0) { |sum, tuple| sum += tuple[1] } %> คน </div>
+        <% get_class_key.each do |key| %>
+          <div class="" style="
+            background: #e6e6e6;
+            color: #717171;
+            display: inline-block;
+            padding: 13px;
+            border-radius: 8px;
+          ">
+            <%= Student.parse_grade(key) %> <br>
+            <%= classic[key] %>คน
+          </div>
+        <% end %>
+      </div>
+      <hr>
+      <div class="show-container" style="
+        font-size: 18px;
+        display: inline-block;
+        ">
+        <div class="">นักเรียนมาจากโรงเรียนทั้งหมด <%= get_school_key.count %>โรงเรียน</div>
+        <% get_school_key.each do |key| %>
+          <div class="" style="
+            background: #e6e6e6;
+            color: #717171;
+            display: inline-block;
+            padding: 13px;
+            font-size: 14px;
+            border-radius: 8px;
+            margin: 0 10px 10px 0px;
+          ">
+            <%= School.find(key).name rescue "ไม่ทราบโรงเรียน"%> <br>
+            <%= schoolX[key] %>คน
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+
 </div>

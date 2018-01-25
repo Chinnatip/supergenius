@@ -5,4 +5,8 @@ class DashboardController < ApplicationController
   def index
     @active = 'classrooms'
   end
+
+  def current_course
+    @hello = "world"
+  end
 end

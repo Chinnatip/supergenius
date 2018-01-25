@@ -30,20 +30,20 @@
     <tbody>
       <tr>
         <td>ทั้งหมด</td>
-        <td class="t-center"><%= Student.count_all %></td>
-        <td class="t-center t-blur">0</td>
-        <td class="t-center t-blur">0</td>
-        <td class="t-center t-blur">0</td>
-        <td class="t-center t-blur">0</td>
-        <td class="t-center t-blur">0</td>
-        <td class="t-center t-blur">0</td>
+        <td class="t-center"><%= @student_query[:total] %></td>
+        <td class="t-center t-blur"><%= @student_query[:p1] %></td>
+        <td class="t-center t-blur"><%= @student_query[:p2] %></td>
+        <td class="t-center t-blur"><%= @student_query[:p3] %></td>
+        <td class="t-center t-blur"><%= @student_query[:p4] %></td>
+        <td class="t-center t-blur"><%= @student_query[:p5] %></td>
+        <td class="t-center t-blur"><%= @student_query[:p6] %></td>
 
-        <td class="t-center t-blur">0</td>
-        <td class="t-center t-blur">0</td>
-        <td class="t-center t-blur">0</td>
-        <td class="t-center t-blur">0</td>
-        <td class="t-center t-blur">0</td>
-        <td class="t-center t-blur">0</td>
+        <td class="t-center t-blur"><%= @student_query[:m1] %></td>
+        <td class="t-center t-blur"><%= @student_query[:m2] %></td>
+        <td class="t-center t-blur"><%= @student_query[:m3] %></td>
+        <td class="t-center t-blur"><%= @student_query[:m4] %></td>
+        <td class="t-center t-blur"><%= @student_query[:m5] %></td>
+        <td class="t-center t-blur"><%= @student_query[:m6] %></td>
       </tr>
       <% @schools.order('name ASC').each do |school| %>
         <% query = Student.query_by_school(school.id)%>

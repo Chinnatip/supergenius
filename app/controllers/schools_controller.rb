@@ -9,6 +9,7 @@ class SchoolsController < ApplicationController
   # GET /schools.json
   def index
     @schools = School.all
+    @student_query = Student.query_by_class
   end
 
   # GET /schools/1

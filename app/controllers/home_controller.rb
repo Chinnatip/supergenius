@@ -39,6 +39,15 @@ class HomeController < ApplicationController
     redirect_to :back
   end
 
+  def set_semester
+    if params[:current_semester].present?
+      configs = Config.first
+      configs.current_semester = params[:current_semester]
+      configs.save
+    end
+    redirect_to :back
+  end
+
   def news
     # @news = Newsfeed.all
     @news = Newsfeed.where(status: 'publish')

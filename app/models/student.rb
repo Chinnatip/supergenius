@@ -5,6 +5,25 @@ class Student < ApplicationRecord
     return self.all.count
   end
 
+  def self.query_by_class
+    ss = self.all
+    return {
+      total: ss.count ,
+      p1:    ss.where(grade: 1).count,
+      p2:    ss.where(grade: 2).count,
+      p3:    ss.where(grade: 3).count,
+      p4:    ss.where(grade: 4).count,
+      p5:    ss.where(grade: 5).count,
+      p6:    ss.where(grade: 6).count,
+      m1:    ss.where(grade: 7).count,
+      m2:    ss.where(grade: 8).count,
+      m3:    ss.where(grade: 9).count,
+      m4:    ss.where(grade: 10).count,
+      m5:    ss.where(grade: 11).count,
+      m6:    ss.where(grade: 12).count,
+    }
+  end
+
   def self.query_by_school(school)
     ss = self.where( school: school)
     return {
@@ -148,6 +167,26 @@ class Student < ApplicationRecord
       gender:   parser_gender(obj[:gender]),
       birthday: parser_birthday(obj[:birthday])
     }
+  end
+
+  def self.seperate_class(code)
+    res = Student.where(student_code: code).pluck(:grade).sort
+    count = res.inject({}) do |counter, item|
+      counter[item]  ||= 0
+      counter[item]  += 1
+      counter
+    end
+    return count
+  end
+
+  def self.seperate_school(code)
+    res = Student.where(student_code: code).pluck(:school).sort
+    count = res.inject({}) do |counter, item|
+      counter[item]  ||= 0
+      counter[item]  += 1
+      counter
+    end
+    return count
   end
 
 end

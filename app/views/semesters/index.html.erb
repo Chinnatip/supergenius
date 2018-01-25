@@ -4,14 +4,49 @@
     ภาคเรียนทั้งหมด - <%= @semesters.count %>เทอม
     <%= link_to 'สร้างเทอมใหม่', new_semester_path ,class: 'btn-ner'%>
   </h1>
-
   <!-- set current year -->
   <div class="form-maker">
+    <!--  -->
     <form class="" action="<%= home_set_year_path %>" method="get">
       <div class="field">
         <label for="">ปีการศึกษาล่าสุด</label>
-        <input type="number" name="current_year" value="<%= @set_current_year %>">
+        <select class="" name="current_year">
+          <% 2560.upto(2580) do |t| %>
+            <option
+              value="<%= t %>"
+              <% if t == @set_current_year.to_i %>
+                selected
+              <% end %>>
+              <%= t %>
+            </option>
+          <% end %>
+        </select>
         <input type="submit" value="อัพเดท" class="btn btn-redder">
+      </div>
+    </form>
+    <!--  -->
+    <form class="" action="<%= home_set_semester_path %>" method="get">
+      <div class="field">
+        <label for="">เทอมล่าสุด</label>
+        <select class="" name="current_semester">
+          <% @semesters.where(year: @set_current_year).each do |sem_lists| %>
+            <option
+              value="<%= sem_lists[:id]%>"
+              <% if sem_lists[:id] == @set_current_semester.to_i %>
+                selected
+              <% end %>>
+              <%= sem_lists[:name]%>
+            </option>
+          <% end %>
+        </select>
+        <input type="submit" value="อัพเดท" class="btn btn-redder">
+        <span style="color: #ab1d1d;; font-size: 14px">
+          <% if @set_current_semester.nil? %>
+             << ยังไม่ได้เซ็ท "เทอมล่าสุด"
+          <% elsif !@semesters.where(year: @set_current_year).pluck(:id).include?(@set_current_semester) %>
+             << ปีการศึกษาปัจบัน กับเทอมปัจุบัน "ไม่ตรงกัน"
+          <% end %>
+        </span>
       </div>
     </form>
   </div>
@@ -34,7 +69,9 @@
       </thead>
       <tbody>
         <% @semesters.where(year: yr).each_with_index do |semester,idx| %>
-          <tr>
+          <% course_added = Course.where(semester: semester.sem_code) %>
+          <% register_added = Register.where(course: course_added.pluck(:id)) %>
+          <tr <% if semester.id == @set_current_semester%>style="background: #ffe187a3;"<% end %> >
             <td><%= idx + 1 %></td>
             <td>
               รหัส <%= semester.sem_code %> <br>
@@ -43,8 +80,8 @@
             <td><%= semester.year %></td>
             <td><%= semester.sem_index %></td>
             <!-- <td><%= semester.description %></td> -->
-            <td><%= '0' %></td>
-            <td><%= '0' %></td>
+            <td><%= course_added.count %></td>
+            <td><%= register_added.pluck(:student).uniq.count %></td>
             <td>
               <%= link_to 'Show', semester , class: 'btn-redder' %>
               <%= link_to 'Edit', edit_semester_path(semester) , class: 'btn-redder' %>
