@@ -91,7 +91,8 @@ class Course < ApplicationRecord
     if finder.present?
       return {
         res:    '✅',
-        status: true
+        status: true,
+        id:     finder.first.id
       }
     else
       return {
@@ -117,7 +118,6 @@ class Course < ApplicationRecord
       price:       if obj[:price].present? then "#{obj[:price].floor} บาท" else '-' end ,
       seat:        Student.where(student_code: registers).count ,
       range:       "#{obj[:start].strftime('%e%b')} - #{obj[:end].strftime('%e%b%y')}",
-      time:        "#{obj[:start_time].strftime('%H:%M')}-#{obj[:end_time].strftime('%H:%M')}",
       period:      "#{obj[:period]} ครั้ง" ,
       time_table:  time_table_abbrev(obj[:time_table]),
       teacher:     parse_teacher(obj[:teacher]) ,

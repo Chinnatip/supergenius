@@ -15,11 +15,11 @@
           <th>วิชา</th>
           <th>วัน</th>
           <th>วันที่เรียน</th>
-          <th>เวลา</th>
+          <!-- <th>เวลา</th> -->
           <th>เรียนทั้งหมด</th>
           <th>นัดแก้</th>
           <th>นัดเพิ่ม</th>
-          <th>ค่าเรียน</th>
+          <!-- <th>ค่าเรียน</th> -->
           <th>นักเรียน</th>
           <th>ครู</th>
           <th colspan="2"></th>
@@ -38,11 +38,12 @@
             </td>
             <td><%= course_detail[:range] %></td>
             <td><%= course_detail[:time_table] %></td>
-            <td><%= course_detail[:time] %></td>
+            <!-- <td><%= course_detail[:time] %></td> -->
             <td><%= course_detail[:period] %></td>
             <td
               class="clickable toggle-fixed"
               course="<%= course[:session_id] %>"
+              addcourse="<%= course_detail[:fixed_class][:id] %>"
               status="<%= course_detail[:fixed_class][:status] %>"
               >
               <%= course_detail[:fixed_class][:res] %>
@@ -50,11 +51,12 @@
             <td
               class="clickable toggle-extra"
               course="<%= course[:session_id] %>"
+              addcourse="<%= course_detail[:extra_class][:id] %>"
               status="<%= course_detail[:extra_class][:status] %>"
               >
               <%= course_detail[:extra_class][:res] %>
             </td>
-            <td><%= course_detail[:price] %></td>
+            <!-- <td><%= course_detail[:price] %></td> -->
             <td>
               <%= course_detail[:seat] %>คน
               <a class="btn-red-mini" href="<%= task_add_student_path %>?course=<%= course[:id] %>">+Add</a>
@@ -111,35 +113,39 @@
 
     $('.toggle-fixed').on('click',function(){
       course = $(this).attr("course");
+      addcourse = $(this).attr("addcourse");
       status = $(this).attr("status");
       // alert("นัดแก้" + course + " " + status);
       if (status == "true"){
-        $('.modal-addcourse').addClass('is-active');
-        $.get("/init/get_addcourse_note?type=fixed&course="+ course , function(data, status){
-          $( "a.edit-inject" ).attr("href", data.edit_inject);
-          $( "span.place-holder").text(data.course);
-          $( "div.inner" ).html('');
-          $( "div.inner" ).html(data.note);
-        });
+        window.open("/addcourses/" + addcourse,"_blank");
+        // $('.modal-addcourse').addClass('is-active');
+        // $.get("/init/get_addcourse_note?type=fixed&course="+ course , function(data, status){
+        //   $( "a.edit-inject" ).attr("href", data.edit_inject);
+        //   $( "span.place-holder").text(data.course);
+        //   $( "div.inner" ).html('');
+        //   $( "div.inner" ).html(data.note);
+        // });
       } else {
-        window.location.href = "/addcourses/new?course="+ course +"&type=fixed";
+        window.open("/addcourses/new?course="+ course +"&type=fixed" , "_blank");
       }
     });
 
     $('.toggle-extra').on('click',function(){
       course = $(this).attr("course");
+      addcourse = $(this).attr("addcourse");
       status = $(this).attr("status");
       // alert("นัดเพิ่ม" + course + " " + status);
       if (status == "true"){
-        $('.modal-addcourse').addClass('is-active');
-        $.get("/init/get_addcourse_note?type=extra&course="+ course , function(data, status){
-          $( "a.edit-inject" ).attr("href", data.edit_inject);
-          $( "span.place-holder").text(data.course);
-          $( "div.inner" ).html('');
-          $( "div.inner" ).html(data.note);
-        });
+        window.open("/addcourses/" + addcourse,"_blank");
+        // $('.modal-addcourse').addClass('is-active');
+        // $.get("/init/get_addcourse_note?type=extra&course="+ course , function(data, status){
+        //   $( "a.edit-inject" ).attr("href", data.edit_inject);
+        //   $( "span.place-holder").text(data.course);
+        //   $( "div.inner" ).html('');
+        //   $( "div.inner" ).html(data.note);
+        // });
       } else {
-        window.location.href = "/addcourses/new?course="+ course +"&type=extra";
+        window.open("/addcourses/new?course="+ course +"&type=extra" , "_blank");
       }
     });
   });

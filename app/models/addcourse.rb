@@ -8,8 +8,9 @@ class Addcourse < ApplicationRecord
   end
 
   def self.details(obj)
+    name = Course.where(session_id: obj[:course]).first[:name] rescue ''
     return {
-      name: Course.where(session_id: obj[:course]).first[:name] ,
+      name: name ,
       type: parse_type(obj[:add_type]),
       desc: obj[:desc].html_safe ,
       desc_abbrev: obj[:desc][0..120].html_safe

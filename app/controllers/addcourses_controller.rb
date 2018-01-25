@@ -38,7 +38,7 @@ class AddcoursesController < ApplicationController
     respond_to do |format|
       if @addcourse.save
         # format.html { redirect_to @addcourse, notice: 'Addcourse was successfully created.' }
-        format.html { redirect_to courses_path , notice: 'สร้างรายการนัดเพิ่มเติมเเล้ว' }
+        format.html { redirect_to addcourses_url , notice: 'สร้างรายการนัดเพิ่มเติมเเล้ว' }
         format.json { render :show, status: :created, location: @addcourse }
       else
         format.html { render :new }
@@ -53,7 +53,7 @@ class AddcoursesController < ApplicationController
     respond_to do |format|
       if @addcourse.update(addcourse_params)
         # format.html { redirect_to @addcourse, notice: 'Addcourse was successfully updated.' }
-        format.html { redirect_to courses_path , notice: 'แก้ไขรายการนัดเพิ่มเติมเเล้ว' }
+        format.html { redirect_to addcourses_url , notice: 'แก้ไขรายการนัดเพิ่มเติมเเล้ว' }
         format.json { render :show, status: :ok, location: @addcourse }
       else
         format.html { render :edit }

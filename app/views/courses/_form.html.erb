@@ -61,10 +61,10 @@
     </select>
   </div>
 
-  <div class="field minify-selector">
+  <!-- <div class="field minify-selector">
     <label for="price">ค่าลงทะเบียน</label>
     <%= f.number_field :price ,value: course[:price] || '2500' , placeholder: '2500' %> บาท
-  </div>
+  </div> -->
   <hr>
 
   <!-- <div class="field">
@@ -146,7 +146,7 @@
      %>
   </div>
 
-  <div class="field time-selector">
+  <!-- <div class="field time-selector">
     <label for="start_time">เริ่มเรียนเวลา</label>
     <%= f.time_select :start_time , :default => {:hour => '8', :minute => '00'} %> น.
   </div>
@@ -154,7 +154,7 @@
   <div class="field time-selector">
     <label for="end_time">เลิกเรียนเวลา</label>
     <%= f.time_select :end_time  , :default => {:hour => '16', :minute => '00'} %> น.
-  </div>
+  </div> -->
   <hr>
 
   <div class="actions">
