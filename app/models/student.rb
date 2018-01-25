@@ -172,7 +172,7 @@ class Student < ApplicationRecord
   def self.seperate_class(code)
     res = Student.where(student_code: code).pluck(:grade).sort
     count = res.inject({}) do |counter, item|
-      counter[item]  ||= 0
+      counter[item]  ||= 1
       counter[item]  += 1
       counter
     end
@@ -182,7 +182,7 @@ class Student < ApplicationRecord
   def self.seperate_school(code)
     res = Student.where(student_code: code).pluck(:school).sort
     count = res.inject({}) do |counter, item|
-      counter[item]  ||= 0
+      counter[item]  ||= 1
       counter[item]  += 1
       counter
     end
