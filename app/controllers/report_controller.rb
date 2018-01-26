@@ -71,6 +71,9 @@ class ReportController < ApplicationController
           score_max.each do |sm|
             score_container << JSON.parse(sm)
           end
+          puts "get container >>>>"
+          puts score_container
+          puts 
 
           # score point
           score_get = JSON.parse(score_point)
