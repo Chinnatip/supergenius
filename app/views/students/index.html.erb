@@ -87,7 +87,10 @@
             <td><%= student_detail[:grade] %></td>
             <td><%= Register.where(student: student[:student_code]).count %> คอร์ส</td>
             <td><%= student_detail[:gender] %></td>
-            <td><%  if student[:username].present? %> ✅ <% else %> ⬜️ <% end %></td>
+            <td>
+              <%= Student.parse_birthdate(student[:birthday]) %>
+              <!-- <%  if student[:username].present? %> ✅ <% else %> ⬜️ <% end %> -->
+            </td>
             <td><%  if student[:secret_id].present? %> ✅ <% else %> ⬜️ <% end %></td>
             <!-- <td><%= student_detail[:parent] %></td>
             <td><%= student_detail[:email] %></td> -->

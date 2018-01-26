@@ -151,6 +151,18 @@ class Student < ApplicationRecord
     return Student.where(student_code: code).first
   end
 
+  def self.parse_birthdate(date)
+    if date.present?
+      d_split = date.split("-")
+      if d_split.count > 1
+        return "#{d_split[0].to_s.rjust(2,'0')}#{d_split[1].to_s.rjust(2,'0')}"
+      else
+        return "0000"
+      end
+    else
+      return "0000"
+    end
+  end
 
   def self.details(obj)
     return {
