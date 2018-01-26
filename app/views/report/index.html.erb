@@ -1,23 +1,21 @@
-<% unless @prod_check %>
-  <div class="admin-block">
-    <p id="notice"><%= notice %></p>
-    <h1 style="font-size:24px">เช็คคะเเนนส่วนตัว</h1>
-    <div class="form-maker">
-      <form class="" action="<%= report_check_student_trigger_path %>" method="get">
-        <div class="field">
-          <label for="">รหัสนักเรียน</label>
-          <input style="width: 300px" type="number" name="student_code" value="" placeholder="ตัวอย่าง 6245XX ">
-        </div>
-        <div class="field">
-          <label for="">วัน/เดือนเกิด</label>
-          <input style="width: 300px" type="text" name="birthval" value="" placeholder="ตัวอย่าง 0711 > เกิดวันที่ 7 เดือนพย.">
-        </div>
-        <input type="submit" value="เช็คคะเเนน" class="btn btn-redder">
-      </form>
-    </div>
+<div class="admin-block">
+  <p id="notice"><%= notice %></p>
+  <h1 style="font-size:24px">เช็คคะเเนนส่วนตัว</h1>
+  <div class="form-maker">
+    <form class="" action="<%= report_check_student_trigger_path %>" method="get">
+      <div class="field">
+        <label for="">รหัสนักเรียน</label>
+        <input style="width: 300px" type="number" name="student_code" value="" placeholder="ตัวอย่าง 6245XX ">
+      </div>
+      <div class="field">
+        <label for="">วัน/เดือนเกิด</label>
+        <input style="width: 300px" type="text" name="birthval" value="" placeholder="ตัวอย่าง 0711 > เกิดวันที่ 7 เดือนพย.">
+      </div>
+      <input type="submit" value="เช็คคะเเนน" class="btn btn-redder">
+    </form>
   </div>
-  <br><br>
-<% end %>
+</div>
+<br><br>
 
 <div class="admin-block">
   <h1 style="font-size:24px">เช็คคะเเนนตามคอร์ส ในปีการศึกษา<%= @current_year %></h1>

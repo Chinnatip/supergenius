@@ -7,7 +7,6 @@
 
 <!-- Gchart -->
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-
 <div class="admin-block">
   <h1> บัตรนักเรียน </h1>
   <div class="form-maker minifier">
@@ -45,34 +44,70 @@
 </div>
 <br>
 <div class="admin-block">
-  <h1> วิชาที่ลงทะเบียนเรียน </h1>
+  <h1> คะเเนนสอบวิชาในเทอมปัจุบัน </h1> <br>
   <% @seat.each do |seat| %>
     <!-- keys of session -->
     <% key_sessions = seat[:session].keys %>
-    <!-- insert chart -->
+    <% label_session = [] %>
+    <% your_score    = [] %>
+    <% key_sessions.each do |key| %>
+      <% label_session << "ครั้งที่ #{key}" %>
+    <% end %>
+    <!--  -->
+    <div class="" style="position: relative">
+      <h3 style="
+        font-size: 24px;
+        position: absolute;
+        top: 5px;
+        left: 20px;
+        background: #f3e5e5;
+        padding: 0 16px;
+        color: #d32226;
+      "><%= "#{seat[:classroom]}" %></h3>
+      <canvas id="line-chart-<%= seat[:id] %>"></canvas>
+    </div>
+    <br><hr>
+    <!--  -->
     <script type="text/javascript">
-      google.charts.load('current', {'packages':['corechart']});
-      google.charts.setOnLoadCallback(drawChart);
-      function drawChart() {
-        var data = google.visualization.arrayToDataTable([
-          ['เรียนครั้งที่', 'สอบ','เฉลี่ย'],
-          <% key_sessions.each do |key| %>
-            ['<%= key %>',  <%= seat[:score_point][key.to_s] || 0 %> , 5],
-          <% end %>
-        ]);
-        var options = {
-          title: 'วิชา <%= seat[:classroom] %>',
-          hAxis: {title: 'การเรียนครั้งที่',  titleTextStyle: {color: '#333'}},
-          vAxis: {minValue: 0},
-          curveType: 'function',
-          // legend: { position: 'bottom' }
-        };
-        var chart = new google.visualization.LineChart(document.getElementById('chart_div_<%= seat[:id] %>'));
-        chart.draw(data, options);
-      }
+    new Chart(document.getElementById("line-chart-<%= seat[:id] %>"), {
+    type: 'line',
+    data: {
+      labels: <%= label_session.to_json.html_safe %>,
+      datasets: [{
+        data: <%= seat[:score_point].to_json.html_safe %>,
+        label: "คะเเนนที่ได้",
+        borderColor: "#d22226",
+        lineTension: 0.05,
+        pointRadius: 4,
+        pointBackgroundColor: "#d22226",
+        backgroundColor: "#d22226",
+        fill: false
+      },{
+        data: <%= seat[:min_point].to_json.html_safe %>,
+        borderDash: [6,2],
+        borderWidth: 0.6,
+        label: "ต่ำสุด",
+        borderColor: "#9c9c9c",
+        lineTension: 0.05,
+        fill: "+2",
+        backgroundColor: "#ffffff",
+        pointBackgroundColor: "#bfb9b963"
+      },{
+          data: <%= seat[:max_point].to_json.html_safe %>,
+          borderDash: [6,2],
+          borderWidth: 0.6,
+          label: "สูงสุด",
+          borderColor: "#9c9c9c",
+          backgroundColor: "#bfb9b963",
+          lineTension: 0.05,
+          fill: "+2"
+        }
+      ]
+    },
+    options: {
+      title: { display: true }
+    }
+    });
     </script>
-    <!-- clasroom charts -->
-    <!-- <h2 class=""><%= seat[:classroom] %></h2> -->
-    <div id="chart_div_<%= seat[:id] %>" style="width: 100%; height: 280px"></div>
   <% end %>
 </div>
