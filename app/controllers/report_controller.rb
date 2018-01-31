@@ -66,6 +66,9 @@ class ReportController < ApplicationController
           score_point = Exam.where(student: student_code, classroom: classroom.id,exam_type: "scoring").first.score rescue "{\"0\":\"0\"}"
           score_max = Exam.where(classroom: classroom.id,exam_type: "scoring").pluck(:score)
 
+          puts "check score max of #{st[:classroom]} >>"
+          puts score_max
+
           # puts "get score container >>"
           score_container = []
           score_max.each do |sm|
