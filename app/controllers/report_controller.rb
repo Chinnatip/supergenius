@@ -64,7 +64,7 @@ class ReportController < ApplicationController
         if Classroom.where(id: st[:classroom]).count > 0
           classroom = Classroom.find(st[:classroom])
           score_point = Exam.where(student: student_code, classroom: classroom.id,exam_type: "scoring").first.score rescue "{\"0\":\"0\"}"
-          score_max = Exam.where(classroom: classroom.id,exam_type: "scoring").pluck(:score)
+          score_max = Exam.where(classroom: classroom.id,exam_type: "scoring").pluck(:score) || "{\"0\":\"0\"}"
 
           puts "check score max of #{st[:classroom]} >>"
           puts score_max
