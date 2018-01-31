@@ -64,55 +64,56 @@ class ReportController < ApplicationController
         if Classroom.where(id: st[:classroom]).count > 0
           classroom = Classroom.find(st[:classroom])
           score_point = Exam.where(student: student_code, classroom: classroom.id,exam_type: "scoring").first.score rescue "{\"0\":\"0\"}"
-          score_max = Exam.where(classroom: classroom.id,exam_type: "scoring").pluck(:score) || "{\"0\":\"0\"}"
+          score_max = Exam.where(classroom: classroom.id,exam_type: "scoring").pluck(:score)
+          # classroom was learned >
+          if score_max.count > 0
+            puts "check score max of #{st[:classroom]} >>"
+            puts score_max
 
-          puts "check score max of #{st[:classroom]} >>"
-          puts score_max
+            # puts "get score container >>"
+            score_container = []
+            score_max.each do |sm|
+              score_container << JSON.parse(sm)
+            end
+            puts "get container >>>>"
+            puts score_container
+            puts
 
-          # puts "get score container >>"
-          score_container = []
-          score_max.each do |sm|
-            score_container << JSON.parse(sm)
-          end
-          puts "get container >>>>"
-          puts score_container
-          puts
+            # score point
+            score_get = JSON.parse(score_point)
 
-          # score point
-          score_get = JSON.parse(score_point)
-
-          # process score
-          score_result = {}
-          point_get = []
-          max_get   = []
-          min_get   = []
-          score_setter = JSON.parse(classroom.max_score).keys
-          score_setter.each do |st|
-            score_result[st.to_sym] = {
-              max: score_container.max_by{|k| k[st].to_i }[st] || 0,
-              min: score_container.min_by{|k| k[st].to_i }[st] || 0,
-              get: score_get[st].to_i || 0
+            # process score
+            score_result = {}
+            point_get = []
+            max_get   = []
+            min_get   = []
+            score_setter = JSON.parse(classroom.max_score).keys
+            score_setter.each do |st|
+              score_result[st.to_sym] = {
+                max: score_container.max_by{|k| k[st].to_i }[st] || 0,
+                min: score_container.min_by{|k| k[st].to_i }[st] || 0,
+                get: score_get[st].to_i || 0
+              }
+              point_get << score_result[st.to_sym][:get]
+              max_get   << score_result[st.to_sym][:max]
+              min_get   << score_result[st.to_sym][:min]
+            end
+            # puts score_result
+            # puts point_get.to_json
+            # puts max_get.to_json
+            # puts min_get.to_json
+            #
+            mental_point = Exam.where(student: student_code, classroom: classroom.id,exam_type: "mental").first.score rescue "{\"0\":\"0\"}"
+            @seat << {
+              id:           st[:id],
+              classroom:    classroom.name,
+              session:      JSON.parse(classroom.max_score),
+              score_point:  point_get,
+              max_point:    max_get,
+              min_point:    min_get,
+              mental_point: JSON.parse(mental_point)
             }
-            point_get << score_result[st.to_sym][:get]
-            max_get   << score_result[st.to_sym][:max]
-            min_get   << score_result[st.to_sym][:min]
           end
-          # puts score_result
-          # puts point_get.to_json
-          # puts max_get.to_json
-          # puts min_get.to_json
-
-          #
-          mental_point = Exam.where(student: student_code, classroom: classroom.id,exam_type: "mental").first.score rescue "{\"0\":\"0\"}"
-          @seat << {
-            id:           st[:id],
-            classroom:    classroom.name,
-            session:      JSON.parse(classroom.max_score),
-            score_point:  point_get,
-            max_point:    max_get,
-            min_point:    min_get,
-            mental_point: JSON.parse(mental_point)
-          }
         end
       end
       # @classroom = Classroom.find(seat.pluck(:classroom))
