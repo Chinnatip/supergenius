@@ -69,45 +69,72 @@
     <br><hr>
     <!--  -->
     <script type="text/javascript">
-    new Chart(document.getElementById("line-chart-<%= seat[:id] %>"), {
-    type: 'line',
-    data: {
-      labels: <%= label_session.to_json.html_safe %>,
-      datasets: [{
-        data: <%= seat[:score_point].to_json.html_safe %>,
-        label: "คะเเนนที่ได้",
-        borderColor: "#d22226",
-        lineTension: 0.05,
-        pointRadius: 4,
-        pointBackgroundColor: "#d22226",
-        backgroundColor: "#d22226",
-        fill: false
-      },{
-        data: <%= seat[:min_point].to_json.html_safe %>,
-        borderDash: [6,2],
-        borderWidth: 0.6,
-        label: "ต่ำสุด",
-        borderColor: "#9c9c9c",
-        lineTension: 0.05,
-        fill: "+2",
-        backgroundColor: "#ffffff",
-        pointBackgroundColor: "#bfb9b963"
-      },{
-          data: <%= seat[:max_point].to_json.html_safe %>,
+    // get DOM
+    var ctx = document.getElementById("line-chart-<%= seat[:id] %>");
+    var chartData = {
+      type: 'line',
+      data: {
+        labels: <%= label_session.to_json.html_safe %>,
+        datasets: [{
+          data: <%= seat[:score_point].to_json.html_safe %>,
+          label: "คะเเนนที่ได้",
+          borderColor: "#d22226",
+          lineTension: 0.05,
+          pointRadius: 4,
+          pointBackgroundColor: "#d22226",
+          backgroundColor: "#d22226",
+          fill: false,
+        },{
+          data: <%= seat[:min_point].to_json.html_safe %>,
           borderDash: [6,2],
           borderWidth: 0.6,
-          label: "สูงสุด",
+          label: "ต่ำสุด",
           borderColor: "#9c9c9c",
-          backgroundColor: "#bfb9b963",
           lineTension: 0.05,
-          fill: "+2"
-        }
-      ]
-    },
-    options: {
-      title: { display: true }
+          fill: "+2",
+          backgroundColor: "#ffffff",
+          pointBackgroundColor: "#bfb9b963",
+        },{
+            data: <%= seat[:max_point].to_json.html_safe %>,
+            borderDash: [6,2],
+            borderWidth: 0.6,
+            label: "สูงสุด",
+            borderColor: "#9c9c9c",
+            backgroundColor: "#bfb9b963",
+            lineTension: 0.05,
+            fill: "+2"
+          }
+        ]
+      },
+      options: {
+        title: { display: true },
+        tooltips: {
+          "enabled": false
+        },
+        "animation": {
+          "duration": 1,
+          "onComplete": function() {
+            var chartInstance = this.chart,
+              ctx = chartInstance.ctx;
+              ctx.font = Chart.helpers.fontString(Chart.defaults.global.defaultFontSize, Chart.defaults.global.defaultFontStyle, Chart.defaults.global.defaultFontFamily);
+              ctx.textAlign = 'center';
+              ctx.textBaseline = 'bottom';
+              this.data.datasets.forEach(function(dataset, i) {
+                if (i == 0) {
+                  var meta = chartInstance.controller.getDatasetMeta(i);
+                  meta.data.forEach(function(bar, index) {
+                    var data = dataset.data[index];
+                    ctx.fillText(data, bar._model.x, bar._model.y - 5);
+                  });
+                }
+
+              });
+          }
+        },
+      }
     }
-    });
+    // create lineChart
+    new Chart(ctx, chartData );
     </script>
   <% end %>
 </div>
