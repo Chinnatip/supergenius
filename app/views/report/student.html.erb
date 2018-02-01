@@ -44,6 +44,31 @@
 </div>
 <br>
 <div class="admin-block">
+  <h1>วิชาที่น้องลงทะเบียน <%= @register_course.count %>คอร์ส <%= @register_class.count %>ชั้นเรียน</h1> <br>
+  <% @register_course.each do |rc| %>
+    <!--  -->
+    <h2 style="
+      font-size: 22px;
+      margin-bottom: 8px;">
+      คอร์ส
+    <%= rc.name %></h2>
+    <!--  -->
+    <% @register_class.where(course: rc.id).each do |rcl| %>
+      <span style="
+        background: #f3e5e5;
+        font-size: 19px;
+        line-height: 38px;
+        padding: 7px 10px;
+        color: #d2363a;
+        margin: 0 0 0 12px;">
+        <%= rcl.name %>
+      </span>
+    <% end %>
+    <hr>
+  <% end %>
+</div>
+<br>
+<div class="admin-block">
   <h1> คะเเนนสอบวิชาในเทอมปัจุบัน </h1> <br>
   <% @seat.each do |seat| %>
     <!-- keys of session -->

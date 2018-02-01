@@ -58,7 +58,13 @@ class ReportController < ApplicationController
       }
       @seat = []
       student_code = student.student_code
+      #
+      register = Register.where(student: student_code).pluck(:course)
+      # @register_course = Course.find(register)
+      #
       seat  = Seat.where(student: student_code)
+      @register_class  = Classroom.where(id: seat.pluck(:classroom))
+      @register_course = Course.find(@register_class.pluck(:course).uniq)
       seat.each do |st|
         #
         if Classroom.where(id: st[:classroom]).count > 0
