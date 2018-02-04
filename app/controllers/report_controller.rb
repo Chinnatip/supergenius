@@ -97,6 +97,8 @@ class ReportController < ApplicationController
             min_get   = []
             score_setter = JSON.parse(classroom.max_score).keys
             score_setter.each do |st|
+              puts "try > #{st}"
+              puts score_container
               score_result[st.to_sym] = {
                 max: score_container.max_by{|k| k[st].to_i }[st] || 0,
                 min: score_container.min_by{|k| k[st].to_i }[st] || 0,
