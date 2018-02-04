@@ -98,8 +98,8 @@ class ReportController < ApplicationController
             score_setter = JSON.parse(classroom.max_score).keys
             score_setter.each do |st|
               score_result[st.to_sym] = {
-                max: score_container[st].values.max rescue 0,  #score_container.max_by{|k| k[st].to_i }[st] || 0,
-                min: score_container[st].values.min rescue 0,  #score_container.min_by{|k| k[st].to_i }[st] || 0,
+                max: score_container.max_by{|k| k[st].to_i }[st] || 0,
+                min: score_container.min_by{|k| k[st].to_i }[st] || 0,
                 get: score_get[st].to_i || 0
               }
               point_get << score_result[st.to_sym][:get]
