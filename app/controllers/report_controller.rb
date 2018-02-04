@@ -101,7 +101,7 @@ class ReportController < ApplicationController
               puts score_container
               score_result[st.to_sym] = {
                 max: score_container.max_by{|k| k[st].to_i }[st] || 0,
-                min: score_container.min_by{|k| k[st].to_i }[st] || 0,
+                min: score_container.min_by{|k| k[st].to_i }[st],
                 get: score_get[st].to_i || 0
               }
               point_get << score_result[st.to_sym][:get]
