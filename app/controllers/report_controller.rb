@@ -79,7 +79,7 @@ class ReportController < ApplicationController
             # puts "get score container >>"
             score_container = []
             score_max.each do |sm|
-              content = JSON.parse(sm).select {|k, v| !v.nil? && !(v == '-') }
+              content = JSON.parse(sm).select {|k, v| !(v == '') && !(v == '-') }
               score_container << content
               # score_container << JSON.parse(sm)
             end
