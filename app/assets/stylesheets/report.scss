@@ -1,3 +1,36 @@
 // Place all the styles related to the report controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+.h-class {
+  font-size: 24px;
+  top: 5px;
+  left: 20px;
+  background: #f3e5e5;
+  padding: 0 16px;
+  color: #d32226;
+  @media (max-width: 480px) {
+    font-size: 16px;
+  }
+}
+.course-name {
+  background: #f3e5e5;
+  font-size: 19px;
+  line-height: 38px;
+  padding: 7px 10px;
+  color: #d2363a;
+  margin: 0 0 0 12px;
+  @media (max-width: 480px) {
+    font-size: 14px;
+    &:first-child {
+      margin-left: 0;
+    }
+  }
+}
+
+.course-title {
+  font-size: 22px;
+  margin-bottom: 8px;
+  @media (max-width: 480px) {
+    font-size: 18px;
+  }
+}

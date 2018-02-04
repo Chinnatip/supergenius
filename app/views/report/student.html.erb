@@ -47,20 +47,12 @@
   <h1>วิชาที่น้องลงทะเบียน <%= @register_course.count %>คอร์ส <%= @register_class.count %>ชั้นเรียน</h1> <br>
   <% @register_course.each do |rc| %>
     <!--  -->
-    <h2 style="
-      font-size: 22px;
-      margin-bottom: 8px;">
+    <h2 class="course-title" style="">
       คอร์ส
     <%= rc.name %></h2>
     <!--  -->
     <% @register_class.where(course: rc.id).each do |rcl| %>
-      <span style="
-        background: #f3e5e5;
-        font-size: 19px;
-        line-height: 38px;
-        padding: 7px 10px;
-        color: #d2363a;
-        margin: 0 0 0 12px;">
+      <span class="course-name" style="">
         <%= rcl.name %>
       </span>
     <% end %>
@@ -80,18 +72,10 @@
     <% end %>
     <!--  -->
     <div class="" style="position: relative">
-      <h3 style="
-        font-size: 24px;
-        position: absolute;
-        top: 5px;
-        left: 20px;
-        background: #f3e5e5;
-        padding: 0 16px;
-        color: #d32226;
-      "><%= "#{seat[:classroom]}" %></h3>
-      <canvas id="line-chart-<%= seat[:id] %>"></canvas>
+      <h3 class="h-class" style=""><%= "#{seat[:classroom]}" %></h3>
+      <canvas class="line-chart" id="line-chart-<%= seat[:id] %>"></canvas>
     </div>
-    <br><hr>
+    <br>
     <!--  -->
     <script type="text/javascript">
     // get DOM
@@ -133,6 +117,7 @@
       },
       options: {
         title: { display: true },
+        legend: {position: 'bottom'},
         tooltips: {
           "enabled": false
         },
