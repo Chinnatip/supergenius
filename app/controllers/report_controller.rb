@@ -97,6 +97,10 @@ class ReportController < ApplicationController
                   series << sc[st]
                 end
               end
+              puts "series >>>"
+              puts series.to_json
+              puts series.min
+              puts series.max
               #
               score_result[st.to_sym] = {
                 max: series.max ,  #score_container.max_by{|k| k[st].to_i }[st] || 0,
@@ -107,11 +111,6 @@ class ReportController < ApplicationController
               max_get   << score_result[st.to_sym][:max]
               min_get   << score_result[st.to_sym][:min]
             end
-            # puts score_result
-            # puts point_get.to_json
-            # puts max_get.to_json
-            # puts min_get.to_json
-            #
             mental_point = Exam.where(student: student_code, classroom: classroom.id,exam_type: "mental").first.score rescue "{\"0\":\"0\"}"
             @seat << {
               id:           st[:id],
