@@ -88,17 +88,20 @@ class ReportController < ApplicationController
             point_get = []
             max_get   = []
             min_get   = []
+            draft_get = []
             score_setter = JSON.parse(classroom.max_score).keys
             score_setter.each do |st|
               #
               score_result[st.to_sym] = {
                 max: score_container.max_by{|k| k[st].to_i }[st] || 0,
                 min: score_container.min_by{|k| k[st].to_i }[st] || 0,
-                get: score_get[st].to_i || 0
+                get: score_get[st].to_i || 0,
+                draft: score_get[st] || "X"
               }
               point_get << score_result[st.to_sym][:get]
               max_get   << score_result[st.to_sym][:max]
               min_get   << score_result[st.to_sym][:min]
+              draft_get << score_result[st.to_sym][:draft]
             end
             mental_point = Exam.where(student: student_code, classroom: classroom.id,exam_type: "mental").first.score rescue "{\"0\":\"0\"}"
             @seat << {
@@ -108,6 +111,7 @@ class ReportController < ApplicationController
               score_point:  point_get,
               max_point:    max_get,
               min_point:    min_get,
+              draft_point:  draft_get,
               mental_point: JSON.parse(mental_point)
             }
           end

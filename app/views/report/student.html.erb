@@ -86,6 +86,7 @@
         labels: <%= label_session.to_json.html_safe %>,
         datasets: [{
           data: <%= seat[:score_point].to_json.html_safe %>,
+          dataDraft: <%= seat[:draft_point].to_json.html_safe %>,
           label: "คะเเนนที่ได้",
           borderColor: "#d22226",
           lineTension: 0.05,
@@ -133,7 +134,7 @@
                 if (i == 0) {
                   var meta = chartInstance.controller.getDatasetMeta(i);
                   meta.data.forEach(function(bar, index) {
-                    var data = dataset.data[index];
+                    var data = dataset.dataDraft[index];
                     ctx.fillText(data, bar._model.x, bar._model.y - 5);
                   });
                 }
