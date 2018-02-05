@@ -70,23 +70,16 @@ class ReportController < ApplicationController
         if Classroom.where(id: st[:classroom]).count > 0
           classroom = Classroom.find(st[:classroom])
           score_point = Exam.where(student: student_code, classroom: classroom.id,exam_type: "scoring").first.score rescue "{\"0\":\"0\"}"
-          score_max = Exam.where(classroom: classroom.id,exam_type: "scoring").pluck(:score)
+          score_range = Exam.where(classroom: classroom.id,exam_type: "scoring").pluck(:score)
           # classroom was learned >
-          if score_max.count > 0
-            puts "check score max of #{st[:classroom]} >>"
-            puts score_max
-
+          if score_range.count > 0
             # puts "get score container >>"
             score_container = []
-            score_max.each do |sm|
+            score_range.each do |sm|
               content = JSON.parse(sm).select {|k, v| !(v == '') && !(v == '-') }
               score_container << content
               # score_container << JSON.parse(sm)
             end
-            puts "get container >>>>"
-            puts score_container
-            puts
-
             # score point
             score_get = JSON.parse(score_point)
 
@@ -97,9 +90,17 @@ class ReportController < ApplicationController
             min_get   = []
             score_setter = JSON.parse(classroom.max_score).keys
             score_setter.each do |st|
+              #
+              series = []
+              score_container.each do |sc|
+                if sc[st].present?
+                  series << sc[st]
+                end
+              end
+              #
               score_result[st.to_sym] = {
-                max: score_container.max_by{|k| k[st].to_i }[st] || 0,
-                min: score_container.min_by{|k| k[st].to_i }[st] || 0,
+                max: series.max , #score_container.max_by{|k| k[st].to_i }[st] || 0,
+                min: series.min ,  #score_container.min_by{|k| if k[st].present? then k[st].to_i end  }[st] || 0,
                 get: score_get[st].to_i || 0
               }
               point_get << score_result[st.to_sym][:get]
