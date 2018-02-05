@@ -95,13 +95,11 @@ class ReportController < ApplicationController
               score_container.each do |sc|
                 if sc[st].present?
                   series << sc[st]
-                else
-                  series << 0
                 end
               end
               #
               score_result[st.to_sym] = {
-                max: series.max , #score_container.max_by{|k| k[st].to_i }[st] || 0,
+                max: series.max ,  #score_container.max_by{|k| k[st].to_i }[st] || 0,
                 min: series.min ,  #score_container.min_by{|k| if k[st].present? then k[st].to_i end  }[st] || 0,
                 get: score_get[st].to_i || 0
               }
