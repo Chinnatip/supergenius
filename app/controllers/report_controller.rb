@@ -99,8 +99,8 @@ class ReportController < ApplicationController
               end
               #
               score_result[st.to_sym] = {
-                max: series.max , #score_container.max_by{|k| k[st].to_i }[st] || 0,
-                min: series.min ,  #score_container.min_by{|k| if k[st].present? then k[st].to_i end  }[st] || 0,
+                max: series.max || 0 , #score_container.max_by{|k| k[st].to_i }[st] || 0,
+                min: series.min || 0 ,  #score_container.min_by{|k| if k[st].present? then k[st].to_i end  }[st] || 0,
                 get: score_get[st].to_i || 0
               }
               point_get << score_result[st.to_sym][:get]
