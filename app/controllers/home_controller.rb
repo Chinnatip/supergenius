@@ -148,8 +148,8 @@ class HomeController < ApplicationController
 
   def update_score
     puts "get update score >>>"
-    # puts params.inspect
-    # puts params[:s].keys
+    puts params.inspect
+    puts params[:s].keys
     #
     classroom = Classroom.find(params[:cl])
     classroom[:max_score] = params[:max].to_json

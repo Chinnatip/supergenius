@@ -85,6 +85,7 @@ class ClassroomsController < ApplicationController
     @max_score      = (@toggle_max_score.sort_by { |k,v| k.to_f }).to_h rescue sampling_score(Array.new( course_period , 10))
     @current_period = Classroom.find(params[:id])[:current] || "1"
     @seat_sort      = sortable_seat(@seats, params[:sort])
+    puts "debug crasher >>"
   end
 
   def sortable_seat(seat,sort_param)
@@ -99,7 +100,7 @@ class ClassroomsController < ApplicationController
 
   def find_score(classroom,student)
     exam  = Exam.where(classroom: classroom , student: student ,exam_type: 'scoring').first
-    score = exam['score'] rescue "{\"0\":\"0\"}" 
+    score = exam['score'] rescue "{\"0\":\"0\"}"
     return JSON.parse(score)
   end
 
