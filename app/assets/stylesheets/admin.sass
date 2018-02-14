@@ -1,6 +1,6 @@
 body.admin-body
   overflow: auto
-  @media (min-width: 376px)
+  @media (min-width: 768px)
     height: 100vh
 .admin-container
   display: flex
@@ -37,7 +37,7 @@ body.admin-body
   border-radius: 6px
   box-shadow: 0 1px 23px rgba(177, 171, 171, 0.53)
   &.bottom-mobi-10
-    @media (max-width: 560px)
+    @media (max-width: 768px)
       margin-bottom: 10px
   h1
     font-size: 30px
@@ -170,7 +170,7 @@ body.admin-body
     font-size: 16px
   table
     // config scrollable complex table cell
-    @media (max-width: 560px)
+    @media (max-width: 768px)
       thead
         display: block
       tbody
@@ -333,19 +333,19 @@ body.admin-body
   display: inline-block
   padding-left: 16px
   width: 100%
-  @media (max-width: 560px)
+  @media (max-width: 768px)
     padding: 0 10px
   form
     div.field
       display: -webkit-box
       line-height: 40px
-      @media (max-width: 560px)
+      @media (max-width: 768px)
         display: block
       label
         min-width: 140px
         margin-right: 20px
         &.sub-title
-          @media (max-width: 560px)
+          @media (max-width: 768px)
             font-size: 13px
             line-height: 14px
             margin-top: 6px
@@ -361,11 +361,11 @@ body.admin-body
           margin-right: 8px
         &.input-list
           width: 300px
-          @media (max-width: 560px)
+          @media (max-width: 768px)
             width: 100%
             margin: 0
         &.submit
-          @media (max-width: 560px)
+          @media (max-width: 768px)
             margin-top: 5px
             font-size: 17px
             padding: 7px
