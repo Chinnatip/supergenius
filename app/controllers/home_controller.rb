@@ -63,6 +63,22 @@ class HomeController < ApplicationController
     @detail.save
   end
 
+  def student_upgrade_grade
+    exclude = []
+    Student.all.order(:created_at).each do |st|
+      if exclude.find_index(st.student_code.to_i).nil?
+          grade  = st.grade.to_i
+          puts "Current grade of #{st.name}: #{st.student_code} is [#{grade}]"
+          shifted_grade = if grade < 12 then grade + 1 else 13 end
+          st.grade = shifted_grade
+          puts "Shifted to grade [#{shifted_grade}]"
+          puts
+          st.save
+      end
+    end
+    redirect_to :back
+  end
+
   def remove_period
     puts "period >>>"
     cs    = Classroom.find(params[:class])

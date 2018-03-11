@@ -54,6 +54,7 @@ Rails.application.routes.draw do
   get 'home/add_table'
   get 'home/add_comment'
   get 'home/add_seat_comment'
+  get 'home/student_upgrade_grade'
   get 'help' => 'home#help' , as: :home_help
   get 'set_year' => 'home#set_year' , as: :home_set_year
   get 'set_semester' => 'home#set_semester' , as: :home_set_semester

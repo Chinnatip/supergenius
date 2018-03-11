@@ -1,6 +1,7 @@
 <div class="admin-block">
   <h1>
     Students - <%= @student_count %> คน
+    <%= link_to 'อัพเดทชั้นปี', home_student_upgrade_grade_path , class: 'btn-bfr' , style: 'margin-left: 8px;' , onclick: "return confirm('เมื่อตกลงระบบจะทำการเพิ่มชั่นปีของเด็กทุกคน 1ปีทันที เเน่ใจนะ?')" %>
     <%= link_to 'New Student', new_student_path , class: 'btn-ner'%>
   </h1>
 
@@ -54,7 +55,7 @@
   </div>
 
   <% @grade_lists.each do |gd| %>
-    <div class="label-banner">ชั้นปี / <%= Student.parse_grade(gd) %></div>
+    <div class="label-banner">ชั้นปี / <%= if gd <= 12 then Student.parse_grade(gd) else "สำเร็จการศึกษา(มัธยม)" end %></div>
     <table>
       <thead>
         <tr>
