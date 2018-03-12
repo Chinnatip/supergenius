@@ -41,7 +41,6 @@
         </thead>
         <tbody>
           <% (@student.all.sort_by { |s| s.student_code}).each do |s| %>
-            <% puts "#{s.id} | #{s.name} #{s.school} >>>" %>
             <% school = School.find(s[:school]) rescue '-1' %>
             <tr>
               <td>
@@ -92,6 +91,7 @@
       <p style="font-size: 12px" >
         น้อง<%= rs[:nickname] %> |
         <!-- <%= rs[:name] %> <%= rs[:surname] %> | -->
+        <% puts "#{rs.id} | น้อง#{rs.nickname} | #{rs.school} | grade #{rs.grade} >>>" %>
         <%= School.find(rs[:school])[:name] %> |
         <%= rs[:student_code] %> |
         <a style="
