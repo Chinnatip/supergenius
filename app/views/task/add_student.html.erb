@@ -41,6 +41,7 @@
         </thead>
         <tbody>
           <% (@student.all.sort_by { |s| s.student_code}).each do |s| %>
+            <% puts "#{s.id} | #{s.name} #{s.school} >>>" %>
             <% school = School.find(s[:school]) rescue '-1' %>
             <tr>
               <td>
