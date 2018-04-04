@@ -51,7 +51,7 @@ class ReportController < ApplicationController
         gender:       Student.parser_gender(student[:gender]),
         parent_name:  (student[:parent] || '-'),
         grade:        Student.parse_grade(student[:grade]),
-        school:       Student.parse_school(student[:school]),
+        school:       Student.parse_school(Student.current_school(student)),
         phone:        "#{student[:tel]},#{student[:tel_parent]}",
         secret:       student[:secret_id],
         birthday:     student[:birthday]

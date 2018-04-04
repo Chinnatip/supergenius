@@ -17,7 +17,7 @@ class Seat < ApplicationRecord
       student_code: student[:student_code] ,
       name:    student[:nickname] ,
       grade:   Student.parse_grade(student[:grade]) ,
-      school:  Student.parse_school(student[:school]) ,
+      school:  Student.parse_school(Student.current_school(student)) ,
       comment: seat[:comment],
       # total:   Exam.total_score(scoring) ,
       # total_mental:  Exam.total_score(mental) ,

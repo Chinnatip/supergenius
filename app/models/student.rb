@@ -164,6 +164,19 @@ class Student < ApplicationRecord
     end
   end
 
+  def self.current_school(student)
+    student_grade = student.grade
+    case student_grade
+      when 1..6
+        return student.school_primary
+      when 7..12
+        return student.school_secondary
+      when 13
+        return student.school_university
+    end
+  end
+
+
   def self.details(obj)
     return {
       id:       obj[:id],
@@ -171,7 +184,7 @@ class Student < ApplicationRecord
       code:     obj[:student_code],
       grade:    parse_grade(obj[:grade]),
       seat:     parse_seat(obj[:student_code]),
-      school:   parse_school(obj[:school]),
+      school:   parse_school(current_school(obj)),
     	parent:	  if obj[:parent].present? then obj[:parent] else '-' end ,
       email:	  if obj[:email].present? then obj[:email] else '-' end ,
       tel:	    if obj[:tel].present? then obj[:tel] else '-' end ,
@@ -192,7 +205,11 @@ class Student < ApplicationRecord
   end
 
   def self.seperate_school(code)
-    res = Student.where(student_code: code).pluck(:school).sort
+    collector = []
+    Student.where(student_code: code).each do |st|
+      collector << Student.current_school(st)
+    end
+    res = collector.uniq.sort
     count = res.inject({}) do |counter, item|
       counter[item]  ||= 1
       counter[item]  += 1

@@ -32,6 +32,22 @@ class StudentsController < ApplicationController
 
   # GET /students/1/edit
   def edit
+    # puts "111"
+    # student_grade = @student.grade
+    # case student_grade
+    # when 1..6
+    #     @student.school_primary = @student.school
+    #     puts @student.school_primary
+    #   when 7..12
+    #     @student.school_secondary = @student.school
+    #     puts @student.school_secondary
+    #   when 13
+    #     @student.school_university = @student.school
+    #     puts @student.school_university
+    # end
+    #
+    # puts "get school >"
+    # puts student_grade
   end
 
   def decode_student_year(grade)
@@ -117,6 +133,12 @@ class StudentsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def student_params
-      params.require(:student).permit(:name, :surname, :grade, :school, :parent, :email, :tel, :line, :facebook, :nickname, :username ,:password ,:secret_id, :gender, :tel_parent, :birthday)
+      params.require(:student).permit(
+        :name, :surname, :grade,
+        :school, :school_primary, :school_secondary, :school_university,
+        :parent, :email, :tel, :line, :facebook,
+        :nickname, :username ,:password ,
+        :secret_id, :gender, :tel_parent, :birthday
+      )
     end
 end

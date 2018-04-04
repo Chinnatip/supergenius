@@ -49,7 +49,7 @@
         </thead>
         <tbody>
           <% (@students_in_course.all.sort_by { |s| s.student_code }).each do |s| %>
-            <% school = School.find(s[:school]) rescue [] %>
+            <% student_detail = Student.details(s) %>
             <tr>
               <td>
                 <input
@@ -64,10 +64,10 @@
               </td>
               <td><img src="../img_ref/kids.png" alt="" style="width:30px"/></td>
               <td>
-                <%= s[:nickname] %><br>
+                น้อง<%= student_detail[:name] %><br>
                 <a target="_blank" href="/students/<%= s[:id] %>/edit" style="color:#3F51B5">ดูข้อมูลเด็ก >></a>
               </td>
-              <td><%= school[:name] rescue "-" %></td>
+              <td><%= student_detail[:school] %></td>
               <td><%= s[:student_code] %></td>
             </tr>
           <% end %>
@@ -95,9 +95,10 @@
       นักเรียนทั้งหมด <%= @seat_lists.count %> คน
     </h2>
     <% (@seat_lists.sort_by { |s| s.student_code }).each do |rs| %>
+      <% student_detail = Student.details(rs) %>
       <p style="font-size: 12px" >
-        น้อง<%= rs[:nickname] %> |
-        <%= School.find(rs[:school])[:name] %> |
+        น้อง<%= student_detail[:name] %> |
+        <%= student_detail[:school] %> |
         <%= rs[:student_code] %> |
         <a style="
           color: white;

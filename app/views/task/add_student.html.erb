@@ -41,7 +41,7 @@
         </thead>
         <tbody>
           <% (@student.all.sort_by { |s| s.student_code}).each do |s| %>
-            <% school = School.find(s[:school]) rescue '-1' %>
+            <% student_detail = Student.details(s) %>
             <tr>
               <td>
                 <input
@@ -56,11 +56,11 @@
               </td>
               <td><img src="../img_ref/kids.png" alt="" style="width:30px"/></td>
               <td>
-                <%= s[:nickname] %><br>
+                น้อง<%= student_detail[:name] %><br>
                 <a target="_blank" href="/students/<%= s[:id] %>/edit" style="color:#3F51B5">ดูข้อมูลเด็ก >></a>
               </td>
               <td><%= Student.parse_grade(s.grade) %></td>
-              <td><%= school[:name] rescue 'ไม่ทรายโรงเรียน' %></td>
+              <td><%= student_detail[:school] %></td>
               <td><%= s[:student_code] %></td>
             </tr>
           <% end %>
@@ -88,11 +88,11 @@
     </h2>
     <!-- <%= @register_lists.count %> <br> -->
     <% (@register_lists.sort_by { |s| s.student_code }).each do |rs| %>
+      <% student_detail = Student.details(rs) %>
       <p style="font-size: 12px" >
-        น้อง<%= rs[:nickname] %> |
-        <!-- <%= rs[:name] %> <%= rs[:surname] %> | -->
         <% puts "#{rs.id} | น้อง#{rs.nickname} | #{rs.school} | grade #{rs.grade} >>>" %>
-        <%= School.find(rs[:school])[:name] %> |
+        น้อง<%= student_detail[:name] %> |
+        <%= student_detail[:school] %> |
         <%= rs[:student_code] %> |
         <a style="
           color: white;
