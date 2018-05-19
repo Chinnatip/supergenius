@@ -197,7 +197,7 @@ class Student < ApplicationRecord
   def self.seperate_class(code)
     res = Student.where(student_code: code).pluck(:grade).sort
     count = res.inject({}) do |counter, item|
-      counter[item]  ||= 1
+      counter[item]  ||= 0
       counter[item]  += 1
       counter
     end
@@ -205,17 +205,30 @@ class Student < ApplicationRecord
   end
 
   def self.seperate_school(code)
-    collector = []
+    school_collection = []
     Student.where(student_code: code).each do |st|
-      collector << Student.current_school(st)
+      school_collection << Student.current_school(st)
     end
-    res = collector.uniq.sort
-    count = res.inject({}) do |counter, item|
-      counter[item]  ||= 1
-      counter[item]  += 1
-      counter
+    puts 'debugger#2'
+    res = {}
+    school_list = school_collection.sort
+    school_uniq = school_collection.uniq.sort
+    school_uniq.each do |sc|
+      res[sc] = 0
+      school_list.each do |unit|
+        if sc == unit
+          res[sc] += 1
+        end
+      end
     end
-    return count
+    # res = collector.uniq.sort
+    # count = res.inject({}) do |counter, item|
+    #   counter[item]  ||= 1
+    #   counter[item]  += 1
+    #   counter
+    # end
+    puts res.to_json
+    return res
   end
 
 end

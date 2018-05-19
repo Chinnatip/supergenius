@@ -15,6 +15,24 @@ class SemestersController < ApplicationController
   # GET /semesters/1
   # GET /semesters/1.json
   def show
+    # semester detail
+    @detail = {
+      name: @semester.name ,
+      index: @semester.sem_index ,
+      year: @semester.year ,
+      code: @semester.sem_code ,
+    }
+    @course = Course.where(semester: @detail[:code])
+    @current_semester = if @semester.id == @set_current_semester.to_i then true else false end
+    #
+    @register = Register.where(course: @course.pluck(:id)).pluck(:student).uniq.sort
+    @register_student = Student.seperate_class(@register)
+    @register_school = Student.seperate_school(@register)
+    puts 'debug#1 >'
+    puts @register.count
+    #
+    @students = Student.where(student_code: @register)
+    @grade_lists = @register_student.keys.sort { |x,y| x <=> y }
   end
 
   # GET /semesters/new

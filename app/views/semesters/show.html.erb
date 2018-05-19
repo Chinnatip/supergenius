@@ -12,8 +12,8 @@
   <div class="show-container">
     <p>
       <strong>ภาคการศึกษา:</strong>
-      <%= @semester.name %>
-      <% if @semester.id == @set_current_semester.to_i %>
+      <%= @detail[:name] %>
+      <% if @current_semester %>
        <span style="
         background: #ca3d3d;
         color: white;
@@ -28,7 +28,7 @@
 
     <p>
       <strong>ปีการศึกษา:</strong>
-      <%= @semester.sem_index %>/<%= @semester.year %>
+      <%= @detail[:index] %>/<%= @detail[:year] %>
     </p>
   </div>
   <hr>
@@ -38,9 +38,8 @@
         width: 50%;
         display: inline-block;
         vertical-align: top;">
-        <% course = Course.where(semester: @semester.sem_code) %>
-        <div style="font-size: 18px;"> คอร์สทั้งหมด <%= course.count %>วิชา </div>
-        <% course.each do |cs| %>
+        <div style="font-size: 18px;"> คอร์สทั้งหมด <%= @course.count %>วิชา </div>
+        <% @course.each do |cs| %>
           <a target="_blank" href="/task/add_student?course=<%= cs.id %>" style="
             border: 1px solid #d23434;
             display: inline-block;
@@ -54,38 +53,13 @@
           </a>
         <% end %>
       </div>
-      <% register = Register.where(course: course.pluck(:id)).pluck(:student).uniq %>
-      <% classic = Student.seperate_class(register) %>
-      <% schoolX = Student.seperate_school(register) %>
-      <% get_school_key = schoolX.keys %>
-      <% get_class_key = classic.keys %>
-      <div style="
-        width: 48%;
-        font-size: 18px;
-        display: inline-block;
-        vertical-align: top;">
-        <div class=""> นักเรียนทั้งหมด <%= classic.inject(0) { |sum, tuple| sum += tuple[1] } %> คน </div>
-        <% get_class_key.each do |key| %>
-          <div class="" style="
-            background: #e6e6e6;
-            color: #717171;
-            display: inline-block;
-            padding: 13px;
-            border-radius: 8px;
-            margin: 0 6px 6px 0px;
-          ">
-            <%= Student.parse_grade(key) %> <br>
-            <%= classic[key] %>คน
-          </div>
-        <% end %>
-      </div>
       <hr>
       <div class="show-container" style="
         font-size: 18px;
         display: inline-block;
         ">
-        <div class="">นักเรียนมาจากโรงเรียนทั้งหมด <%= get_school_key.count %>โรงเรียน</div>
-        <% get_school_key.each do |key| %>
+        <div class="">นักเรียนมาจากโรงเรียนทั้งหมด <%= @register_school.keys.count %>โรงเรียน</div>
+        <% @register_school.keys.each do |key| %>
           <div class="" style="
             background: #e6e6e6;
             color: #717171;
@@ -96,11 +70,94 @@
             margin: 0 10px 10px 0px;
           ">
             <%= School.find(key).name rescue "ไม่ทราบโรงเรียน"%> <br>
-            <%= schoolX[key] %>คน
+            <%= @register_school[key] %>คน
           </div>
         <% end %>
       </div>
     </div>
   </div>
+  <!--  -->
+  <hr>
+  <!--  -->
+  <!-- Current student in this semester -->
+  <div class="show-container" style="
+    font-size: 18px;
+    display: inline-block;
+    ">
+    <div class="">
+      นักเรียนทั้งหมด
+      <%= @register_student.inject(0) { |sum, tuple| sum += tuple[1] } %>
+      คน
+    </div>
+  </div>
+  <% @grade_lists.each do |gd| %>
+    <div class="label-banner">
+      <%= if gd <= 12 then "ชั้น#{Student.parse_grade(gd)}" else "สำเร็จการศึกษา(มัธยม)" end %>
+      - <%= @register_student[gd.to_i] %>คน
+    </div>
+    <table>
+      <thead>
+        <tr>
+          <th>Student Code</th>
+          <th>รายชื่อ</th>
+          <th>โรงเรียน</th>
+          <th>ชั้นปี</th>
+          <th>คอร์สที่ลง</th>
+          <th>เพศ</th>
+          <!-- <th>โรงเรียน</th> -->
+          <th>Password</th>
+          <th>Secret</th>
+          <!-- <th>ผู้ปกครอง</th>
+          <th>Email</th> -->
+          <th>เบอร์โทร</th>
+          <th>วันเกิด</th>
+          <!-- <th>Line</th> -->
+          <th colspan="4"></th>
+        </tr>
+      </thead>
 
+      <tbody>
+        <% (@students.where(grade: gd).sort_by {|s| s[:student_code]}).each do |student| %>
+          <% student_detail = Student.details(student) %>
+          <tr>
+            <td><%= student[:student_code] %></td>
+            <td><%= student.name %> <%= student.surname %> (น้อง<%= student_detail[:name] %>)</td>
+            <td><%= student_detail[:school] %></td>
+            <td><%= student_detail[:grade] %></td>
+            <td><%= Register.where(student: student[:student_code]).count %> คอร์ส</td>
+            <td><%= student_detail[:gender] %></td>
+            <td>
+              .<%= Student.parse_birthdate(student[:birthday]) %>
+              <!-- <%  if student[:username].present? %> ✅ <% else %> ⬜️ <% end %> -->
+            </td>
+            <td><%  if student[:secret_id].present? %> ✅ <% else %> ⬜️ <% end %></td>
+            <!-- <td><%= student_detail[:parent] %></td>
+            <td><%= student_detail[:email] %></td> -->
+            <td style="font-size: 12px">
+              <%= student[:tel_parent] %> <br>
+              <%= student[:tel] %>
+            </td>
+            <td style="font-size: 12px"><%= student_detail[:birthday] %></td>
+            <!-- <td><%= student_detail[:line] %></td> -->
+            <td>
+              <a target="_blank" class="btn-grey" href="/student_report/<%= student.id %>">คะเเนน</a>
+            </td>
+            <td>
+              <a
+                class="open-modal btn-redder"
+                href="#" student="<%= student[:student_code] %>"
+                name="<%= student_detail[:name] %>"
+                grade="<%= student_detail[:grade] %>"
+                school="<%= student_detail[:school] %>">
+                +เพิ่มวิชา
+              </a>
+            </td>
+            <td><%= link_to 'รายละเอียด', edit_student_path(student) , class: 'btn-grey' %></td>
+            <td><%= link_to 'ลบทิ้ง', student, method: :delete, data: { confirm: 'Are you sure?' } , class: 'btn-grey' %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+    <br>
+  <% end %>
 </div>
