@@ -25,10 +25,12 @@
        </span>
       <% end %>
     </p>
-
     <p>
       <strong>ปีการศึกษา:</strong>
       <%= @detail[:index] %>/<%= @detail[:year] %>
+    </p>
+    <p>
+      <strong>นักเรียนทั้งหมด:</strong> <%= @register.count - 1 %> คน
     </p>
   </div>
   <hr>
@@ -70,7 +72,9 @@
             margin: 0 10px 10px 0px;
           ">
             <%= School.find(key).name rescue "ไม่ทราบโรงเรียน"%> <br>
-            <%= @register_school[key] %>คน
+            <span style="font-size:16px">
+              <%= @register_school[key] %>คน
+            </span>
           </div>
         <% end %>
       </div>
