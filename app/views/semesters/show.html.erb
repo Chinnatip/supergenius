@@ -30,7 +30,9 @@
       <%= @detail[:index] %>/<%= @detail[:year] %>
     </p>
     <p>
-      <strong>นักเรียนทั้งหมด:</strong> <%= @register.count - 1 %> คน
+      <strong>นักเรียนทั้งหมด:</strong>
+      <%= @register_student.inject(0) { |sum, tuple| sum += tuple[1] } %>
+      คน
     </p>
   </div>
   <hr>
