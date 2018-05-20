@@ -8,13 +8,12 @@
 
   <% @semester_lists.each do |sem| %>
    <% semesterx = Semester.where(sem_code: sem).first %>
-    <div class="label-banner">ภาคการศึกษา / <%= semesterx[:name] %> - [ SEM_<%= semesterx[:id] %>/<%= semesterx[:sem_code] %> ]</div>
+    <div class="label-banner">ภาคการศึกษา / <%= semesterx[:name] %> - [ SEMESTER_CODE_<%= semesterx[:sem_code] %> ]</div>
     <table class="">
       <thead>
         <tr>
           <th>ระดับชั้น</th>
           <th>วิชา</th>
-          <th>ภาคเรียน</th>
           <th>วัน</th>
           <th>วันที่เรียน</th>
           <!-- <th>เวลา</th> -->
@@ -38,7 +37,6 @@
                 <%= course[:session_id]%>
               </span>
             </td>
-            <td><%= course[:semester] %></td>
             <td><%= course_detail[:range] %></td>
             <td><%= course_detail[:time_table] %></td>
             <!-- <td><%= course_detail[:time] %></td> -->
