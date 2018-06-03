@@ -42,13 +42,15 @@
         <ul>
           <li><a href="" class="_head">เลือกปีการศึกษา</a></li>
           <% @year_lists.each do |yrs|%>
-            <li>
-              <a
-                href="<%= report_index_path(:select_year => yrs) %>"
-                class="<%= yrs.to_s == @current_year.to_s ? 'active' : '' %>"
-                >พศ.<%= yrs %>
-              </a>
-            </li>
+            <% if yrs.to_s == @current_year.to_s %>
+              <li>
+                <a
+                  href="<%= report_index_path(:select_year => yrs) %>"
+                  class="<%= yrs.to_s == @current_year.to_s ? 'active' : '' %>"
+                  >พศ.<%= yrs %>
+                </a>
+              </li>
+            <% end %>
           <% end %>
         </ul>
       </div>
