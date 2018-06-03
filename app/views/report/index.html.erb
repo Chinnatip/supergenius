@@ -22,7 +22,9 @@
 
 <div class="admin-block">
   <h1 style="font-size:24px">เช็คคะเเนนตามคอร์ส ในปีการศึกษา<%= @current_year %></h1>
+  <% current_sem = Config.first.current_semester %>
   <% @semester_lists.each do |sem| %>
+    <% if sem.id == current_sem %>
     <div class="label-banner">ภาคการศึกษา / <%= sem.name %></div>
     <div class="_mobile-able _course-detail">
       <% @courses.where(semester: sem.sem_code).sort_by { |cs| cs[:grade] }.each do |cs| %>
@@ -89,6 +91,7 @@
       </tbody>
     </table>
     <br>
+    <% end %>
   <% end %>
 
 </div>
