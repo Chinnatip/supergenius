@@ -59,8 +59,15 @@ class ReportController < ApplicationController
       @seat = []
       student_code = student.student_code
       #
-      register = Register.where(student: student_code).pluck(:course)
-      # @register_course = Course.find(register)
+      # Current semester registered-course
+      # register = Register.where(student: student_code).pluck(:course)
+      @current_semester = "20261"
+      register = []
+      Register.where(student: student_code).each do |res|
+        if Course.find(res.course).semester == @current_semester
+          register << res.course
+        end
+      end
       #
       seat  = Seat.where(student: student_code)
       @register_class  = Classroom.where(id: seat.pluck(:classroom))

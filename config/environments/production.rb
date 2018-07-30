@@ -85,7 +85,7 @@ Rails.application.configure do
   config.active_record.dump_schema_after_migration = false
 
   # production app_domain
-  config.app_domain = "https://supergeniusco.herokuapp.com/"
+  config.app_domain = "http://www.supergeniusschool.com/"
 
   # Set facebook token for live mode
   config.facebook_app_id = "222852828233310"
