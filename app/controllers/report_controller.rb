@@ -66,14 +66,16 @@ class ReportController < ApplicationController
       # Current semester registered-course
       # register = Register.where(student: student_code).pluck(:course)
       puts '4>'
-      @current_semester = "20261"
-      register = []
+      # @current_semester = @set_current_semester || "20261"
+      # register = []
       puts '5>'
-      Register.where(student: student_code).each do |res|
-        if Course.find(res.course).semester == @current_semester
-          register << res.course
-        end
-      end
+      # Register.where(student: student_code).each do |res|
+      #   meid = res.course
+      #   selected_course = Course.where(id).first
+      #   if selected_course != nil && selected_course[:semester] == @current_semester
+      #     register << id
+      #   end
+      # end
       #
       puts '6>'
       seat  = Seat.where(student: student_code)
