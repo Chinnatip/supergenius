@@ -3,4 +3,7 @@ class BookingController < ApplicationController
   # GET /index
   def index
   end
+
+  def finish
+  end
 end

@@ -71,6 +71,7 @@ Rails.application.routes.draw do
 
   #
   get 'booking/index'
+  get 'booking/finish'
 
   #pages
   # get 'page/about'

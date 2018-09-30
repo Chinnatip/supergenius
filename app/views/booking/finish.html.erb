@@ -1,0 +1,51 @@
+<div class="admin-block bottom-mobi-10">
+  <p id="notice"><%= notice %></p>
+  <h1 style="font-size:24px">รายการจองห้องคอมของคุณสำเร็จ</h1>
+  <div class="form-maker">
+    <form class="" action="<%= report_check_student_trigger_path %>" method="get">
+      <table>
+        <thead>
+          <tr>
+            <th>รายการ</th>
+            <th>วันที่จะเข้ามาดู</th>
+            <th>เวลา</th>
+            <th>Codeสำหรับเจ้าหน้าที่</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>รายการ1</td>
+            <td>20/7/61</td>
+            <td>9:00 - 10:30</td>
+            <td>5F-S</td>
+            <td> <a href="#">กดยกเลิกรายการนี้</a> </td>
+          </tr>
+          <tr>
+            <td>รายการ2</td>
+            <td>20/7/61</td>
+            <td>15:00 - 18:00</td>
+            <td>5R-MSE</td>
+            <td> <a href="#">กดยกเลิกรายการนี้</a> </td>
+          </tr>
+        </tbody>
+      </table>
+      <br>
+      <a href="/booking/index" class="btn submit btn-redder">ทำรายการเพิ่ม</a>
+      <a href="/" class="btn submit btn-redder">กลับหน้าเเรก</a>
+      <hr>
+      <div class="">
+        <label for="">หมายเหตุ</label>
+        <ol class="__remark-ol">
+          <li>การยกเลิกเเต่ละรายการสามารถกด "ยกเลิกได้เอง" เเละควรยกเลิกอย่างน้อยก่อนเวลาเรียนจริง "3ชั่วโมง" เพื่อให้สิทธิ์เพื่อนคนอื่นๆ เข้ามาจองได้"</li>
+          <li>หากเหลือเวลาไม่ถึง 3ชั่วโมงก่อนเวลาเรียน จะไม่สามารถกดยกเลิกได้</li>
+          <li>ไม่ควรมาสาย</li>
+          <li>กดดูตารางห้องคอมได้ที่นี่ <button type="button" name="button">ดูตารางห้องคอม</button> </li>
+        </ol>
+      </div>
+    </form>
+  </div>
+</div>
+<div class="desktop-show">
+  <br><br>
+</div>
