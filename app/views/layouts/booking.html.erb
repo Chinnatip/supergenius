@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>กวดวิชา Super Genius</title>
+    <%= csrf_meta_tags %>
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'application' %>
+
+  	<meta charset="utf-8">
+  	<meta property="og:image" content="http://i.imgur.com/LbQa0iH.jpg">
+  	<meta property="fb:app_id" content="222852828233310" >
+  	<meta property="og:title" content="กวดวิชา Super Genius">
+  	<meta name="description" property="og:description" content="สถาบันกวดวิชาอันดับ1 ในย่านรังสิตกับความภูมิใจ สอบติดโรงเรียนชั้นนำ 100% 5ปีซ้อน">
+    <meta name="keywords" content="กวดวิชา,ประถม,รังสิต,สอบเข้า,ติวเลข">
+  	<meta name="author" content="Chinnatip Taemkaeo | chin@kohlife.com">
+  	<meta name="viewport" content="width=device-width, initial-scale=1">
+  	<meta name="theme-color" content="#990003">
+  	<link rel="manifest" href="manifest.json" />
+  	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+  	<meta property="og:url" content="http://www.supergeniusschool.com//">
+  	<link rel="canonical"   href="http://www.supergeniusschool.com/" />
+    <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  </head>
+  <body class="admin-body">
+    <!-- header ><-->
+    <div id="cHeader">
+      <div class="banner-top"> Tel. 0897606279 (พี่วิน) , 085-334-8815 (พี่ป๊อป)|windz_bs@hotmail.com </div>
+      <section class="hero _fixed_top" :class="[body.theme,body.size]">
+        <nav-bar
+          :nav="nav"
+          :body="body"
+          :login="login"
+          :role="checkRole"
+          active="booking"
+          user="<%= current_user[:name] rescue '' %>"
+          ></nav-bar>
+      </section>
+    </div>
+    <section class="is-fullheight _dashboard __valid_mobile" style="margin-top: 96px;">
+      <div class="__content">
+        <div class="__content_padding __booking-left">
+          <%= yield %>
+        </div>
+        <div class="__content-info __booking-right">
+          <div class="admin-block bottom-mobi-10">
+            <h1>ข้อมูล</h1>
+            <div class="form-maker __left-null">
+              <label for="">ชื่อเล่น</label>
+              <h2/>น้องนันท์</h2/>
+              <br>
+              <label for="">ชื่อจริง</label>
+              <h3/>นันทิดา มีชัยฤทชุพันท์</h3/>
+              <br>
+              <label for="">โรงเรียน</label>
+              <h3/>พระมหาฤทัยคอนเเวนท์</h3/>
+            </div>
+
+            <!-- <h1>ชื่อเล่น <span>yoyoyoyyoy</span> </h1>
+            <h1>ชื่อจริง <span>yoyoyoyyoy</span> </h1>
+            <h1>นามสกุล <span>yoyoyoyyoy</span> </h1>
+            <h1>โรงเรียน <span>yoyoyoyyoy</span> </h1> -->
+          </div>
+        </div>
+      </div>
+
+      <div class="__content_footer"> Copyright, Super Genius school.co.ltd @2017</div>
+    </section>
+
+    <!-- Include JAVASCRIPT here ><-->
+    <script src="/js/body.js"></script>
+    <script src="/js/ribbon.js"></script>
+    <script src="/js/slider.js"></script>
+    <script src="/js/footer_site.js"></script>
+    <script type="text/javascript">
+    $( document ).ready(function() {
+      $('#select_year').on('change',function(){
+        // alert('changed!');
+        // alert($(this).val());
+        var to = $(this).val();
+        window.location.href = "/report?select_year=" + to;
+      });
+    });
+      //component of header
+      var header = new Vue({
+        el: '#cHeader',
+        computed:{
+          checkRole: function(){
+            if (this.login) {
+              return '<%= current_user.role rescue '' %>' ;
+            }
+          }
+        },
+        data: {
+          url_action: '<%= controller.action_name %>' ,
+          url_controller: '<%= controller.controller_name %>' ,
+          login: <%= user_signed_in? %>,
+          body: {
+            theme: 'is-info',
+            size:  'is-medium',
+            url:  ''
+          },
+          choice: 'tab1',
+          nav: {
+            brand: '/img_ref/sup_01.png',
+            brandLink: "<%= root_path %>",
+            links: [
+              {
+                title: 'หน้าหลัก',
+                controller: 'index',
+                link: '<%= root_path %>',
+                target: ''
+              },{
+                title: 'คอร์สเรียน',
+                controller: 'course',
+                link: "<%= home_course_path %>",
+                target: ''
+              },{
+                title: 'เช็คผลการเรียน',
+                controller: 'report',
+                link: "<%= report_index_path %>",
+                target: ''
+              },{
+                title: 'ข่าวเเละกิจกรรม',
+                controller: 'news',
+                link: "<%= home_news_path %>",
+                target: ''
+              },{
+                title: 'ติดต่อเรา',
+                controller: 'contact',
+                link: "<%= home_contact_path %>",
+                target: ''
+              }
+            ],
+            backLink: {
+              title: 'Dashboard',
+              icon: 'fa-commenting-o',
+              link: '<%= dashboard_index_path %>'
+            },
+            login: {
+              icon: 'fa-sign-in'
+            },
+            logout: {
+              icon: 'fa-sign-out'
+            }
+          }
+        }
+      });
+    </script>
+  </body>
+</html>

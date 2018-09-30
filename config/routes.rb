@@ -69,6 +69,9 @@ Rails.application.routes.draw do
   #
   get 'video/index'
 
+  #
+  get 'booking/index'
+
   #pages
   # get 'page/about'
   get 'page/news'

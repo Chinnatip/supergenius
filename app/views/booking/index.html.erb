@@ -1,0 +1,75 @@
+<div class="admin-block bottom-mobi-10">
+  <p id="notice"><%= notice %></p>
+  <h1 style="font-size:24px">ยินดีต้อนรับสู่ระบบ การจองห้องคอม</h1>
+  <div class="form-maker">
+    <form class="" action="<%= report_check_student_trigger_path %>" method="get">
+      <div class="field">
+        <label for="">กดเพื่อดูตารางการของห้องได้</label>
+        <button type="button" name="button">ดูตารางห้องคอม</button>
+      </div>
+      <div class="field">
+        <label for="">
+          ยืนยันว่า วิดิโอที่จะมาดูผ่านการเรียนรอบสดมา 48ชั่วโมงเเล้ว
+          <br>
+          <input type="checkbox" name="" value=""> ยืนยัน
+          <span class="__danger">(*** หากไม่กดยืนยันจะไม่สามารถจองห้องคอมได้ ***)</span>
+        </label>
+      </div>
+      <hr>
+      <div class="field">
+        <label class="__book-gap" for="">คอร์สเรียน</label>
+        <select class="" name="">
+          <option value="">MATH 101</option>
+          <option value="">MATH 102</option>
+          <option value="">MATH 103</option>
+          <option value="">MATH 104</option>
+        </select>
+      </div>
+      <div class="field">
+        <label class="__book-gap" for="">คอร์สสดสอนในวันที่</label>
+        <input type="date" name="birthval" value="">
+      </div>
+      <hr>
+      <div class="field">
+        <label class="__book-gap" for="">วันที่จะเข้ามาเรียนเสริม</label>
+        <input type="date" name="student_code" value="">
+      </div>
+      <div class="field">
+        <label class="__book-gap" for="">ช่วงเวลาที่เริ่มเรียน</label>
+        <select class="" name="">
+          <option value="">7:00</option>
+          <option value="">7:30</option>
+          <option value="">8:00</option>
+          <option value="">8:30</option>
+        </select>
+      </div>
+      <div class="field">
+        <label class="__book-gap" for="">จำนวนชั่วโมงที่ต้องการจอง</label>
+        <select class="" name="">
+          <option value="">30 นาที</option>
+          <option value="">1 ชั่วโมง</option>
+          <option value="">2 ชั่วโมง</option>
+          <option value="">3 ชั่วโมง</option>
+          <option value="">4 ชั่วโมง</option>
+          <option value="">5 ชั่วโมง</option>
+          <option value="">6 ชั่วโมง</option>
+        </select>
+      </div>
+      <hr>
+      <div class="field">
+        <label class="__book-gap" for="">เหตุผลการจองห้องคอม</label>
+        <select class="" name="">
+          <option value="">เรียนเสริมในคอร์สที่ขาด</option>
+          <option value="">เรียนปรับพื้นฐาน</option>
+          <option value="">เรียนซ้ำ</option>
+          <option value="">ขยัน</option>
+        </select>
+      </div>
+      <br>
+      <input type="submit" value="ยืนยันการจอง" class="btn submit btn-redder">
+    </form>
+  </div>
+</div>
+<div class="desktop-show">
+  <br><br>
+</div>
