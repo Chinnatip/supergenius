@@ -51,6 +51,16 @@
         <select class="" name="attent_hour" id="duration_hour">
         </select>
       </div>
+      <div class="field _attend_seat">
+        <label class="__book-gap" for="">เลือกเครื่องคอม</label>
+        <select class="" name="attend_seat">
+          <% @render_seat.each do |render| %>
+            <option value="<%= render[:value] %>">
+              <%= render[:option] %>
+            </option>
+          <% end %>
+        </select>
+      </div>
       <hr>
       <div class="field">
         <label class="__book-gap" for="attend_reason">เหตุผลการจองห้องคอม</label>
@@ -70,58 +80,12 @@
           </tr>
         </thead>
         <tbody>
+        <% @time_table.each do |table| %>
           <tr>
-            <td>ส.2/6/61 - ศ.8/6/61</td>
-            <td>Week 1</td>
+            <td><%= table[:text]%></td>
+            <td>Week <%= table[:week]%></td>
           </tr>
-          <tr>
-            <td>ส.2/6/61 - ศ.8/6/61</td>
-            <td>Week 2</td>
-          </tr>
-          <tr>
-            <td>ส.2/6/61 - ศ.8/6/61</td>
-            <td>Week 3</td>
-          </tr>
-          <tr>
-            <td>ส.2/6/61 - ศ.8/6/61</td>
-            <td>Week 4</td>
-          </tr>
-          <tr>
-            <td>ส.2/6/61 - ศ.8/6/61</td>
-            <td>Week 5</td>
-          </tr>
-          <tr>
-            <td>ส.2/6/61 - ศ.8/6/61</td>
-            <td>Week 6</td>
-          </tr>
-          <tr>
-            <td>ส.2/6/61 - ศ.8/6/61</td>
-            <td>Week 7</td>
-          </tr>
-          <tr>
-            <td>ส.2/6/61 - ศ.8/6/61</td>
-            <td>Week 8</td>
-          </tr>
-          <tr>
-            <td>ส.2/6/61 - ศ.8/6/61</td>
-            <td>Week 9</td>
-          </tr>
-          <tr>
-            <td>ส.2/6/61 - ศ.8/6/61</td>
-            <td>Week 10</td>
-          </tr>
-          <tr>
-            <td>ส.2/6/61 - ศ.8/6/61</td>
-            <td>Week 11</td>
-          </tr>
-          <tr>
-            <td>ส.2/6/61 - ศ.8/6/61</td>
-            <td>Week 12</td>
-          </tr>
-          <tr>
-            <td>ส.2/6/61 - ศ.8/6/61</td>
-            <td>Week 13</td>
-          </tr>
+        <% end %>
         </tbody>
       </table>
       <br>
@@ -136,7 +100,7 @@
 <script>
   // Validator on loaded
   <% if params[:valid] === 'false' %>
-    alert("ช่วงเวลาที่จองเรียนวันที่ <%= params[:date] %> เวลา <%= params[:time] %> \nขณะนี้เต็มเเล้ว ไม่สามารถจองห้องคอมได้ค่ะ \nกรุณาตรวจสอบตารางห้องคอมก่อนเลือกจองเวลาเรียน ... " )
+    alert("น้องจองคอมเครื่องที่ <%= params[:seat]%> ช่วงวันที่ <%= params[:date] %> เวลา <%= params[:time] %> \nขณะนี้คอมไม่ว่างเเล้ว ไม่สามารถจองเครื่องคอมได้ค่ะ \nกรุณาตรวจสอบตารางห้องคอมก่อนเลือกจองเวลาเรียน ... " )
   <% end %>
   <% if params[:input] === 'false' %>
     alert("<%= @param_log %>")
@@ -144,12 +108,14 @@
 
   // Jquery on ready
   $(document).ready(function() {
+    $("._attend_seat").hide();
     $("._attend_time" ).hide();
     $("._attend_duration_time").hide();
 
     // append time checkup by date
     $('input[name=attend_start_date]').change(function() {
       const pick = new Date(this.value).getDay();
+      $("._attend_seat").show();
       $( "._attend_time" ).show();
       $( "._attend_duration_time").show();
       if (pick === 6 || pick === 0){

@@ -70,6 +70,6 @@ class CourseSchedulesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def course_schedule_params
-      params.require(:course_schedule).permit(:student_id, :course, :live_date, :attend_start, :attend_finish, :attent_hour, :attend_reason, :ref_code)
+      params.require(:course_schedule).permit(:student_id, :course, :live_date, :attend_start,:attend_seat, :attend_finish, :attent_hour, :attend_reason, :ref_code)
     end
 end

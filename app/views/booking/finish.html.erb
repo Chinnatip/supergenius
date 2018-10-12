@@ -17,7 +17,10 @@
           <% @course_schedules.each_with_index do |schedule,index| %>
             <tr>
               <td>รายการ<%= index + 1 %></td>
-              <td><%= schedule.attend_start.strftime("%d/%b/%Y") %></td>
+              <td>
+                <%= schedule.attend_start.strftime("%d/%b/%Y") %> <br>
+                คอมเครื่องที่ <%= schedule.attend_seat%>.
+              </td>
               <td>
                 <%= schedule.attend_start.strftime("%H:%M") %> -
                 <%= schedule.attend_finish.strftime("%H:%M") %></td>

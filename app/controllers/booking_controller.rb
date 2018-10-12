@@ -6,6 +6,7 @@ class BookingController < ApplicationController
   def index
     prepare_selected_date()
     prepare_render_option()
+    prepare_time_table()
     @param_log = "คุณยังไม่ได้กรอกข้อมูลสำตัญลงในช่องได้แก่ "
     if params[:input] === 'false'
       if params[:commited] === 'false'
@@ -29,9 +30,9 @@ class BookingController < ApplicationController
     #
     if checker[:result]
       time_parse = date_parser(params)
+      seat = params[:attend_seat]
       #
-      if time_slot_validator(time_parse)
-        puts 'created'
+      if time_slot_validator(time_parse,seat)
         CourseSchedule.create({
           student_id:    params[:student_id],
           course:        params[:course],
@@ -40,13 +41,14 @@ class BookingController < ApplicationController
           attend_finish:  time_parse[:finish],
           attent_hour:   time_parse[:hour][:common],
           attend_reason: params[:attend_reason],
+          attend_seat:   seat,
           ref_code:      "#{params[:course]}-#{Array.new(4){[*"A".."Z", *"0".."9"].sample}.join}"
         })
         redirect_to booking_finish_path
       else
         prep_date = time_parse[:start_day].strftime("%d-%b-%Y")
         prep_time = "#{time_parse[:start].strftime('%H.%M')}-#{time_parse[:finish].strftime('%H.%M')}"
-        redirect_to booking_index_path({valid: false, date: prep_date, time: prep_time })
+        redirect_to booking_index_path({valid: false, seat: seat, date: prep_date, time: prep_time })
       end
     else
       redirect_to booking_index_path(checker[:error])
@@ -97,18 +99,21 @@ class BookingController < ApplicationController
       return time.between?(schedule.attend_start, schedule.attend_finish)
     end
 
-    def time_slot_validator(time_parse)
+    def time_slot_validator(time_parse,seat)
       validator  = true
       day_range  = time_parse[:start_day]..time_parse[:end_day]
       start_time = time_parse[:start] + 1.minute
       finish_time = time_parse[:finish] - 1.minute
-      CourseSchedule.where(attend_start: day_range ).each do |schedule|
+      # CourseSchedule.where(attend_start: day_range, attend_seat: seat ).each do |schedule|
+      CourseSchedule.where(attend_seat: seat ).each do |schedule|
+        puts 'xxxx'
         if between_find( start_time ,schedule) || between_find( finish_time , schedule )
+          puts 'nono invalid'
           validator = false
         end
       end
-      # puts "From #{time_parse[:start].strftime('%d-%b-%Y %H:%M')} - #{time_parse[:finish].strftime('%H:%M')}"
-      # puts "valid >> #{validator}"
+      puts "From seat#{seat} #{time_parse[:start].strftime('%d-%b-%Y %H:%M')} - #{time_parse[:finish].strftime('%H:%M')}"
+      puts "valid >> #{validator}"
       return validator
     end
 
@@ -122,6 +127,7 @@ class BookingController < ApplicationController
       @render_option_weekend = render_option(7.5 , 20)
       @render_option_workday = render_option(9 , 19.5)
       @render_duration = render_duration(6)
+      @render_seat     = render_seat(10)
     end
 
     def prepare_selected_date
@@ -155,6 +161,19 @@ class BookingController < ApplicationController
       return res
     end
 
+    def render_seat(amount)
+      res  = []
+      from = 1
+      while from <= amount do
+        res.push({
+          option: "เครื่องที่ #{from}",
+          value:  "#{from}"
+        })
+        from += 1
+      end
+      return res
+    end
+
     def mins(params)
       return params.to_i.minutes
     end
@@ -166,5 +185,23 @@ class BookingController < ApplicationController
         min:    ptime%60,
         common: "#{ptime/60}:#{ format('%02d', ptime%60) }"
       }
+    end
+
+    def prepare_time_table
+      @time_table = [
+        {text: 'ส.2/6/61 - ศ.8/6/61',week: 1},
+        {text: 'ส.2/6/61 - ศ.8/6/61',week: 2},
+        {text: 'ส.2/6/61 - ศ.8/6/61',week: 3},
+        {text: 'ส.2/6/61 - ศ.8/6/61',week: 4},
+        {text: 'ส.2/6/61 - ศ.8/6/61',week: 5},
+        {text: 'ส.2/6/61 - ศ.8/6/61',week: 6},
+        {text: 'ส.2/6/61 - ศ.8/6/61',week: 7},
+        {text: 'ส.2/6/61 - ศ.8/6/61',week: 8},
+        {text: 'ส.2/6/61 - ศ.8/6/61',week: 9},
+        {text: 'ส.2/6/61 - ศ.8/6/61',week: 10},
+        {text: 'ส.2/6/61 - ศ.8/6/61',week: 11},
+        {text: 'ส.2/6/61 - ศ.8/6/61',week: 12},
+        {text: 'ส.2/6/61 - ศ.8/6/61',week: 13}
+      ]
     end
 end
