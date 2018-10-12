@@ -1,0 +1,13 @@
+<div class="_dashboard_content">
+<h1>Editing Course Schedule</h1>
+<div class="_dashboard_content">
+  <div class="_show_content">
+    <div class="_splitter">
+      <%= render 'form', course_schedule: @course_schedule %>
+    </div>
+  </div>
+  <div class="_action">
+    <%= link_to 'Back', course_schedules_path , class: 'button  _del_button' %>
+    <%= link_to 'Show', @course_schedule , class: 'button' %>
+  </div>
+</div>

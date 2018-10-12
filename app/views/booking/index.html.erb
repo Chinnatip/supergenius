@@ -2,7 +2,8 @@
   <p id="notice"><%= notice %></p>
   <h1 style="font-size:24px">ยินดีต้อนรับสู่ระบบ การจองห้องคอม</h1>
   <div class="form-maker">
-    <form class="" action="<%= report_check_student_trigger_path %>" method="get">
+    <form class="" action="<%= booking_add_course_path %>" method="get">
+      <input type="hidden" name="student_id" value="0248015">
       <div class="field">
         <label for="">กดเพื่อดูตารางการของห้องได้</label>
         <button type="button" name="button">ดูตารางห้องคอม</button>
@@ -11,58 +12,53 @@
         <label for="">
           ยืนยันว่า วิดิโอที่จะมาดูผ่านการเรียนรอบสดมา 48ชั่วโมงเเล้ว
           <br>
-          <input type="checkbox" name="" value=""> ยืนยัน
+          <input type="checkbox" name="commited"> ยืนยัน
           <span class="__danger">(*** หากไม่กดยืนยันจะไม่สามารถจองห้องคอมได้ ***)</span>
         </label>
       </div>
       <hr>
       <div class="field">
         <label class="__book-gap" for="">คอร์สเรียน</label>
-        <select class="" name="">
-          <option value="">MATH 101</option>
-          <option value="">MATH 102</option>
-          <option value="">MATH 103</option>
-          <option value="">MATH 104</option>
+        <select class="" name="course">
+          <option value="M101">MATH 101</option>
+          <option value="M102">MATH 102</option>
+          <option value="M103">MATH 103</option>
+          <option value="M104">MATH 104</option>
         </select>
       </div>
       <div class="field">
-        <label class="__book-gap" for="">คอร์สสดสอนในวันที่</label>
-        <input type="date" name="birthval" value="">
+        <label class="__book-gap" for="">
+          คอร์สสดสอนในวันที่
+          <span class="__danger">**</span>
+        </label>
+        <input type="date" name="live_date" value="" max="<%= @date_now %>">
       </div>
       <hr>
       <div class="field">
-        <label class="__book-gap" for="">วันที่จะเข้ามาเรียนเสริม</label>
-        <input type="date" name="student_code" value="">
+        <label class="__book-gap" for="">
+          วันที่จะเข้ามาเรียนเสริม
+          <span class="__danger">**</span>
+        </label>
+        <input type="date" name="attend_start_date" value="" min="<%= @date_tomorrow %>">
       </div>
-      <div class="field">
+      <div class="field _attend_time">
         <label class="__book-gap" for="">ช่วงเวลาที่เริ่มเรียน</label>
-        <select class="" name="">
-          <option value="">7:00</option>
-          <option value="">7:30</option>
-          <option value="">8:00</option>
-          <option value="">8:30</option>
+        <select class="" id="start_time" name="attend_start_time">
         </select>
       </div>
-      <div class="field">
+      <div class="field _attend_duration_time">
         <label class="__book-gap" for="">จำนวนชั่วโมงที่ต้องการจอง</label>
-        <select class="" name="">
-          <option value="">30 นาที</option>
-          <option value="">1 ชั่วโมง</option>
-          <option value="">2 ชั่วโมง</option>
-          <option value="">3 ชั่วโมง</option>
-          <option value="">4 ชั่วโมง</option>
-          <option value="">5 ชั่วโมง</option>
-          <option value="">6 ชั่วโมง</option>
+        <select class="" name="attent_hour" id="duration_hour">
         </select>
       </div>
       <hr>
       <div class="field">
-        <label class="__book-gap" for="">เหตุผลการจองห้องคอม</label>
-        <select class="" name="">
-          <option value="">เรียนเสริมในคอร์สที่ขาด</option>
-          <option value="">เรียนปรับพื้นฐาน</option>
-          <option value="">เรียนซ้ำ</option>
-          <option value="">ขยัน</option>
+        <label class="__book-gap" for="attend_reason">เหตุผลการจองห้องคอม</label>
+        <select class="" name="attend_reason">
+          <option value="r1">เรียนเสริมในคอร์สที่ขาด</option>
+          <option value="r2">เรียนปรับพื้นฐาน</option>
+          <option value="r3">เรียนซ้ำ</option>
+          <option value="r4">ขยัน</option>
         </select>
       </div>
       <br>
@@ -136,3 +132,59 @@
 <div class="desktop-show">
   <br><br>
 </div>
+
+<script>
+  // Validator on loaded
+  <% if params[:valid] === 'false' %>
+    alert("ช่วงเวลาที่จองเรียนวันที่ <%= params[:date] %> เวลา <%= params[:time] %> \nขณะนี้เต็มเเล้ว ไม่สามารถจองห้องคอมได้ค่ะ \nกรุณาตรวจสอบตารางห้องคอมก่อนเลือกจองเวลาเรียน ... " )
+  <% end %>
+  <% if params[:input] === 'false' %>
+    alert("<%= @param_log %>")
+  <% end %>
+
+  // Jquery on ready
+  $(document).ready(function() {
+    $("._attend_time" ).hide();
+    $("._attend_duration_time").hide();
+
+    // append time checkup by date
+    $('input[name=attend_start_date]').change(function() {
+      const pick = new Date(this.value).getDay();
+      $( "._attend_time" ).show();
+      $( "._attend_duration_time").show();
+      if (pick === 6 || pick === 0){
+        $( "#start_time" ).find('option').remove();
+        $( "#duration_hour" ).find('option').remove();
+        $( "#start_time" ).append( '<% @render_option_weekend.each do |render| %><option value="<%= render[:value] %>"><%= render[:option] %></option><% end %>' );
+      }else{
+        $( "#start_time" ).find('option').remove();
+        $( "#duration_hour" ).find('option').remove();
+        $( "#start_time" ).append( '<% @render_option_workday.each do |render| %><option value="<%= render[:value] %>"><%= render[:option] %></option><% end %>' );
+      }
+      $( "#duration_hour" ).append( '<% @render_duration.each do |render| %><option value="<%= render[:value] %>"><%= render[:option] %></option><% end %>' );
+    });
+    // append duration options
+    $('select[name=attend_start_time]').on('change', function() {
+      var value      = $(this).val();
+      var lastValue  = $(this).find('option:last-child').val();
+      const diff     = (lastValue - value)/60
+      const diffHour = Math.floor(diff) ;
+      const diffHalf = diff % 1 * 2 ;
+      const mapper   = new Array( diffHour );
+      // Clear and add new options
+      $( "#duration_hour" ).find('option').remove();
+      $( "#duration_hour" ).append('<option value="30">30 นาที</option>');
+      // add half options
+      // if(diffHalf == 1){
+      //   const add = {text: '30 นาที',val: 30};
+      //   $( "#duration_hour" ).append('<option value="'+ add.val +'">'+ add.text +'</option>');
+      // }
+      // add hour options
+      for(var i=0;i<mapper.length && i < 6;i++){
+        const hour = i + 1 ;
+        const add  = {option: hour + ' ชั่วโมง',val: hour * 60};
+        $( "#duration_hour" ).append('<option value="'+ add.val +'">'+ add.option +'</option>');
+      }
+    });
+  });
+</script>

@@ -1,0 +1,19 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  student_id: MyString
+  course: MyString
+  live_date: 2018-10-10 07:22:04
+  attend_start: 2018-10-10 07:22:04
+  attend_finish: 2018-10-10 07:22:04
+  attent_hour: MyString
+  attend_reason: MyString
+
+two:
+  student_id: MyString
+  course: MyString
+  live_date: 2018-10-10 07:22:04
+  attend_start: 2018-10-10 07:22:04
+  attend_finish: 2018-10-10 07:22:04
+  attent_hour: MyString
+  attend_reason: MyString

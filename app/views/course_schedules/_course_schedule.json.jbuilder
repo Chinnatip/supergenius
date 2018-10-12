@@ -1,0 +1,2 @@
+json.extract! course_schedule, :id, :student_id, :course, :live_date, :attend_start, :attend_finish, :attent_hour, :attend_reason, :created_at, :updated_at
+json.url course_schedule_url(course_schedule, format: :json)

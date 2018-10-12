@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
 
+  resources :course_schedules
   resources :comments
   resources :registers
   resources :addcourses
@@ -72,6 +73,7 @@ Rails.application.routes.draw do
   #
   get 'booking/index'
   get 'booking/finish'
+  get 'booking/add_course'
 
   #pages
   # get 'page/about'

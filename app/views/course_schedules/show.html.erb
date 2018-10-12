@@ -1,0 +1,39 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Student:</strong>
+  <%= @course_schedule.student_id %>
+</p>
+
+<p>
+  <strong>Course:</strong>
+  <%= @course_schedule.course %>
+</p>
+
+<p>
+  <strong>Live date:</strong>
+  <%= @course_schedule.live_date %>
+</p>
+
+<p>
+  <strong>Attend start:</strong>
+  <%= @course_schedule.attend_start %>
+</p>
+
+<p>
+  <strong>Attend finish:</strong>
+  <%= @course_schedule.attend_finish %>
+</p>
+
+<p>
+  <strong>Attent hour:</strong>
+  <%= @course_schedule.attent_hour %>
+</p>
+
+<p>
+  <strong>Attend reason:</strong>
+  <%= @course_schedule.attend_reason %>
+</p>
+
+<%= link_to 'Edit', edit_course_schedule_path(@course_schedule) %> |
+<%= link_to 'Back', course_schedules_path %>

@@ -7,27 +7,27 @@
         <thead>
           <tr>
             <th>รายการ</th>
-            <th>วันที่จะเข้ามาดู</th>
+            <th>วันที่จะเข้าเรียน</th>
             <th>เวลา</th>
             <th>Codeสำหรับเจ้าหน้าที่</th>
             <th></th>
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td>รายการ1</td>
-            <td>20/7/61</td>
-            <td>9:00 - 10:30</td>
-            <td>5F-S</td>
-            <td> <a href="#">กดยกเลิกรายการนี้</a> </td>
-          </tr>
-          <tr>
-            <td>รายการ2</td>
-            <td>20/7/61</td>
-            <td>15:00 - 18:00</td>
-            <td>5R-MSE</td>
-            <td> <a href="#">กดยกเลิกรายการนี้</a> </td>
-          </tr>
+          <% @course_schedules.each_with_index do |schedule,index| %>
+            <tr>
+              <td>รายการ<%= index + 1 %></td>
+              <td><%= schedule.attend_start.strftime("%d/%b/%Y") %></td>
+              <td>
+                <%= schedule.attend_start.strftime("%H:%M") %> -
+                <%= schedule.attend_finish.strftime("%H:%M") %></td>
+              <td>
+                <%= schedule.course %> </br>
+                <%= schedule.ref_code %>
+              </td>
+              <td><%= link_to 'ยกเลิกรายการนี้', schedule, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+            </tr>
+          <% end %>
         </tbody>
       </table>
       <br>

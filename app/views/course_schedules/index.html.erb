@@ -1,0 +1,40 @@
+<div class="_dashboard_content">
+  <h1>Course Schedules</h1>
+  <%= link_to 'New Course Schedule', new_course_schedule_path %>
+  <table class="table _news_table">
+  <thead>
+    <tr>
+      <th>Student</th>
+      <th>Course</th>
+      <th>Live date</th>
+      <th>Attend date</th>
+      <th>From - TO</th>
+      <th>Attend reason</th>
+      <th>Reference</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @course_schedules.each do |course_schedule| %>
+      <tr>
+        <td><%= course_schedule.student_id %></td>
+        <td><%= course_schedule.course %></td>
+        <td><%= course_schedule.live_date.strftime("%d %b %Y") %></td>
+        <td>
+          <%= course_schedule.attend_start.strftime("%d %b %Y") %>
+        </td>
+        <td>
+          <%= course_schedule.attend_start.strftime("%H:%M") %> -
+          <%= course_schedule.attend_finish.strftime("%H:%M") %>
+        </td>
+        <td><%= course_schedule.attend_reason %></td>
+        <td><%= course_schedule.ref_code %></td>
+        <td><%= link_to 'Show', course_schedule %></td>
+        <td><%= link_to 'Edit', edit_course_schedule_path(course_schedule) %></td>
+        <td><%= link_to 'Destroy', course_schedule, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+</div>

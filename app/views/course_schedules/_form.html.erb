@@ -1,0 +1,66 @@
+<%= form_for(course_schedule) do |f| %>
+  <% if course_schedule.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(course_schedule.errors.count, "error") %> prohibited this course_schedule from being saved:</h2>
+
+      <ul>
+      <% course_schedule.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :student_id , class: 'label'  %>
+    <p class="control">
+      <%= f.text_field :student_id , class: 'input' %>
+    </p>
+  </div>
+
+  <div class="field">
+    <%= f.label :course , class: 'label' %>
+    <p class="control">
+      <%= f.text_field :course , class: 'input' %>
+    </p>
+  </div>
+
+  <div class="field">
+    <%= f.label :live_date , class: 'label' %>
+    <p class="control">
+      <%= f.datetime_select :live_date %>
+    </p>
+  </div>
+
+  <div class="field">
+    <%= f.label :attend_start , class: 'label' %>
+    <p class="control">
+      <%= f.datetime_select :attend_start %>
+    </p>
+  </div>
+
+  <div class="field">
+    <%= f.label :attend_finish , class: 'label' %>
+    <p class="control">
+      <%= f.datetime_select :attend_finish %>
+    </p>
+  </div>
+
+  <div class="field">
+    <%= f.label :attent_hour , class: 'label' %>
+    <p class="control">
+      <%= f.text_field :attent_hour , class: 'input' %>
+    </p>
+  </div>
+
+  <div class="field">
+    <%= f.label :attend_reason , class: 'label' %>
+    <p class="control">
+      <%= f.text_field :attend_reason , class: 'input' %>
+    </p>
+  </div>
+
+  <div class="actions">
+    <%= f.submit  'Submit' , :class => 'button _ready'%>
+  </div>
+<% end %>
