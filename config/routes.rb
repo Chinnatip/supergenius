@@ -73,7 +73,11 @@ Rails.application.routes.draw do
   #
   get 'booking/index'
   get 'booking/finish'
+  get 'booking/calendar'
   get 'booking/add_course'
+  get 'booking/session_login'
+  get 'booking/destroy_schedule'
+  get 'booking/check_student_trigger'
 
   #pages
   # get 'page/about'

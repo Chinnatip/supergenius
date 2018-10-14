@@ -1,0 +1,56 @@
+<div class="time_container ">
+  <form action="<%= booking_calendar_path %>" method="get">
+    <h1 class="_header">
+      ตารางเวลาห้องคอมวันที่
+      <input type="date" name="date" value="<%= @date %>" min="<%= @today %>">
+      <% if @individual %>
+        <input type="hidden" name="student_id" value="<%= session[:student_id] %>">
+      <% end %>
+      <input type="submit" value="เปลี่ยนวันที่ค้นหา" class="class="btn submit btn-redder"">
+      <a id="book_link" class="_input-button" target="_blank" href="<%= booking_index_path(book_at: @date) %>">จองห้องคอมวันที่ <%= @date.strftime('%d/%m/%y') %></a>
+    </h1>
+  </form>
+  <div class="_flex"></div>
+  <h1 class="_header">
+    <%= "การจองของ #{@title_text}"  %>
+  </h1>
+</div>
+
+
+<div class="timetable _floating-timatable"></div>
+
+<script src="/js/timetable.js"></script>
+
+<script>
+  var timetable = new Timetable();
+  //
+  timetable.setScope(7,20)
+  timetable.addLocations(['Computer#1','Computer#2','Computer#3','Computer#4','Computer#5','Computer#6','Computer#7','Computer#8','Computer#9','Computer#10']);
+  <% @schedule.each do |sch| %>
+    timetable.addEvent(
+      '<%= sch[:ref_code] %>',
+      '<%= "Computer##{sch[:attend_seat]}" %>',
+      new Date(<%= sch[:attend_start].strftime("%Y,%m,%d,%H,%M") %>),
+      new Date(<%= sch[:attend_finish].strftime("%Y,%m,%d,%H,%M") %>),
+      { url: '#' }
+    );
+  <% end %>
+  //
+  var renderer = new Timetable.Renderer(timetable);
+  renderer.draw('.timetable');
+</script>
+
+<script>
+  $(document).ready(function() {
+    $('input[type=date]').on('change', function(){
+      if ( this.value != ''){
+        function reformatDate(date){
+          const ar = date.split("-");
+          return ar[2]  + '/' + ar[1] + '/' + ar[0]
+        }
+        $('a#book_link').text( 'จองห้องคอมวันที่ ' + reformatDate(this.value));
+        $("a#book_link").attr("href", '/booking/index?book_at=' + this.value);
+      }
+    })
+  })
+</script>

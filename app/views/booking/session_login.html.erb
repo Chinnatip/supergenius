@@ -1,0 +1,26 @@
+<div class="__content_padding __booking-left">
+  <div class="admin-block bottom-mobi-10">
+    <p id="notice"><%= notice %></p>
+    <h1 style="font-size:24px">ยินดีต้อนรับสู่ระบบ การจองห้องคอม <%= session[:student_id] %></h1>
+    <div class="form-maker">
+        <form class="" action="<%= booking_check_student_trigger_path %>" method="get">
+          <div class="field">
+            <label for="">รหัสนักเรียน</label>
+            <input class="input-list" type="number" name="student_code" value="" placeholder="ตัวอย่าง 6245XX ">
+          </div>
+          <div class="field">
+            <label for="">วัน/เดือนเกิด</label>
+            <input class="input-list" type="text" name="birthval" value="" placeholder="ตัวอย่าง 0711 > เกิดวันที่ 7 เดือนพย.">
+          </div>
+          <hr>
+          <input type="submit" value="จองห้องคอม" class="btn submit btn-redder">
+        </form>
+      </div>
+  </div>
+</div>
+
+<script>
+  <% if params[:login] === 'false' %>
+    alert("ขอโทษที ดูเหมือนรหัสนักเรียนกับวันเกิดจะไม่ตรงกับในฐานข้อมูล รบกวนกรอกข้อมูลใหม่นะครับ ^^ " )
+  <% end %>
+</script>

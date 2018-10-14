@@ -5,7 +5,6 @@
     <%= csrf_meta_tags %>
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application' %>
-
   	<meta charset="utf-8">
   	<meta property="og:image" content="http://i.imgur.com/LbQa0iH.jpg">
   	<meta property="fb:app_id" content="222852828233310" >
@@ -15,12 +14,14 @@
   	<meta name="author" content="Chinnatip Taemkaeo | chin@kohlife.com">
   	<meta name="viewport" content="width=device-width, initial-scale=1">
   	<meta name="theme-color" content="#990003">
-  	<link rel="manifest" href="manifest.json" />
   	<meta http-equiv="X-UA-Compatible" content="IE=edge">
   	<meta property="og:url" content="http://www.supergeniusschool.com//">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="manifest" href="manifest.json" />
   	<link rel="canonical"   href="http://www.supergeniusschool.com/" />
     <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="/css/demo.css">
+    <link rel="stylesheet" type="text/css" href="/css/timetablejs.css">
   </head>
   <body class="admin-body">
     <!-- header ><-->
@@ -39,32 +40,8 @@
     </div>
     <section class="is-fullheight _dashboard __valid_mobile" style="margin-top: 96px;">
       <div class="__content">
-        <div class="__content_padding __booking-left">
-          <%= yield %>
-        </div>
-        <div class="__content-info __booking-right">
-          <div class="admin-block bottom-mobi-10">
-            <h1>ข้อมูล</h1>
-            <div class="form-maker __left-null">
-              <label for="">ชื่อเล่น</label>
-              <h2/>น้องนันท์</h2/>
-              <br>
-              <label for="">ชื่อจริง</label>
-              <h3/>นันทิดา มีชัยฤทชุพันท์</h3/>
-              <br>
-              <label for="">โรงเรียน</label>
-              <h3/>พระมหาฤทัยคอนเเวนท์</h3/>
-            </div>
-
-            <!-- <h1>ชื่อเล่น <span>yoyoyoyyoy</span> </h1>
-            <h1>ชื่อจริง <span>yoyoyoyyoy</span> </h1>
-            <h1>นามสกุล <span>yoyoyoyyoy</span> </h1>
-            <h1>โรงเรียน <span>yoyoyoyyoy</span> </h1> -->
-          </div>
-        </div>
+        <%= yield %>
       </div>
-
-      <div class="__content_footer"> Copyright, Super Genius school.co.ltd @2017</div>
     </section>
 
     <!-- Include JAVASCRIPT here ><-->

@@ -1,54 +1,75 @@
-<div class="admin-block bottom-mobi-10">
-  <p id="notice"><%= notice %></p>
-  <h1 style="font-size:24px">รายการจองห้องคอมของคุณสำเร็จ</h1>
-  <div class="form-maker">
-    <form class="" action="<%= report_check_student_trigger_path %>" method="get">
-      <table>
-        <thead>
-          <tr>
-            <th>รายการ</th>
-            <th>วันที่จะเข้าเรียน</th>
-            <th>เวลา</th>
-            <th>Codeสำหรับเจ้าหน้าที่</th>
-            <th></th>
-          </tr>
-        </thead>
-        <tbody>
-          <% @course_schedules.each_with_index do |schedule,index| %>
+<div class="__content_padding __booking-left">
+  <div class="admin-block bottom-mobi-10">
+    <p id="notice"><%= notice %></p>
+    <h1 style="font-size:24px">รายการจองห้องคอมของคุณสำเร็จ</h1>
+    <div class="form-maker">
+      <form class="" action="<%= report_check_student_trigger_path %>" method="get">
+        <table>
+          <thead>
             <tr>
-              <td>รายการ<%= index + 1 %></td>
-              <td>
-                <%= schedule.attend_start.strftime("%d/%b/%Y") %> <br>
-                คอมเครื่องที่ <%= schedule.attend_seat%>.
-              </td>
-              <td>
-                <%= schedule.attend_start.strftime("%H:%M") %> -
-                <%= schedule.attend_finish.strftime("%H:%M") %></td>
-              <td>
-                <%= schedule.course %> </br>
-                <%= schedule.ref_code %>
-              </td>
-              <td><%= link_to 'ยกเลิกรายการนี้', schedule, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+              <th>รายการ</th>
+              <th>วันที่จะเข้าเรียน</th>
+              <th>เวลา</th>
+              <th>Codeสำหรับเจ้าหน้าที่</th>
+              <th></th>
             </tr>
-          <% end %>
-        </tbody>
-      </table>
-      <br>
-      <a href="/booking/index" class="btn submit btn-redder">ทำรายการเพิ่ม</a>
-      <a href="/" class="btn submit btn-redder">กลับหน้าเเรก</a>
-      <hr>
-      <div class="">
-        <label for="">หมายเหตุ</label>
-        <ol class="__remark-ol">
-          <li>การยกเลิกเเต่ละรายการสามารถกด "ยกเลิกได้เอง" เเละควรยกเลิกอย่างน้อยก่อนเวลาเรียนจริง "3ชั่วโมง" เพื่อให้สิทธิ์เพื่อนคนอื่นๆ เข้ามาจองได้"</li>
-          <li>หากเหลือเวลาไม่ถึง 3ชั่วโมงก่อนเวลาเรียน จะไม่สามารถกดยกเลิกได้</li>
-          <li>ไม่ควรมาสาย</li>
-          <li>กดดูตารางห้องคอมได้ที่นี่ <button type="button" name="button">ดูตารางห้องคอม</button> </li>
-        </ol>
-      </div>
-    </form>
+          </thead>
+          <tbody>
+            <% @course_schedules.each_with_index do |schedule,index| %>
+              <tr>
+                <td>รายการ<%= index + 1 %></td>
+                <td>
+                  <%= schedule.attend_start.strftime("%d/%b/%Y") %> <br>
+                  Computer#<%= schedule.attend_seat%>.
+                </td>
+                <td>
+                  <%= schedule.attend_start.strftime("%H:%M") %> -
+                  <%= schedule.attend_finish.strftime("%H:%M") %></td>
+                <td>
+                  <%= Course.find(schedule.course).name %> <br>
+                  <%= schedule.ref_code %>
+                </td>
+                <td>
+                  <%= link_to "ดูตาราง", booking_calendar_path(date: schedule.attend_start.strftime('%Y-%m-%d') , student_id: schedule.student_id ) , target: "_blank" , class: 'btn-redder'%> <br>
+                  <%= link_to "ยกเลิกรายการนี้", booking_destroy_schedule_path( :schedule => schedule.id ), data: { confirm: 'คุณต้องการยกเลิกรายการนี้ ใช่ไหม?' } , class: '_cancel-button'%>
+                </td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+        <br>
+        <a href="/booking/index" class="btn submit btn-redder">ทำรายการเพิ่ม</a>
+        <a href="/" class="btn submit btn-redder">กลับหน้าเเรก</a>
+        <hr>
+        <div class="">
+          <label for="">หมายเหตุ</label>
+          <ol class="__remark-ol">
+            <li>การยกเลิกเเต่ละรายการสามารถกด "ยกเลิกได้เอง" เเละควรยกเลิกอย่างน้อยก่อนเวลาเรียนจริง "3ชั่วโมง" เพื่อให้สิทธิ์เพื่อนคนอื่นๆ เข้ามาจองได้"</li>
+            <li>หากเหลือเวลาไม่ถึง 3ชั่วโมงก่อนเวลาเรียน จะไม่สามารถกดยกเลิกได้</li>
+            <li>ไม่ควรมาสาย</li>
+            <li>กดดูตารางห้องคอมได้ที่นี่ <a target="_blank" href="<%= booking_calendar_path %>" class="btn submit btn-redder">ดูตารางห้องคอม</a> </li>
+          </ol>
+        </div>
+      </form>
+    </div>
   </div>
 </div>
-<div class="desktop-show">
-  <br><br>
+<div class="__content-info __booking-right">
+  <div class="admin-block bottom-mobi-10">
+    <h1>ข้อมูล</h1>
+    <div class="form-maker __left-null">
+      <label for="">ชื่อเล่น</label>
+      <h2/>น้อง<%= @student[:nickname] %></h2/>
+      <br>
+      <label for="">ชื่อจริง</label>
+      <h3/><%= @student[:name] %> <%= @student[:nickname] %></h3/>
+      <br>
+      <label for="">โรงเรียน</label>
+      <h3/><%= @student[:school] %></h3/>
+    </div>
+    <hr>
+    <div>
+      <a class="btn submit btn-redder" href="<%= booking_session_login_path %>"> ออกจากระบบ </a>
+    </div>
+  </div>
 </div>

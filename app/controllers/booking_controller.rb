@@ -4,25 +4,81 @@ class BookingController < ApplicationController
 
   # GET /index
   def index
-    prepare_selected_date()
-    prepare_render_option()
-    prepare_time_table()
-    @param_log = "คุณยังไม่ได้กรอกข้อมูลสำตัญลงในช่องได้แก่ "
-    if params[:input] === 'false'
-      if params[:commited] === 'false'
-        @param_log += "/ ไม่ได้กด ยืนยัน  "
+    if session[:student_id].present?
+      prepare_student_class(session[:student_id])
+      prepare_selected_date()
+      prepare_render_option()
+      prepare_time_table()
+      prepare_book_at()
+      @param_log = "คุณยังไม่ได้กรอกข้อมูลสำตัญลงในช่องได้แก่ "
+      if params[:input] === 'false'
+        if params[:commited] === 'false'
+          @param_log += "/ ไม่ได้กด ยืนยัน  "
+        end
+        if params[:live_date] === 'false'
+          @param_log += "/ ไม่ได้ใส่วันที่ของ คอร์สสอนสด "
+        end
+        if params[:attend_start_date] === 'false'
+          @param_log += "/ ไม่ได้ใส่วันที่จะ เข้ามาเรียน "
+        end
       end
-      if params[:live_date] === 'false'
-        @param_log += "/ ไม่ได้ใส่วันที่ของ คอร์สสอนสด "
-      end
-      if params[:attend_start_date] === 'false'
-        @param_log += "/ ไม่ได้ใส่วันที่จะ เข้ามาเรียน "
-      end
+    else
+      redirect_to booking_session_login_path
     end
   end
 
+  def destroy_schedule
+    CourseSchedule.find(params[:schedule]).destroy()
+    redirect_to booking_finish_path
+  end
+
+  # GET /session
+  def session_login
+    session.delete( 'student_id' )
+  end
+
+  def prepare_student_class(get_id)
+    student  = Student.find(get_id)
+    @student = {
+      name:         "#{student[:name]} #{student[:surname]}",
+      nickname:     student[:nickname],
+      gender:       Student.parser_gender(student[:gender]),
+      parent_name:  (student[:parent] || '-'),
+      grade:        Student.parse_grade(student[:grade]),
+      school:       Student.parse_school(Student.current_school(student)),
+      phone:        "#{student[:tel]},#{student[:tel_parent]}",
+      secret:       student[:secret_id],
+      birthday:     student[:birthday]
+    }
+    @seat = []
+    student_code = student.student_code
+    seat  = Seat.where(student: student_code)
+    @register_class  = Classroom.where(id: seat.pluck(:classroom))
+    @register_course = Course.find(@register_class.pluck(:course).uniq)
+  end
+
   def finish
-    @course_schedules = CourseSchedule.where(student_id: '0248015').order(:attend_start)
+    if session[:student_id].present?
+      @course_schedules = CourseSchedule.where(student_id: session[:student_id]).order(:attend_start)
+      prepare_student_class(session[:student_id])
+    else
+      redirect_to booking_session_login_path
+    end
+  end
+
+  def calendar
+    @today = Date.today
+    @date  = if params[:date].present? then Date.parse(params[:date]) else @today end
+    if params[:student_id].present? && session[:student_id].present? && params[:student_id].to_s == session[:student_id].to_s
+      @schedule   = CourseSchedule.where(attend_start: @date.beginning_of_day..@date.end_of_day , student_id: session[:student_id])
+      @student    = Student.find(session[:student_id])
+      @title_text = "น้อง#{@student[:name]} #{@student[:surname]}"
+      @individual = true
+    else
+      @schedule   = CourseSchedule.where(attend_start: @date.beginning_of_day..@date.end_of_day)
+      @title_text = "นักเรียนทุกคน"
+      @individual = false
+    end
   end
 
   def add_course
@@ -52,6 +108,26 @@ class BookingController < ApplicationController
       end
     else
       redirect_to booking_index_path(checker[:error])
+    end
+  end
+
+  def check_student_trigger
+    if params[:student_code].present? && params[:birthval].present?
+      student = Student.where(student_code: params[:student_code])
+      if student.count > 0
+        @student = student.first
+        @birth   = @student.birthday.present? ? parse_birthdate_string(@student.birthday) : "0000"
+        if params[:birthval] == @birth
+          redirect_to booking_index_path
+          session[:student_id] = @student.id
+        else
+          redirect_to booking_session_login_path(login: false)
+        end
+      else
+        redirect_to booking_session_login_path(login: false)
+      end
+    else
+      redirect_to booking_session_login_path(login: false)
     end
   end
 
@@ -136,6 +212,10 @@ class BookingController < ApplicationController
       @date_tomorrow = (today + 1.day).strftime("%Y-%m-%d")
     end
 
+    def prepare_book_at
+      @book_at = if params[:book_at].present? then params[:book_at] else '' end
+    end
+
     def render_option(from,to)
       res = []
       while from <= to  do
@@ -203,5 +283,10 @@ class BookingController < ApplicationController
         {text: 'ส.2/6/61 - ศ.8/6/61',week: 12},
         {text: 'ส.2/6/61 - ศ.8/6/61',week: 13}
       ]
+    end
+
+    def parse_birthdate_string(txt)
+      parse = txt.split("-")
+      return "#{'%02d' % parse[0]}#{'%02d' % parse[1]}"
     end
 end

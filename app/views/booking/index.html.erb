@@ -1,12 +1,13 @@
-<div class="admin-block bottom-mobi-10">
-  <p id="notice"><%= notice %></p>
-  <h1 style="font-size:24px">ยินดีต้อนรับสู่ระบบ การจองห้องคอม</h1>
-  <div class="form-maker">
-    <form class="" action="<%= booking_add_course_path %>" method="get">
-      <input type="hidden" name="student_id" value="0248015">
+<div class="__content_padding __booking-left">
+  <div class="admin-block bottom-mobi-10">
+    <p id="notice"><%= notice %></p>
+    <h1 style="font-size:24px">ยินดีต้อนรับสู่ระบบ การจองห้องคอม</h1>
+    <div class="form-maker">
+    <form action="<%= booking_add_course_path %>" method="get">
+      <input type="hidden" name="student_id" value="<%= session[:student_id] %>">
       <div class="field">
         <label for="">กดเพื่อดูตารางการของห้องได้</label>
-        <button type="button" name="button">ดูตารางห้องคอม</button>
+        <a target="_blank" href="<%= booking_calendar_path%>" class="btn submit btn-redder">ดูตารางห้องคอม</a>
       </div>
       <div class="field">
         <label for="">
@@ -20,10 +21,11 @@
       <div class="field">
         <label class="__book-gap" for="">คอร์สเรียน</label>
         <select class="" name="course">
-          <option value="M101">MATH 101</option>
-          <option value="M102">MATH 102</option>
-          <option value="M103">MATH 103</option>
-          <option value="M104">MATH 104</option>
+          <% @register_course.each do |reg| %>
+            <option value="<%= reg[:id]%>">
+              <%= reg[:name]%>
+            </option>
+          <% end %>
         </select>
       </div>
       <div class="field">
@@ -39,7 +41,7 @@
           วันที่จะเข้ามาเรียนเสริม
           <span class="__danger">**</span>
         </label>
-        <input type="date" name="attend_start_date" value="" min="<%= @date_tomorrow %>">
+        <input type="date" name="attend_start_date" value="<%= @book_at %>" min="<%= @date_tomorrow %>">
       </div>
       <div class="field _attend_time">
         <label class="__book-gap" for="">ช่วงเวลาที่เริ่มเรียน</label>
@@ -92,9 +94,26 @@
       <input type="submit" value="ยืนยันการจอง" class="btn submit btn-redder">
     </form>
   </div>
+  </div>
 </div>
-<div class="desktop-show">
-  <br><br>
+<div class="__content-info __booking-right">
+  <div class="admin-block bottom-mobi-10">
+    <h1>ข้อมูล</h1>
+    <div class="form-maker __left-null">
+      <label for="">ชื่อเล่น</label>
+      <h2/>น้อง<%= @student[:nickname] %></h2/>
+      <br>
+      <label for="">ชื่อจริง</label>
+      <h3/><%= @student[:name] %> <%= @student[:nickname] %></h3/>
+      <br>
+      <label for="">โรงเรียน</label>
+      <h3/><%= @student[:school] %></h3/>
+    </div>
+    <hr>
+    <div>
+      <a class="btn submit btn-redder" href="<%= booking_session_login_path %>"> ออกจากระบบ </a>
+    </div>
+  </div>
 </div>
 
 <script>
@@ -108,13 +127,8 @@
 
   // Jquery on ready
   $(document).ready(function() {
-    $("._attend_seat").hide();
-    $("._attend_time" ).hide();
-    $("._attend_duration_time").hide();
-
-    // append time checkup by date
-    $('input[name=attend_start_date]').change(function() {
-      const pick = new Date(this.value).getDay();
+    function pickupAppend(date){
+      const pick = new Date(date).getDay();
       $("._attend_seat").show();
       $( "._attend_time" ).show();
       $( "._attend_duration_time").show();
@@ -128,6 +142,21 @@
         $( "#start_time" ).append( '<% @render_option_workday.each do |render| %><option value="<%= render[:value] %>"><%= render[:option] %></option><% end %>' );
       }
       $( "#duration_hour" ).append( '<% @render_duration.each do |render| %><option value="<%= render[:value] %>"><%= render[:option] %></option><% end %>' );
+    }
+
+    // hide everything
+    $("._attend_seat").hide();
+    $("._attend_time" ).hide();
+    $("._attend_duration_time").hide();
+
+    // check param[:book_at] before append
+    if("<%= @book_at %>" != '' ){
+      pickupAppend("<%= @book_at %>")
+    }
+
+    // append time checkup by date
+    $('input[name=attend_start_date]').change(function() {
+      pickupAppend(this.value)
     });
     // append duration options
     $('select[name=attend_start_time]').on('change', function() {
