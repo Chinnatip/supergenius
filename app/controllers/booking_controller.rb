@@ -1,6 +1,6 @@
 class BookingController < ApplicationController
   layout "booking"
-  require 'Date'
+  require 'date'
 
   # GET /index
   def index
