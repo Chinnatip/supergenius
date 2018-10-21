@@ -1,11 +1,45 @@
+<div class="__content-info __booking-right _mobi-show">
+  <div class="admin-block _flexer bottom-mobi-10">
+    <div class="_flex">
+      <h2 class="_title">น้อง<%= @student[:nickname] %></h2>
+      <h2>
+        <%= @student[:name] %> <%= @student[:nickname] %> |
+        <%= @student[:school] %>
+      </h2>
+    </div>
+
+    <div>
+      <a class="btn submit btn-redder" href="<%= booking_session_login_path %>"> Logout </a>
+    </div>
+  </div>
+</div>
+
 <div class="__content_padding __booking-left">
   <div class="admin-block bottom-mobi-10">
     <p id="notice"><%= notice %></p>
     <h1 style="font-size:24px">รายการจองห้องคอมของคุณสำเร็จ</h1>
-    <div class="form-maker">
+    <div class="form-maker _leave-padding">
       <form class="" action="<%= report_check_student_trigger_path %>" method="get">
-        <table>
-          <thead>
+        <% @course_schedules.each_with_index do |schedule,index| %>
+          <div class="_mobi-show _mobi-card">
+            <div class="_flex">
+              <p class="_big-text"><%= schedule.attend_start.strftime("%d /%b /%Y") %></p>
+              <p>
+                Computer#<%= schedule.attend_seat%>
+              </p>
+              <p><%= Course.find(schedule.course).name %></p>
+              <p><%= schedule.attend_start.strftime("%H:%M") %> - <%= schedule.attend_finish.strftime("%H:%M") %></p>
+              <p class="_red-text">REF CODE: <%= schedule.ref_code %></p>
+            </div>
+            <div class="_action">
+              <%= link_to "ดูตาราง", booking_calendar_path(date: schedule.attend_start.strftime('%Y-%m-%d') , student_id: schedule.student_id ) , target: "_blank" , class: 'btn-redder'%> <br>
+              <%= link_to "ยกเลิกรายการนี้", booking_destroy_schedule_path( :schedule => schedule.id ), data: { confirm: 'คุณต้องการยกเลิกรายการนี้ ใช่ไหม?' } , class: '_cancel-button _mini-size'%>
+            </div>
+          </div>
+        <% end %>
+
+        <table class="_desktop-show">
+          <thead class="_desktop-show">
             <tr>
               <th>รายการ</th>
               <th>วันที่จะเข้าเรียน</th>
@@ -14,22 +48,22 @@
               <th></th>
             </tr>
           </thead>
-          <tbody>
+          <tbody class="_desktop-show">
             <% @course_schedules.each_with_index do |schedule,index| %>
               <tr>
-                <td>รายการ<%= index + 1 %></td>
-                <td>
+                <td class="_desktop-show">รายการ<%= index + 1 %></td>
+                <td class="_desktop-show">
                   <%= schedule.attend_start.strftime("%d/%b/%Y") %> <br>
                   Computer#<%= schedule.attend_seat%>.
                 </td>
-                <td>
+                <td class="_desktop-show">
                   <%= schedule.attend_start.strftime("%H:%M") %> -
                   <%= schedule.attend_finish.strftime("%H:%M") %></td>
-                <td>
+                <td class="_desktop-show">
                   <%= Course.find(schedule.course).name %> <br>
                   <%= schedule.ref_code %>
                 </td>
-                <td>
+                <td class="_desktop-show">
                   <%= link_to "ดูตาราง", booking_calendar_path(date: schedule.attend_start.strftime('%Y-%m-%d') , student_id: schedule.student_id ) , target: "_blank" , class: 'btn-redder'%> <br>
                   <%= link_to "ยกเลิกรายการนี้", booking_destroy_schedule_path( :schedule => schedule.id ), data: { confirm: 'คุณต้องการยกเลิกรายการนี้ ใช่ไหม?' } , class: '_cancel-button'%>
                 </td>
@@ -54,7 +88,7 @@
     </div>
   </div>
 </div>
-<div class="__content-info __booking-right">
+<div class="__content-info __booking-right _desktop-show">
   <div class="admin-block bottom-mobi-10">
     <h1>ข้อมูล</h1>
     <div class="form-maker __left-null">

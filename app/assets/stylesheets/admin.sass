@@ -170,6 +170,12 @@ body.admin-body
     font-size: 16px
   table
     // config scrollable complex table cell
+    ._desktop-show
+      @media (max-width: 560px)
+        display: none
+    ._mobi-show
+      @media (min-width: 560px)
+        display: none
     @media (max-width: 1024px)
       thead
         display: block
@@ -333,12 +339,35 @@ body.admin-body
   display: inline-block
   padding-left: 16px
   width: 100%
+  &._leave-padding
+    padding: 0
   &.__left-null
     padding-left: 0
   @media (max-width: 1024px)
     padding: 0 10px
   h2
     font-size: 24px
+  ._mobi-card
+    border: 1px solid #9b0000
+    padding: 18px
+    border-radius: 5px
+    margin-top: 8px
+    display: flex
+    justify-content: center
+    align-items: center
+    ._flex
+      flex-grow: 1
+    ._big-text
+      font-size: 16px
+    ._red-text
+      color: #9b0000
+    ._mini-size
+      font-size: 12px
+      margin-top: 14px
+    &._mobi-show
+      @media (min-width: 560px)
+        display: none
+
   form
     div.field
       display: -webkit-box

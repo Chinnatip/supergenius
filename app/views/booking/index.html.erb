@@ -1,3 +1,19 @@
+<div class="__content-info __booking-right _mobi-show">
+  <div class="admin-block _flexer bottom-mobi-10">
+    <div class="_flex">
+      <h2 class="_title">น้อง<%= @student[:nickname] %></h2>
+      <h2>
+        <%= @student[:name] %> <%= @student[:nickname] %> |
+        <%= @student[:school] %>
+      </h2>
+    </div>
+
+    <div>
+      <a class="btn submit btn-redder" href="<%= booking_session_login_path %>"> Logout </a>
+    </div>
+  </div>
+</div>
+
 <div class="__content_padding __booking-left">
   <div class="admin-block bottom-mobi-10">
     <p id="notice"><%= notice %></p>
@@ -96,7 +112,7 @@
   </div>
   </div>
 </div>
-<div class="__content-info __booking-right">
+<div class="__content-info __booking-right _desktop-show">
   <div class="admin-block bottom-mobi-10">
     <h1>ข้อมูล</h1>
     <div class="form-maker __left-null">

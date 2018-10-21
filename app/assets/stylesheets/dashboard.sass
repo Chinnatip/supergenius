@@ -132,6 +132,8 @@ body
       &.__booking-left
         width: 72%
         display: inline-block
+        @media (max-width: 560px)
+          width: 100%
       @media (max-width: 560px)
         padding: 9px 7px 0px !important
     .__content-info
@@ -139,6 +141,27 @@ body
       display: inline-block
       vertical-align: top
       padding: 3% 0% 0%
+      &._desktop-show
+        @media (max-width: 560px)
+          display: none
+      &._mobi-show
+        margin-bottom: 0px
+        margin-top: 12px
+        ._title
+          font-size: 26px
+        ._flexer
+          margin-bottom: 4px
+          display: flex
+          padding: 24px
+          justify-content: center
+          align-items: center
+          ._flex
+            flex-grow: 1
+        @media (min-width: 560px)
+          display: none
+      @media (max-width: 560px)
+        width: 100%
+        padding: 0 7px
   .__content_footer
     position: fixed
     bottom: 0
