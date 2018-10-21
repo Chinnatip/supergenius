@@ -1,4 +1,23 @@
-<div class="time_container ">
+<div class="__content-info __booking-right _mobi-show time_container">
+  <div class="admin-block _flexer bottom-mobi-10">
+    <div class="_flex">
+      <h2 class="_title">ตารางห้องคอม</h2>
+      <p><%= "การจองของ #{@title_text}"  %></p>
+
+      <input type="date" name="date" value="<%= @date %>" min="<%= @today %>">
+      <% if @individual %>
+        <input type="hidden" name="student_id" value="<%= session[:student_id] %>">
+      <% end %>
+      <input type="submit" value="เปลี่ยนวันที่ค้นหา" class="class="btn submit btn-redder"">
+    </div>
+  </div>
+</div>
+
+<div class=" _fab _mobi-show ">
+  <a id="book_link" class="_input-button" target="_blank" href="<%= booking_index_path(book_at: @date) %>">จองห้องคอมวันที่ <%= @date.strftime('%d/%m/%y') %></a>
+</div>
+
+<div class="time_container _desktop-show ">
   <form action="<%= booking_calendar_path %>" method="get">
     <h1 class="_header">
       ตารางเวลาห้องคอมวันที่

@@ -7,6 +7,12 @@
   padding: 20px 7vw;
   margin-bottom: 5px;
   display: flex;
+  &._desktop-show {
+    @media screen and (max-width: 560px) {
+      display: none;
+    }
+  }
+
 
   ._header {
     font-size: 20px;
