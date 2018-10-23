@@ -36,6 +36,20 @@ body.admin-body
   padding: 46px 40px 40px
   border-radius: 6px
   box-shadow: 0 1px 23px rgba(177, 171, 171, 0.53)
+  &._mobi-show
+    @media (min-width: 560px)
+      display: none
+  &._button-fuller
+    margin: 8px
+    padding: 0
+    background: none
+    box-shadow: none
+    border: none
+    .btn-redder
+      width: 100%
+      display: inline-block
+      text-align: center
+      line-height: 40px
   &.bottom-mobi-10
     @media (max-width: 1024px)
       margin-bottom: 10px
@@ -380,61 +394,61 @@ body.admin-body
   a
     color: white !important
 
-  form
-    div.field
-      display: -webkit-box
-      line-height: 40px
-      @media (max-width: 1024px)
-        display: block
-      span.__danger
-        color: #ce0808
-        font-size: 13px
-        font-style: italic
-      label
-        min-width: 140px
-        margin-right: 20px
-        &.__book-gap
-          min-width: 222px
-        &.sub-title
-          @media (max-width: 1024px)
-            font-size: 13px
-            line-height: 14px
-            margin-top: 6px
-            margin-bottom: 0
-            color: grey
-      input
-        &[type="text"],&[type="number"],&[type="date"]
-          width: 240px
-          padding: 8px 10px
-          font-size: 14px
-          border-radius: 4px
-          border: 1px solid #d4d4d4
-          margin-right: 8px
-        &.input-list
-          width: 300px
-          @media (max-width: 1024px)
-            width: 100%
-            margin: 0
-        &.submit
-          @media (max-width: 1024px)
-            margin-top: 5px
-            font-size: 17px
-            padding: 7px
-      select
+form
+  div.field
+    display: -webkit-box
+    line-height: 40px
+    @media (max-width: 1024px)
+      display: block
+    span.__danger
+      color: #ce0808
+      font-size: 13px
+      font-style: italic
+    label
+      min-width: 140px
+      margin-right: 20px
+      &.__book-gap
+        min-width: 222px
+      &.sub-title
+        @media (max-width: 1024px)
+          font-size: 13px
+          line-height: 14px
+          margin-top: 6px
+          margin-bottom: 0
+          color: grey
+    input
+      &[type="text"],&[type="number"],&[type="date"]
         width: 240px
-        height: 36px
-        border: 1px solid gainsboro
-        background: #ffffff
+        padding: 10px 10px
         font-size: 14px
-      &.time-selector
-        select
-          width: 60px
-      &.date-selector
-        select
-          width: 90px
-      &.minify-selector
-        input
-          width: 140px
+        border-radius: 4px
+        border: 1px solid #d4d4d4
+        margin-right: 8px
+      &.input-list
+        width: 300px
+        @media (max-width: 1024px)
+          width: 100%
+          margin: 0
+      &.submit
+        @media (max-width: 1024px)
+          margin-top: 5px
+          font-size: 17px
+          padding: 7px
+    select
+      width: 240px
+      height: 36px
+      border: 1px solid gainsboro
+      background: #ffffff
+      font-size: 14px
+    &.time-selector
+      select
+        width: 60px
+    &.date-selector
+      select
+        width: 90px
+    &.minify-selector
+      input
+        width: 140px
 
 ol.__remark-ol
   padding-left: 22px
@@ -468,3 +482,6 @@ a.ment
 
 .selectize-control
   min-width: 242px
+
+.swal2-spacer
+  background-color: white

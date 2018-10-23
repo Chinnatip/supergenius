@@ -7,12 +7,18 @@
         <%= @student[:school] %>
       </h2>
     </div>
-
     <div>
       <a class="btn submit btn-redder" href="<%= booking_session_login_path %>"> Logout </a>
     </div>
   </div>
 </div>
+
+<div class="admin-block _mobi-show _button-fuller">
+  <a class="btn btn-redder" href="<%= booking_finish_path %>">
+    รายการจองห้องคอมของฉัน
+  </a>
+</div>
+
 
 <div class="__content_padding __booking-left">
   <div class="admin-block bottom-mobi-10">
@@ -34,61 +40,56 @@
         </label>
       </div>
       <hr>
-      <div class="field">
-        <label class="__book-gap" for="">คอร์สเรียน</label>
-        <select class="" name="course">
-          <% @register_course.each do |reg| %>
-            <option value="<%= reg[:id]%>">
-              <%= reg[:name]%>
-            </option>
-          <% end %>
-        </select>
-      </div>
-      <div class="field">
-        <label class="__book-gap" for="">
-          คอร์สสดสอนในวันที่
-          <span class="__danger">**</span>
-        </label>
-        <input type="date" name="live_date" value="" max="<%= @date_now %>">
-      </div>
-      <hr>
-      <div class="field">
-        <label class="__book-gap" for="">
-          วันที่จะเข้ามาเรียนเสริม
-          <span class="__danger">**</span>
-        </label>
-        <input type="date" name="attend_start_date" value="<%= @book_at %>" min="<%= @date_tomorrow %>">
-      </div>
-      <div class="field _attend_time">
-        <label class="__book-gap" for="">ช่วงเวลาที่เริ่มเรียน</label>
-        <select class="" id="start_time" name="attend_start_time">
-        </select>
-      </div>
-      <div class="field _attend_duration_time">
-        <label class="__book-gap" for="">จำนวนชั่วโมงที่ต้องการจอง</label>
-        <select class="" name="attent_hour" id="duration_hour">
-        </select>
-      </div>
-      <div class="field _attend_seat">
-        <label class="__book-gap" for="">เลือกเครื่องคอม</label>
-        <select class="" name="attend_seat">
-          <% @render_seat.each do |render| %>
-            <option value="<%= render[:value] %>">
-              <%= render[:option] %>
-            </option>
-          <% end %>
-        </select>
-      </div>
-      <hr>
-      <div class="field">
-        <label class="__book-gap" for="attend_reason">เหตุผลการจองห้องคอม</label>
-        <select class="" name="attend_reason">
-          <option value="r1">เรียนเสริมในคอร์สที่ขาด</option>
-          <option value="r2">เรียนปรับพื้นฐาน</option>
-          <option value="r3">เรียนซ้ำ</option>
-          <option value="r4">ขยัน</option>
-        </select>
-      </div>
+
+      <% if @register_course.count > 0 %>
+        <div class="field">
+          <label class="__book-gap" for="">คอร์สเรียน</label>
+          <select class="" name="course">
+            <% @register_course.each do |reg| %>
+              <option value="<%= reg[:id]%>">
+                <%= reg[:name]%>
+              </option>
+            <% end %>
+          </select>
+        </div>
+        <div class="field">
+          <label class="__book-gap" for="">
+            คอร์สสดสอนในวันที่
+            <span class="__danger">**</span>
+          </label>
+          <input type="date" name="live_date" value="" max="<%= @date_next_2_week %>">
+        </div>
+        <hr>
+        <div class="field">
+          <label class="__book-gap" for="">
+            วันที่จะเข้ามาดูวิดิโอ
+            <span class="__danger">**</span>
+          </label>
+          <input type="date" name="attend_start_date" value="<%= @book_at %>" min="<%= @date_now %>">
+        </div>
+        <div class="field _attend_time">
+          <label class="__book-gap" for="">ช่วงเวลาที่เริ่มเรียน</label>
+          <select class="" id="start_time" name="attend_start_time">
+          </select>
+        </div>
+        <div class="field _attend_duration_time">
+          <label class="__book-gap" for="">จำนวนชั่วโมงที่ต้องการจอง</label>
+          <select class="" name="attent_hour" id="duration_hour">
+          </select>
+        </div>
+        <hr>
+        <div class="field">
+          <label class="__book-gap" for="attend_reason">เหตุผลการจองห้องคอม</label>
+          <select class="" name="attend_reason">
+            <option value="r1">เรียนเสริมในคอร์สที่ขาด</option>
+            <option value="r2">เรียนปรับพื้นฐาน</option>
+            <option value="r3">เรียนซ้ำ</option>
+            <option value="r4">ขยัน</option>
+          </select>
+        </div>
+      <% else %>
+        <h3>คุณยังไม่มีคอร์สที่ลงทะเบียนไว้ในเทอมนี้</h3>
+      <% end %>
       <br>
       <table>
         <thead>
@@ -107,7 +108,9 @@
         </tbody>
       </table>
       <br>
-      <input type="submit" value="ยืนยันการจอง" class="btn submit btn-redder">
+      <% if @register_course.count > 0 %>
+        <input type="submit" value="ยืนยันการจอง" class="btn submit btn-redder">
+      <% end %>
     </form>
   </div>
   </div>
@@ -125,6 +128,8 @@
       <label for="">โรงเรียน</label>
       <h3/><%= @student[:school] %></h3/>
     </div>
+    <hr>
+    <a class="btn submit btn-grey" href="<%= booking_finish_path %>"> รายการจองห้องคอมของฉัน </a>
     <hr>
     <div>
       <a class="btn submit btn-redder" href="<%= booking_session_login_path %>"> ออกจากระบบ </a>

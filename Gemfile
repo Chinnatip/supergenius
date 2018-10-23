@@ -70,6 +70,9 @@ gem 'chart-js-rails'
 gem 'chartkick'
 gem 'sunspot_rails', '~> 2.2', '>= 2.2.7'
 
+gem 'rails-assets-sweetalert2', '~> 5.1.1', source: 'https://rails-assets.org'
+gem 'sweet-alert2-rails'
+
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 

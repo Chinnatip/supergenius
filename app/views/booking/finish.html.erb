@@ -46,6 +46,7 @@
               <th>เวลา</th>
               <th>Codeสำหรับเจ้าหน้าที่</th>
               <th></th>
+              <th></th>
             </tr>
           </thead>
           <tbody class="_desktop-show">
@@ -54,7 +55,7 @@
                 <td class="_desktop-show">รายการ<%= index + 1 %></td>
                 <td class="_desktop-show">
                   <%= schedule.attend_start.strftime("%d/%b/%Y") %> <br>
-                  Computer#<%= schedule.attend_seat%>.
+                  Computer#<%= schedule.attend_seat %>.
                 </td>
                 <td class="_desktop-show">
                   <%= schedule.attend_start.strftime("%H:%M") %> -
@@ -64,8 +65,23 @@
                   <%= schedule.ref_code %>
                 </td>
                 <td class="_desktop-show">
-                  <%= link_to "ดูตาราง", booking_calendar_path(date: schedule.attend_start.strftime('%Y-%m-%d') , student_id: schedule.student_id ) , target: "_blank" , class: 'btn-redder'%> <br>
-                  <%= link_to "ยกเลิกรายการนี้", booking_destroy_schedule_path( :schedule => schedule.id ), data: { confirm: 'คุณต้องการยกเลิกรายการนี้ ใช่ไหม?' } , class: '_cancel-button'%>
+                  <a
+                    name="<%= @student[:nickname] %>"
+                    course="<%= Course.find(schedule.course).name %>"
+                    date="<%= schedule.attend_start.strftime("%d/%b/%Y") %>"
+                    time='<%= "#{schedule.attend_start.strftime("%H:%M")} - #{schedule.attend_finish.strftime("%H:%M")}" %>'
+                    computer="<%= schedule.attend_seat %>"
+                    reference="<%= schedule.ref_code %>"
+                    class="onClick"
+                    href="#">
+                    เช็คอิน
+                  </a>
+
+
+                  <%= link_to "ยกเลิกรายการนี้", booking_destroy_schedule_path( :schedule => schedule.id ),method: :get, data: { confirm: 'คุณต้องการยกเลิกรายการนี้ ใช่ไหม?' } , class: '_cancel-button'%>
+                </td>
+                <td class="_desktop-show">
+                  <%= link_to "ดูตารางเรียน", booking_calendar_path(date: schedule.attend_start.strftime('%Y-%m-%d') , student_id: schedule.student_id ) , target: "_blank" , class: 'btn-redder'%> <br>
                 </td>
               </tr>
             <% end %>
@@ -73,7 +89,6 @@
         </table>
         <br>
         <a href="/booking/index" class="btn submit btn-redder">ทำรายการเพิ่ม</a>
-        <a href="/" class="btn submit btn-redder">กลับหน้าเเรก</a>
         <hr>
         <div class="">
           <label for="">หมายเหตุ</label>
@@ -107,3 +122,56 @@
     </div>
   </div>
 </div>
+
+<script>
+  $(document).ready(function() {
+    function popupPush(data){
+    swal({
+        title: '<strong>'+ data.title +'</strong>',
+        type: 'success',
+        showCloseButton: true,
+        focusConfirm: false,
+        confirmButtonText:
+          '<i class="fa fa-thumbs-up"></i> ตกลง!',
+        confirmButtonAriaLabel: 'Thumbs up, great!',
+        html:
+          'ระบบได้ลงทะเบียนการจองให้น้อง <b>'+ data.student +'</b> เเล้ว <br>' +
+          'เรียนวิชา <b>'+ data.course +'</b> คอมพิวเตอร์เครื่องที่ <b>'+ data.computer +'</b><br>' +
+          'วันที่ <b>'+ data.date +'</b> ช่วงเวลา <b>'+ data.time +'</b><br>' +
+          'หมายเลขรหัสการจอง <b>'+ data.reference +'</b><br>',
+      })
+    }
+
+    //
+    <% if params[:booked].present? %>
+      var data = {
+        title: 'การจองสำเร็จ',
+        student: '<%= @name %>',
+        course: '<%= @course %>',
+        date: '<%= @date %>',
+        time: '<%= @time %>',
+        computer: '<%= @seat %>',
+        reference: '<%= params[:reference] %>'
+      }
+      popupPush(data)
+    <% end %>
+
+    // interact swal checkin
+    $('.onClick').on('click',function(){
+      var setData = {
+      title: 'เช็คอินการจอง',
+      student: $(this).attr( "name" ),
+      course: $(this).attr( "course" ),
+      date: $(this).attr( "date" ),
+      time: $(this).attr( "time" ),
+      computer: $(this).attr( "computer" ),
+      reference: $(this).attr( "reference" )
+      }
+      popupPush(setData)
+    })
+  })
+
+
+
+
+</script>

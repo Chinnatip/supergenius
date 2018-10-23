@@ -55,12 +55,21 @@ class BookingController < ApplicationController
     seat  = Seat.where(student: student_code)
     @register_class  = Classroom.where(id: seat.pluck(:classroom))
     @register_course = Course.find(@register_class.pluck(:course).uniq)
+    # @register_course = Course.where(id: @register_class.pluck(:course).uniq, semester: @set_current_semester)
   end
 
   def finish
     if session[:student_id].present?
       @course_schedules = CourseSchedule.where(student_id: session[:student_id]).order(:attend_start)
       prepare_student_class(session[:student_id])
+      if params[:booked].present?
+        schedule = CourseSchedule.where(ref_code: params[:reference] ).first
+        @name =  Student.find(schedule[:student_id]).nickname
+        @course = Course.find(schedule[:course]).name
+        @date = schedule[:attend_start].strftime("%d/%b/%Y")
+        @time = "#{schedule[:attend_start].strftime("%H:%M")} - #{schedule[:attend_finish].strftime("%H:%M")}"
+        @seat = schedule[:attend_seat]
+      end
     else
       redirect_to booking_session_login_path
     end
@@ -86,9 +95,13 @@ class BookingController < ApplicationController
     #
     if checker[:result]
       time_parse = date_parser(params)
-      seat = params[:attend_seat]
+      # seat = params[:attend_seat]
+      valid = time_slot_validator(time_parse)
       #
-      if time_slot_validator(time_parse,seat)
+      # if time_slot_validator(time_parse,seat)
+      if valid[:response]
+        seat = valid[:seat]
+        ref_code_init = "#{params[:course]}-#{Array.new(4){[*"A".."Z", *"0".."9"].sample}.join}"
         CourseSchedule.create({
           student_id:    params[:student_id],
           course:        params[:course],
@@ -98,9 +111,12 @@ class BookingController < ApplicationController
           attent_hour:   time_parse[:hour][:common],
           attend_reason: params[:attend_reason],
           attend_seat:   seat,
-          ref_code:      "#{params[:course]}-#{Array.new(4){[*"A".."Z", *"0".."9"].sample}.join}"
+          ref_code:      ref_code_init
         })
-        redirect_to booking_finish_path
+        redirect_to booking_finish_path({
+          booked: true,
+          reference: ref_code_init
+        })
       else
         prep_date = time_parse[:start_day].strftime("%d-%b-%Y")
         prep_time = "#{time_parse[:start].strftime('%H.%M')}-#{time_parse[:finish].strftime('%H.%M')}"
@@ -175,22 +191,32 @@ class BookingController < ApplicationController
       return time.between?(schedule.attend_start, schedule.attend_finish)
     end
 
-    def time_slot_validator(time_parse,seat)
+    def time_slot_validator(time_parse)
       validator  = true
       day_range  = time_parse[:start_day]..time_parse[:end_day]
       start_time = time_parse[:start] + 1.minute
       finish_time = time_parse[:finish] - 1.minute
-      # CourseSchedule.where(attend_start: day_range, attend_seat: seat ).each do |schedule|
-      CourseSchedule.where(attend_seat: seat ).each do |schedule|
-        puts 'xxxx'
+      valid_seat = [1,2,3,4,5,6,7,8,9,10]
+      invalid_seat = []
+      # CourseSchedule.where(attend_seat: seat ).each do |schedule|
+      CourseSchedule.all.each do |schedule|
         if between_find( start_time ,schedule) || between_find( finish_time , schedule )
-          puts 'nono invalid'
-          validator = false
+          invalid_seat << schedule[:attend_seat].to_i
         end
       end
-      puts "From seat#{seat} #{time_parse[:start].strftime('%d-%b-%Y %H:%M')} - #{time_parse[:finish].strftime('%H:%M')}"
-      puts "valid >> #{validator}"
-      return validator
+      puts "From #{time_parse[:start].strftime('%d-%b-%Y %H:%M')} - #{time_parse[:finish].strftime('%H:%M')}"
+      if invalid_seat.count == valid_seat.count
+        return {
+          response: false,
+          seat: '-'
+        }
+      else
+        get_seat = ( valid_seat - invalid_seat )[0]
+        return {
+          response: true,
+          seat: get_seat
+        }
+      end
     end
 
     def parse_numeric_to_hour(time)
@@ -210,6 +236,7 @@ class BookingController < ApplicationController
       today          = Date.today
       @date_now      = today.strftime("%Y-%m-%d")
       @date_tomorrow = (today + 1.day).strftime("%Y-%m-%d")
+      @date_next_2_week = (today.beginning_of_week + 2.week).end_of_week.strftime("%Y-%m-%d")
     end
 
     def prepare_book_at
