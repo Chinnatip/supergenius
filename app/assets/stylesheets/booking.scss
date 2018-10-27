@@ -30,7 +30,7 @@
     margin: 0 3px 0 6px;
     display: inline-block;
   }
-  input[type=submit], ._input-button {
+  input[type=submit] {
     line-height: 34px;
     background: none;
     border-radius: 4px;
@@ -49,6 +49,31 @@
       border-color: #dc3f42;
       color: white;
     }
+  }
+}
+._spread{
+  margin-left: 8px;
+  display: inline-block;
+}
+._input-button {
+  line-height: 34px;
+  background: none;
+  border-radius: 4px;
+  padding: 0 15px;
+  font-size: 13px;
+  cursor: pointer;
+  transition: 0.4s;
+  height: 34px;
+  background: white;
+  color: #4c4c4c;
+  border: 1px solid #cecece;
+  display: inline-block;
+  vertical-align: middle;
+  margin-right: 2px;
+  &:hover,&:focus{
+    background: #dc3f42;
+    border-color: #dc3f42;
+    color: white;
   }
 }
 

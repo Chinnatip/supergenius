@@ -6,6 +6,8 @@ class CourseSchedulesController < ApplicationController
   # GET /course_schedules.json
   def index
     @course_schedules = CourseSchedule.all
+    @week_get = [0,1,2,3,4,5,6]
+    @today = Date.today
   end
 
   # GET /course_schedules/1

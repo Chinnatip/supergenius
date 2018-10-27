@@ -1,40 +1,57 @@
 <div class="_dashboard_content">
-  <h1>Course Schedules</h1>
-  <%= link_to 'New Course Schedule', new_course_schedule_path %>
-  <table class="table _news_table">
-  <thead>
-    <tr>
-      <th>Student</th>
-      <th>Course</th>
-      <th>Live date</th>
-      <th>Attend date</th>
-      <th>From - TO</th>
-      <th>Attend reason</th>
-      <th>Reference</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
+  <h1>การจัดการจองห้องคอม</h1>
+  <% @week_get.each do | day |%>
+    <% current_day = @today + day.days%>
+    <% current_booking =  @course_schedules.where(attend_start: current_day.beginning_of_day...current_day.end_of_day) %>
+    <table class="table _news_table">
+      <thead>
+        <tr>
+          <th style="background: #bb3736; font-size: 15px; color: white; padding: 6px 10px;" colspan="6">
+            วันที่ <%= current_day.strftime("%d %b %Y") %>
+            <span class="_spread"></span>
+            <a style="vertical-align: initial;" class="_input-button" target="_blank" href="<%= booking_calendar_path(:date => current_day) %>">ดูตารางวันที่ <%= current_day.strftime("%d") %></a>
+          </th>
+        </tr>
+        <tr>
+          <th>รหัสการจอง</th>
+          <th>คอร์สที่เรียน</th>
+          <th>จองคอมวันที่</th>
+          <th>สาเหตุที่ขอจอง</th>
+          <th colspan="2"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <% if current_booking.count > 0 %>
+          <% current_booking.each do |course_schedule| %>
+            <tr>
+              <td>
+                <%= course_schedule.ref_code %> <br>
+                เครื่องที่ <%= course_schedule.attend_seat %> |
+                น้อง<%= Student.find( course_schedule.student_id ).nickname %>
+              </td>
+              <td>
+                <%= Course.find(course_schedule.course).name %> <br>
+                สอนเมื่อวันที่ <%= course_schedule.live_date.strftime("%d %b %Y") %>
+              </td>
+              <td>
+                <%= course_schedule.attend_start.strftime("%d %b %Y") %> <br>
+                เวลา <%= course_schedule.attend_start.strftime("%H:%M") %> - <%= course_schedule.attend_finish.strftime("%H:%M") %>
+              </td>
+              <td><%= course_schedule.attend_reason %></td>
+              <td><%= link_to 'แก้ไขข้อมูล', edit_course_schedule_path(course_schedule) %></td>
+              <td><%= link_to 'ล้างรายการ', course_schedule, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+            </tr>
+          <% end %>
+        <% else %>
+          <tr>
+            <td colspan="6">
+              ไม่มีการจองเครื่องคอมในวันนี้
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  <% end %>
 
-  <tbody>
-    <% @course_schedules.each do |course_schedule| %>
-      <tr>
-        <td><%= course_schedule.student_id %></td>
-        <td><%= course_schedule.course %></td>
-        <td><%= course_schedule.live_date.strftime("%d %b %Y") %></td>
-        <td>
-          <%= course_schedule.attend_start.strftime("%d %b %Y") %>
-        </td>
-        <td>
-          <%= course_schedule.attend_start.strftime("%H:%M") %> -
-          <%= course_schedule.attend_finish.strftime("%H:%M") %>
-        </td>
-        <td><%= course_schedule.attend_reason %></td>
-        <td><%= course_schedule.ref_code %></td>
-        <td><%= link_to 'Show', course_schedule %></td>
-        <td><%= link_to 'Edit', edit_course_schedule_path(course_schedule) %></td>
-        <td><%= link_to 'Destroy', course_schedule, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+
 </div>
