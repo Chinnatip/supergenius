@@ -43,7 +43,7 @@
             <tr>
               <th>รายการ</th>
               <th>วันที่จะเข้าเรียน</th>
-              <th>เวลา</th>
+              <th>เวลา </th>
               <th>Codeสำหรับเจ้าหน้าที่</th>
               <th></th>
               <th></th>
@@ -59,7 +59,8 @@
                 </td>
                 <td class="_desktop-show">
                   <%= schedule.attend_start.strftime("%H:%M") %> -
-                  <%= schedule.attend_finish.strftime("%H:%M") %></td>
+                  <%= schedule.attend_finish.strftime("%H:%M") %>
+                  </td>
                 <td class="_desktop-show">
                   <%= Course.find(schedule.course).name %> <br>
                   <%= schedule.ref_code %>
@@ -77,8 +78,9 @@
                     เช็คอิน
                   </a>
 
-
-                  <%= link_to "ยกเลิกรายการนี้", booking_destroy_schedule_path( :schedule => schedule.id ),method: :get, data: { confirm: 'คุณต้องการยกเลิกรายการนี้ ใช่ไหม?' } , class: '_cancel-button'%>
+                  <% if @time_now < (schedule.attend_start - 3.hours) %>
+                    <%= link_to "ยกเลิกรายการนี้", booking_destroy_schedule_path( :schedule => schedule.id ),method: :get, data: { confirm: 'คุณต้องการยกเลิกรายการนี้ ใช่ไหม?' } , class: '_cancel-button'%>
+                  <% end %>
                 </td>
                 <td class="_desktop-show">
                   <%= link_to "ดูตารางเรียน", booking_calendar_path(date: schedule.attend_start.strftime('%Y-%m-%d') , student_id: schedule.student_id ) , target: "_blank" , class: 'btn-redder'%> <br>

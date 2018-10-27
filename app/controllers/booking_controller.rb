@@ -60,7 +60,8 @@ class BookingController < ApplicationController
 
   def finish
     if session[:student_id].present?
-      @course_schedules = CourseSchedule.where(student_id: session[:student_id]).order(:attend_start)
+      @course_schedules = CourseSchedule.where(student_id: session[:student_id]).where(CourseSchedule.arel_table[:attend_start].gt(Date.today)).order(:attend_start)
+      @time_now = Time.now + 11.hours # GMT+7 config universal time
       prepare_student_class(session[:student_id])
       if params[:booked].present?
         schedule = CourseSchedule.where(ref_code: params[:reference] ).first
