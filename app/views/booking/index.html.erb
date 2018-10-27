@@ -81,10 +81,9 @@
         <div class="field">
           <label class="__book-gap" for="attend_reason">เหตุผลการจองห้องคอม</label>
           <select class="" name="attend_reason">
-            <option value="r1">เรียนเสริมในคอร์สที่ขาด</option>
-            <option value="r2">เรียนปรับพื้นฐาน</option>
-            <option value="r3">เรียนซ้ำ</option>
-            <option value="r4">ขยัน</option>
+            <% BookingReason.all.each do |reason| %>
+              <option value="<%= reason.reason %>"><%= reason.reason %></option>
+            <% end %>
           </select>
         </div>
       <% else %>
@@ -99,9 +98,9 @@
           </tr>
         </thead>
         <tbody>
-        <% @time_table.each do |table| %>
+        <% BookingWeek.all.each do |table| %>
           <tr>
-            <td><%= table[:text]%></td>
+            <td><%= table[:title]%></td>
             <td>Week <%= table[:week]%></td>
           </tr>
         <% end %>

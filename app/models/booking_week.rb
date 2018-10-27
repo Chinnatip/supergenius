@@ -1,0 +1,2 @@
+class BookingWeek < ApplicationRecord
+end

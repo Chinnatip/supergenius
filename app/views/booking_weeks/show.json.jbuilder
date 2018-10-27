@@ -1,0 +1,1 @@
+json.partial! "booking_weeks/booking_week", booking_week: @booking_week

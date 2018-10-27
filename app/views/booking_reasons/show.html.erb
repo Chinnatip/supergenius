@@ -1,0 +1,14 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Reason:</strong>
+  <%= @booking_reason.reason %>
+</p>
+
+<p>
+  <strong>Ref code:</strong>
+  <%= @booking_reason.ref_code %>
+</p>
+
+<%= link_to 'Edit', edit_booking_reason_path(@booking_reason) %> |
+<%= link_to 'Back', booking_reasons_path %>

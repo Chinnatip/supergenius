@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
 
+  resources :booking_weeks
+  resources :booking_reasons
   resources :course_schedules
   resources :comments
   resources :registers

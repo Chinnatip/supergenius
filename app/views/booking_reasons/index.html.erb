@@ -1,0 +1,28 @@
+<div class="admin-block">
+  <h1>
+    เหตุที่ผลที่เลือกเรียนเสริม
+    <%= link_to 'สร้างรายการใหม่', new_booking_reason_path , class: 'btn-ner' %>
+  </h1>
+  <table class="table _news_table">
+    <thead>
+      <tr>
+        <th>รหัสย่อ</th>
+        <th>เหตุผล</th>
+        <th colspan="2"></th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% @booking_reasons.each do |booking_reason| %>
+        <tr>
+          <td><%= booking_reason.ref_code %></td>
+          <td><%= booking_reason.reason %></td>
+          <td><%= link_to 'แก้ไข', edit_booking_reason_path(booking_reason) %></td>
+          <td><%= link_to 'ล้างข้อนี้', booking_reason, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+
+</div>
+

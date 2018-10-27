@@ -1,0 +1,34 @@
+<%= form_for(booking_reason) do |f| %>
+  <% if booking_reason.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(booking_reason.errors.count, "error") %> prohibited this booking_reason from being saved:</h2>
+
+      <ul>
+      <% booking_reason.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <label for="ref_code">รหัสย่อ</label>
+    <%= f.text_field :ref_code %>
+  </div>
+
+  <div class="field">
+    <label for="reason">กรอกเหตุผล</label>
+    <%= f.text_field :reason %>
+  </div>
+
+  <div class="actions">
+    <%= link_to 'Back', booking_reasons_path , class: 'btn btn-grey' %>
+    <span class="mar-10"></span>
+
+    <% if controller.action_name == 'edit' %>
+      <%= link_to 'Show', @booking_reason ,class: 'btn-grey'%>
+      <span class="mar-10"></span>
+    <% end %>
+    <input type="submit" value="Submit" class="btn btn-redder">
+  </div>
+<% end %>

@@ -1,0 +1,14 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Week:</strong>
+  <%= @booking_week.week %>
+</p>
+
+<p>
+  <strong>Title:</strong>
+  <%= @booking_week.title %>
+</p>
+
+<%= link_to 'Edit', edit_booking_week_path(@booking_week) %> |
+<%= link_to 'Back', booking_weeks_path %>

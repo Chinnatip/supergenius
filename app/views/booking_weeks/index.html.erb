@@ -1,0 +1,26 @@
+<div class="admin-block">
+  <h1>
+    กำหนดคายเรียนของเทอมนี้
+    <%= link_to 'สร้างรายการใหม่', new_booking_week_path , class: 'btn-ner' %>
+  </h1>
+  <table>
+  <thead>
+    <tr>
+      <th>สัปดาห์ที่</th>
+      <th>ระหว่างวันที่</th>
+      <th colspan="2"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @booking_weeks.each do |booking_week| %>
+      <tr>
+        <td><%= booking_week.week %></td>
+        <td><%= booking_week.title %></td>
+        <td><%= link_to 'เเก้ไข', edit_booking_week_path(booking_week) %></td>
+        <td><%= link_to 'ล้าง', booking_week, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+</div>

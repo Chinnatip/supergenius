@@ -1,0 +1,1 @@
+json.array! @booking_weeks, partial: 'booking_weeks/booking_week', as: :booking_week
