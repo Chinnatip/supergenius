@@ -64,7 +64,7 @@
   <% @semester_lists.each do |sem| %>
     <% semester = Semester.where(sem_code: sem).first %>
     <% course_param = @is_admin ? {semester: sem} : {semester: sem,id: @teacher_course } %>
-    <% course_lists = Course.where(course_param).pluck(:id).uniq.sort { |x,y| x <=> y } %>
+    <% course_lists = Course.where(course_param).pluck(:id).uniq %>
     <% if course_lists.count > 0 %>
       <div class="label-banner">ภาคการศึกษา / <%= semester[:name] %></div>
       <table>
