@@ -63,8 +63,11 @@
 
   <% @semester_lists.each do |sem| %>
     <% semester = Semester.where(sem_code: sem).first %>
+    <% puts '1' %>
     <% course_param = @is_admin ? {semester: sem} : {semester: sem,id: @teacher_course } %>
+    <% puts '2' %>
     <% course_lists = Course.where(course_param).pluck(:id).uniq %>
+    <% puts '3' %>
     <% if course_lists.count > 0 %>
       <div class="label-banner">ภาคการศึกษา / <%= semester[:name] %></div>
       <table>
@@ -85,16 +88,23 @@
         </thead>
 
         <tbody>
+        <% puts '4' %>
           <% course_lists.each do |cs| %>
+          <% puts '5' %>
             <% filter_param = @is_admin ? {course: cs} : {course: cs,id: @teacher_class } %>
+            <% puts '6' %>
             <% classroom_lists = (@classrooms.where(filter_param).sort_by { |s| s.spec  }) %>
+            <% puts '7' %>
             <% if classroom_lists.count > 0 %>
               <tr style=" background: #e8e8e8; color: #101010;">
                 <td colspan="8"><%= Course.find(cs).name %></td>
               </tr>
             <% end %>
+            <% puts '8' %>
             <% classroom_lists.each do |classroom| %>
+            <% puts '9' %>
               <% classroom_detail = Classroom.details(classroom)%>
+              <% puts '10' %>
               <tr>
                 <td><%= classroom.spec %></td>
                 <td>
