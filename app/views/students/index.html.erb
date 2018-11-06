@@ -37,7 +37,7 @@
             </tr>
           </thead>
           <tbody class="pop-course">
-            <% (Classroom.all.sort_by { |s| Course.find(s[:course])[:grade]  }).each do |c| %>
+            <% (Classroom.all.sort_by { |s| Course.find(s[:course])[:grade] rescue []  }).each do |c| %>
               <tr>
                 <td><input type="checkbox" name="[course]<%= c[:spec] %>" value="" course="<%= c[:spec] %>"> </td>
                 <td><%= c[:spec] %></td>
