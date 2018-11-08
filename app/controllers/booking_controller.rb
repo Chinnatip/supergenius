@@ -55,7 +55,8 @@ class BookingController < ApplicationController
     seat  = Seat.where(student: student_code)
     @register_class  = Classroom.where(id: seat.pluck(:classroom))
     # @register_course = Course.find(@register_class.pluck(:course).uniq)
-    @register_course = Course.where(id: @register_class.pluck(:course).uniq, semester: @set_current_semester)
+    current_sem = Semester.find(Config.first.current_semester).sem_code
+    @register_course = Course.where(id: @register_class.pluck(:course).uniq, semester: current_sem)
   end
 
   def finish
