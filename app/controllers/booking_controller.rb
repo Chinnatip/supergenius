@@ -54,8 +54,8 @@ class BookingController < ApplicationController
     student_code = student.student_code
     seat  = Seat.where(student: student_code)
     @register_class  = Classroom.where(id: seat.pluck(:classroom))
-    @register_course = Course.find(@register_class.pluck(:course).uniq)
-    # @register_course = Course.where(id: @register_class.pluck(:course).uniq, semester: @set_current_semester)
+    # @register_course = Course.find(@register_class.pluck(:course).uniq)
+    @register_course = Course.where(id: @register_class.pluck(:course).uniq, semester: @set_current_semester)
   end
 
   def finish
@@ -264,6 +264,12 @@ class BookingController < ApplicationController
           option: "#{from} ชั่วโมง",
           value:  "#{from * 60}"
         })
+        if from < amount
+        res.push({
+          option: "#{from} ชั่วโมง 30นาที",
+          value:  "#{( from + 0.5 ) * 60}"
+        })
+        end
         from += 1
       end
       return res

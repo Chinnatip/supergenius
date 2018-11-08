@@ -198,7 +198,12 @@
       for(var i=0;i<mapper.length && i < 6;i++){
         const hour = i + 1 ;
         const add  = {option: hour + ' ชั่วโมง',val: hour * 60};
+        const add_half = {option: hour + ' ชั่วโมง 30นาที',val: (hour + 0.5) * 60};
         $( "#duration_hour" ).append('<option value="'+ add.val +'">'+ add.option +'</option>');
+        if(hour < 6){
+          $( "#duration_hour" ).append('<option value="'+ add_half.val +'">'+ add_half.option +'</option>');
+        }
+
       }
     });
   });
