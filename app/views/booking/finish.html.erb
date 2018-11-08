@@ -33,7 +33,7 @@
             </div>
             <div class="_action">
               <%= link_to "ดูตาราง", booking_calendar_path(date: schedule.attend_start.strftime('%Y-%m-%d') , student_id: schedule.student_id ) , target: "_blank" , class: 'btn-redder'%> <br>
-              <%= link_to "ยกเลิกรายการนี้", booking_destroy_schedule_path( :schedule => schedule.id ), data: { confirm: 'คุณต้องการยกเลิกรายการนี้ ใช่ไหม?' } , class: '_cancel-button _mini-size'%>
+              <%= link_to "ยกเลิกรายการนี้", booking_destroy_schedule_path( :schedule => schedule.id ),method: :get, data: { confirm: 'คุณต้องการยกเลิกรายการนี้ ใช่ไหม?' } , class: '_cancel-button _mini-size'%>
             </div>
           </div>
         <% end %>
