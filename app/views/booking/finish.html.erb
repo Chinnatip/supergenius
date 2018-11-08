@@ -27,7 +27,7 @@
               <p>
                 Computer#<%= schedule.attend_seat%>
               </p>
-              <p><%= Course.find(schedule.course).name %></p>
+              <p><%= Classroom.find(schedule.course).name %></p>
               <p><%= schedule.attend_start.strftime("%H:%M") %> - <%= schedule.attend_finish.strftime("%H:%M") %></p>
               <p class="_red-text">REF CODE: <%= schedule.ref_code %></p>
             </div>
@@ -62,13 +62,13 @@
                   <%= schedule.attend_finish.strftime("%H:%M") %>
                   </td>
                 <td class="_desktop-show">
-                  <%= Course.find(schedule.course).name %> <br>
+                  <%= Classroom.find(schedule.course).name %> <br>
                   <%= schedule.ref_code %>
                 </td>
                 <td class="_desktop-show">
                   <a
                     name="<%= @student[:nickname] %>"
-                    course="<%= Course.find(schedule.course).name %>"
+                    course="<%= Classroom.find(schedule.course).name %>"
                     date="<%= schedule.attend_start.strftime("%d/%b/%Y") %>"
                     time='<%= "#{schedule.attend_start.strftime("%H:%M")} - #{schedule.attend_finish.strftime("%H:%M")}" %>'
                     computer="<%= schedule.attend_seat %>"

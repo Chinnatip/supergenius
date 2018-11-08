@@ -53,10 +53,14 @@ class BookingController < ApplicationController
     @seat = []
     student_code = student.student_code
     seat  = Seat.where(student: student_code)
-    @register_class  = Classroom.where(id: seat.pluck(:classroom))
-    # @register_course = Course.find(@register_class.pluck(:course).uniq)
     current_sem = Semester.find(Config.first.current_semester).sem_code
-    @register_course = Course.where(id: @register_class.pluck(:course).uniq, semester: current_sem)
+    # @register_course = Course.where(id: @register_class.pluck(:course).uniq, semester: current_sem)
+    @register_course = []
+    Classroom.where(id: seat.pluck(:classroom)).each do |clas|
+      if Course.find(clas.course).semester == current_sem
+        @register_course << clas
+      end
+    end
   end
 
   def finish
@@ -67,7 +71,7 @@ class BookingController < ApplicationController
       if params[:booked].present?
         schedule = CourseSchedule.where(ref_code: params[:reference] ).first
         @name =  Student.find(schedule[:student_id]).nickname
-        @course = Course.find(schedule[:course]).name
+        @course = Classroom.find(schedule[:course]).name
         @date = schedule[:attend_start].strftime("%d/%b/%Y")
         @time = "#{schedule[:attend_start].strftime("%H:%M")} - #{schedule[:attend_finish].strftime("%H:%M")}"
         @seat = schedule[:attend_seat]

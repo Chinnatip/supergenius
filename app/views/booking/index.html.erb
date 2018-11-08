@@ -43,7 +43,7 @@
 
       <% if @register_course.count > 0 %>
         <div class="field">
-          <label class="__book-gap" for="">คอร์สเรียน</label>
+          <label class="__book-gap" for="">ห้องเรียน</label>
           <select class="" name="course">
             <% @register_course.each do |reg| %>
               <option value="<%= reg[:id]%>">
@@ -97,7 +97,7 @@
             <th>สัปดาห์ที่</th>
           </tr>
         </thead>
-        <tbody>
+        <tbody class="_normal-body">
         <% BookingWeek.all.each do |table| %>
           <tr>
             <td><%= table[:title]%></td>
