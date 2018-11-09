@@ -1,3 +1,5 @@
+<script src="/js/timetable.js"></script>
+
 <div class="__content-info __booking-right _mobi-show time_container">
   <div class="admin-block _flexer bottom-mobi-10">
     <div class="_flex">
@@ -38,7 +40,7 @@
 
 <div class="timetable _floating-timatable"></div>
 
-<script src="/js/timetable.js"></script>
+
 
 <script>
   var timetable = new Timetable();
@@ -56,7 +58,8 @@
   <% end %>
   //
   var renderer = new Timetable.Renderer(timetable);
-  renderer.draw('.timetable');
+  renderer.draw('.timetable'); // any css selector
+
 </script>
 
 <script>

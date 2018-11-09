@@ -23,4 +23,6 @@
 //= require selectize
 //= require sweetalert2
 //= require sweet-alert2-rails
+//= require underscore/underscore-min
+//= require syncscroll/syncscroll
 //= require_tree .

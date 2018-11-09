@@ -1,0 +1,15 @@
+{
+  "name": "supergen",
+  "homepage": "https://github.com/Chinnatip/supergenius",
+  "authors": ["Chinnatip Taemkaeo <chinnatip@me.com>"],
+  "description": "",
+  "main": "",
+  "keywords": ["tutor", "rangsit", "package", "manager"],
+  "license": "MIT",
+  "ignore": ["**/.*", "node_modules", "bower_components", "test", "tests"],
+  "dependencies": {
+    "timetable.js": "timetable#^0.8.3",
+    "moment": "^2.22.2",
+    "underscore": "~1.4.4"
+  }
+}
