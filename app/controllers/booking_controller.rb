@@ -57,7 +57,7 @@ class BookingController < ApplicationController
     # @register_course = Course.where(id: @register_class.pluck(:course).uniq, semester: current_sem)
     @register_course = []
     Classroom.where(id: seat.pluck(:classroom)).each do |clas|
-      if Course.find(clas.course).semester == current_sem
+      if Course.where(id: clas.course).count > 0 && Course.find(clas.course).semester == current_sem
         @register_course << clas
       end
     end
