@@ -327,6 +327,6 @@ class BookingController < ApplicationController
 
     def parse_birthdate_string(txt)
       parse = txt.split("-")
-      return "#{'%02d' % parse[0]}#{'%02d' % parse[1]}"
+      return "#{'%02d' % parse[0].to_i}#{'%02d' % parse[1].to_i}"
     end
 end
