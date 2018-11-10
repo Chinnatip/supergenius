@@ -48,13 +48,15 @@
   timetable.setScope(7,21)
   timetable.addLocations(['Computer#1','Computer#2','Computer#3','Computer#4','Computer#5','Computer#6','Computer#7','Computer#8','Computer#9','Computer#10']);
   <% @schedule.each do |sch| %>
-    timetable.addEvent(
-      '<%= sch[:ref_code] %>',
-      '<%= "Computer##{sch[:attend_seat]}" %>',
-      new Date(<%= sch[:attend_start].strftime("%Y,%m,%d,%H,%M") %>),
-      new Date(<%= sch[:attend_finish].strftime("%Y,%m,%d,%H,%M") %>),
-      { url: '#' }
-    );
+    <% if sch[:attend_start].strftime("%H%M") != '0000' %>
+      timetable.addEvent(
+        '<%= sch[:ref_code] %>',
+        '<%= "Computer##{sch[:attend_seat]}" %>',
+        new Date(<%= sch[:attend_start].strftime("%Y,%m,%d,%H,%M") %>),
+        new Date(<%= sch[:attend_finish].strftime("%Y,%m,%d,%H,%M") %>),
+        { url: '#' }
+      );
+    <% end %>
   <% end %>
   //
   var renderer = new Timetable.Renderer(timetable);
