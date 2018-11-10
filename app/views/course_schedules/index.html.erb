@@ -30,7 +30,7 @@
                 น้อง<%= Student.find( course_schedule.student_id ).nickname rescue '' %>
               </td>
               <td>
-                <%= Course.find(course_schedule.course).name  rescue ''%> <br>
+                <%= Classroom.find(course_schedule.course).name  rescue ''%> <br>
                 สอนเมื่อวันที่ <%= course_schedule.live_date.strftime("%d %b %Y") %>
               </td>
               <td>
