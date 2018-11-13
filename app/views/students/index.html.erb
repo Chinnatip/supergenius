@@ -117,6 +117,9 @@
             <td><%= link_to 'ลบทิ้ง', student, method: :delete, data: { confirm: 'Are you sure?' } , class: 'btn-grey' %></td>
           </tr>
         <% end %>
+        <% if @students.where(grade: gd).count > 10 %>
+          <a class="btn-redder" href="/students?type=grade&keyword=<%= gd %>">ดูเพิ่มเติม</a>
+        <% end %>
       </tbody>
     </table>
     <br>
