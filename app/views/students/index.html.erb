@@ -55,7 +55,17 @@
   </div>
 
   <% @grade_lists.each do |gd| %>
-    <div class="label-banner">ชั้นปี / <%= if gd <= 12 then Student.parse_grade(gd) else "สำเร็จการศึกษา(มัธยม)" end %></div>
+    <div class="label-banner">
+      ชั้นปี /
+      <%= if gd <= 12 then Student.parse_grade(gd) else "สำเร็จการศึกษา(มัธยม)" end %>
+      <% if @students.where(grade: gd).count > 10 %>
+        <a
+          class="btn-redder"
+          href="/students?type=grade&keyword=<%= Student.parse_grade(gd) %>">
+          ดูเพิ่มเติม
+        </a>
+      <% end %>
+      </div>
     <table>
       <thead>
         <tr>
@@ -78,6 +88,7 @@
       </thead>
 
       <tbody>
+        <h1><%= if params[:type] == '' then 'a' else 'b' end%></h1>
         <% (@students.where(grade: gd).limit(10).order('student_code desc')).each do |student| %>
           <% student_detail = Student.details(student) %>
           <tr>
@@ -116,9 +127,6 @@
             <td><%= link_to 'รายละเอียด', edit_student_path(student) , class: 'btn-grey' %></td>
             <td><%= link_to 'ลบทิ้ง', student, method: :delete, data: { confirm: 'Are you sure?' } , class: 'btn-grey' %></td>
           </tr>
-        <% end %>
-        <% if @students.where(grade: gd).count > 10 %>
-          <a class="btn-redder" href="/students?type=grade&keyword=<%= gd %>">ดูเพิ่มเติม</a>
         <% end %>
       </tbody>
     </table>
