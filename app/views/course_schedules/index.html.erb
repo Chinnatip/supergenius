@@ -2,7 +2,7 @@
   <h1>การจัดการจองห้องคอม</h1>
   <% @week_get.each do | day |%>
     <% current_day = @today + day.days%>
-    <% current_booking =  @course_schedules.where(attend_start: current_day.beginning_of_day...current_day.end_of_day) %>
+    <% current_booking =  @course_schedules.where(attend_start: current_day.beginning_of_day...current_day.end_of_day).order(:attend_seat , attend_start: :asc) %>
     <table class="table _news_table">
       <thead>
         <tr>
