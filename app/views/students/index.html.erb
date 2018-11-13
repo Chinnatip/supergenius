@@ -59,19 +59,24 @@
       ชั้นปี /
       <%= if gd <= 12 then Student.parse_grade(gd) else "สำเร็จการศึกษา(มัธยม)" end %>
       <div style="flex-grow: 1"></div>
-      <% if @students.where(grade: gd).count > 10 && !params[:type].present? %>
+      <% if @students.where(grade: gd).count > 10  %>
+        <% if !params[:type].present? %>
         <a
-          class="btn-grey"
-          href="/students?type=grade&keyword=<%= Student.parse_grade(gd) %>">
-          ดูเพิ่มเติม
-        </a>
-      <% else %>
-        <a
-          class="btn-grey"
-          href="/students">
-          ดูนักเรียนทั้งหมด
-        </a>
+            class="btn-grey"
+            style="height: 39px;line-height: 32px;vertical-align: middle;margin-top: 2px;"
+            href="/students?type=grade&keyword=<%= Student.parse_grade(gd) %>">
+            ดูเพิ่มเติม
+          </a>
+        <% else %>
+          <a
+            class="btn-grey"
+            style="height: 39px;line-height: 32px;vertical-align: middle;margin-top: 2px;"
+            href="/students">
+            ดูนักเรียนทั้งหมด
+          </a>
+        <% end %>
       <% end %>
+
       </div>
     <table>
       <thead>
