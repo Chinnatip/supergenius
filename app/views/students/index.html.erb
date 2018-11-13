@@ -60,7 +60,7 @@
       <%= if gd <= 12 then Student.parse_grade(gd) else "สำเร็จการศึกษา(มัธยม)" end %>
       <% if @students.where(grade: gd).count > 10 %>
         <a
-          class="btn-redder"
+          class="btn-grey"
           href="/students?type=grade&keyword=<%= Student.parse_grade(gd) %>">
           ดูเพิ่มเติม
         </a>
@@ -88,7 +88,7 @@
       </thead>
 
       <tbody>
-        <h1><%= if params[:type] == '' then 'a' else 'b' end%></h1>
+        <h1><%= if params[:type].present? then 'a' else 'b' end%></h1>
         <% (@students.where(grade: gd).limit(10).order('student_code desc')).each do |student| %>
           <% student_detail = Student.details(student) %>
           <tr>
