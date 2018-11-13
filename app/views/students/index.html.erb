@@ -88,8 +88,8 @@
       </thead>
 
       <tbody>
-        <h1><%= if params[:type].present? then 'a' else 'b' end%></h1>
-        <% (@students.where(grade: gd).limit(10).order('student_code desc')).each do |student| %>
+        <% student_content = if params[:type].present? then @students.where(grade: gd) else @students.where(grade: gd).limit(10).order('student_code desc') end %>
+        <% student_content.each do |student| %>
           <% student_detail = Student.details(student) %>
           <tr>
             <td><%= student[:student_code] %></td>
