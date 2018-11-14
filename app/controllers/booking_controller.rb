@@ -218,10 +218,17 @@ class BookingController < ApplicationController
         }
       else
         get_seat = ( valid_seat - invalid_seat )[0]
-        return {
-          response: true,
-          seat: get_seat
-        }
+        if get_seat.present?
+          return {
+            response: true,
+            seat: get_seat
+          }
+        else
+          return {
+            response: false,
+            seat: '-'
+          }
+        end
       end
     end
 
