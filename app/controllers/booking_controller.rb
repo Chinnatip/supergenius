@@ -243,7 +243,7 @@ class BookingController < ApplicationController
     def prepare_render_option
       @max_hour = 4
       @render_option_weekend = render_option(7.5 , 20)
-      @render_option_workday = render_option(9 , 19.5)
+      @render_option_workday = render_option(8 , 19.5)
       @render_duration = render_duration(@max_hour)
       @render_seat     = render_seat(10)
     end
