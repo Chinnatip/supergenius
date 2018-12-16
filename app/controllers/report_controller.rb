@@ -18,7 +18,9 @@ class ReportController < ApplicationController
 
   def parse_birthdate_string(txt)
     parse = txt.split("-")
-    return "#{'%02d' % parse[0]}#{'%02d' % parse[1]}"
+    single_unit = parse[0].to_i
+    decimal_unit = parse[1].to_i
+    return "#{'%02d' % single_unit}#{'%02d' % decimal_unit}"
   end
 
   def check_student_trigger
