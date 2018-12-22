@@ -67,7 +67,7 @@ class ReportController < ApplicationController
 
       seat  = Seat.where(student: student_code)
       @register_class  = Classroom.where(id: seat.pluck(:classroom))
-      @register_course = Course.where(id: @register_class.pluck(:course).uniq,semester: @current_semester)
+      @register_course = Course.where(id: @register_class.pluck(:course).uniq,semester: @current_sem_code)
       seat.each do |st|
         #
         classroom_find = Classroom.where(id: st[:classroom])
