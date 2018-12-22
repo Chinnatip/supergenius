@@ -63,6 +63,7 @@ class ReportController < ApplicationController
 
       # Current semester registered-course
       @current_semester = @set_current_semester || "20261"
+      @current_sem_code = Semester.find(@current_semester).sem_code
 
       seat  = Seat.where(student: student_code)
       @register_class  = Classroom.where(id: seat.pluck(:classroom))
@@ -72,7 +73,7 @@ class ReportController < ApplicationController
         classroom_find = Classroom.where(id: st[:classroom])
         if classroom_find.count > 0
           course_id = classroom_find[0].course rescue 0
-          if true  # Course.where(id: course_id, semester: @current_semester).count > 0
+          if Course.where(id: course_id, semester: @current_sem_code).count > 0
           classroom = Classroom.find(st[:classroom])
           score_point = Exam.where(student: student_code, classroom: classroom.id,exam_type: "scoring").first.score rescue "{\"0\":\"0\"}"
           score_range = Exam.where(classroom: classroom.id,exam_type: "scoring").pluck(:score)
