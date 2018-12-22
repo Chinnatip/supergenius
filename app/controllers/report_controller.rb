@@ -45,11 +45,8 @@ class ReportController < ApplicationController
   end
 
   def student
-    puts '0>'
     if params[:id].present?
-      puts '1>'
       student  = Student.find(params[:id])
-      puts '2>'
       @student = {
         name:         "#{student[:name]} #{student[:surname]}",
         nickname:     student[:nickname],
@@ -62,44 +59,26 @@ class ReportController < ApplicationController
         birthday:     student[:birthday]
       }
       @seat = []
-      puts '3>'
       student_code = student.student_code
-      #
+
       # Current semester registered-course
-      # register = Register.where(student: student_code).pluck(:course)
-      puts '4>'
       @current_semester = @set_current_semester || "20261"
-      # register = []
-      puts '5>'
-      # Register.where(student: student_code).each do |res|
-      #   meid = res.course
-      #   selected_course = Course.where(id).first
-      #   if selected_course != nil && selected_course[:semester] == @current_semester
-      #     register << id
-      #   end
-      # end
-      #
-      puts '6>'
+
       seat  = Seat.where(student: student_code)
       @register_class  = Classroom.where(id: seat.pluck(:classroom))
       @register_course = Course.where(id: @register_class.pluck(:course).uniq,semester: @current_semester)
-      puts '7>'
       seat.each do |st|
         #
         classroom_find = Classroom.where(id: st[:classroom])
         if classroom_find.count > 0
           course_id = classroom_find[0].course rescue 0
           if Course.where(id: course_id, semester: @current_semester).count > 0
-            puts '8>'
           classroom = Classroom.find(st[:classroom])
           score_point = Exam.where(student: student_code, classroom: classroom.id,exam_type: "scoring").first.score rescue "{\"0\":\"0\"}"
           score_range = Exam.where(classroom: classroom.id,exam_type: "scoring").pluck(:score)
-          puts '9>'
           # classroom was learned >
           if score_range.count > 0
-            # puts "get score container >>"
             score_container = []
-            puts '10>'
             score_range.each do |sm|
               content = JSON.parse(sm).select {|k, v| !(v == '') && !(v == '-') }
               score_container << content
@@ -107,17 +86,14 @@ class ReportController < ApplicationController
             end
             # score point
             score_get = JSON.parse(score_point)
-            puts '11>'
             # process score
             score_result = {}
             point_get = []
             max_get   = []
             min_get   = []
             draft_get = []
-            puts '12>'
             score_setter = JSON.parse(classroom.max_score).keys
             score_setter.each do |st|
-              puts '13>'
               #
               score_result[st.to_sym] = {
                 max: score_container.max_by{|k| k[st].to_i }[st] || 0,
@@ -125,13 +101,11 @@ class ReportController < ApplicationController
                 get: score_get[st].to_i || 0,
                 draft: score_get[st] || "X"
               }
-              puts '14>'
               point_get << score_result[st.to_sym][:get]
               max_get   << score_result[st.to_sym][:max]
               min_get   << score_result[st.to_sym][:min]
               draft_get << score_result[st.to_sym][:draft]
             end
-            puts '15>'
             mental_point = Exam.where(student: student_code, classroom: classroom.id,exam_type: "mental").first.score rescue "{\"0\":\"0\"}"
             @seat << {
               id:           st[:id],
