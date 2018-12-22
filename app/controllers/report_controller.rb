@@ -68,7 +68,7 @@ class ReportController < ApplicationController
       # Current semester registered-course
       # register = Register.where(student: student_code).pluck(:course)
       puts '4>'
-      # @current_semester = @set_current_semester || "20261"
+      @current_semester = @set_current_semester || "20261"
       # register = []
       puts '5>'
       # Register.where(student: student_code).each do |res|
@@ -82,12 +82,15 @@ class ReportController < ApplicationController
       puts '6>'
       seat  = Seat.where(student: student_code)
       @register_class  = Classroom.where(id: seat.pluck(:classroom))
-      @register_course = Course.find(@register_class.pluck(:course).uniq)
+      @register_course = Course.where(id: @register_class.pluck(:course).uniq,semester: @current_semester)
       puts '7>'
       seat.each do |st|
         #
-        if Classroom.where(id: st[:classroom]).count > 0
-          puts '8>'
+        classroom_find = Classroom.where(id: st[:classroom])
+        if classroom_find.count > 0
+          course_id = classroom_find[0].course rescue 0
+          if Course.where(id: course_id, semester: @current_semester).count > 0
+            puts '8>'
           classroom = Classroom.find(st[:classroom])
           score_point = Exam.where(student: student_code, classroom: classroom.id,exam_type: "scoring").first.score rescue "{\"0\":\"0\"}"
           score_range = Exam.where(classroom: classroom.id,exam_type: "scoring").pluck(:score)
@@ -140,6 +143,7 @@ class ReportController < ApplicationController
               draft_point:  draft_get,
               mental_point: JSON.parse(mental_point)
             }
+          end
           end
         end
       end
