@@ -142,8 +142,9 @@
           <% @max_score.each do |mx| %>
             <th colspan="2" class=" center-div row-rep " style="position: relative">
               <%= mx[0] %>
+              <%#  %>
               <% if @toggle_max_score != nil %>
-                <%= link_to 'x', home_remove_period_path(period: mx[0],class: @classroom.id) , data: { confirm: 'ถ้ากดลบคะเเนนครั้งนี้ ข้อมูลที่เกี่ยวข้องทั้งหมดจะหายไป เเน่ใจนะ?' } ,style: 'position: absolute;
+                <%= link_to 'x', home_remove_period_path(period: mx[0],class: @classroom.id) ,method: :get, data: { confirm: 'ถ้ากดลบคะเเนนครั้งนี้ ข้อมูลที่เกี่ยวข้องทั้งหมดจะหายไป เเน่ใจนะ?' } ,style: 'position: absolute;
                   top: -1px;
                   right: 0px;
                   line-height: 15px;
