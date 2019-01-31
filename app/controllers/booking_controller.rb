@@ -82,6 +82,7 @@ class BookingController < ApplicationController
   end
 
   def calendar
+    @yesterday = Date.today - 1.day
     @today = Date.today
     @date  = if params[:date].present? then Date.parse(params[:date]) else @today end
     if params[:student_id].present? && session[:student_id].present? && params[:student_id].to_s == session[:student_id].to_s
@@ -249,6 +250,7 @@ class BookingController < ApplicationController
     def prepare_selected_date
       today          = Date.today
       @date_now      = today.strftime("%Y-%m-%d")
+      @date_yesterday = (today - 1.day).strftime("%Y-%m-%d")
       @date_tomorrow = (today + 1.day).strftime("%Y-%m-%d")
       @date_next_2_week = (today.beginning_of_week + 2.week).end_of_week.strftime("%Y-%m-%d")
     end
