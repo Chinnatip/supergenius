@@ -210,9 +210,8 @@ class BookingController < ApplicationController
           invalid_seat << schedule[:attend_seat].to_i
         end
       end
-      puts "From #{time_parse[:start].strftime('%d-%b-%Y %H:%M')} - #{time_parse[:finish].strftime('%H:%M')}"
+      # puts "From #{time_parse[:start].strftime('%d-%b-%Y %H:%M')} - #{time_parse[:finish].strftime('%H:%M')}"
       if invalid_seat.count == valid_seat.count
-        puts 'ppppp >'
         return {
           response: false,
           seat: '-'
@@ -225,7 +224,6 @@ class BookingController < ApplicationController
             seat: get_seat
           }
         else
-          puts 'aaaaa >'
           return {
             response: false,
             seat: '-'
