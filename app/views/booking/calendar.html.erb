@@ -6,7 +6,7 @@
       <form action="<%= booking_calendar_path %>" method="get">
         <h2 class="_title">ตารางห้องคอม</h2>
         <p><%= "การจองของ #{@title_text}"  %></p>
-        <input type="date" name="date" value="<%= @date %>" min="<%= @today  - 1.day %>">
+        <input type="date" name="date" value="<%= @date %>" min="<%= @today %>">
         <% if @individual %>
           <input type="hidden" name="student_id" value="<%= session[:student_id] %>">
         <% end %>
