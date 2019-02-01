@@ -201,8 +201,8 @@ class BookingController < ApplicationController
     def time_slot_validator(time_parse)
       validator  = true
       # day_range  = time_parse[:start_day]..time_parse[:end_day]
-      start_time = time_parse[:start] #+ 1.minute
-      finish_time = time_parse[:finish] #- 1.minute
+      start_time = time_parse[:start] + 1.minute
+      finish_time = time_parse[:finish] - 1.minute
       valid_seat = [1,2,3,4,5,6,7,8,9,10]
       invalid_seat = []
       # CourseSchedule.where(attend_seat: seat ).each do |schedule|
@@ -229,7 +229,7 @@ class BookingController < ApplicationController
         else
           puts '[slot] rejected >>> invalid seat'
           puts valid_seat
-          puts invalid_seatg
+          puts invalid_seat
           return {
             response: false,
             seat: '-'
