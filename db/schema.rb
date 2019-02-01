@@ -33,6 +33,11 @@ ActiveRecord::Schema.define(version: 20181027074109) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "asks", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "boards", force: :cascade do |t|
     t.string   "name"
     t.decimal  "stock"
