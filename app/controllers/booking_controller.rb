@@ -214,6 +214,8 @@ class BookingController < ApplicationController
         end
       end
       puts "INVALID COUNT #{invalid_seat.count}"
+      # uniq invalid
+      invalid_seat = invalid_seat.uniq
       # puts "From #{time_parse[:start].strftime('%d-%b-%Y %H:%M')} - #{time_parse[:finish].strftime('%H:%M')}"
       if invalid_seat.count == valid_seat.count
         puts "[slot] rejected >>> limit seat >>> #{invalid_seat.count} | #{valid_seat.count}"
