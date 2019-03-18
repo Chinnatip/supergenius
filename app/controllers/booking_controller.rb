@@ -206,19 +206,17 @@ class BookingController < ApplicationController
       valid_seat = [1,2,3,4,5,6,7,8,9,10]
       invalid_seat = []
       # CourseSchedule.where(attend_seat: seat ).each do |schedule|
-      puts "[INVALID CHECK]"
       CourseSchedule.all.each do |schedule|
         if between_find( start_time ,schedule) || between_find( finish_time , schedule )
-          puts "invalid-#{schedule[:attend_seat].to_i} | #{between_find( start_time ,schedule)} | #{between_find( finish_time , schedule )}"
+          # puts "invalid-#{schedule[:attend_seat].to_i} | #{between_find( start_time ,schedule)} | #{between_find( finish_time , schedule )}"
           invalid_seat << schedule[:attend_seat].to_i
         end
       end
-      puts "INVALID COUNT #{invalid_seat.count}"
       # uniq invalid
       invalid_seat = invalid_seat.uniq
       # puts "From #{time_parse[:start].strftime('%d-%b-%Y %H:%M')} - #{time_parse[:finish].strftime('%H:%M')}"
       if invalid_seat.count == valid_seat.count
-        puts "[slot] rejected >>> limit seat >>> #{invalid_seat.count} | #{valid_seat.count}"
+        # puts "[slot] rejected >>> limit seat >>> #{invalid_seat.count} | #{valid_seat.count}"
         return {
           response: false,
           seat: '-'
@@ -226,15 +224,13 @@ class BookingController < ApplicationController
       else
         get_seat = ( valid_seat - invalid_seat )[0]
         if get_seat.present?
-          puts '[slot] success'
+          # puts '[slot] success'
           return {
             response: true,
             seat: get_seat
           }
         else
-          puts '[slot] rejected >>> invalid seat'
-          puts valid_seat.length
-          puts invalid_seat.length
+          # puts '[slot] rejected >>> invalid seat'
           return {
             response: false,
             seat: '-'

@@ -34,8 +34,8 @@
             <div class="_content-detail">
               <div class="_cont">
                 <div class="_title"><b><%= room.name %></b></div>
-                <div class="_teacher">ผู้สอน - <%= classroom_detail[:teacher] %></div>
                 <% if current_user.present? && current_user[:role] == 'admin' %>
+                  <div class="_teacher">ผู้สอน - <%= classroom_detail[:teacher] %></div>
                   <div class="_student">นักเรียน <%= classroom_detail[:seat] %>คน</div>
                 <% end %>
                 <!-- <%= room.spec %><br> -->
@@ -54,8 +54,8 @@
         <tr>
           <th>รหัสห้องเรียน</th>
           <th>ชื่อห้องเรียน</th>
-          <th>ผู้สอน</th>
           <% if current_user.present? && current_user[:role] == 'admin' %>
+            <th>ผู้สอน</th>
             <th>จำนวนนักเรียน</th>
           <% end %>
           <th>รายละเอียดคอร์ส</th>
@@ -74,8 +74,8 @@
               <tr class="center-align">
                 <td><%= room.spec %></td>
                 <td><%= room.name %></td>
-                <td><%= classroom_detail[:teacher] %></td>
                 <% if current_user.present? && current_user[:role] == 'admin' %>
+                  <td><%= classroom_detail[:teacher] %></td>
                   <td><%= classroom_detail[:seat] %>คน</td>
                 <% end %>
                 <td><%= room.desc.html_safe %></td>
