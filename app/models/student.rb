@@ -207,7 +207,9 @@ class Student < ApplicationRecord
   def self.seperate_school(code)
     school_collection = []
     Student.where(student_code: code).each do |st|
-      school_collection << Student.current_school(st)
+      if  defined?(Student.current_school(st))
+        school_collection << Student.current_school(st)
+      end
     end
     puts 'debugger#2 :: LOG SCHOOL'
     puts  school_collection
