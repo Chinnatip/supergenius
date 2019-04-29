@@ -209,7 +209,9 @@ class Student < ApplicationRecord
     Student.where(student_code: code).each do |st|
       school_collection << Student.current_school(st)
     end
-    puts 'debugger#2'
+    puts 'debugger#2 :: LOG SCHOOL'
+    puts  school_collection
+    puts 'END LOG SCHOOL'
     res = {}
     school_list = school_collection.sort
     school_uniq = school_collection.uniq.sort
