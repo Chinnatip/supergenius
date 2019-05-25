@@ -9,7 +9,7 @@
       <div class="col-7">
         <img src="<%= if @detail[:image].present? then @detail[:image] else '../img_ref/new_blank.jpg' end%>" alt="">
         <br><br>
-        <h3><%= eval( @detail[:desc] ).to_json.html_safe rescue '' %></h3>
+        <h3><%= @detail[:desc].html_safe rescue '' %></h3>
       </div>
       <div class="col-3">
         <h4><span class="head">ผู้เขียน</span> <%= @detail[:writer] %></h4>
