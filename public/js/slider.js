@@ -1,5 +1,5 @@
 // <!-- hero-slider :slider="slider" :choice="choice"></hero-slider -->
-Vue.component('heroSlider',{
+Vue.component('heroSlider', {
   template: `
     <div class="_hero_body_slider ok" id="body_content">
       <div class="arrow-picker">
@@ -23,8 +23,8 @@ Vue.component('heroSlider',{
             </div>
             <div style="flex-grow:1"></div>
             <div class="square">
-              <div class="quote">100%</div>
-              <div class="price">สอบติด 5ปีซ้อน</div>
+              <div class="quote">อันดับ 1</div>
+              <div class="price">ตัวจริง กวาดเรียบทุกสถาบัน</div>
               <div class="change">
                 สถิติที่เราภูมิใจ <br>
                 <span style="font-style: italic">ครูวิน สอนเลข</span>
@@ -35,32 +35,32 @@ Vue.component('heroSlider',{
       </span>
     </div>
   `,
-  props: ['slider','choice'],
+  props: ['slider', 'choice'],
   methods: {
-    isActive: function(val){
-      return this.choice === val ;
+    isActive: function(val) {
+      return this.choice === val
     },
-    checkActive: function(val){
+    checkActive: function(val) {
       //console.log(val);
-      this.choice = val;
+      this.choice = val
     },
-    tabs: function(val){
-      var array = this.slider ;
-      var grand = array.length - 1  ;
-      var sel = 0 ;
+    tabs: function(val) {
+      var array = this.slider
+      var grand = array.length - 1
+      var sel = 0
       for (var i = 0; i < array.length; i++) {
         if (this.choice == array[i]['tab']) {
-          sel = i ;
+          sel = i
         }
       }
-      var comp = sel + val ;
+      var comp = sel + val
       if (comp < 0) {
-        this.choice = array[grand]['tab'];
-      }else if (comp > grand) {
-        this.choice = array[0]['tab'];
-      }else {
-        this.choice = array[comp]['tab'];
+        this.choice = array[grand]['tab']
+      } else if (comp > grand) {
+        this.choice = array[0]['tab']
+      } else {
+        this.choice = array[comp]['tab']
       }
     }
   }
-});
+})
