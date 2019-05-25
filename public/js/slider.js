@@ -24,7 +24,7 @@ Vue.component('heroSlider', {
             <div style="flex-grow:1"></div>
             <div class="square">
               <div class="quote">อันดับ 1</div>
-              <div class="price">ตัวจริง กวาดเรียบทุกสถาบัน</div>
+              <div class="price">ตัวจริง <br> กวาดเรียบทุกสถาบัน</div>
               <div class="change">
                 สถิติที่เราภูมิใจ <br>
                 <span style="font-style: italic">ครูวิน สอนเลข</span>
