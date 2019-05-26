@@ -5,7 +5,7 @@
       <div class="_content">
         <img src="<%= if @newsfeed.image.present? then @newsfeed.image else '../img_ref/new_blank.jpg' end%>" alt="">
         <br><br>
-        <h3><%= @newsfeed.desc %></h3>
+        <%= @newsfeed.desc.html_safe %>
       </div>
       <div class="_brief">
         <div class="_list">
