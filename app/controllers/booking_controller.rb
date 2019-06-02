@@ -104,30 +104,39 @@ class BookingController < ApplicationController
       time_parse = date_parser(params)
       # seat = params[:attend_seat]
       valid = time_slot_validator(time_parse)
+      valid_duplicate = !(CourseSchedule.where( student_id: params[:student_id] , attend_start: time_parse[:start] ).count > 0)
+      puts "valid duplicated is >>> #{valid_duplicate}"
       #
       # if time_slot_validator(time_parse,seat)
-      if valid[:response]
+      unless valid_duplicate
         seat = valid[:seat]
-        ref_code_init = "#{params[:course]}-#{Array.new(4){[*"A".."Z", *"0".."9"].sample}.join}"
-        CourseSchedule.create({
-          student_id:    params[:student_id],
-          course:        params[:course],
-          live_date:     time_parse[:live],
-          attend_start:  time_parse[:start],
-          attend_finish:  time_parse[:finish],
-          attent_hour:   time_parse[:hour][:common],
-          attend_reason: params[:attend_reason],
-          attend_seat:   seat,
-          ref_code:      ref_code_init
-        })
-        redirect_to booking_finish_path({
-          booked: true,
-          reference: ref_code_init
-        })
-      else
         prep_date = time_parse[:start_day].strftime("%d-%b-%Y")
         prep_time = "#{time_parse[:start].strftime('%H.%M')}-#{time_parse[:finish].strftime('%H.%M')}"
-        redirect_to booking_index_path({valid: false, seat: seat, date: prep_date, time: prep_time })
+        redirect_to booking_index_path({valid: 'duplicated', seat: seat, date: prep_date, time: prep_time })
+      else
+        if valid[:response]
+          seat = valid[:seat]
+          ref_code_init = "#{params[:course]}-#{Array.new(4){[*"A".."Z", *"0".."9"].sample}.join}"
+          CourseSchedule.create({
+            student_id:    params[:student_id],
+            course:        params[:course],
+            live_date:     time_parse[:live],
+            attend_start:  time_parse[:start],
+            attend_finish:  time_parse[:finish],
+            attent_hour:   time_parse[:hour][:common],
+            attend_reason: params[:attend_reason],
+            attend_seat:   seat,
+            ref_code:      ref_code_init
+          })
+          redirect_to booking_finish_path({
+            booked: true,
+            reference: ref_code_init
+          })
+        else
+          prep_date = time_parse[:start_day].strftime("%d-%b-%Y")
+          prep_time = "#{time_parse[:start].strftime('%H.%M')}-#{time_parse[:finish].strftime('%H.%M')}"
+          redirect_to booking_index_path({valid: false, seat: seat, date: prep_date, time: prep_time })
+        end
       end
     else
       redirect_to booking_index_path(checker[:error])

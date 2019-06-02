@@ -25,7 +25,7 @@
     <p id="notice"><%= notice %></p>
     <h1 style="font-size:24px">ยินดีต้อนรับสู่ระบบ การจองห้องคอม</h1>
     <div class="form-maker">
-    <form action="<%= booking_add_course_path %>" method="get">
+    <form action="<%= booking_add_course_path %>" method="get" onsubmit="return confirm('กรอกข้อมูลครบถ้วน เเละยืนยันการจองใช่ไหม?');">
       <input type="hidden" name="student_id" value="<%= session[:student_id] %>">
       <div class="field">
         <label for="">กดเพื่อดูตารางการของห้องได้</label>
@@ -39,6 +39,12 @@
           <span class="__danger">(*** หากไม่กดยืนยันจะไม่สามารถจองห้องคอมได้ ***)</span>
         </label>
       </div>
+      <div style="padding: 10px 28px; border-radius: 7px; background: #fff0f0; max-width: 720px; margin: auto;">
+        <span style="font-size: 14px; color: #d11d1b;">
+          *** เพื่อป้องกันการจองซ้ำซ้อนที่นั่งในช่วงเวลาเดียวกัน(จองโต๊ะแบบเเยกร่าง) ทางโรงเรียนจะขอสงวนสิทธิ์ ไม่ให้น้องสามารถกดจองวิชาเรียนซ้ำ "ในช่วงเวลาเดียวกัน" นะคะ ***
+        </span>
+      </div>
+
       <hr>
 
       <% if @register_course.count > 0 %>
@@ -140,6 +146,8 @@
   // Validator on loaded
   <% if params[:valid] === 'false' %>
     alert("น้องจองคอมเครื่องที่ <%= params[:seat]%> ช่วงวันที่ <%= params[:date] %> เวลา <%= params[:time] %> \nขณะนี้คอมไม่ว่างเเล้ว ไม่สามารถจองเครื่องคอมได้ค่ะ \nกรุณาตรวจสอบตารางห้องคอมก่อนเลือกจองเวลาเรียน ... " )
+  <% elsif params[:valid] === 'duplicated' %>
+    alert("น้องจองคอมเครื่องที่ <%= params[:seat]%> ช่วงวันที่ <%= params[:date] %> เวลา <%= params[:time] %> \nเนื่องจากน้องได้จอมคอมในช่วงเวลานี้ไปเเล้วจึง ไม่สามารถจองเครื่องคอมได้ค่ะ \nกรุณาตรวจสอบตารางห้องคอมก่อนเลือกจองเวลาเรียน ... " )
   <% end %>
   <% if params[:input] === 'false' %>
     alert("<%= @param_log %>")
