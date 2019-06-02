@@ -12,10 +12,10 @@ default: &default
 development:
   <<: *default
   # DATABASE_URL: postgres://fhvcfytprjxxhj:6446bfe5bcd71920e1fb22ba4ac766c3bff2a416a5e330ef1bbe0072213698f9@ec2-54-225-88-199.compute-1.amazonaws.com:5432/d3vcud19edv6dp
-  database: supergen
+  database: supergen_backup
   host: localhost
-  username: chinnatip
-  password: cupurion23
+  username: postgres
+  password: 5432
 
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".
