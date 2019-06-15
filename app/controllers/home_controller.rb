@@ -247,9 +247,8 @@ class HomeController < ApplicationController
 
   def add_table
     puts "addedd table >>"
-    puts params.inspect
     classroom     = Classroom.find(params[:id])
-    old_max_score = JSON.parse(classroom[:max_score])
+    old_max_score = JSON.parse(classroom[:max_score]) rescue JSON.parse('{"1":"10","2":"10","3":"10","4":"10","5":"10","6":"10","7":"10","8":"10","9":"10","10":"10","11":"10","12":"10","13":"10"}')
     puts classroom[:max_score]
     old_max_score[params[:added].to_s] = "10"
     classroom[:max_score] = old_max_score.to_json

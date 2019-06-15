@@ -105,9 +105,8 @@ class BookingController < ApplicationController
       # seat = params[:attend_seat]
       valid = time_slot_validator(time_parse)
       valid_duplicate = !(CourseSchedule.where( student_id: params[:student_id] , attend_start: time_parse[:start] ).count > 0)
-      puts "valid duplicated is >>> #{valid_duplicate}"
+      # puts "valid duplicated is >>> #{valid_duplicate}"
       #
-      # if time_slot_validator(time_parse,seat)
       unless valid_duplicate
         seat = valid[:seat]
         prep_date = time_parse[:start_day].strftime("%d-%b-%Y")
