@@ -211,7 +211,7 @@ class BookingController < ApplicationController
       # day_range  = time_parse[:start_day]..time_parse[:end_day]
       start_time = time_parse[:start] + 5.minute
       finish_time = time_parse[:finish] - 5.minute
-      valid_seat = [1,2,3,4,5,6,7,8,9,10]
+      valid_seat = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16]
       invalid_seat = []
       # CourseSchedule.where(attend_seat: seat ).each do |schedule|
       CourseSchedule.all.each do |schedule|
@@ -258,7 +258,7 @@ class BookingController < ApplicationController
       @render_option_weekend = render_option(7.5 , 20)
       @render_option_workday = render_option(8 , 19.5)
       @render_duration = render_duration(@max_hour)
-      @render_seat     = render_seat(10)
+      @render_seat     = render_seat(16)
     end
 
     def prepare_selected_date
