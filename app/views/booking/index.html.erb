@@ -1,6 +1,6 @@
 <% week_day     = Date.today.wday %>
-<% current_hour = Time.now.strftime("%k").to_i %>
-<% current_min  = Time.now.strftime("%M").to_i  %>
+<% current_hour = (Time.now + 7.hours).strftime("%k").to_i %>
+<% current_min  = (Time.now + 7.hours).strftime("%M").to_i  %>
 <% current_time = (current_hour * 60) + current_min%>
 <%# 780 = 13.00 , 1170 = 19.30 %>
 <% min_limit = 780 %>
