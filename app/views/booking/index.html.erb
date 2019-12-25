@@ -58,7 +58,7 @@
 <div class="__content_padding __booking-left">
   <div class="admin-block bottom-mobi-10">
     <p id="notice"><%= notice %></p>
-    <h1 style="font-size:24px">ยินดีต้อนรับสู่ระบบ การจองห้องคอม</h1>
+    <h1 style="font-size:24px">ยินดีต้อนรับสู่ระบบ การจองห้องคอม <%= current_hour %>.<%= current_min%> </h1>
     <div class="form-maker">
     <form action="<%= booking_add_course_path %>" method="get" onsubmit="return confirm('กรอกข้อมูลครบถ้วน เเละยืนยันการจองใช่ไหม?');">
       <input type="hidden" name="student_id" value="<%= session[:student_id] %>">
