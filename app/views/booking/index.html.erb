@@ -1,3 +1,38 @@
+<% week_day     = Date.today.wday %>
+<% current_hour = Time.now.strftime("%k").to_i %>
+<% current_min  = Time.now.strftime("%M").to_i  %>
+<% current_time = (current_hour * 60) + current_min%>
+<%# 780 = 13.00 , 1170 = 19.30 %>
+<% min_limit = 780 %>
+<% max_limit = 1170 %>
+<% if (week_day > 5) | (current_time < min_limit) | (current_time > max_limit) %>
+  <div  class="admin-block" style="
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+    background: #52525299;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 31px;">
+    <div style="
+      width: 320px;
+      padding: 20px;
+      background: white;
+      border-radius: 7px;
+      margin-top: -60px;
+      text-align: center;">
+      <div style="color: #2d2d2d; font-size: 16px;">
+        ไม่สามารถจองห้องคอมได้ ณ เวลานี้  <br />
+        ระบบจะเปิดให้จองคอมตั้งเเต่เวลา <br />
+        <b>13.00 - 19.30 น. วันจันทร์ - ศุกร์</b>
+      </div>
+      <a href="/" class="btn submit btn-redder">กลับหน้าเเรก</a>
+    </div>
+  </div>
+<% end %>
+
 <div class="__content-info __booking-right _mobi-show">
   <div class="admin-block _flexer bottom-mobi-10">
     <div class="_flex">
@@ -39,7 +74,7 @@
           <span class="__danger">(*** หากไม่กดยืนยันจะไม่สามารถจองห้องคอมได้ ***)</span>
         </label>
       </div>
-      <div style="padding: 10px 28px; border-radius: 7px; background: #fff0f0; max-width: 720px; margin: auto;">
+      <div style="padding: 10px 28px; border-radius: 7px;background: #fff0f0; max-width: 720px; margin: auto;">
         <span style="font-size: 14px; color: #d11d1b;">
           *** เพื่อป้องกันการจองซ้ำซ้อนที่นั่งในช่วงเวลาเดียวกัน(จองโต๊ะแบบเเยกร่าง) ทางโรงเรียนจะขอสงวนสิทธิ์ ไม่ให้น้องสามารถกดจองวิชาเรียนซ้ำ "ในช่วงเวลาเดียวกัน" นะคะ ***
         </span>
