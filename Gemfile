@@ -44,7 +44,7 @@ gem 'selectize-rails', '~> 0.12.4.1'
 gem 'rqrcode', '~> 0.10.1'
 
 # Use Puma as the app server
-gem 'puma', '~> 3.0'
+gem 'puma', '~> 3.12'
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 5.0'
 # Use Uglifier as compressor for JavaScript assets
