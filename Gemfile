@@ -5,7 +5,8 @@ source 'https://rubygems.org'
 # https://devcenter.heroku.com/articles/deploying-rails-applications-with-the-puma-web-server
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '~> 5.0.0', '>= 5.0.0.1'
+gem 'rails', '5.1'
+gem 'bundler', '1.17.3'
 # Use sqlite3 as the database for Active Record
 # gem 'sqlite3'
 
@@ -19,7 +20,7 @@ gem "bulma-rails", "~> 0.2.3"
 gem "font-awesome-rails"
 
 # Use Postgres
-gem 'pg'
+gem 'pg', '~> 0.20'
 
 # Use wicked PDF
 gem 'wicked_pdf'
