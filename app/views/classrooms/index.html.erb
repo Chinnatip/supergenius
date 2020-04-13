@@ -61,7 +61,6 @@
     </form>
   </div> -->
 
-  <%# <% @semester_lists.each do |sem| %>
   <% @semester_lists[0..2].each do |sem| %>
     <% semester = Semester.where(sem_code: sem).first %>
     <% course_param = @is_admin ? {semester: sem} : {semester: sem,id: @teacher_course } %>
@@ -74,14 +73,14 @@
             <th>รหัสห้องเรียน</th>
             <th>ชื่อห้องเรียน</th>
             <th>ผู้สอน</th>
-            <!-- <th>ค่าลงทะเบียน</th> -->
             <th>จำนวนนักเรียน</th>
             <th>รายละเอียดคอร์ส</th>
+            <th colspan="3"></th>
+            <!-- <th>ค่าลงทะเบียน</th> -->
             <!-- <th>จำนวนครั้ง</th>
             <th>ซีซั่น</th>
             <th>เวลาเรียน</th> -->
             <!-- <th>สถานะ</th> -->
-            <th colspan="3"></th>
           </tr>
         </thead>
 
