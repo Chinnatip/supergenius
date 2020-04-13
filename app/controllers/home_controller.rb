@@ -36,7 +36,7 @@ class HomeController < ApplicationController
       configs.current_year = params[:current_year]
       configs.save
     end
-    redirect_to :back
+    redirect_back(fallback_location: root_path)
   end
 
   def set_semester
@@ -45,7 +45,7 @@ class HomeController < ApplicationController
       configs.current_semester = params[:current_semester]
       configs.save
     end
-    redirect_to :back
+    redirect_back(fallback_location: root_path)
   end
 
   def news
@@ -76,7 +76,7 @@ class HomeController < ApplicationController
           st.save
       end
     end
-    redirect_to :back
+    redirect_back(fallback_location: root_path)
   end
 
   def remove_period
@@ -89,7 +89,7 @@ class HomeController < ApplicationController
     # puts score.without(params[:period].to_s)
     cs[:max_score] = score.without(params[:period].to_s).to_json
     cs.save
-    redirect_to :back
+    redirect_back(fallback_location: root_path)
   end
 
   def edit_current
@@ -138,7 +138,7 @@ class HomeController < ApplicationController
         puts "[FOUNDED]In Classroom #{params[:classroom]} .. student was registered"
       end
     end
-    redirect_to :back
+    redirect_back(fallback_location: root_path)
   end
 
   def update_addcourse
@@ -159,7 +159,7 @@ class HomeController < ApplicationController
         puts "[FOUNDED]In Classroom #{sc} .. student was registered"
       end
     end
-    redirect_to :back
+    redirect_back(fallback_location: root_path)
   end
 
   def update_score
@@ -226,7 +226,7 @@ class HomeController < ApplicationController
     puts seat.to_json
     seat[:comment] = params[:comment]
     seat.save
-    redirect_to :back
+    redirect_back(fallback_location: root_path)
   end
 
   def add_comment
@@ -242,7 +242,7 @@ class HomeController < ApplicationController
     end
     log[:comment] = params[:comment]
     log.save
-    redirect_to :back
+    redirect_back(fallback_location: root_path)
   end
 
   def add_table
@@ -256,7 +256,7 @@ class HomeController < ApplicationController
     classroom.save
     puts "end >>>"
 
-    redirect_to :back
+    redirect_back(fallback_location: root_path)
   end
 
   def reddit
