@@ -112,7 +112,7 @@
             <td><%= student.name %></td>
             <td><%= student.surname %></td>
             <td><%= student_detail[:school] %></td>
-            <td><%= student_detail[:school_program] %></td>
+            <td><%= student_detail[:program] %></td>
             <td><%= student_detail[:grade] %></td>
             <td><%= Register.where(student: student[:student_code]).count %> คอร์ส</td>
             <td><%= student_detail[:gender] %></td>
