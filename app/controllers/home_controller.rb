@@ -162,6 +162,36 @@ class HomeController < ApplicationController
     redirect_back(fallback_location: root_path)
   end
 
+  def decode_student_year(grade)
+    buddhist_era_factor = 43
+    total_collage_year  = 13
+    @current_year_formatted = Config.first.current_year - 2543
+    current_year_in_ad  = @current_year_formatted || Time.now.strftime('%Y')[2..3].to_i
+    decode_year         = current_year_in_ad + buddhist_era_factor + total_collage_year
+    return ("%02d" % (decode_year - grade.to_i)).to_s
+  end
+
+  def decode_student_runner(grade)
+    parser = []
+    grade_count = Student.where(grade: grade,substitude: false).maximum("student_code")[2..4].to_i rescue 0
+    return ("%03d" % (grade_count + 1)).to_s # rescue "001"
+  end
+
+  def detatched_student_code(grade)
+    grader  = decode_student_year(grade)
+    counter = decode_student_runner(grade)
+    return "#{grader}#{counter}"
+  end
+
+  def update_sg_student
+    student = Student.find(params[:id])
+    # puts detatched_student_code(student.grade)
+    student.substitude = false
+    student.student_code = detatched_student_code(student.grade)
+    student.save
+    redirect_back(fallback_location: root_path)
+  end
+
   def update_score
     puts "get update score >>>"
     puts params.inspect

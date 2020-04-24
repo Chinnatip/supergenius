@@ -52,6 +52,7 @@ Rails.application.routes.draw do
   get 'home/update_score'
   get 'home/update_addcourse'
   get 'home/update_course'
+  post 'home/update_sg_student'
   get 'home/update_class'
   get 'home/edit_current'
   get 'home/remove_period'

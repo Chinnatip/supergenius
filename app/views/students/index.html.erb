@@ -146,7 +146,14 @@
                 +เพิ่มวิชา
               </a>
             </td>
-            <td><%= link_to 'รายละเอียด', edit_student_path(student) , class: 'btn-grey' %></td>
+            <% if @substitude %>
+              <td>
+                <%= link_to "ย้ายเป็นเด็ก SG", home_update_sg_student_path(id: student[:id]), method: :post , data: { confirm: 'Are you sure?' } , class: 'btn-redder'  %>
+              </td>
+            <% else %>
+              <td><%= link_to 'รายละเอียด', edit_student_path(student) , class: 'btn-grey' %></td>
+            <%end %>
+
             <td><%= link_to 'ลบทิ้ง', student, method: :delete, data: { confirm: 'Are you sure?' } , class: 'btn-grey' %></td>
           </tr>
         <% end %>
