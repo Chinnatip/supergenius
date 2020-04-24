@@ -54,7 +54,7 @@
   <h3 class="hr-cer">การศึกษา</h3>
   <div class="field">
     <label for="school">โปรแกรมห้องเรียน</label>
-    <select class="" name="student[school_program]" placeholder="เลือกโปรแกรม..">
+    <select name="student[school_program]" placeholder="เลือกโปรแกรม..">
       <option value="">ไม่มีโปรแกรมพิเศษ</option>
       <% SchoolProgram.all.each_with_index do |sc,index| %>
         <option

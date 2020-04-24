@@ -78,6 +78,8 @@ class StudentsController < ApplicationController
     @student[:student_code] = detatched_student_code(params[:student][:grade])
     @student[:secret_id] = Random.new.rand(100_000..1_000_000).to_s
 
+    puts @student[:school_program]
+
     puts "show detached code >>>"
     puts detatched_student_code(params[:student][:grade])
     puts params[:student][:nickname]
@@ -138,7 +140,7 @@ class StudentsController < ApplicationController
         :school, :school_primary, :school_secondary, :school_university,
         :parent, :email, :tel, :line, :facebook,
         :nickname, :username ,:password ,
-        :secret_id, :gender, :tel_parent, :birthday
+        :secret_id, :gender, :tel_parent, :birthday, :school_program
       )
     end
 end
