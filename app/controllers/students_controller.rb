@@ -11,7 +11,6 @@ class StudentsController < ApplicationController
     if params[:substitude].present?
       @students = Student.where(substitude: true)
       @substitude = params[:substitude]
-    # @students = Student.all
     elsif params[:projected_school].present?
       @students = Student.where(school: params[:projected_school] , grade: params[:projected_grade], substitude: false)
     else
@@ -19,7 +18,6 @@ class StudentsController < ApplicationController
       type   = params[:type] || 'student_code'
       @students = Student.search(search,type) # .sort_by { |s| Course.find(s[:course])[:grade]  }
     end
-    puts @students.pluck(:grade)
     @grade_lists = @students.pluck(:grade).uniq.sort { |x,y| x <=> y }
     @student_count = @students.count
   end
@@ -71,7 +69,13 @@ class StudentsController < ApplicationController
 
   def detatched_student_code(check_substitude, grade)
     if check_substitude
-      return '50001'
+      filter = Student.where(substitude: true)
+      if filter.count > 0:
+        codex = filter.last.student_code.to_i + 1
+      else
+        codex = '50001'
+      end
+      return codex
     else
       grader  = decode_student_year(grade)
       counter = decode_student_runner(grade)
