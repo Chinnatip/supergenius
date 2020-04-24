@@ -191,7 +191,7 @@ class Student < ApplicationRecord
       line:	    if obj[:line].present? then obj[:line] else '-' end ,
       gender:   parser_gender(obj[:gender]),
       birthday: parser_birthday(obj[:birthday]),
-      program:  if obj[:school_program].present? then obj[:school_program] else '-' end
+      program:  if obj[:school_program].present? then SchoolProgram.find( obj[:school_program]).name else '-' end
     }
   end
 
