@@ -63,12 +63,12 @@ class Student < ApplicationRecord
       # return self.where(spec: search)
       if type == 'grade'
         grade_dic = Student.reverse_grade(search)
-        return self.where(grade: grade_dic)
+        return self.where(grade: grade_dic, substitude: false)
       elsif type == 'school'
         school_dic = School.where("name like ?", "%#{search}%").pluck(:id) rescue ''
-        return self.where(school: school_dic)
+        return self.where(school: school_dic, substitude: false)
       else
-        return self.where("#{type} LIKE ?", "%#{search}%").all
+        return self.where("#{type} LIKE ?", "%#{search}%").where(substitude: false).all
       end
     else
       return self.all
