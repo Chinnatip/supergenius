@@ -19,7 +19,6 @@
 //= require echarts
 //= require Chart.bundle
 //= require chartkick
-//= require Chart
 //= require selectize
 //= require sweetalert2
 //= require sweet-alert2-rails

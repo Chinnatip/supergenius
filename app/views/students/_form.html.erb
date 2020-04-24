@@ -53,6 +53,21 @@
   <br>
   <h3 class="hr-cer">การศึกษา</h3>
   <div class="field">
+    <label for="school">โปรแกรมห้องเรียน</label>
+    <select class="" name="student[school_program]" placeholder="เลือกโปรแกรม..">
+      <option value="">ไม่มีโปรแกรมพิเศษ</option>
+      <% SchoolProgram.all.each_with_index do |sc,index| %>
+        <option
+          value="<%= sc[:id] %>"
+          <% if student[:school_program] == sc[:id].to_s %>selected<% end %>
+          >
+          <%= sc[:name]%>
+        </option>
+      <% end %>
+    </select>
+  </div>
+
+  <div class="field">
     <label for="school">โรงเรียนประถม</label>
     <select class="demo-default select-beast" name="student[school_primary]" placeholder="เลือกโรงเรียน..">
       <option value="">ไม่มีโรงเรียน</option>

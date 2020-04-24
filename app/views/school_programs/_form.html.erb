@@ -1,0 +1,29 @@
+<%= form_with(model: school_program, local: true) do |form| %>
+  <% if school_program.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(school_program.errors.count, "error") %> prohibited this school_program from being saved:</h2>
+
+      <ul>
+      <% school_program.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <label for="name">ชื่อโปรแกรม</label>
+    <%= form.text_field :name, id: :school_program_name %>
+  </div>
+
+  <div class="field">
+    <label for="content">รายละเอียด</label>
+    <%= form.text_area :content, id: :school_program_content  , class: 'textarea-for-cms text-area' %>
+  </div>
+
+  <div class="actions">
+    <%= link_to 'Back', school_programs_path , class: 'btn btn-grey' %>
+    <span class="mar-10"></span>
+    <input type="submit" value="Submit" class="btn btn-redder">
+  </div>
+<% end %>

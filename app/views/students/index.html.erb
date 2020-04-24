@@ -86,6 +86,7 @@
           <th>ชื่อจริง</th>
           <th>นามสกุล</th>
           <th>โรงเรียน</th>
+          <th>โปรแกรม</th>
           <th>ชั้นปี</th>
           <th>คอร์สที่ลง</th>
           <th>เพศ</th>
@@ -111,6 +112,7 @@
             <td><%= student.name %></td>
             <td><%= student.surname %></td>
             <td><%= student_detail[:school] %></td>
+            <td><%= student_detail[:school_program] %></td>
             <td><%= student_detail[:grade] %></td>
             <td><%= Register.where(student: student[:student_code]).count %> คอร์ส</td>
             <td><%= student_detail[:gender] %></td>

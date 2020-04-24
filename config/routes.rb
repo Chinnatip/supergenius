@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
 
+  resources :school_programs
   resources :booking_weeks
   resources :booking_reasons
   resources :course_schedules
