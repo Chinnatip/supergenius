@@ -8,8 +8,11 @@ class StudentsController < ApplicationController
   # GET /students
   # GET /students.json
   def index
+    if params[:substitude].present?
+      @students = Student.all.pluck(:student_code).select { |cd| cd[0] == '5' }
+      @substisude = params[:substitude]
     # @students = Student.all
-    if params[:projected_school].present?
+    elsif params[:projected_school].present?
       @students = Student.where(school: params[:projected_school] , grade: params[:projected_grade])
     else
       search = params[:keyword] || ''

@@ -70,6 +70,7 @@
             { text: 'ห้องเรียน' , link: '<%= classrooms_path %>'  , active: 'classrooms', role: true },
             { text: 'รายชื่อโรงเรียน' , link: '<%= schools_path %>'  , active: 'schools', role: checkRole },
             { text: 'รายชื่อนักเรียน' , link: '<%= students_path %>'  , active: 'students', role: checkRole },
+            { text: 'รายชื่อนักเรียนสำรอง' , link: '/students?substitude=true'  , active: 'students', role: checkRole },
             { text: 'นักเรียนเทอมนี้' , link: '/semesters/<%= @set_current_semester %>'  , active: 'current_semester', role: checkRole },
             { text: 'รายชื่อครู' , link: '<%= teachers_path %>'  , active: 'teachers', role: checkRole },
             { text: 'ข่าวสารโรงเรียน', link: '<%= newsfeeds_path %>'        , active: 'newsfeeds', role: checkRole },
