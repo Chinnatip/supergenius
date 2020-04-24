@@ -75,7 +75,7 @@ class StudentsController < ApplicationController
       else
         codex = '50001'
       end
-      return '50001'
+      return codex
     else
       grader  = decode_student_year(grade)
       counter = decode_student_runner(grade)
