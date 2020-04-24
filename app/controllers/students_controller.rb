@@ -155,17 +155,22 @@ class StudentsController < ApplicationController
         puts "delete ODM member"
 
         # ODM Send http POST REQUEST
-        odm_url_path   = "http://test.odm-supergenius.com"
-        odm_api_key    = "a38efe18372abea876c7d60ca22f0e4db47c37bbcc103d1f"
-        url            = "#{odm_url_path}/hook/api/members/#{odm_id}/"
-        payload =  {
-          "first_name": @student[:name]
-        }
-        request_header = { 'Content-Type': 'application/json' , 'x-api-key': "a38efe18372abea876c7d60ca22f0e4db47c37bbcc103d1f" }
-        http_response  = RestClient.post(url, payload, headers=request_header)
-        parse_response = JSON.parse(http_response.body)
-        puts http_response
-        puts "finished"
+        begin
+          odm_url_path   = "http://test.odm-supergenius.com"
+          odm_api_key    = "a38efe18372abea876c7d60ca22f0e4db47c37bbcc103d1f"
+          url            = "#{odm_url_path}/hook/api/members/#{odm_id}/"
+          payload =  {
+            "first_name": @student[:name]
+          }
+          request_header = { 'Content-Type': 'application/json' , 'x-api-key': "a38efe18372abea876c7d60ca22f0e4db47c37bbcc103d1f" }
+          http_response  = RestClient.post(url, payload, headers=request_header)
+          parse_response = JSON.parse(http_response.body)
+          puts http_response
+          puts "finished"
+        rescue
+          puts 'Some error occurred while POST request'
+        end
+
       end
     end
     @student.destroy
