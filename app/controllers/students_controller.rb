@@ -69,13 +69,13 @@ class StudentsController < ApplicationController
 
   def detatched_student_code(check_substitude, grade)
     if check_substitude
-      filter = Student.where(substitude: true)
-      if filter.count > 0:
-        codex = filter.last.student_code.to_i + 1
-      else
-        codex = '50001'
-      end
-      return codex
+      # filter = Student.where(substitude: true)
+      # if filter.count > 0:
+      #   codex = filter.last.student_code.to_i + 1
+      # else
+      #   codex = '50001'
+      # end
+      return '50001'
     else
       grader  = decode_student_year(grade)
       counter = decode_student_runner(grade)
