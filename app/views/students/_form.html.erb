@@ -36,6 +36,14 @@
   </div>
 
   <div class="field">
+    <label for="school">นักเรียนสำรอง</label>
+    <select class="" name="student[substitude]">
+      <option value="false">-</option>
+      <option value="true" <% if student[:substitude] == "true" %>selected<% end %> >เลือก</option>
+    </select>
+  </div>
+
+  <div class="field">
     <label for="grade">ชั้นปี</label>
     <% grader = ['ป.1','ป.2','ป.3','ป.4','ป.5','ป.6','ม.1','ม.2','ม.3','ม.4','ม.5','ม.6'] %>
     <select class="" name="student[grade]">

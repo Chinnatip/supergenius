@@ -9,16 +9,17 @@ class StudentsController < ApplicationController
   # GET /students.json
   def index
     if params[:substitude].present?
-      @students = Student.all.pluck(:student_code).select { |cd| cd[0] == '5' }
-      @substisude = params[:substitude]
+      @students = Student.where(substitude: true)
+      @substitude = params[:substitude]
     # @students = Student.all
     elsif params[:projected_school].present?
-      @students = Student.where(school: params[:projected_school] , grade: params[:projected_grade])
+      @students = Student.where(school: params[:projected_school] , grade: params[:projected_grade], substitude: false)
     else
       search = params[:keyword] || ''
       type   = params[:type] || 'student_code'
       @students = Student.search(search,type) # .sort_by { |s| Course.find(s[:course])[:grade]  }
     end
+    puts @students.pluck(:grade)
     @grade_lists = @students.pluck(:grade).uniq.sort { |x,y| x <=> y }
     @student_count = @students.count
   end
@@ -68,23 +69,28 @@ class StudentsController < ApplicationController
     return ("%03d" % (grade_count + 1)).to_s # rescue "001"
   end
 
-  def detatched_student_code(grade)
-    grader  = decode_student_year(grade)
-    counter = decode_student_runner(grade)
-    return "#{grader}#{counter}"
+  def detatched_student_code(check_substitude, grade)
+    if check_substitude
+      return '50001'
+    else
+      grader  = decode_student_year(grade)
+      counter = decode_student_runner(grade)
+      return "#{grader}#{counter}"
+    end
+
   end
 
   # POST /students
   # POST /students.json
   def create
     @student = Student.new(student_params)
-    @student[:student_code] = detatched_student_code(params[:student][:grade])
+    @student[:student_code] = detatched_student_code(params[:student][:substitude], params[:student][:grade])
     @student[:secret_id] = Random.new.rand(100_000..1_000_000).to_s
 
     puts @student[:school_program]
 
     puts "show detached code >>>"
-    puts detatched_student_code(params[:student][:grade])
+    puts detatched_student_code(params[:student][:substitude], params[:student][:grade])
     puts params[:student][:nickname]
     puts "finished"
 
@@ -143,7 +149,7 @@ class StudentsController < ApplicationController
         :school, :school_primary, :school_secondary, :school_university,
         :parent, :email, :tel, :line, :facebook,
         :nickname, :username ,:password ,
-        :secret_id, :gender, :tel_parent, :birthday, :school_program
+        :secret_id, :gender, :tel_parent, :birthday, :school_program, :substitude
       )
     end
 end
