@@ -1,3 +1,6 @@
+require "net/http"
+require 'rest-client'
+
 class StudentsController < ApplicationController
 
   layout 'dashboard'
@@ -68,7 +71,7 @@ class StudentsController < ApplicationController
   end
 
   def detatched_student_code(check_substitude, grade)
-    if check_substitude
+    if check_substitude == 'true'
       filter = Student.where(substitude: true)
       if filter.count > 0
         codex = filter.last.student_code.to_i + 1
@@ -91,13 +94,26 @@ class StudentsController < ApplicationController
     @student[:student_code] = detatched_student_code(params[:student][:substitude], params[:student][:grade])
     @student[:secret_id] = Random.new.rand(100_000..1_000_000).to_s
 
-    puts @student[:school_program]
+    # puts detatched_student_code(params[:student][:substitude], params[:student][:grade])
+    generate_password = Student.parse_birthdate(@student[:birthday])
 
-    puts "show detached code >>>"
-    puts detatched_student_code(params[:student][:substitude], params[:student][:grade])
-    puts params[:student][:nickname]
+    # ODM Send http POST REQUEST
+    # Preparing
+    odm_url_path   = "http://test.odm-supergenius.com"
+    odm_api_key    = "a38efe18372abea876c7d60ca22f0e4db47c37bbcc103d1f"
+    url            = "#{odm_url_path}/hook/api/members/"
+    payload =  {
+      "username": @student[:student_code],
+      "password": generate_password,
+      "first_name": @student[:name],
+      "last_name": @student[:surname],
+      "nick_name": @student[:nickname]
+    }
+    request_header = { 'Content-Type': 'application/json' , 'x-api-key': "a38efe18372abea876c7d60ca22f0e4db47c37bbcc103d1f" }
+    http_response  = RestClient.post(url, payload, headers=request_header)
+    puts http_response
     puts "finished"
-
+    @student[:odm_member_id] = http_response["id"]
     respond_to do |format|
       if @student.save
         format.html { redirect_to students_url, notice: 'Student was successfully created.' }

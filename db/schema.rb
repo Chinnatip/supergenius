@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20200424062927) do
+ActiveRecord::Schema.define(version: 20200424164649) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -292,6 +292,7 @@ ActiveRecord::Schema.define(version: 20200424062927) do
     t.string "school_university"
     t.string "school_program"
     t.boolean "substitude", default: false
+    t.integer "odm_member_id"
   end
 
   create_table "teachers", id: :serial, force: :cascade do |t|
