@@ -111,9 +111,10 @@ class StudentsController < ApplicationController
     }
     request_header = { 'Content-Type': 'application/json' , 'x-api-key': "a38efe18372abea876c7d60ca22f0e4db47c37bbcc103d1f" }
     http_response  = RestClient.post(url, payload, headers=request_header)
-    puts http_response
+    parse_response = JSON.parse(http_response.body)
     puts "finished"
-    @student[:odm_member_id] = http_response["id"]
+    @student[:odm_member_id] = parse_response['id']
+
     respond_to do |format|
       if @student.save
         format.html { redirect_to students_url, notice: 'Student was successfully created.' }
