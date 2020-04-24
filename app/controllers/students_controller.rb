@@ -148,6 +148,26 @@ class StudentsController < ApplicationController
   # DELETE /students/1
   # DELETE /students/1.json
   def destroy
+    odm_id    = @student[:odm_member_id]
+    check_odm = odm_id.is_a? Integer
+    if odm_id != 0
+      if odm_id.is_a? Integer
+        puts "delete ODM member"
+
+        # ODM Send http POST REQUEST
+        odm_url_path   = "http://test.odm-supergenius.com"
+        odm_api_key    = "a38efe18372abea876c7d60ca22f0e4db47c37bbcc103d1f"
+        url            = "#{odm_url_path}/hook/api/members/#{odm_id}/"
+        payload =  {
+          "first_name": @student[:name]
+        }
+        request_header = { 'Content-Type': 'application/json' , 'x-api-key': "a38efe18372abea876c7d60ca22f0e4db47c37bbcc103d1f" }
+        http_response  = RestClient.post(url, payload, headers=request_header)
+        parse_response = JSON.parse(http_response.body)
+        puts http_response
+        puts "finished"
+      end
+    end
     @student.destroy
     respond_to do |format|
       format.html { redirect_to students_url, notice: 'Student was successfully destroyed.' }
