@@ -27,7 +27,8 @@ class TaskController < ApplicationController
         end
       end
     end
-    redirect_to :back
+    # TEST Redirect back
+    redirect_back(fallback_location: root_path)
   end
 
   def add_seat
@@ -55,17 +56,20 @@ class TaskController < ApplicationController
         end
       end
     end
-    redirect_to :back
+    # TEST Redirect back
+    redirect_back(fallback_location: root_path)
   end
 
   def remove_student_from_course
     student_code = Student.find(params[:student])[:student_code]
     Register.where(course: params[:id],student: student_code).first.destroy
-    redirect_to :back
+    # TEST Redirect back
+    redirect_back(fallback_location: root_path)
   end
 
   def remove_student_from_class
     Seat.where(classroom: params[:id] , student: params[:student] ).first.destroy
-    redirect_to :back
+    # TEST Redirect back
+    redirect_back(fallback_location: root_path)
   end
 end
