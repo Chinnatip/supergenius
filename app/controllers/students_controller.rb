@@ -163,7 +163,10 @@ class StudentsController < ApplicationController
             "first_name": @student[:name]
           }
           request_header = { 'Content-Type': 'application/json' , 'x-api-key': "a38efe18372abea876c7d60ca22f0e4db47c37bbcc103d1f" }
-          http_response  = RestClient.post(url, payload, headers=request_header)
+          http_response  = RestClient.delete(url, headers=request_header)
+
+          # RestClient::Request.execute(:method => 'delete', :url => url, :header => request_header, :payload => payload)
+
           parse_response = JSON.parse(http_response.body)
           puts http_response
           puts "finished"
