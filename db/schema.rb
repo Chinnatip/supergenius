@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20200424164649) do
+ActiveRecord::Schema.define(version: 20200427075752) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -150,6 +150,7 @@ ActiveRecord::Schema.define(version: 20200424164649) do
     t.integer "period"
     t.string "teacher"
     t.text "note"
+    t.string "odm_key"
   end
 
   create_table "employees", id: :serial, force: :cascade do |t|

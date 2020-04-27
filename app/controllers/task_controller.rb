@@ -1,5 +1,6 @@
-class TaskController < ApplicationController
+require 'rest-client'
 
+class TaskController < ApplicationController
   layout 'dashboard'
   before_action :authenticate_user!
 
@@ -14,7 +15,6 @@ class TaskController < ApplicationController
   end
 
   def add_student_trigger
-    puts 'get params >>>>>>>>>>'
     if params[:student].present?
       selected_student = params[:student].keys
       selected_student.each do |sc|
@@ -22,6 +22,27 @@ class TaskController < ApplicationController
         unless check_student_in_register
           puts "[NOT FOUNDED]Created new registered for #{sc} in course [#{params[:course]}].."
           Register.create!(course: params[:course] ,student: sc , status: "added"  )
+          begin
+            get_course = Course.find(params[:course])
+            get_student = Student.where(student_code: sc).last
+            if !get_course.odm_key.nil? & !get_student.odm_member_id.nil?
+              # Preparing
+              odm_url_path   = "http://test.odm-supergenius.com"
+              odm_api_key    = "a38efe18372abea876c7d60ca22f0e4db47c37bbcc103d1f"
+              course_key     = get_course.odm_key
+              member_id      = get_student.odm_member_id
+              url            = "#{odm_url_path}/hook/api/members/#{member_id}/courses/#{course_key}/"
+              request_header = { 'Content-Type': 'application/json' , 'x-api-key': odm_api_key }
+              http_response  = RestClient.post(url, {}.to_json, headers=request_header)
+              parse_response = JSON.parse(http_response.body)
+              puts "finished"
+            else
+              puts 'ODM member id NIL!!!'
+            end
+          rescue StandardError => e
+            puts e.message
+            puts 'Some error occurred while POST request'
+          end
         else
           puts "[FOUNDED]In Classroom #{params[:classroom]} .. student was registered"
         end
@@ -61,8 +82,28 @@ class TaskController < ApplicationController
   end
 
   def remove_student_from_course
-    student_code = Student.find(params[:student])[:student_code]
+    get_student = Student.find(params[:student])
+    student_code = get_student[:student_code]
     Register.where(course: params[:id],student: student_code).first.destroy
+    begin
+      get_course = Course.find(params[:id])
+      if !get_course.odm_key.nil? & !get_student.odm_member_id.nil?
+        # Preparing
+        odm_url_path   = "http://test.odm-supergenius.com"
+        odm_api_key    = "a38efe18372abea876c7d60ca22f0e4db47c37bbcc103d1f"
+        course_key     = get_course.odm_key
+        member_id      = get_student.odm_member_id
+        url            = "#{odm_url_path}/hook/api/members/#{member_id}/courses/#{course_key}/"
+        request_header = { 'Content-Type': 'application/json' , 'x-api-key': odm_api_key }
+        http_response  = RestClient.delete(url, headers=request_header)
+        parse_response = JSON.parse(http_response.body)
+        puts "delete finished"
+      else
+        puts 'ODM member id NIL!!!'
+      end
+    rescue
+      puts 'Some error occurred while DELETE request'
+    end
     # TEST Redirect back
     redirect_back(fallback_location: root_path)
   end
