@@ -40,7 +40,7 @@
           </tr>
         </thead>
         <tbody>
-          <% (@student[0..30].sort_by { |s| s.student_code}).each do |s| %>
+          <% (@student[0..80].sort_by { |s| s.student_code}).each do |s| %>
             <% student_detail = Student.details(s) %>
             <tr>
               <td>

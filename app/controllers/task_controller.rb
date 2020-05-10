@@ -7,6 +7,7 @@ class TaskController < ApplicationController
   def add_student
     search = params[:keyword] || ''
     type   = params[:type] || 'student_code'
+    substitude = params[:substitution]
      # .sort_by { |s| Course.find(s[:course])[:grade]  }
     @course  = Course.find(params[:course])
     @registers = Register.where(course: @course[:id]).pluck(:student)
