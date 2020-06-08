@@ -58,7 +58,6 @@ class TaskController < ApplicationController
         end
       end
 
-      # TODO: fix Classroom
       begin
         get_classroom = Classroom.find(params[:classroom])
         get_students_member_id = Student.where(student_code: selected_student).pluck(:odm_member_id).compact
@@ -91,15 +90,18 @@ class TaskController < ApplicationController
   end
 
   def remove_student_from_class
-    Seat.where(classroom: params[:id] , student: params[:student] ).first.destroy
-    # todo: fix fromcourse to classroom trigger
+    seat = Seat.where(classroom: params[:id] , student: params[:student] ).first
+    classroom_id = seat.classroom
+    seat.destroy
+    #
     begin
-      get_classroom = Classroom.find(params[:id])
-      if !get_classroom.odm_key.nil? & !get_student.odm_member_id.nil?
+      get_classroom = Classroom.find(classroom_id.to_i)
+      get_student = Student.where(student_code: params[:student]).first
+      if !get_student.odm_member_id.nil?
         # Preparing
         odm_url_path   = "http://test.odm-supergenius.com"
         odm_api_key    = "a38efe18372abea876c7d60ca22f0e4db47c37bbcc103d1f"
-        course_key     = get_course.spec
+        course_key     = get_classroom.spec
         member_id      = get_student.odm_member_id
         url            = "#{odm_url_path}/hook/api/members/#{member_id}/courses/#{course_key}/"
         request_header = { 'Content-Type': 'application/json' , 'x-api-key': odm_api_key }
