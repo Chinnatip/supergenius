@@ -101,13 +101,17 @@ class StudentsController < ApplicationController
     odm_url_path   = "http://test.odm-supergenius.com"
     odm_api_key    = "a38efe18372abea876c7d60ca22f0e4db47c37bbcc103d1f"
     url            = "#{odm_url_path}/hook/api/members/"
+
+    trick_name = if @student[:name] != '' then @student[:name] else "ชื่อจริง" end
+    trick_surname = if @student[:surname] != '' then @student[:surname] else "นามสกุล" end
     payload =  {
       "username": @student[:student_code],
       "password": generate_password,
-      "first_name":  @student[:name],
-      "last_name": @student[:surname],
+      "first_name": trick_name,
+      "last_name": trick_surname,
       "nick_name": @student[:nickname]
     }
+    puts payload
     request_header = { 'Content-Type': 'application/json' , 'x-api-key': "a38efe18372abea876c7d60ca22f0e4db47c37bbcc103d1f" }
     http_response  = RestClient.post(url, payload, headers=request_header)
     parse_response = JSON.parse(http_response.body)
