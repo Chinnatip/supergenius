@@ -104,7 +104,7 @@ class StudentsController < ApplicationController
     payload =  {
       "username": @student[:student_code],
       "password": generate_password,
-      "first_name": @student[:name].exists? ? @student[:name] : @student[:nickname],
+      "first_name": @student[:name] !== "" ? @student[:name] : @student[:nickname],
       "last_name": @student[:surname],
       "nick_name": @student[:nickname]
     }
