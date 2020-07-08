@@ -106,7 +106,7 @@ class StudentsController < ApplicationController
       "password": generate_password,
       "first_name": @student[:name].exists? ? @student[:name] : @student[:nickname],
       "last_name": @student[:surname],
-      "nick_name": @student[:nickname].exists? ? @student[:nickname] : @student[:name] #@student[:nickname]
+      "nick_name": @student[:nickname]
     }
     request_header = { 'Content-Type': 'application/json' , 'x-api-key': "a38efe18372abea876c7d60ca22f0e4db47c37bbcc103d1f" }
     http_response  = RestClient.post(url, payload, headers=request_header)
