@@ -97,26 +97,29 @@ class StudentsController < ApplicationController
     generate_password = Student.parse_birthdate(@student[:birthday])
 
     # ODM Send http POST REQUEST
-    # Preparing
-    odm_url_path   = "http://test.odm-supergenius.com"
-    odm_api_key    = "a38efe18372abea876c7d60ca22f0e4db47c37bbcc103d1f"
-    url            = "#{odm_url_path}/hook/api/members/"
+    begin
+      odm_url_path   = "http://test.odm-supergenius.com"
+      odm_api_key    = "a38efe18372abea876c7d60ca22f0e4db47c37bbcc103d1f"
+      url            = "#{odm_url_path}/hook/api/members/"
 
-    trick_name = if @student[:name] != '' then @student[:name] else "ชื่อจริง" end
-    trick_surname = if @student[:surname] != '' then @student[:surname] else "นามสกุล" end
-    payload =  {
-      "username": @student[:student_code],
-      "password": generate_password,
-      "first_name": trick_name,
-      "last_name": trick_surname,
-      "nick_name": @student[:nickname]
-    }
-    puts payload
-    request_header = { 'Content-Type': 'application/json' , 'x-api-key': "a38efe18372abea876c7d60ca22f0e4db47c37bbcc103d1f" }
-    http_response  = RestClient.post(url, payload, headers=request_header)
-    parse_response = JSON.parse(http_response.body)
-    puts "finished"
-    @student[:odm_member_id] = parse_response['id']
+      trick_name = if @student[:name] != '' then @student[:name] else "ชื่อจริง" end
+      trick_surname = if @student[:surname] != '' then @student[:surname] else "นามสกุล" end
+      payload =  {
+        "username": @student[:student_code],
+        "password": generate_password,
+        "first_name": trick_name,
+        "last_name": trick_surname,
+        "nick_name": @student[:nickname]
+      }
+      puts payload
+      request_header = { 'Content-Type': 'application/json' , 'x-api-key': "a38efe18372abea876c7d60ca22f0e4db47c37bbcc103d1f" }
+      http_response  = RestClient.post(url, payload, headers=request_header)
+      parse_response = JSON.parse(http_response.body)
+      puts "finished"
+      @student[:odm_member_id] = parse_response['id']
+    rescue
+      puts "[Connection error]::Some error occurred while create student in ODM-API"
+    end
 
     respond_to do |format|
       if @student.save
