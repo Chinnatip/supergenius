@@ -99,7 +99,7 @@ class StudentsController < ApplicationController
     # ODM Send http POST REQUEST
     begin
       odm_url_path   = "http://test.odm-supergenius.com"
-      odm_api_key    = "a38efe18372abea876c7d60ca22f0e4db47c37bbcc103d1f"
+      odm_api_key    = "389e3fcfafc84b69fbad3b393cdc46ba9aa10bf7ae882b73"
       url            = "#{odm_url_path}/hook/api/members/"
 
       trick_name = if @student[:name] != '' then @student[:name] else "ชื่อจริง" end
@@ -112,7 +112,7 @@ class StudentsController < ApplicationController
         "nick_name": @student[:nickname]
       }
       puts payload
-      request_header = { 'Content-Type': 'application/json' , 'x-api-key': "a38efe18372abea876c7d60ca22f0e4db47c37bbcc103d1f" }
+      request_header = { 'Content-Type': 'application/json' , 'x-api-key': "389e3fcfafc84b69fbad3b393cdc46ba9aa10bf7ae882b73" }
       http_response  = RestClient.post(url, payload, headers=request_header)
       parse_response = JSON.parse(http_response.body)
       puts "finished"
@@ -163,12 +163,12 @@ class StudentsController < ApplicationController
         # ODM Send http POST REQUEST
         begin
           odm_url_path   = "http://test.odm-supergenius.com"
-          odm_api_key    = "a38efe18372abea876c7d60ca22f0e4db47c37bbcc103d1f"
+          odm_api_key    = "389e3fcfafc84b69fbad3b393cdc46ba9aa10bf7ae882b73"
           url            = "#{odm_url_path}/hook/api/members/#{odm_id}/"
           payload =  {
             "first_name": @student[:name]
           }
-          request_header = { 'Content-Type': 'application/json' , 'x-api-key': "a38efe18372abea876c7d60ca22f0e4db47c37bbcc103d1f" }
+          request_header = { 'Content-Type': 'application/json' , 'x-api-key': "389e3fcfafc84b69fbad3b393cdc46ba9aa10bf7ae882b73" }
           http_response  = RestClient.delete(url, headers=request_header)
           parse_response = JSON.parse(http_response.body)
           puts http_response

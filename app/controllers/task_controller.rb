@@ -63,7 +63,7 @@ class TaskController < ApplicationController
         get_students_member_id = Student.where(student_code: selected_student).pluck(:odm_member_id).compact
         # Preparing
         odm_url_path   = "http://test.odm-supergenius.com"
-        odm_api_key    = "a38efe18372abea876c7d60ca22f0e4db47c37bbcc103d1f"
+        odm_api_key    = "389e3fcfafc84b69fbad3b393cdc46ba9aa10bf7ae882b73"
         course_key     = get_classroom.spec
         url            = "#{odm_url_path}/hook/api/courses/#{course_key}/members/"
         # url            = "#{odm_url_path}/hook/api/members/#{member_id}/courses/#{course_key}/"
@@ -100,7 +100,7 @@ class TaskController < ApplicationController
       if !get_student.odm_member_id.nil?
         # Preparing
         odm_url_path   = "http://test.odm-supergenius.com"
-        odm_api_key    = "a38efe18372abea876c7d60ca22f0e4db47c37bbcc103d1f"
+        odm_api_key    = "389e3fcfafc84b69fbad3b393cdc46ba9aa10bf7ae882b73"
         course_key     = get_classroom.spec
         member_id      = get_student.odm_member_id
         url            = "#{odm_url_path}/hook/api/members/#{member_id}/courses/#{course_key}/"
