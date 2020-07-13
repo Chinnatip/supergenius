@@ -62,7 +62,7 @@ class TaskController < ApplicationController
         get_classroom = Classroom.find(params[:classroom])
         get_students_member_id = Student.where(student_code: selected_student).pluck(:odm_member_id).compact
         # Preparing
-        odm_url_path   = "https://www.odm-supergenius.com/" #"http://test.odm-supergenius.com"
+        odm_url_path   = "https://www.odm-supergenius.com" #"http://test.odm-supergenius.com"
         odm_api_key    = "c905cef198842013c572dbff363ac8d467b5a93a18e840a7" #"389e3fcfafc84b69fbad3b393cdc46ba9aa10bf7ae882b73"
 
         course_key     = get_classroom.spec
@@ -100,7 +100,7 @@ class TaskController < ApplicationController
       get_student = Student.where(student_code: params[:student]).first
       if !get_student.odm_member_id.nil?
         # Preparing
-        odm_url_path   = "https://www.odm-supergenius.com/" #"http://test.odm-supergenius.com"
+        odm_url_path   = "https://www.odm-supergenius.com" #"http://test.odm-supergenius.com"
         odm_api_key    = "c905cef198842013c572dbff363ac8d467b5a93a18e840a7" #"389e3fcfafc84b69fbad3b393cdc46ba9aa10bf7ae882b73"
         course_key     = get_classroom.spec
         member_id      = get_student.odm_member_id
