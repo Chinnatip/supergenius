@@ -112,13 +112,14 @@ class StudentsController < ApplicationController
         "nick_name": @student[:nickname]
       }
       puts payload
-      request_header = { 'Content-Type': 'application/json' , 'x-api-key': "389e3fcfafc84b69fbad3b393cdc46ba9aa10bf7ae882b73" }
+      request_header = { 'Content-Type': 'application/json' , 'x-api-key': "c905cef198842013c572dbff363ac8d467b5a93a18e840a7" }
       http_response  = RestClient.post(url, payload, headers=request_header)
       parse_response = JSON.parse(http_response.body)
       puts "finished"
       @student[:odm_member_id] = parse_response['id']
-    rescue
+    rescue StandardError => e
       puts "[Connection error]::Some error occurred while create student in ODM-API"
+      puts "Rescued: #{e.inspect}"
     end
 
     respond_to do |format|
@@ -168,7 +169,7 @@ class StudentsController < ApplicationController
           payload =  {
             "first_name": @student[:name]
           }
-          request_header = { 'Content-Type': 'application/json' , 'x-api-key': "389e3fcfafc84b69fbad3b393cdc46ba9aa10bf7ae882b73" }
+          request_header = { 'Content-Type': 'application/json' , 'x-api-key': "c905cef198842013c572dbff363ac8d467b5a93a18e840a7" }
           http_response  = RestClient.delete(url, headers=request_header)
           parse_response = JSON.parse(http_response.body)
           puts http_response
