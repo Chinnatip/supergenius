@@ -98,8 +98,8 @@ class StudentsController < ApplicationController
 
     # ODM Send http POST REQUEST
     begin
-      odm_url_path   = "http://test.odm-supergenius.com"
-      odm_api_key    = "389e3fcfafc84b69fbad3b393cdc46ba9aa10bf7ae882b73"
+      odm_url_path   = "https://www.odm-supergenius.com/" #"http://test.odm-supergenius.com"
+      odm_api_key    = "c905cef198842013c572dbff363ac8d467b5a93a18e840a7" #"389e3fcfafc84b69fbad3b393cdc46ba9aa10bf7ae882b73"
       url            = "#{odm_url_path}/hook/api/members/"
 
       trick_name = if @student[:name] != '' then @student[:name] else "ชื่อจริง" end
@@ -162,8 +162,8 @@ class StudentsController < ApplicationController
 
         # ODM Send http POST REQUEST
         begin
-          odm_url_path   = "http://test.odm-supergenius.com"
-          odm_api_key    = "389e3fcfafc84b69fbad3b393cdc46ba9aa10bf7ae882b73"
+          odm_url_path   = "https://www.odm-supergenius.com/" #"http://test.odm-supergenius.com"
+          odm_api_key    = "c905cef198842013c572dbff363ac8d467b5a93a18e840a7" #"389e3fcfafc84b69fbad3b393cdc46ba9aa10bf7ae882b73"
           url            = "#{odm_url_path}/hook/api/members/#{odm_id}/"
           payload =  {
             "first_name": @student[:name]
