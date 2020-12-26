@@ -12,6 +12,7 @@ gem 'bundler', '1.17.3'
 
 # Add VUE!
 gem 'vuejs-rails'
+gem 'rb-readline'
 
 # Add bulma
 gem "bulma-rails", "~> 0.2.3"

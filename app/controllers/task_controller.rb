@@ -64,11 +64,17 @@ class TaskController < ApplicationController
         # Preparing
         odm_url_path   = "https://www.odm-supergenius.com" #"http://test.odm-supergenius.com"
         odm_api_key    = "c905cef198842013c572dbff363ac8d467b5a93a18e840a7" #"389e3fcfafc84b69fbad3b393cdc46ba9aa10bf7ae882b73"
-
         course_key     = get_classroom.spec
         url            = "#{odm_url_path}/hook/api/courses/#{course_key}/members/"
         # url            = "#{odm_url_path}/hook/api/members/#{member_id}/courses/#{course_key}/"
+
         request_header = { 'Content-Type': 'application/json' , 'x-api-key': odm_api_key }
+
+        puts url
+        puts request_header
+        puts get_students_member_id
+        puts get_students_member_id.instance_of? Array
+
         http_response  = RestClient.post(url, { 'member_list': get_students_member_id }.to_json, headers=request_header)
         parse_response = JSON.parse(http_response.body)
         puts "finished"
